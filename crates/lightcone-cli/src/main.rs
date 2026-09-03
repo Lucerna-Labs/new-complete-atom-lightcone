@@ -111,6 +111,19 @@ fn run() -> Result<(), String> {
                 serde_json::to_string_pretty(&receipt).map_err(|error| error.to_string())?
             );
         }
+        "creative" => {
+            let encoded = required(&mut args, "creative proposal JSON")?;
+            no_more(&mut args)?;
+            let request = serde_json::from_str::<lightcone_creativity::ProposalRequest>(&encoded)
+                .map_err(|error| format!("invalid creative request: {error}"))?;
+            let result = lightcone_creativity::CreativityEngine
+                .propose(&request.brief, &request.concepts)
+                .map_err(|error| format!("creative proposal failed closed: {error}"))?;
+            println!(
+                "{}",
+                serde_json::to_string_pretty(&result).map_err(|error| error.to_string())?
+            );
+        }
         "help" | "--help" | "-h" => println!("{}", usage()),
         other => return Err(format!("unknown command {other:?}\n{}", usage())),
     }
@@ -131,5 +144,5 @@ fn no_more(args: &mut impl Iterator<Item = String>) -> Result<(), String> {
 }
 
 fn usage() -> String {
-    "usage:\n  lightcone-cli verify <world-pack>\n  lightcone-cli inspect <world-pack>\n  lightcone-cli admit <world-pack> <query> [--hops N] [--max-nodes N] [--direction past|future|both]\n  lightcone-cli formal '<request-json>'".into()
+    "usage:\n  lightcone-cli verify <world-pack>\n  lightcone-cli inspect <world-pack>\n  lightcone-cli admit <world-pack> <query> [--hops N] [--max-nodes N] [--direction past|future|both]\n  lightcone-cli formal '<request-json>'\n  lightcone-cli creative '<proposal-json>'".into()
 }
