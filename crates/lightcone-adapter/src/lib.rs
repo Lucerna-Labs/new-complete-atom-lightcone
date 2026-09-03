@@ -9,6 +9,10 @@ use lightcone_core::{AdmissionReceipt, WorldEdge, WorldNode};
 use serde::{Deserialize, Serialize};
 use thiserror::Error;
 
+mod openai_http;
+
+pub use openai_http::OpenAiHttpTransport;
+
 #[derive(Clone, Debug, Deserialize, Serialize, PartialEq, Eq)]
 #[serde(rename_all = "snake_case")]
 pub enum Role {
@@ -132,6 +136,7 @@ pub struct CanonicalRequest {
 pub struct RenderedRequest {
     pub adapter_id: String,
     pub prompt: String,
+    pub messages: Vec<Message>,
     pub tools: Option<serde_json::Value>,
     pub max_output_tokens: usize,
     pub deterministic: bool,
@@ -211,6 +216,7 @@ impl<T: Transport> LocalModelAdapter<T> {
         Ok(RenderedRequest {
             adapter_id: self.profile.adapter_id.clone(),
             prompt,
+            messages,
             tools: request.tools.clone(),
             max_output_tokens: request.max_output_tokens,
             deterministic: request.deterministic,
