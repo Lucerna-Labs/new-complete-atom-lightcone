@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "protocol_id": "foundation-lanes-tpu-v0",
+  "world_id": "foundation-lanes-v0",
+  "seed": 20260903,
+  "feature_dimensions": 384,
+  "coordinate_dimensions": 48,
+  "steps": 1600,
+  "learning_rate": 0.018,
+  "margin": 0.8,
+  "negative_margin": 1.15,
+  "negative_weight": 0.65,
+  "anchor_weight": 0.035,
+  "relation_regularization": 0.002,
+  "gates": {
+    "tpu_backend": {"metric": "accelerator.is_tpu", "operator": "eq", "threshold": true},
+    "finite_coordinates": {"metric": "coordinates.finite", "operator": "eq", "threshold": true},
+    "coordinate_norm_error": {"metric": "coordinates.max_norm_error", "operator": "lte", "threshold": 0.0001},
+    "loss_decrease": {"metric": "loss.decrease_fraction", "operator": "gte", "threshold": 0.1},
+    "train_edge_recovery": {"metric": "edges.train.hits_at_5", "operator": "gte", "threshold": 0.8},
+    "validation_transition_recovery": {"metric": "edges.validation.hits_at_10", "operator": "gte", "threshold": 0.2},
+    "sealed_transition_recovery": {"metric": "edges.sealed_test.hits_at_10", "operator": "gte", "threshold": 0.2},
+    "cross_lane_recovery": {"metric": "edges.cross_domain_holdout.hits_at_10", "operator": "gte", "threshold": 0.1},
+    "validation_negative_separation": {"metric": "negative_pairs.validation.separation_accuracy", "operator": "gte", "threshold": 0.75},
+    "sealed_negative_separation": {"metric": "negative_pairs.sealed_test.separation_accuracy", "operator": "gte", "threshold": 0.75},
+    "sealed_direction": {"metric": "edges.sealed_test.direction_accuracy", "operator": "gte", "threshold": 0.55}
+  }
+}
+

@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lightcone.local/schemas/training-receipt.schema.json",
+  "title": "Lightcone accelerator training receipt",
+  "type": "object",
+  "required": [
+    "schema_version", "run_id", "protocol_id", "status", "source_revision", "source_dirty",
+    "input_hashes", "split_manifest_hash", "accelerator", "framework", "seed",
+    "hyperparameters", "metrics", "gates", "output_hashes", "started_at", "finished_at"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "run_id": { "type": "string", "minLength": 1 },
+    "protocol_id": { "type": "string", "minLength": 1 },
+    "status": { "enum": ["passed", "failed", "aborted"] },
+    "source_revision": { "type": "string", "minLength": 1 },
+    "source_dirty": { "type": "boolean" },
+    "input_hashes": { "type": "object", "minProperties": 1, "additionalProperties": { "$ref": "#/$defs/sha256" } },
+    "split_manifest_hash": { "$ref": "#/$defs/sha256" },
+    "accelerator": {
+      "type": "object",
+      "required": ["platform", "kind", "device_count", "devices"],
+      "properties": {
+        "platform": { "const": "kaggle" },
+        "kind": { "const": "tpu" },
+        "device_count": { "type": "integer", "minimum": 1 },
+        "devices": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+        "kernel_ref": { "type": "string" },
+        "kernel_version": { "type": ["integer", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "framework": { "type": "object", "required": ["name", "version"], "properties": { "name": { "const": "jax" }, "version": { "type": "string" } }, "additionalProperties": false },
+    "seed": { "type": "integer", "minimum": 0 },
+    "hyperparameters": { "type": "object" },
+    "metrics": { "type": "object" },
+    "gates": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "required": ["threshold", "observed", "passed"],
+        "properties": {
+          "threshold": {},
+          "observed": {},
+          "passed": { "type": "boolean" }
+        }
+      }
+    },
+    "output_hashes": { "type": "object", "minProperties": 1, "additionalProperties": { "$ref": "#/$defs/sha256" } },
+    "started_at": { "type": "string", "format": "date-time" },
+    "finished_at": { "type": "string", "format": "date-time" },
+    "elapsed_seconds": { "type": "number", "minimum": 0 },
+    "failure": { "type": ["object", "null"] }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+  }
+}
