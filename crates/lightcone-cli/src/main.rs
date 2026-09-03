@@ -99,6 +99,18 @@ fn run() -> Result<(), String> {
                 .map_err(|error| error.to_string())?
             );
         }
+        "formal" => {
+            let encoded = required(&mut args, "formal request JSON")?;
+            no_more(&mut args)?;
+            let request = serde_json::from_str::<lightcone_formal::Request>(&encoded)
+                .map_err(|error| format!("invalid formal request: {error}"))?;
+            let receipt = lightcone_formal::execute_checked(&request)
+                .map_err(|error| format!("formal execution failed closed: {error}"))?;
+            println!(
+                "{}",
+                serde_json::to_string_pretty(&receipt).map_err(|error| error.to_string())?
+            );
+        }
         "help" | "--help" | "-h" => println!("{}", usage()),
         other => return Err(format!("unknown command {other:?}\n{}", usage())),
     }
@@ -119,5 +131,5 @@ fn no_more(args: &mut impl Iterator<Item = String>) -> Result<(), String> {
 }
 
 fn usage() -> String {
-    "usage:\n  lightcone-cli verify <world-pack>\n  lightcone-cli inspect <world-pack>\n  lightcone-cli admit <world-pack> <query> [--hops N] [--max-nodes N] [--direction past|future|both]".into()
+    "usage:\n  lightcone-cli verify <world-pack>\n  lightcone-cli inspect <world-pack>\n  lightcone-cli admit <world-pack> <query> [--hops N] [--max-nodes N] [--direction past|future|both]\n  lightcone-cli formal '<request-json>'".into()
 }
