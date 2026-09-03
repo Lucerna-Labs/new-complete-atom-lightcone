@@ -295,8 +295,8 @@ def main() -> int:
             if step_index % report_every == 0 or step_index == int(config["steps"]):
                 curve.append({"step": step_index, "loss": float(jax.device_get(loss_value))})
         final_loss = float(jax.device_get(loss_fn(params)))
-        node = np.asarray(jax.device_get(params["node"]), dtype=np.float32)
-        relation = np.asarray(jax.device_get(params["relation"]), dtype=np.float32)
+        node = np.array(jax.device_get(params["node"]), dtype=np.float32, copy=True)
+        relation = np.array(jax.device_get(params["relation"]), dtype=np.float32, copy=True)
 
     node /= np.maximum(np.linalg.norm(node, axis=1, keepdims=True), 1e-8)
     positive_train_distance = np.linalg.norm(

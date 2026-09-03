@@ -43,8 +43,9 @@ def compile_bundle(world_id: str, output: Path) -> dict[str, Any]:
     lane_roots: dict[str, str] = {}
 
     for record in records:
-        if record["record_id"].endswith(".root") and len(record["lanes"]) == 1:
-            lane_roots[record["lanes"][0]] = record["record_id"]
+        if record["record_id"].endswith(".root"):
+            for lane in record["lanes"]:
+                lane_roots.setdefault(lane, record["record_id"])
 
     for record in records:
         if record["record_kind"] == "relation":

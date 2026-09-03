@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import argparse
 import json
 import shutil
 import subprocess
@@ -34,6 +35,11 @@ def git(*arguments: str) -> str:
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--kernel-version", type=int, required=True)
+    args = parser.parse_args()
+    if args.kernel_version < 1:
+        parser.error("--kernel-version must be positive")
     subprocess.run([sys.executable, str(ROOT / "tools" / "validate_registry.py")], cwd=ROOT, check=True)
     subprocess.run([sys.executable, str(ROOT / "tools" / "validate_sources.py")], cwd=ROOT, check=True)
     subprocess.run([sys.executable, str(ROOT / "tools" / "validate_curricula.py")], cwd=ROOT, check=True)
@@ -56,7 +62,7 @@ def main() -> int:
         "source_revision": revision,
         "source_dirty": False,
         "kernel_ref": KERNEL_REF,
-        "kernel_version": 1,
+        "kernel_version": args.kernel_version,
     }
     (DATASET / "run-context.json").write_text(
         json.dumps(run_context, indent=2, sort_keys=True) + "\n", encoding="utf-8"
@@ -81,4 +87,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
