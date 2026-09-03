@@ -51,6 +51,8 @@ These are foundations, not a closed list.
 - `adapters/` — declarative local-model adapter profiles and conformance data.
 - `artifacts/` — generated world packs; never accepted without receipts.
 - `receipts/` — immutable training and validation evidence.
+- `plans/taxonomy-training-shards/` — bounded work manifests covering every
+  imported authoritative taxonomy discovery exactly once.
 - `docs/` — architecture, coverage, sourcing, training, and validation laws.
 
 ## Initial local verification
@@ -59,7 +61,8 @@ These are foundations, not a closed list.
 cargo test --workspace
 python3 tools/validate_registry.py
 python3 tools/validate_curricula.py
+python3 tools/validate_adapters.py
+python3 tools/validate_taxonomy_shards.py
 ```
 
 Kaggle jobs are submitted only after the local compiler and leakage checks pass.
-
