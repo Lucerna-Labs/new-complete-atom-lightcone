@@ -1,0 +1,88 @@
+{
+  "anchor_weight": 0.02,
+  "coordinate_dimensions": 48,
+  "feature_dimensions": 384,
+  "gates": {
+    "coordinate_bound": {
+      "metric": "coordinates.max_absolute_value",
+      "operator": "lte",
+      "threshold": 5.0
+    },
+    "cross_domain_edge_discrimination": {
+      "metric": "edges.cross_domain_holdout.edge_discrimination_accuracy",
+      "operator": "gte",
+      "threshold": 0.5
+    },
+    "finite_coordinates": {
+      "metric": "coordinates.finite",
+      "operator": "eq",
+      "threshold": true
+    },
+    "loss_decrease": {
+      "metric": "loss.decrease_fraction",
+      "operator": "gte",
+      "threshold": 0.1
+    },
+    "sealed_edge_discrimination": {
+      "metric": "edges.sealed_test.edge_discrimination_accuracy",
+      "operator": "gte",
+      "threshold": 0.7
+    },
+    "sealed_negative_separation": {
+      "metric": "negative_pairs.sealed_test.separation_accuracy",
+      "operator": "gte",
+      "threshold": 0.7
+    },
+    "sealed_relation_family": {
+      "metric": "edges.sealed_test.relation_accuracy",
+      "operator": "gte",
+      "threshold": 0.2
+    },
+    "tpu_backend": {
+      "metric": "accelerator.is_tpu",
+      "operator": "eq",
+      "threshold": true
+    },
+    "train_edge_recovery": {
+      "metric": "edges.train.hits_at_5",
+      "operator": "gte",
+      "threshold": 0.7
+    },
+    "train_membership_geometry": {
+      "metric": "membership.train.within_radius_accuracy",
+      "operator": "gte",
+      "threshold": 0.75
+    },
+    "validation_edge_discrimination": {
+      "metric": "edges.validation.edge_discrimination_accuracy",
+      "operator": "gte",
+      "threshold": 0.7
+    },
+    "validation_negative_separation": {
+      "metric": "negative_pairs.validation.separation_accuracy",
+      "operator": "gte",
+      "threshold": 0.7
+    },
+    "validation_relation_family": {
+      "metric": "edges.validation.relation_accuracy",
+      "operator": "gte",
+      "threshold": 0.2
+    }
+  },
+  "learned_scale": 0.5,
+  "learning_rate": 0.008,
+  "membership_radius": 1.25,
+  "membership_weight": 0.18,
+  "negative_margin": 1.15,
+  "negative_weight": 0.65,
+  "protocol_id": "geometry-foundation-v0-kaggle-tpu-v0",
+  "relation_classification_weight": 0.5,
+  "relation_regularization": 0.05,
+  "schema_version": 1,
+  "seed": 20260904,
+  "softmax_temperature": 0.16,
+  "steps": 3200,
+  "structural_dimensions": 24,
+  "structural_scale": 1.0,
+  "world_id": "geometry-foundation-v0"
+}

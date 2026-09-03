@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from registry_lib import ROOT
+from curriculum_split import RelationSplitter
 
 
 OUTPUT = ROOT / "curricula" / "philosophy-rhetoric" / "foundations.jsonl"
@@ -233,15 +234,9 @@ def build() -> list[dict[str, Any]]:
                     },
                     "coverage_axes": ["primitives_invariants", "within_domain_composition"]
                 })
+    splitter = RelationSplitter([kind for _identifier, _source, _target, kind, _statement in RELATIONS])
     for index, (identifier, source, target, kind, statement) in enumerate(RELATIONS):
-        if index % 13 == 0:
-            split = "sealed_test"
-        elif index % 11 == 0:
-            split = "validation"
-        elif index % 17 == 0:
-            split = "cross_domain_holdout"
-        else:
-            split = "train"
+        split = splitter.split(kind, cross_requested=identifier.startswith("bridge-") or index % 17 == 0)
         domain = "rhetoric-argumentation" if identifier.startswith("r-") else "philosophy"
         sources = RHET_SOURCES if domain == "rhetoric-argumentation" else sorted(set(PHIL_SOURCES + RHET_SOURCES)) if identifier.startswith("bridge-") else PHIL_SOURCES
         records.append({
@@ -264,8 +259,9 @@ def build() -> list[dict[str, Any]]:
         is_rhetoric = identifier.startswith("r-")
         domain = "rhetoric-argumentation" if is_rhetoric else "philosophy"
         lanes = RHET_LANES if is_rhetoric else PHIL_LANES
+        control_split = "train" if index == 0 else "sealed_test" if index == len(CONTROLS) - 1 or index % 2 else "validation"
         records.append({
-            **make_base(f"control.{identifier}", domain, "rhetoric-argumentation.fallacies" if is_rhetoric else "philosophy.logic", lanes, [], "validation" if index % 2 == 0 else "sealed_test", "synthetic_control", "synthetic_control"),
+            **make_base(f"control.{identifier}", domain, "rhetoric-argumentation.fallacies" if is_rhetoric else "philosophy.logic", lanes, [], control_split, "synthetic_control", "synthetic_control"),
             "label": label,
             "statement": statement,
             "aliases": [label.lower()],
@@ -289,4 +285,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

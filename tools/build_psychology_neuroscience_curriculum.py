@@ -7,6 +7,7 @@ import json
 from typing import Any
 
 from registry_lib import ROOT
+from curriculum_split import RelationSplitter
 
 
 OUTPUT = ROOT / "curricula" / "psychology-neuroscience" / "foundations.jsonl"
@@ -209,21 +210,16 @@ def build() -> list[dict[str, Any]]:
                     "relation": {"source_node": node_id, "target_node": root, "kind": "part_of", "polarity": 1, "direction": "forward", "conditions": [], "exceptions": []},
                     "coverage_axes": ["primitives_invariants", "within_domain_composition"]
                 })
+    normalized_kinds = ["prerequisite" if kind == "requires" else kind for _identifier, _source, _target, kind, _statement in RELATIONS]
+    splitter = RelationSplitter(normalized_kinds)
     for index, (identifier, source, target, kind, statement) in enumerate(RELATIONS):
-        if index % 13 == 0:
-            split = "sealed_test"
-        elif index % 9 == 0:
-            split = "validation"
-        elif index % 17 == 0:
-            split = "cross_domain_holdout"
-        else:
-            split = "train"
         is_neuro = identifier.startswith("neuro-")
         is_bridge = identifier.startswith("bridge-")
         domain = "neuroscience-neurology" if is_neuro else "psychology-cognitive-science"
         lanes = sorted(set(PSY_LANES + NEURO_LANES)) if is_bridge else NEURO_LANES if is_neuro else PSY_LANES
         sources = sorted(set(PSY_SOURCES + NEURO_SOURCES)) if is_bridge else NEURO_SOURCES if is_neuro else PSY_SOURCES
         normalized_kind = "prerequisite" if kind == "requires" else kind
+        split = splitter.split(normalized_kind, cross_requested=is_bridge or index % 17 == 0)
         records.append({
             **base(f"relation.{identifier}", domain, "neuroscience-neurology.cognitive" if is_neuro or is_bridge else "psychology-cognitive-science.cognitive", lanes, sources, split, "relation", "established"),
             "label": identifier.replace("-", " "),
@@ -244,8 +240,9 @@ def build() -> list[dict[str, Any]]:
         is_neuro = identifier.startswith("neuro-")
         domain = "neuroscience-neurology" if is_neuro else "psychology-cognitive-science"
         lanes = NEURO_LANES if is_neuro else PSY_LANES
+        control_split = "train" if index == 0 else "sealed_test" if index == len(CONTROLS) - 1 or index % 2 else "validation"
         records.append({
-            **base(f"control.{identifier}", domain, "neuroscience-neurology.clinical-boundaries" if is_neuro else "psychology-cognitive-science.clinical", lanes, [], "validation" if index % 2 == 0 else "sealed_test", "synthetic_control", "synthetic_control"),
+            **base(f"control.{identifier}", domain, "neuroscience-neurology.clinical-boundaries" if is_neuro else "psychology-cognitive-science.clinical", lanes, [], control_split, "synthetic_control", "synthetic_control"),
             "label": label,
             "statement": statement,
             "aliases": [label.lower()],
@@ -269,4 +266,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

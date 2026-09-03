@@ -77,6 +77,7 @@ def main() -> int:
     lane_nodes: collections.Counter[str] = collections.Counter()
     lane_controls: collections.Counter[str] = collections.Counter()
     split_counts: collections.Counter[str] = collections.Counter()
+    world_splits: dict[str, set[str]] = collections.defaultdict(set)
     kind_counts: collections.Counter[str] = collections.Counter()
 
     for record in records:
@@ -116,6 +117,7 @@ def main() -> int:
             errors.append(f"{location}: invalid split")
         else:
             split_counts[split] += 1
+            world_splits[str(record.get("world_id"))].add(split)
         split_group = record.get("split_group")
         if not isinstance(split_group, str) or not ID.fullmatch(split_group):
             errors.append(f"{location}: invalid split_group")
@@ -170,6 +172,10 @@ def main() -> int:
     for required_split in SPLITS:
         if split_counts[required_split] == 0:
             errors.append(f"required split {required_split} is empty")
+    for world_id, present_splits in sorted(world_splits.items()):
+        missing_splits = SPLITS - present_splits
+        if missing_splits:
+            errors.append(f"world {world_id} lacks required splits: {sorted(missing_splits)}")
 
     print(f"records: {len(records)}")
     print(f"kinds: {dict(sorted(kind_counts.items()))}")
@@ -184,4 +190,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

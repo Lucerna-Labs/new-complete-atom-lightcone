@@ -168,9 +168,20 @@ def arrays_for_pairs(pairs: list[dict[str, Any]], node_index: dict[str, int]) ->
 def evaluate_edges(node: np.ndarray, relation: np.ndarray, arrays: dict[str, np.ndarray]) -> dict[str, Any]:
     count = len(arrays["source"])
     if count == 0:
-        return {"count": 0, "hits_at_1": 0.0, "hits_at_5": 0.0, "hits_at_10": 0.0, "mrr": 0.0, "direction_accuracy": 0.0}
+        return {
+            "count": 0,
+            "hits_at_1": 0.0,
+            "hits_at_5": 0.0,
+            "hits_at_10": 0.0,
+            "mrr": 0.0,
+            "direction_accuracy": 0.0,
+            "edge_discrimination_accuracy": 0.0,
+            "relation_accuracy": 0.0,
+        }
     ranks: list[int] = []
     direction: list[bool] = []
+    discriminated: list[bool] = []
+    relation_correct: list[bool] = []
     for source, target, relation_id, polarity, is_forward in zip(
         arrays["source"], arrays["target"], arrays["relation"], arrays["polarity"], arrays["forward"], strict=True
     ):
@@ -179,6 +190,24 @@ def evaluate_edges(node: np.ndarray, relation: np.ndarray, arrays: dict[str, np.
         distances = np.sum((node - query) ** 2, axis=1)
         target_distance = float(distances[int(target)])
         ranks.append(1 + int(np.sum(distances < target_distance - 1e-9)))
+        negative_target = (
+            int(target) + int(source) * 17 + int(relation_id) * 13 + 7
+        ) % len(node)
+        if negative_target == int(target):
+            negative_target = (negative_target + 1) % len(node)
+        discriminated.append(target_distance < float(distances[negative_target]))
+        relation_distances = np.sum(
+            (
+                node[int(source)][None, :]
+                + relation * float(polarity)
+                - node[int(target)][None, :]
+            )
+            ** 2,
+            axis=1,
+        )
+        relation_correct.append(
+            int(np.argmin(relation_distances)) == int(relation_id)
+        )
         if bool(is_forward):
             forward_distance = float(np.sum((node[int(source)] + rel - node[int(target)]) ** 2))
             reverse_distance = float(np.sum((node[int(target)] + rel - node[int(source)]) ** 2))
@@ -191,6 +220,8 @@ def evaluate_edges(node: np.ndarray, relation: np.ndarray, arrays: dict[str, np.
         "mrr": float(np.mean([1.0 / rank for rank in ranks])),
         "mean_rank": float(np.mean(ranks)),
         "direction_accuracy": sum(direction) / len(direction) if direction else 1.0,
+        "edge_discrimination_accuracy": sum(discriminated) / len(discriminated),
+        "relation_accuracy": sum(relation_correct) / len(relation_correct),
     }
 
 
@@ -359,6 +390,19 @@ def main() -> int:
             distances = jnp.sum((query[:, None, :] - node[None, :, :]) ** 2, axis=2)
             logits = -distances / float(config["softmax_temperature"])
             edge_loss = -jnp.mean(jax.nn.log_softmax(logits, axis=1)[jnp.arange(logits.shape[0]), train_edges["target"]])
+            observed_delta = (
+                node[train_edges["target"]] - node[train_edges["source"]]
+            ) * train_edges["polarity"][:, None]
+            relation_distances = jnp.sum(
+                (observed_delta[:, None, :] - relation[None, :, :]) ** 2,
+                axis=2,
+            )
+            relation_logits = -relation_distances / float(config["softmax_temperature"])
+            relation_classification_loss = -jnp.mean(
+                jax.nn.log_softmax(relation_logits, axis=1)[
+                    jnp.arange(relation_logits.shape[0]), train_edges["relation"]
+                ]
+            )
             pair_distance = jnp.linalg.norm(node[train_pairs["left"]] - node[train_pairs["right"]], axis=1)
             pair_loss = jnp.mean(jnp.square(jax.nn.relu(float(config["negative_margin"]) - pair_distance)))
             membership_distance = jnp.linalg.norm(
@@ -371,6 +415,8 @@ def main() -> int:
             relation_loss = jnp.mean(jnp.square(relation - relation_prior))
             return (
                 edge_loss
+                + float(config.get("relation_classification_weight", 0.0))
+                * relation_classification_loss
                 + float(config["negative_weight"]) * pair_loss
                 + float(config["membership_weight"]) * membership_loss
                 + float(config["anchor_weight"]) * anchor_loss

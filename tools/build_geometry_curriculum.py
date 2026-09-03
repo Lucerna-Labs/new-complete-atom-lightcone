@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from registry_lib import ROOT
+from curriculum_split import RelationSplitter
 
 
 OUTPUT = ROOT / "curricula" / "geometry" / "geometry-foundations.jsonl"
@@ -188,15 +189,11 @@ def build() -> list[dict[str, Any]]:
                 },
                 "coverage_axes": ["primitives_invariants", "within_domain_composition"]
             })
+    splitter = RelationSplitter([kind for _identifier, _source, _target, kind, _statement, _conditions, _exceptions in RELATIONS])
     for index, (identifier, source, target, kind, statement, conditions, exceptions) in enumerate(RELATIONS):
-        if index % 13 == 0:
-            split = "sealed_test"
-        elif index % 7 == 0:
-            split = "validation"
-        elif index % 17 == 0:
+        split = splitter.split(kind, cross_requested=index % 17 == 0)
+        if identifier == "geometry-bottom-up":
             split = "cross_domain_holdout"
-        else:
-            split = "train"
         records.append({
             **base(identifier, "geometry.transformations", split, SOURCES, "formal", "relation"),
             "label": identifier.replace("-", " "),
@@ -222,8 +219,9 @@ def build() -> list[dict[str, Any]]:
             "coverage_axes": ["deductions_predictions_execution", "within_domain_composition"]
         })
     for index, (identifier, label, statement) in enumerate(CONTROLS):
+        control_split = "train" if index == 0 else "sealed_test" if index == len(CONTROLS) - 1 or index % 2 else "validation"
         record = {
-            **base(identifier, "geometry.computational", "validation" if index % 2 == 0 else "sealed_test", [], "synthetic_control", "synthetic_control"),
+            **base(identifier, "geometry.computational", control_split, [], "synthetic_control", "synthetic_control"),
             "label": label,
             "statement": statement,
             "aliases": [label.lower()],

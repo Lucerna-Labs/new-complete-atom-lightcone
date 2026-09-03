@@ -7,6 +7,7 @@ import json
 from typing import Any
 
 from registry_lib import ROOT
+from curriculum_split import RelationSplitter
 
 
 OUTPUT = ROOT / "curricula" / "scientific-reasoning" / "foundations.jsonl"
@@ -177,9 +178,11 @@ def build() -> list[dict[str, Any]]:
                 "relation": {"source_node": f"science-reasoning.v0.{identifier}", "target_node": "science-reasoning.v0.root", "kind": "part_of", "polarity": 1, "direction": "forward", "conditions": [], "exceptions": []},
                 "coverage_axes": ["primitives_invariants", "within_domain_composition"]
             })
+    normalized_kinds = ["prerequisite" if kind == "requires" else kind for _identifier, _source, _target, kind, _statement in RELATIONS]
+    splitter = RelationSplitter(normalized_kinds)
     for index, (identifier, source, target, kind, statement) in enumerate(RELATIONS):
         normalized_kind = "prerequisite" if kind == "requires" else kind
-        split = "sealed_test" if index % 13 == 0 else "validation" if index % 9 == 0 else "cross_domain_holdout" if index % 17 == 0 else "train"
+        split = splitter.split(normalized_kind, cross_requested=index % 17 == 0)
         records.append({
             **base(identifier, "research-scientific-method.theories", split, "relation", "established", SOURCES),
             "label": identifier.replace("-", " "),
@@ -197,8 +200,9 @@ def build() -> list[dict[str, Any]]:
             "coverage_axes": ["mechanisms_causal_laws", "within_domain_composition", "cross_domain_composition"]
         })
     for index, (identifier, label, statement) in enumerate(CONTROLS):
+        control_split = "train" if index == 0 else "sealed_test" if index == len(CONTROLS) - 1 or index % 2 else "validation"
         records.append({
-            **base(identifier, "research-scientific-method.uncertainty", "validation" if index % 2 == 0 else "sealed_test", "synthetic_control", "synthetic_control", []),
+            **base(identifier, "research-scientific-method.uncertainty", control_split, "synthetic_control", "synthetic_control", []),
             "label": label,
             "statement": statement,
             "aliases": [label.lower()],
@@ -222,4 +226,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

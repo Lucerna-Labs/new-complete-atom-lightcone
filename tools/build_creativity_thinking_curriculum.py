@@ -7,6 +7,7 @@ import json
 from typing import Any
 
 from registry_lib import ROOT
+from curriculum_split import RelationSplitter
 
 
 OUTPUT = ROOT / "curricula" / "creativity-thinking" / "foundations.jsonl"
@@ -198,10 +199,12 @@ def build() -> list[dict[str, Any]]:
                     "relation": {"source_node": node_id, "target_node": spec["root"], "kind": "part_of", "polarity": 1, "direction": "forward", "conditions": [], "exceptions": []},
                     "coverage_axes": ["primitives_invariants", "within_domain_composition"]
                 })
+    normalized_kinds = ["prerequisite" if kind == "requires" else kind for _group, _identifier, _source, _target, kind, _statement in RELATIONS]
+    splitter = RelationSplitter(normalized_kinds)
     for index, (group, identifier, source, target, kind, statement) in enumerate(RELATIONS):
         normalized_kind = "prerequisite" if kind == "requires" else kind
         owner = group if group in GROUPS else "creative"
-        split = "sealed_test" if index % 13 == 0 else "validation" if index % 9 == 0 else "cross_domain_holdout" if group == "bridge" and index % 2 == 0 else "train"
+        split = splitter.split(normalized_kind, cross_requested=group == "bridge" or index % 17 == 0)
         lanes = sorted(set(lane for spec in GROUPS.values() for lane in spec["lanes"])) if group == "bridge" else GROUPS[owner]["lanes"]
         record = base(f"relation.{identifier}", owner, split, "relation", "interpretive", SOURCES)
         record["lanes"] = lanes
@@ -222,8 +225,9 @@ def build() -> list[dict[str, Any]]:
         })
         records.append(record)
     for index, (group, identifier, statement) in enumerate(CONTROLS):
+        control_split = "train" if index == 0 else "sealed_test" if index == len(CONTROLS) - 1 or index % 2 else "validation"
         records.append({
-            **base(f"control.{group}.{identifier}", group, "validation" if index % 2 == 0 else "sealed_test", "synthetic_control", "synthetic_control", []),
+            **base(f"control.{group}.{identifier}", group, control_split, "synthetic_control", "synthetic_control", []),
             "label": identifier.replace("-", " "),
             "statement": statement,
             "aliases": [identifier.replace("-", " ")],
@@ -247,4 +251,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

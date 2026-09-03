@@ -7,6 +7,7 @@ import json
 from typing import Any
 
 from registry_lib import ROOT
+from curriculum_split import RelationSplitter
 
 
 OUTPUT = ROOT / "curricula" / "typography-color" / "foundations.jsonl"
@@ -182,8 +183,11 @@ def build() -> list[dict[str, Any]]:
                 "relation": {"source_node": f"type-color.v0.{identifier}", "target_node": "type-color.v0.root", "kind": "part_of", "polarity": 1, "direction": "forward", "conditions": [], "exceptions": []},
                 "coverage_axes": ["primitives_invariants", "within_domain_composition"]
             })
+    splitter = RelationSplitter([kind for _identifier, _source, _target, kind, _statement in RELATIONS])
     for index, (identifier, source, target, kind, statement) in enumerate(RELATIONS):
-        split = "sealed_test" if index % 13 == 0 else "validation" if index % 9 == 0 else "cross_domain_holdout" if index % 17 == 0 else "train"
+        split = splitter.split(kind, cross_requested=index % 17 == 0)
+        if identifier == "geometry-type":
+            split = "cross_domain_holdout"
         records.append({
             **base(f"relation-{identifier}", "typography-color-visual-design.visual-hierarchy", split, "relation", "established", SOURCES),
             "label": identifier.replace("-", " "),
@@ -201,8 +205,9 @@ def build() -> list[dict[str, Any]]:
             "coverage_axes": ["mechanisms_causal_laws", "representations_transformations", "cross_domain_composition"]
         })
     for index, (identifier, label, statement) in enumerate(CONTROLS):
+        control_split = "train" if index == 0 else "sealed_test" if index == len(CONTROLS) - 1 or index % 2 else "validation"
         records.append({
-            **base(identifier, "typography-color-visual-design.color-accessibility", "validation" if index % 2 == 0 else "sealed_test", "synthetic_control", "synthetic_control", []),
+            **base(identifier, "typography-color-visual-design.color-accessibility", control_split, "synthetic_control", "synthetic_control", []),
             "label": label,
             "statement": statement,
             "aliases": [label.lower()],
