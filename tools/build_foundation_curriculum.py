@@ -177,7 +177,8 @@ def build() -> list[dict[str, Any]]:
             "coverage_axes": ["definitions_scope", "primitives_invariants"],
             "split_group": f"{lane_id}.definition",
             "split": "train",
-            "source_ids": context["sources"]
+            "source_ids": context["sources"],
+            "tags": ["foundation", "lane-anatomy", "stage-index-0", f"lane-length-{len(lane['required_stages'])}"]
         })
 
         stage_ids: list[str] = []
@@ -195,7 +196,8 @@ def build() -> list[dict[str, Any]]:
                 "coverage_axes": ["primitives_invariants", "mechanisms_causal_laws", "assumptions_prerequisites"],
                 "split_group": f"{lane_id}.stage.{stage}",
                 "split": "train",
-                "source_ids": context["sources"]
+                "source_ids": context["sources"],
+                "tags": ["foundation", "lane-anatomy", f"stage-index-{stage_index + 1}", f"lane-length-{len(lane['required_stages'])}"]
             })
         for stage_index, stage_id in enumerate(stage_ids):
             records.append({

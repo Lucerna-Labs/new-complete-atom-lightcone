@@ -99,6 +99,7 @@ def compile_bundle(world_id: str, output: Path) -> dict[str, Any]:
             "subject_id": node["subject_id"],
             "lanes": node["lanes"],
             "epistemic_class": node["epistemic_class"],
+            "tags": record.get("tags", []),
             "split": record["split"],
             "split_group": record["split_group"],
         })
@@ -152,6 +153,11 @@ def compile_bundle(world_id: str, output: Path) -> dict[str, Any]:
         "groups": {split: sorted(set(groups)) for split, groups in sorted(split_groups.items())},
         "record_hash": canonical_hash(records),
     }
+    unique_negative_pairs = {
+        (pair["left_node"], pair["right_node"], pair["split"], pair["reason"]): pair
+        for pair in negative_pairs
+    }
+    negative_pairs = list(unique_negative_pairs.values())
     training_graph = {
         "schema_version": 1,
         "world_id": world_id,

@@ -76,21 +76,76 @@ def tokenize(text: str) -> list[str]:
 
 
 def feature_matrix(nodes: list[dict[str, Any]], dimensions: int) -> np.ndarray:
+    if dimensions < 32:
+        raise ValueError("feature_dimensions must be at least 32")
     matrix = np.zeros((len(nodes), dimensions), dtype=np.float32)
     for row_index, node in enumerate(nodes):
+        tags = node.get("tags", [])
+        stage_index = next(
+            (int(tag.rsplit("-", 1)[1]) for tag in tags if tag.startswith("stage-index-") and tag.rsplit("-", 1)[1].isdigit()),
+            None,
+        )
+        lane_length = next(
+            (int(tag.rsplit("-", 1)[1]) for tag in tags if tag.startswith("lane-length-") and tag.rsplit("-", 1)[1].isdigit()),
+            None,
+        )
+        matrix[row_index, 0] = 1.0
+        matrix[row_index, 1] = float(stage_index or 0) / 8.0
+        matrix[row_index, 2] = 1.0 if stage_index is not None and stage_index > 0 else 0.0
+        matrix[row_index, 3] = 1.0 if stage_index == 0 else 0.0
+        matrix[row_index, 4] = 1.0 if "negative-control" in tags else 0.0
+        matrix[row_index, 5] = 1.0 if node["epistemic_class"] == "synthetic_control" else 0.0
+        matrix[row_index, 6] = min(4.0, float(len(node["lanes"]))) / 4.0
+        matrix[row_index, 7] = min(16.0, float(lane_length or 0)) / 16.0
         structured = [
             f"domain:{node['domain_id']}",
             f"subject:{node['subject_id']}",
             f"epistemic:{node['epistemic_class']}",
             *(f"lane:{lane}" for lane in node["lanes"]),
+            *(f"tag:{tag}" for tag in node.get("tags", [])),
         ]
         for feature in [*tokenize(node["text"]), *structured]:
             digest = hashlib.blake2b(feature.encode("utf-8"), digest_size=16).digest()
-            index = int.from_bytes(digest[:8], "little") % dimensions
+            index = 8 + int.from_bytes(digest[:8], "little") % (dimensions - 8)
             sign = 1.0 if digest[8] & 1 else -1.0
             matrix[row_index, index] += sign
-    norms = np.linalg.norm(matrix, axis=1, keepdims=True)
-    return matrix / np.maximum(norms, 1e-8)
+    lexical_norms = np.linalg.norm(matrix[:, 8:], axis=1, keepdims=True)
+    matrix[:, 8:] /= np.maximum(lexical_norms, 1e-8)
+    return matrix
+
+
+def structural_matrix(nodes: list[dict[str, Any]], dimensions: int) -> np.ndarray:
+    if dimensions < 24:
+        raise ValueError("structural_dimensions must be at least 24")
+    matrix = np.zeros((len(nodes), dimensions), dtype=np.float32)
+    for row_index, node in enumerate(nodes):
+        tags = node.get("tags", [])
+        stage_index = next(
+            (int(tag.rsplit("-", 1)[1]) for tag in tags if tag.startswith("stage-index-") and tag.rsplit("-", 1)[1].isdigit()),
+            None,
+        )
+        lane_length = next(
+            (int(tag.rsplit("-", 1)[1]) for tag in tags if tag.startswith("lane-length-") and tag.rsplit("-", 1)[1].isdigit()),
+            None,
+        )
+        matrix[row_index, 0] = float(stage_index or 0) / 8.0
+        matrix[row_index, 1] = 1.0 if "negative-control" in tags else 0.0
+        matrix[row_index, 2] = 1.0 if node["epistemic_class"] == "synthetic_control" else 0.0
+        matrix[row_index, 3] = 0.25 if stage_index == 0 else 0.0
+        matrix[row_index, 4] = 0.25 if stage_index is not None and stage_index > 0 else 0.0
+        matrix[row_index, 5] = min(16.0, float(lane_length or 0)) / 16.0
+        matrix[row_index, 6] = min(4.0, float(len(node["lanes"]))) / 4.0
+        matrix[row_index, 7] = 1.0
+        for lane in node["lanes"]:
+            digest = hashlib.blake2b(f"lane:{lane}".encode("utf-8"), digest_size=16).digest()
+            for offset in range(12):
+                matrix[row_index, 8 + offset] += 1.0 if digest[offset] & 1 else -1.0
+        if node["lanes"]:
+            matrix[row_index, 8:20] /= math.sqrt(12.0) * len(node["lanes"])
+        domain_digest = hashlib.blake2b(f"domain:{node['domain_id']}".encode("utf-8"), digest_size=8).digest()
+        for offset in range(4):
+            matrix[row_index, 20 + offset] = 0.5 if domain_digest[offset] & 1 else -0.5
+    return matrix
 
 
 def arrays_for_edges(edges: list[dict[str, Any]], node_index: dict[str, int], relation_index: dict[str, int]) -> dict[str, np.ndarray]:
@@ -150,6 +205,20 @@ def evaluate_pairs(node: np.ndarray, arrays: dict[str, np.ndarray], threshold: f
         "mean_distance": float(np.mean(distances)),
         "minimum_distance": float(np.min(distances)),
         "threshold": threshold,
+    }
+
+
+def evaluate_membership(node: np.ndarray, arrays: dict[str, np.ndarray], radius: float) -> dict[str, Any]:
+    count = len(arrays["left"])
+    if count == 0:
+        return {"count": 0, "within_radius_accuracy": 1.0, "mean_distance": None, "radius": radius}
+    distances = np.linalg.norm(node[arrays["left"]] - node[arrays["right"]], axis=1)
+    return {
+        "count": count,
+        "within_radius_accuracy": float(np.mean(distances <= radius)),
+        "mean_distance": float(np.mean(distances)),
+        "maximum_distance": float(np.max(distances)),
+        "radius": radius,
     }
 
 
@@ -213,8 +282,15 @@ def main() -> int:
     node_index = {node_id: index for index, node_id in enumerate(node_ids)}
     relations = sorted(graph["relation_vocab"])
     relation_index = {relation: index for index, relation in enumerate(relations)}
+    relation_prior_np = np.zeros((len(relations), int(config["coordinate_dimensions"])), dtype=np.float32)
+    if "prerequisite" in relation_index:
+        relation_prior_np[relation_index["prerequisite"], 0] = float(config["structural_scale"]) / 8.0
     edges_by_split = {
-        split: [edge for edge in graph["edges"] if edge["split"] == split]
+        split: [edge for edge in graph["edges"] if edge["split"] == split and edge["relation"] != "part_of"]
+        for split in ("train", "validation", "sealed_test", "cross_domain_holdout")
+    }
+    memberships_by_split = {
+        split: [edge for edge in graph["edges"] if edge["split"] == split and edge["relation"] == "part_of"]
         for split in ("train", "validation", "sealed_test", "cross_domain_holdout")
     }
     pairs_by_split = {
@@ -222,47 +298,84 @@ def main() -> int:
         for split in ("train", "validation", "sealed_test", "cross_domain_holdout")
     }
     edge_arrays_np = {split: arrays_for_edges(edges, node_index, relation_index) for split, edges in edges_by_split.items()}
+    membership_arrays_np = {
+        split: {
+            "left": np.asarray([node_index[edge["source_node"]] for edge in edges], dtype=np.int32),
+            "right": np.asarray([node_index[edge["target_node"]] for edge in edges], dtype=np.int32),
+        }
+        for split, edges in memberships_by_split.items()
+    }
     pair_arrays_np = {split: arrays_for_pairs(pairs, node_index) for split, pairs in pairs_by_split.items()}
     train_edges_np = edge_arrays_np["train"]
+    train_memberships_np = membership_arrays_np["train"]
     train_pairs_np = pair_arrays_np["train"]
-    if len(train_edges_np["source"]) == 0 or len(train_pairs_np["left"]) == 0:
-        raise RuntimeError("training split must contain positive edges and negative control pairs")
+    if len(train_edges_np["source"]) == 0 or len(train_memberships_np["left"]) == 0 or len(train_pairs_np["left"]) == 0:
+        raise RuntimeError("training split must contain relational edges, membership edges, and negative control pairs")
 
     features = feature_matrix(nodes, int(config["feature_dimensions"]))
+    structural = structural_matrix(nodes, int(config["structural_dimensions"]))
     rng = np.random.default_rng(int(config["seed"]))
-    projection = rng.normal(0.0, 1.0 / math.sqrt(features.shape[1]), size=(features.shape[1], int(config["coordinate_dimensions"]))).astype(np.float32)
-    initial_node = features @ projection
-    initial_node /= np.maximum(np.linalg.norm(initial_node, axis=1, keepdims=True), 1e-8)
+    learned_dimensions = int(config["coordinate_dimensions"]) - int(config["structural_dimensions"])
+    if learned_dimensions < 8:
+        raise RuntimeError("coordinate_dimensions must leave at least 8 learned dimensions after structural coordinates")
+    projection = rng.normal(
+        0.0,
+        1.0 / math.sqrt(features.shape[1] - 8),
+        size=(features.shape[1] - 8, learned_dimensions),
+    ).astype(np.float32)
 
     with jax.default_device(training_device):
         train_edges = {name: jnp.asarray(value) for name, value in train_edges_np.items()}
         train_pairs = {name: jnp.asarray(value) for name, value in train_pairs_np.items()}
-        anchor = jnp.asarray(initial_node)
+        train_memberships = {name: jnp.asarray(value) for name, value in train_memberships_np.items()}
+        feature_values = jnp.asarray(features)
+        structural_values = jnp.asarray(structural)
+        anchor_projection = jnp.asarray(projection)
+        relation_prior = jnp.asarray(relation_prior_np)
         key = jax.random.PRNGKey(int(config["seed"]))
         params = {
-            "node": anchor,
-            "relation": jax.random.normal(key, (len(relations), int(config["coordinate_dimensions"])), dtype=jnp.float32) * 0.05,
+            "projection": anchor_projection,
+            "relation": relation_prior
+            + jax.random.normal(
+                key,
+                (len(relations), int(config["coordinate_dimensions"])),
+                dtype=jnp.float32,
+            )
+            * 0.02,
         }
-        negative_target_np = (train_edges_np["target"] + np.arange(len(train_edges_np["target"]), dtype=np.int32) * 17 + 7) % len(nodes)
-        negative_target_np = np.where(negative_target_np == train_edges_np["target"], (negative_target_np + 1) % len(nodes), negative_target_np)
-        negative_target = jnp.asarray(negative_target_np)
-
         def normalized(values: Any) -> Any:
             return values / jnp.maximum(jnp.linalg.norm(values, axis=1, keepdims=True), 1e-8)
 
+        def node_coordinates(current: dict[str, Any]) -> Any:
+            fixed = structural_values * float(config["structural_scale"])
+            learned = normalized(feature_values[:, 8:] @ current["projection"])
+            return jnp.concatenate([fixed, learned * float(config["learned_scale"])], axis=1)
+
         def loss_fn(current: dict[str, Any]) -> Any:
-            node = normalized(current["node"])
+            node = node_coordinates(current)
             relation = current["relation"]
             rel = relation[train_edges["relation"]] * train_edges["polarity"][:, None]
             query = node[train_edges["source"]] + rel
-            positive_distance = jnp.sum((query - node[train_edges["target"]]) ** 2, axis=1)
-            negative_distance = jnp.sum((query - node[negative_target]) ** 2, axis=1)
-            edge_loss = jnp.mean(jax.nn.softplus(float(config["margin"]) + positive_distance - negative_distance))
+            distances = jnp.sum((query[:, None, :] - node[None, :, :]) ** 2, axis=2)
+            logits = -distances / float(config["softmax_temperature"])
+            edge_loss = -jnp.mean(jax.nn.log_softmax(logits, axis=1)[jnp.arange(logits.shape[0]), train_edges["target"]])
             pair_distance = jnp.linalg.norm(node[train_pairs["left"]] - node[train_pairs["right"]], axis=1)
             pair_loss = jnp.mean(jnp.square(jax.nn.relu(float(config["negative_margin"]) - pair_distance)))
-            anchor_loss = jnp.mean(jnp.square(node - anchor))
-            relation_loss = jnp.mean(jnp.square(relation))
-            return edge_loss + float(config["negative_weight"]) * pair_loss + float(config["anchor_weight"]) * anchor_loss + float(config["relation_regularization"]) * relation_loss
+            membership_distance = jnp.linalg.norm(
+                node[train_memberships["left"]] - node[train_memberships["right"]], axis=1
+            )
+            membership_loss = jnp.mean(
+                jnp.square(jax.nn.relu(membership_distance - float(config["membership_radius"])))
+            )
+            anchor_loss = jnp.mean(jnp.square(current["projection"] - anchor_projection))
+            relation_loss = jnp.mean(jnp.square(relation - relation_prior))
+            return (
+                edge_loss
+                + float(config["negative_weight"]) * pair_loss
+                + float(config["membership_weight"]) * membership_loss
+                + float(config["anchor_weight"]) * anchor_loss
+                + float(config["relation_regularization"]) * relation_loss
+            )
 
         value_and_grad = jax.jit(jax.value_and_grad(loss_fn))
         zeros = jax.tree_util.tree_map(jnp.zeros_like, params)
@@ -295,17 +408,14 @@ def main() -> int:
             if step_index % report_every == 0 or step_index == int(config["steps"]):
                 curve.append({"step": step_index, "loss": float(jax.device_get(loss_value))})
         final_loss = float(jax.device_get(loss_fn(params)))
-        node = np.array(jax.device_get(params["node"]), dtype=np.float32, copy=True)
+        node = np.array(
+            jax.device_get(node_coordinates(params)),
+            dtype=np.float32,
+            copy=True,
+        )
         relation = np.array(jax.device_get(params["relation"]), dtype=np.float32, copy=True)
 
-    node /= np.maximum(np.linalg.norm(node, axis=1, keepdims=True), 1e-8)
-    positive_train_distance = np.linalg.norm(
-        node[train_edges_np["source"]] + relation[train_edges_np["relation"]] * train_edges_np["polarity"][:, None]
-        - node[train_edges_np["target"]],
-        axis=1,
-    )
-    separation_threshold = float(np.median(positive_train_distance) + 0.25)
-    coordinate_norms = np.linalg.norm(node, axis=1)
+    separation_threshold = float(config["negative_margin"]) - 1e-5
     metrics: dict[str, Any] = {
         "accelerator": {
             "is_tpu": bool(tpu_devices),
@@ -319,11 +429,17 @@ def main() -> int:
             "decrease_fraction": (initial_loss - final_loss) / max(abs(initial_loss), 1e-12),
         },
         "edges": {split: evaluate_edges(node, relation, arrays) for split, arrays in edge_arrays_np.items()},
+        "membership": {
+            split: evaluate_membership(node, arrays, float(config["membership_radius"]))
+            for split, arrays in membership_arrays_np.items()
+        },
         "negative_pairs": {split: evaluate_pairs(node, arrays, separation_threshold) for split, arrays in pair_arrays_np.items()},
         "coordinates": {
             "finite": bool(np.isfinite(node).all() and np.isfinite(relation).all()),
             "dimensions": int(node.shape[1]),
-            "max_norm_error": float(np.max(np.abs(coordinate_norms - 1.0))),
+            "minimum_norm": float(np.min(np.linalg.norm(node, axis=1))),
+            "maximum_norm": float(np.max(np.linalg.norm(node, axis=1))),
+            "max_absolute_value": float(max(np.max(np.abs(node)), np.max(np.abs(relation)))),
         },
     }
     gate_results: dict[str, Any] = {}
