@@ -18,6 +18,8 @@ RIGHTS = {
     "green:apache-2.0",
     "green:public-domain",
     "green:cc-by-sa-4.0",
+    "green:cc-by-nc-sa-4.0",
+    "green:nlm-mesh-terms",
     "citation_only",
     "restricted",
     "unknown",
@@ -62,4 +64,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

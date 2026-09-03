@@ -23,6 +23,9 @@ from registry_lib import (
     load_json,
 )
 
+DISCOVERY_LEDGER = Path(__file__).resolve().parents[1] / "ontology" / "discovery-ledger.jsonl"
+DISCOVERY_MANIFEST = Path(__file__).resolve().parents[1] / "ontology" / "discovery-manifest.json"
+
 
 ID = re.compile(r"^[a-z0-9][a-z0-9._-]*$")
 
@@ -184,6 +187,47 @@ def validate_ledger(all_ids: set[str], domain_ids: set[str], axis_ids: list[str]
     return dict(sorted(status_counts.items()))
 
 
+def validate_discoveries(problems: Problems) -> tuple[int, int, dict[str, int]]:
+    if not DISCOVERY_LEDGER.exists() or not DISCOVERY_MANIFEST.exists():
+        return 0, 0, {}
+    manifest = load_json(DISCOVERY_MANIFEST)
+    from registry_lib import file_hash
+
+    problems.require(manifest.get("schema_version") == 1, "discovery manifest schema_version must be 1")
+    problems.require(manifest.get("open_world") is True, "discovery manifest must remain open_world")
+    problems.require(manifest.get("ledger_sha256") == file_hash(DISCOVERY_LEDGER), "discovery ledger hash differs from manifest")
+    ids: set[str] = set()
+    counts: collections.Counter[str] = collections.Counter()
+    unresolved = 0
+    total = 0
+    for line_number, line in enumerate(DISCOVERY_LEDGER.read_text(encoding="utf-8").splitlines(), start=1):
+        if not line.strip():
+            continue
+        total += 1
+        try:
+            record = json.loads(line)
+        except json.JSONDecodeError as error:
+            problems.errors.append(f"discovery ledger line {line_number}: {error}")
+            continue
+        discovery_id = record.get("discovery_id")
+        problems.require(isinstance(discovery_id, str) and ID.fullmatch(discovery_id), f"discovery line {line_number} has invalid ID")
+        problems.require(discovery_id not in ids, f"duplicate discovery ID {discovery_id}")
+        ids.add(discovery_id)
+        status = record.get("status")
+        problems.require(status in {"unmapped", "mapped", "excluded"}, f"discovery {discovery_id} has invalid status")
+        if status == "unmapped":
+            unresolved += 1
+        if status == "mapped":
+            problems.require(bool(record.get("mapped_coverage_ids")), f"mapped discovery {discovery_id} has no coverage IDs")
+        if status == "excluded":
+            problems.require(bool(record.get("exclusion_reason")), f"excluded discovery {discovery_id} has no reason")
+        counts[str(record.get("source_id"))] += 1
+    problems.require(manifest.get("entry_count") == total, "discovery manifest entry_count differs")
+    problems.require(manifest.get("unresolved_count") == unresolved, "discovery manifest unresolved_count differs")
+    problems.require(manifest.get("counts") == dict(sorted(counts.items())), "discovery manifest source counts differ")
+    return total, unresolved, dict(sorted(counts.items()))
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--require-sealed", action="store_true", help="fail while any mandatory item or axis remains open")
@@ -193,9 +237,11 @@ def main() -> int:
     try:
         all_ids, domain_ids, axis_ids = validate_catalogs(problems)
         status_counts = validate_ledger(all_ids, domain_ids, axis_ids, problems)
+        discovery_count, unresolved_discoveries, discovery_counts = validate_discoveries(problems)
     except (OSError, json.JSONDecodeError, TypeError, KeyError) as error:
         problems.errors.append(str(error))
         status_counts = {}
+        discovery_count, unresolved_discoveries, discovery_counts = 0, 0, {}
 
     ledger = load_json(COVERAGE_LEDGER) if COVERAGE_LEDGER.exists() else {"items": []}
     mandatory_open = [
@@ -213,6 +259,7 @@ def main() -> int:
     if args.require_sealed:
         problems.require(not mandatory_open, f"mandatory coverage remains open: {len(mandatory_open)} items")
         problems.require(axis_gaps == 0, f"mandatory coverage-axis gaps remain: {axis_gaps}")
+        problems.require(unresolved_discoveries == 0, f"authoritative taxonomy discoveries remain unmapped: {unresolved_discoveries}")
 
     result = {
         "structurally_valid": not problems.errors,
@@ -221,7 +268,10 @@ def main() -> int:
         "mandatory_open_items": len(mandatory_open),
         "mandatory_axis_gaps": axis_gaps,
         "status_counts": status_counts,
-        "exhaustive": not mandatory_open and axis_gaps == 0 and not problems.errors,
+        "authoritative_discoveries": discovery_count,
+        "unresolved_discoveries": unresolved_discoveries,
+        "discovery_counts": discovery_counts,
+        "exhaustive": not mandatory_open and axis_gaps == 0 and unresolved_discoveries == 0 and not problems.errors,
         "errors": problems.errors,
     }
     if args.json:
@@ -232,6 +282,8 @@ def main() -> int:
         print(f"mandatory open items: {result['mandatory_open_items']}")
         print(f"mandatory coverage-axis gaps: {result['mandatory_axis_gaps']}")
         print(f"status counts: {result['status_counts']}")
+        print(f"authoritative discoveries: {result['authoritative_discoveries']}")
+        print(f"unresolved discoveries: {result['unresolved_discoveries']}")
         print(f"exhaustive: {result['exhaustive']}")
         for error in problems.errors:
             print(f"ERROR: {error}", file=sys.stderr)
@@ -240,4 +292,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
