@@ -1,0 +1,271 @@
+{
+  "accelerator": {
+    "device_count": 8,
+    "devices": [
+      "TPU_0(process=0,(0,0,0,0))",
+      "TPU_1(process=0,(1,0,0,0))",
+      "TPU_2(process=0,(0,1,0,0))",
+      "TPU_3(process=0,(1,1,0,0))",
+      "TPU_4(process=0,(0,2,0,0))",
+      "TPU_5(process=0,(1,2,0,0))",
+      "TPU_6(process=0,(0,3,0,0))",
+      "TPU_7(process=0,(1,3,0,0))"
+    ],
+    "kernel_ref": "jessealicea/new-lightcone-foundation-tpu-v0",
+    "kernel_version": 3,
+    "kind": "tpu",
+    "platform": "kaggle"
+  },
+  "elapsed_seconds": 22.760986110999966,
+  "failure": null,
+  "finished_at": "2026-09-03T07:11:35.869695+00:00",
+  "framework": {
+    "name": "jax",
+    "version": "0.10.2"
+  },
+  "gates": {
+    "coordinate_bound": {
+      "metric": "coordinates.max_absolute_value",
+      "observed": 1.1182215213775635,
+      "operator": "lte",
+      "passed": true,
+      "threshold": 5.0
+    },
+    "cross_lane_recovery": {
+      "metric": "edges.cross_domain_holdout.hits_at_10",
+      "observed": 0.3333333333333333,
+      "operator": "gte",
+      "passed": true,
+      "threshold": 0.1
+    },
+    "finite_coordinates": {
+      "metric": "coordinates.finite",
+      "observed": true,
+      "operator": "eq",
+      "passed": true,
+      "threshold": true
+    },
+    "loss_decrease": {
+      "metric": "loss.decrease_fraction",
+      "observed": 0.8913986446232981,
+      "operator": "gte",
+      "passed": true,
+      "threshold": 0.1
+    },
+    "sealed_direction": {
+      "metric": "edges.sealed_test.direction_accuracy",
+      "observed": 0.7142857142857143,
+      "operator": "gte",
+      "passed": true,
+      "threshold": 0.55
+    },
+    "sealed_negative_separation": {
+      "metric": "negative_pairs.sealed_test.separation_accuracy",
+      "observed": 1.0,
+      "operator": "gte",
+      "passed": true,
+      "threshold": 0.75
+    },
+    "sealed_transition_recovery": {
+      "metric": "edges.sealed_test.hits_at_10",
+      "observed": 1.0,
+      "operator": "gte",
+      "passed": true,
+      "threshold": 0.2
+    },
+    "tpu_backend": {
+      "metric": "accelerator.is_tpu",
+      "observed": true,
+      "operator": "eq",
+      "passed": true,
+      "threshold": true
+    },
+    "train_edge_recovery": {
+      "metric": "edges.train.hits_at_5",
+      "observed": 1.0,
+      "operator": "gte",
+      "passed": true,
+      "threshold": 0.8
+    },
+    "train_membership_geometry": {
+      "metric": "membership.train.within_radius_accuracy",
+      "observed": 1.0,
+      "operator": "gte",
+      "passed": true,
+      "threshold": 0.8
+    },
+    "validation_negative_separation": {
+      "metric": "negative_pairs.validation.separation_accuracy",
+      "observed": 1.0,
+      "operator": "gte",
+      "passed": true,
+      "threshold": 0.75
+    },
+    "validation_transition_recovery": {
+      "metric": "edges.validation.hits_at_10",
+      "observed": 1.0,
+      "operator": "gte",
+      "passed": true,
+      "threshold": 0.2
+    }
+  },
+  "hyperparameters": {
+    "anchor_weight": 0.02,
+    "coordinate_dimensions": 48,
+    "feature_dimensions": 384,
+    "learned_scale": 0.5,
+    "learning_rate": 0.008,
+    "membership_radius": 1.25,
+    "membership_weight": 0.18,
+    "negative_margin": 1.15,
+    "negative_weight": 0.65,
+    "relation_regularization": 0.05,
+    "seed": 20260903,
+    "softmax_temperature": 0.16,
+    "steps": 3200,
+    "structural_dimensions": 24,
+    "structural_scale": 1.0
+  },
+  "input_hashes": {
+    "edges.jsonl": "18c884c47d58474dd5d27a1e9786f1b48cdc8f2508c7df73a55fb62faaaca741",
+    "lexicon.json": "f14b6e81513dee3a702cc47d9e83920110992d084604f6e134b14348966a76cc",
+    "nodes.jsonl": "498a34617ab0cf0e7fc06c9f6498656110b6477985a4f121cfa3a699732b93f4",
+    "records.jsonl": "3b58af22990166c67ba9611f8cb08068e80f86fd3f9c57b3dc59c9d557df0ba5",
+    "run-context.json": "b8287d9abcbc54724c1d473b9765809ae2447713b4206f5a5b84dda47d945803",
+    "sources.json": "cdaeab49d598b439a81cd4cf11bff39fcbbb5ae4ea31d0f7d849aead3ee58c5c",
+    "split-manifest.json": "c67356b91b154b61bed82cb629c34e64e176a49eff0e19a99a4c131f3bfd70d4",
+    "training-config.json": "87cf836858ab8d350578d1a26be08bce912541d3be94c0a24b1cf1eca93382cd",
+    "training-graph.json": "eb6358b4a7137dea1bf92f51d6060d4c6ae9048f08f4941b76dd03ee1b9ec2d0"
+  },
+  "metrics": {
+    "accelerator": {
+      "backend": "tpu",
+      "device_count": 8,
+      "is_tpu": true,
+      "training_device": "TPU_0(process=0,(0,0,0,0))"
+    },
+    "coordinates": {
+      "dimensions": 48,
+      "finite": true,
+      "max_absolute_value": 1.1182215213775635,
+      "maximum_norm": 2.3048861026763916,
+      "minimum_norm": 1.846660852432251
+    },
+    "edges": {
+      "cross_domain_holdout": {
+        "count": 3,
+        "direction_accuracy": 0.0,
+        "hits_at_1": 0.0,
+        "hits_at_10": 0.3333333333333333,
+        "hits_at_5": 0.3333333333333333,
+        "mean_rank": 22.666666666666668,
+        "mrr": 0.08783602150537635
+      },
+      "sealed_test": {
+        "count": 21,
+        "direction_accuracy": 0.7142857142857143,
+        "hits_at_1": 0.0,
+        "hits_at_10": 1.0,
+        "hits_at_5": 1.0,
+        "mean_rank": 3.4285714285714284,
+        "mrr": 0.3015873015873015
+      },
+      "train": {
+        "count": 62,
+        "direction_accuracy": 1.0,
+        "hits_at_1": 0.9354838709677419,
+        "hits_at_10": 1.0,
+        "hits_at_5": 1.0,
+        "mean_rank": 1.064516129032258,
+        "mrr": 0.967741935483871
+      },
+      "validation": {
+        "count": 21,
+        "direction_accuracy": 0.0,
+        "hits_at_1": 0.0,
+        "hits_at_10": 1.0,
+        "hits_at_5": 0.8571428571428571,
+        "mean_rank": 4.761904761904762,
+        "mrr": 0.22465986394557827
+      }
+    },
+    "loss": {
+      "decrease_fraction": 0.8913986446232981,
+      "final": 0.5662232041358948,
+      "initial": 5.213776588439941
+    },
+    "membership": {
+      "cross_domain_holdout": {
+        "count": 0,
+        "mean_distance": null,
+        "radius": 1.25,
+        "within_radius_accuracy": 1.0
+      },
+      "sealed_test": {
+        "count": 0,
+        "mean_distance": null,
+        "radius": 1.25,
+        "within_radius_accuracy": 1.0
+      },
+      "train": {
+        "count": 96,
+        "maximum_distance": 1.1052700281143188,
+        "mean_distance": 0.9012239575386047,
+        "radius": 1.25,
+        "within_radius_accuracy": 1.0
+      },
+      "validation": {
+        "count": 0,
+        "mean_distance": null,
+        "radius": 1.25,
+        "within_radius_accuracy": 1.0
+      }
+    },
+    "negative_pairs": {
+      "cross_domain_holdout": {
+        "count": 0,
+        "mean_distance": null,
+        "separation_accuracy": 1.0,
+        "threshold": 1.1499899999999998
+      },
+      "sealed_test": {
+        "count": 21,
+        "mean_distance": 1.6212913990020752,
+        "minimum_distance": 1.519821047782898,
+        "separation_accuracy": 1.0,
+        "threshold": 1.1499899999999998
+      },
+      "train": {
+        "count": 21,
+        "mean_distance": 1.6214203834533691,
+        "minimum_distance": 1.4986170530319214,
+        "separation_accuracy": 1.0,
+        "threshold": 1.1499899999999998
+      },
+      "validation": {
+        "count": 28,
+        "mean_distance": 1.6442252397537231,
+        "minimum_distance": 1.5317506790161133,
+        "separation_accuracy": 1.0,
+        "threshold": 1.1499899999999998
+      }
+    }
+  },
+  "output_hashes": {
+    "coordinates.json": "65e68fc9f68cac8bcb84bc9cbe5fc9474c60c675341f62314d5b4c9a708437dc",
+    "metrics.json": "80d793b407466ab5225f5dc9b9d6c5a07e40612e655b4d08577c5cbfb7639d2d",
+    "relation-coordinates.json": "a20ee038d803efd2d4d093af69f69cf4c73befed2d800e641e3a5f5bcfb7be08",
+    "trained-node-coordinates.npy": "a5e522ba67d4db61993befdb0b4b5308d970ab23d5cbe974a3a5248185fb7431",
+    "trained-relation-coordinates.npy": "6a35176a37d9eeb3b4a366dbc63944dd3e5e9a79c2bd0c0b7fbbceeeaa6b7e1d",
+    "training-curve.json": "7277b2d1726db80b7a21859330d9bb8b57d7bba18239ea7d7dd6096f2e0b591f"
+  },
+  "protocol_id": "foundation-lanes-tpu-v0",
+  "run_id": "foundation-lanes-v0-20260903T071113Z",
+  "schema_version": 1,
+  "seed": 20260903,
+  "source_dirty": false,
+  "source_revision": "ce83b437cd4ac70931436d30993603ab687e7a35",
+  "split_manifest_hash": "34c515d38264655df72a355726106f68065c64b0a8df7087a6784897371ddb99",
+  "started_at": "2026-09-03T07:11:13.108772+00:00",
+  "status": "passed"
+}
