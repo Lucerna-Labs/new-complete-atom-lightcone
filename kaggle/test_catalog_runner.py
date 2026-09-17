@@ -13,6 +13,18 @@ RUNNER = runpy.run_path(
 
 
 class CatalogRunnerBoundaryTests(unittest.TestCase):
+    def test_archive_name_prevents_kaggle_auto_expansion(self) -> None:
+        self.assertEqual(
+            RUNNER["require_archive_name"](
+                {"archive_filename": "world-bundles.lcz"}
+            ),
+            "world-bundles.lcz",
+        )
+        for invalid in ("world-bundles.zip", "../world-bundles.lcz", ""):
+            with self.subTest(invalid=invalid):
+                with self.assertRaises(RuntimeError):
+                    RUNNER["require_archive_name"]({"archive_filename": invalid})
+
     def test_safe_extract_rejects_parent_traversal(self) -> None:
         with tempfile.TemporaryDirectory() as raw:
             root = Path(raw)

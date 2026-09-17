@@ -25,6 +25,7 @@ TRAINER = ROOT / "trainer" / "train_jax.py"
 SHADOW_TRAINER = ROOT / "trainer" / "shadow_projection.py"
 SEMANTIC_TRAINER = ROOT / "trainer" / "semantic_geometry.py"
 KERNEL_REF = "jessealicea/new-lightcone-catalog-tpu-v0"
+ARCHIVE_FILENAME = "world-bundles.lcz"
 
 
 def sha256(path: Path) -> str:
@@ -153,7 +154,12 @@ def main() -> int:
             }
         )
 
-    archive = DATASET / "world-bundles.zip"
+    # Kaggle automatically expands files with a .zip suffix when it creates a
+    # dataset version.  Keep the deterministic ZIP payload under a project
+    # extension so the TPU runner can verify the archive bytes before safely
+    # extracting them itself.
+    (DATASET / "world-bundles.zip").unlink(missing_ok=True)
+    archive = DATASET / ARCHIVE_FILENAME
     deterministic_zip(package_root, archive)
     shutil.copy2(TRAINER, DATASET / "train_jax.py")
     shutil.copy2(SHADOW_TRAINER, DATASET / "shadow_projection.py")
@@ -165,6 +171,7 @@ def main() -> int:
         "kernel_version": args.kernel_version,
         "source_revision": revision,
         "source_dirty": False,
+        "archive_filename": ARCHIVE_FILENAME,
         "archive_sha256": sha256(archive),
         "trainer_sha256": sha256(DATASET / "train_jax.py"),
         "shadow_projection_sha256": sha256(DATASET / "shadow_projection.py"),

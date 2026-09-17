@@ -41,12 +41,23 @@ def safe_extract(archive: zipfile.ZipFile, destination: Path) -> None:
     archive.extractall(destination)
 
 
+def require_archive_name(manifest: dict[str, object]) -> str:
+    name = manifest.get("archive_filename")
+    if not isinstance(name, str) or not name:
+        raise RuntimeError("catalog manifest lacks archive_filename")
+    if Path(name).name != name:
+        raise RuntimeError("catalog archive_filename must be a basename")
+    if Path(name).suffix != ".lcz":
+        raise RuntimeError("catalog archive must use the non-expanded .lcz extension")
+    return name
+
+
 def main() -> int:
-    archive = exactly_one("world-bundles.zip")
     trainer = exactly_one("train_jax.py")
     shadow_projection = exactly_one("shadow_projection.py")
     semantic_geometry = exactly_one("semantic_geometry.py")
     manifest = json.loads(exactly_one("catalog-manifest.json").read_text(encoding="utf-8"))
+    archive = exactly_one(require_archive_name(manifest))
     if sha256(archive) != manifest["archive_sha256"]:
         raise RuntimeError("catalog archive hash differs from manifest")
     if sha256(trainer) != manifest["trainer_sha256"]:
