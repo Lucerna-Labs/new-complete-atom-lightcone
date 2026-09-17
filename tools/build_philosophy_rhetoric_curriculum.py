@@ -66,7 +66,11 @@ PHILOSOPHY = [
     ("aesthetics", "Aesthetic analysis", "Aesthetic analysis examines experience, interpretation, form, expression, value, and institutional or historical context without reducing judgment to preference alone.", "philosophy.aesthetics"),
     ("law", "Philosophy of law", "Philosophy of law examines legal authority, interpretation, obligation, rights, institutions, and the relation between law and morality.", "philosophy.law"),
     ("religion", "Philosophy of religion", "Philosophy of religion analyzes arguments, experience, language, evil, faith, and plural traditions without assigning religious authority.", "philosophy.religion"),
-    ("phenomenology", "Phenomenological analysis", "Phenomenological analysis describes structures of lived experience while keeping first-person description distinct from causal neuroscience.", "philosophy.phenomenology")
+    ("phenomenology", "Phenomenological analysis", "Phenomenological analysis describes structures of lived experience while keeping first-person description distinct from causal neuroscience.", "philosophy.phenomenology"),
+    ("comparative", "Comparative philosophy", "Comparative philosophy places traditions in historically and linguistically specific dialogue while resisting forced equivalence and treating no one vocabulary as a neutral universal metalanguage.", "philosophy.comparative"),
+    ("existential", "Existential philosophy", "Existential analysis examines freedom, responsibility, anxiety, finitude, meaning, authenticity, embodiment, and situated choice without reducing a diverse tradition to one doctrine.", "philosophy.existential"),
+    ("mathematics", "Philosophy of mathematics", "Philosophy of mathematics analyzes mathematical objects, truth, proof, foundations, explanation, practice, and the relation between formal derivation and human understanding.", "philosophy.mathematics"),
+    ("political", "Political philosophy", "Political philosophy evaluates authority, legitimacy, liberty, equality, justice, rights, obligation, institutions, collective action, and power under competing normative frameworks.", "philosophy.political")
 ]
 
 
@@ -83,6 +87,7 @@ RHETORIC = [
     ("ethos", "Ethos", "Ethos is persuasive force arising from perceived character, credibility, competence, identification, or trustworthiness; it is not proof of a claim.", "rhetoric-argumentation.ethos-pathos-logos"),
     ("pathos", "Pathos", "Pathos is persuasive force arising through audience emotion, disposition, or value; emotional force does not establish factual truth.", "rhetoric-argumentation.ethos-pathos-logos"),
     ("logos", "Logos", "Logos is persuasive force arising from reasons, examples, evidence, and apparent inferential relations and must still be tested for validity and soundness.", "rhetoric-argumentation.ethos-pathos-logos"),
+    ("fallacy-context", "Historically situated fallacy diagnosis", "Fallacy terminology and classification vary across rhetorical and logical traditions; a label must be interpreted within the argument's historical, disciplinary, genre, audience, and inferential context rather than treated as timeless proof of a defect.", "rhetoric-argumentation.fallacies"),
     ("enthymeme", "Enthymeme", "An enthymeme is a rhetorical argument whose premises or conclusion may rely on audience-supplied commitments rather than all being explicit.", "rhetoric-argumentation.argument-structure"),
     ("topos", "Topos", "A topos is a reusable place or pattern for discovering potentially persuasive considerations, not a guarantee that the resulting argument is true.", "rhetoric-argumentation.invention"),
     ("invention", "Invention", "Invention discovers claims, evidence, arguments, examples, and frames available for a rhetorical situation.", "rhetoric-argumentation.invention"),
@@ -103,7 +108,8 @@ RHETORIC = [
     ("propaganda", "Propaganda", "Propaganda systematically organizes communication to advance a political or ideological objective, often through selective evidence, repetition, identity, and emotional framing.", "rhetoric-argumentation.propaganda"),
     ("manipulation", "Manipulative rhetoric", "Manipulative rhetoric attempts to bypass or distort an audience's reflective agency through deception, coercive pressure, concealment, or exploitative targeting.", "rhetoric-argumentation.propaganda"),
     ("effect", "Rhetorical effect", "A rhetorical effect is a measured or carefully qualified change in attention, interpretation, feeling, judgment, or action; textual analysis alone cannot prove actual audience effect.", "rhetoric-argumentation.rhetorical-situation"),
-    ("intent", "Rhetorical intent", "Intent is an attributed purpose that requires evidence beyond merely observing a textual effect or device.", "rhetoric-argumentation.rhetorical-situation")
+    ("intent", "Rhetorical intent", "Intent is an attributed purpose that requires evidence beyond merely observing a textual effect or device.", "rhetoric-argumentation.rhetorical-situation"),
+    ("cross-cultural", "Cross-cultural rhetoric", "Cross-cultural rhetorical analysis compares audience, genre, evidence, politeness, authority, translation, medium, and historical power without treating one tradition's norms as universal.", "rhetoric-argumentation.cross-cultural")
 ]
 
 
@@ -156,7 +162,13 @@ RELATIONS = [
     ("bridge-argument-rhetoric", "p.inference", "r.logos", "clarifies", "Argument analysis clarifies whether a logos appeal supplies genuine inferential support or only its appearance."),
     ("bridge-truth-persuasion", "p.justification", "r.effect", "qualifies", "Epistemic justification and rhetorical effect are independent dimensions: a claim may be persuasive without being justified or justified without persuading."),
     ("bridge-ambiguity-frame", "p.ambiguity", "r.framing", "qualifies", "Ambiguity can multiply available frames and must be resolved before attributing a single rhetorical effect."),
-    ("bridge-ethics-manipulation", "p.duty", "r.manipulation", "inhibits", "Respect for audience agency inhibits deceptive or coercive manipulation even when it could be effective.")
+    ("bridge-ethics-manipulation", "p.duty", "r.manipulation", "inhibits", "Respect for audience agency inhibits deceptive or coercive manipulation even when it could be effective."),
+    ("p-comparative-humility", "p.comparative", "p.humility", "supports", "Comparative engagement supports epistemic humility by exposing tradition-specific assumptions and categories."),
+    ("p-existential-duty", "p.existential", "p.duty", "qualifies", "Situated freedom and responsibility qualify deontological analysis of lived choice."),
+    ("p-mathematics-proof", "p.mathematics", "p.justification", "qualifies", "Philosophy of mathematics qualifies what formal proof establishes and how mathematical knowledge is interpreted."),
+    ("p-political-ethics", "p.political", "p.consequence", "qualifies", "Political philosophy qualifies distribution, institution, legitimacy, and power in consequence analysis."),
+    ("r-cross-context", "r.cross-cultural", "r.context", "qualifies", "Cross-cultural rhetoric qualifies context through language, convention, translation, history, and power."),
+    ("r-cross-audience", "r.cross-cultural", "r.audience", "qualifies", "Cultural and linguistic differences qualify invoked and actual audience positions.")
 ]
 
 
@@ -176,6 +188,14 @@ CONTROLS = [
     ("r-context-erasure", "Context erasure", "A rhetorical device must not be interpreted without its genre, audience, time, and institutional setting."),
     ("r-propaganda-label", "Propaganda-label shortcut", "Calling a message propaganda without evidence of organized objective, selection, and circulation must not count as analysis."),
     ("r-omission-invention", "Invented omission", "Analysis must not accuse a text of omitting information that is irrelevant or outside its declared scope without argument.")
+]
+
+
+EXAMPLES = [
+    ("p", "epistemic-disagreement", "Peer-disagreement analysis", "Two equally informed inquirers disagree; the analysis separates evidence, priors, higher-order evidence, testimony, confidence, and the limits of any duty to conciliate.", "philosophy.epistemology", "train"),
+    ("r", "technical-argument", "Technical argument reconstruction", "A performance claim is reconstructed into workload, baseline, metric, measurement, warrant, exceptions, and conclusion before persuasive framing is assessed separately.", "rhetoric-argumentation.technical", "validation"),
+    ("p", "mind-thought-experiment", "Philosophy-of-mind thought experiment", "A duplicate-mind case is tested against competing identity criteria, modal assumptions, intuitions, and empirical constraints without treating the scenario as an observation.", "philosophy.mind", "sealed_test"),
+    ("r", "cross-cultural-appeal", "Cross-cultural rhetorical comparison", "The same public-health message is compared across audiences by genre, authority, metaphor, translation, medium, and historical context without assigning one universal persuasive effect.", "rhetoric-argumentation.cross-cultural", "cross_domain_holdout"),
 ]
 
 
@@ -210,12 +230,15 @@ def build() -> list[dict[str, Any]]:
         for index, (identifier, label, statement, subject) in enumerate(entries):
             node_id = f"{prefix}.{identifier}"
             split = "validation" if index and index % 17 == 0 else "train"
-            records.append({
+            concept = {
                 **make_base(node_id, domain, subject, lanes, sources, split, "concept", "interpretive"),
                 "label": label,
                 "statement": statement,
                 "aliases": [label.lower()]
-            })
+            }
+            if identifier == "fallacy-context":
+                concept["coverage_axes"].append("history_versions")
+            records.append(concept)
             if node_id != root:
                 membership = f"{prefix}.membership.{identifier}"
                 records.append({
@@ -254,6 +277,28 @@ def build() -> list[dict[str, Any]]:
                 "exceptions": []
             },
             "coverage_axes": ["mechanisms_causal_laws", "within_domain_composition", "cross_domain_composition"]
+        })
+    for prefix, identifier, label, statement, subject, split in EXAMPLES:
+        is_rhetoric = prefix == "r"
+        domain = "rhetoric-argumentation" if is_rhetoric else "philosophy"
+        lanes = RHET_LANES if is_rhetoric else PHIL_LANES
+        sources = RHET_SOURCES if is_rhetoric else PHIL_SOURCES
+        root = "r.root" if is_rhetoric else "p.root"
+        node_id = f"{prefix}.example.{identifier}"
+        records.append({
+            **make_base(node_id, domain, subject, lanes, sources, split, "worked_example", "interpretive"),
+            "label": label,
+            "statement": statement,
+            "aliases": [],
+            "coverage_axes": ["deductions_predictions_execution", "applications_toolchains", "uncertainty_competing_hypotheses"]
+        })
+        records.append({
+            **make_base(f"{prefix}.example-membership.{identifier}", domain, subject, lanes, sources, split, "relation", "interpretive"),
+            "label": f"{label} membership",
+            "statement": f"The {label.lower()} exercises a bounded {'rhetorical' if is_rhetoric else 'philosophical'} analysis.",
+            "aliases": [],
+            "relation": {"source_node": node_id, "target_node": root, "kind": "part_of", "polarity": 1, "direction": "forward", "conditions": ["the reconstructed context and meanings remain fixed"], "exceptions": []},
+            "coverage_axes": ["applications_toolchains", "within_domain_composition"]
         })
     for index, (identifier, label, statement) in enumerate(CONTROLS):
         is_rhetoric = identifier.startswith("r-")

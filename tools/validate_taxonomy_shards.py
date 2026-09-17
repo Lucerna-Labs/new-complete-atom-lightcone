@@ -36,8 +36,24 @@ def main() -> int:
             errors.append(f"missing or changed shard {row.get('shard_id')}")
             continue
         shard = json.loads(path.read_text(encoding="utf-8"))
-        if shard.get("status") != "planned" or shard.get("entry_count") != len(shard.get("entries", [])):
+        if shard.get("status") not in {"planned", "authored"} or shard.get("entry_count") != len(shard.get("entries", [])):
             errors.append(f"invalid shard metadata {row.get('shard_id')}")
+        if row.get("status") != shard.get("status"):
+            errors.append(f"shard/index status mismatch {row.get('shard_id')}")
+        if shard.get("status") == "authored":
+            curriculum = ROOT / str(shard.get("curriculum_path", ""))
+            if (
+                not curriculum.is_file()
+                or file_hash(curriculum) != shard.get("curriculum_sha256")
+                or row.get("curriculum_sha256") != shard.get("curriculum_sha256")
+            ):
+                errors.append(f"missing or changed authored curriculum {row.get('shard_id')}")
+            if (
+                shard.get("mapped_entry_count") != shard.get("entry_count")
+                or row.get("mapped_entry_count") != row.get("entry_count")
+                or not shard.get("world_id")
+            ):
+                errors.append(f"authored shard is not mapped or world-bound {row.get('shard_id')}")
         for entry in shard.get("entries", []):
             discovery_id = entry["discovery_id"]
             if discovery_id in observed:
@@ -60,4 +76,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

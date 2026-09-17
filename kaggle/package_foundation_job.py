@@ -12,11 +12,17 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "trainer"))
+
+from shadow_projection import validate_shadow_training_config  # noqa: E402
+
 STAGING = ROOT / "artifacts" / "staging" / "foundation-lanes-v0" / "input"
 DATASET = ROOT / "kaggle" / "foundation-dataset"
 KERNEL = ROOT / "kaggle" / "foundation-tpu"
 CONFIG = ROOT / "trainer" / "configs" / "foundation-v0.json"
 TRAINER = ROOT / "trainer" / "train_jax.py"
+SHADOW_TRAINER = ROOT / "trainer" / "shadow_projection.py"
+SEMANTIC_TRAINER = ROOT / "trainer" / "semantic_geometry.py"
 KERNEL_REF = "jessealicea/new-lightcone-foundation-tpu-v0"
 
 
@@ -44,6 +50,7 @@ def main() -> int:
     subprocess.run([sys.executable, str(ROOT / "tools" / "validate_sources.py")], cwd=ROOT, check=True)
     subprocess.run([sys.executable, str(ROOT / "tools" / "validate_curricula.py")], cwd=ROOT, check=True)
     subprocess.run([sys.executable, str(ROOT / "trainer" / "compile_curriculum.py")], cwd=ROOT, check=True)
+    validate_shadow_training_config(json.loads(CONFIG.read_text(encoding="utf-8")))
 
     revision = git("rev-parse", "HEAD")
     dirty = bool(git("status", "--porcelain", "--untracked-files=normal"))
@@ -73,6 +80,8 @@ def main() -> int:
     bundle["files"]["run-context.json"] = sha256(DATASET / "run-context.json")
     bundle_path.write_text(json.dumps(bundle, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     shutil.copy2(TRAINER, KERNEL / "train.py")
+    shutil.copy2(SHADOW_TRAINER, KERNEL / "shadow_projection.py")
+    shutil.copy2(SEMANTIC_TRAINER, KERNEL / "semantic_geometry.py")
 
     print(json.dumps({
         "source_revision": revision,

@@ -10,6 +10,7 @@ sourced observations and formal laws
     -> curriculum compiler
     -> world trainer
     -> immutable causal world pack
+    -> full geometry plus passive 4D all-spatial shadow
     -> passive Lightcone admission
     -> admitted nodes and edges plus receipt
     -> optional reasoning, formal, or creativity lane
@@ -52,6 +53,20 @@ Training has two simultaneous outputs:
 Coordinates accelerate admission. They never replace the exact graph or its
 evidence.
 
+Protocol-v3 worlds retain the raw JAX optimization geometry separately from the
+final 48D geometry. A train-only semantic backbone supplies four dominant
+spatial coordinates for auditable projection; a scaled 44D optimization
+residual retains additional learned structure. Held-out evidence-to-node and
+relation-family metrics use train-fitted text statistics and the registered
+typed-relation semantics. These learned views remain subordinate to exact graph
+reachability.
+
+Each accepted world also carries an observer-only four-dimensional shadow of
+its full coordinates. The projection is fitted on training nodes only, has an
+orthonormal non-expansion certificate, and emits composed 3D/2D views. Shadow
+collisions and false proximity are measured explicitly. Admission never uses
+the shadow; see `SHADOW_GEOMETRY.md`.
+
 ### Passive Lightcone runtime
 
 The runtime verifies every manifest hash before loading. Admission is
@@ -65,6 +80,13 @@ Reasoning lanes consume only admitted material. Each lane has its own typed
 intermediate steps, failure controls, and output contract. Creativity is a
 proposal generator: novelty cannot override hard constraints, evidence,
 causality, safety, or permission.
+
+Thinking modes are also separate contracts. Bottom-up thinking composes from
+primitives; vertical/linear thinking deepens one selected dependency path;
+nonlinear thinking externalizes branching, recursive, feedback-linked, and
+holistic cues before verification; lateral thinking deliberately changes the
+frame. Bridges can hand candidates between these lanes, but do not merge their
+stages, controls, evidence classes, or scores.
 
 ### Model adapters
 
@@ -92,4 +114,3 @@ Worlds may be separated by domain, epistemic regime, update cadence, safety
 boundary, or computational toolchain. Cross-world bridge edges are trained and
 tested explicitly. Partitioning is an implementation tool, not permission to
 leave a requested domain uncovered.
-

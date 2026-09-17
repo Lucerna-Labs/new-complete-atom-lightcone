@@ -137,6 +137,125 @@ impl Fixture {
         );
         Self { root }
     }
+
+    fn create_with_shadow() -> Self {
+        let fixture = Self::create();
+        let vectors = [
+            ("mechanics.fall", [0.0, 0.0, 0.0, 0.0]),
+            ("mechanics.acceleration", [1.0, 0.0, 0.0, 0.0]),
+            ("mechanics.impact", [2.0, 0.0, 0.0, 0.0]),
+            ("optics.refraction", [0.0, 3.0, 0.0, 0.0]),
+        ];
+        let encoded_vectors = vectors
+            .iter()
+            .map(|(node_id, values)| json!({"node_id": node_id, "values": values}))
+            .collect::<Vec<_>>();
+        write_json(
+            fixture.root.join("coordinates.json"),
+            &json!({
+                "schema_version": 1,
+                "dimensions": 4,
+                "vectors": encoded_vectors
+            }),
+        );
+        write_json(
+            fixture.root.join("shadow-coordinates.json"),
+            &json!({
+                "schema_version": 1,
+                "projection_id": "fixture-shadow4-v1",
+                "dimensions": 4,
+                "axis_names": ["x", "y", "z", "w"],
+                "vectors": vectors.iter().map(|(node_id, values)| {
+                    json!({"node_id": node_id, "values": values})
+                }).collect::<Vec<_>>()
+            }),
+        );
+        write_json(
+            fixture.root.join("shadow-projection.json"),
+            &json!({
+                "schema_version": 1,
+                "projection_id": "fixture-shadow4-v1",
+                "world_id": "fixture-mechanics",
+                "observer_only": true,
+                "used_for_admission": false,
+                "all_spatial": true,
+                "has_time_axis": false,
+                "source_dimensions": 4,
+                "target_dimensions": 4,
+                "axis_names": ["x", "y", "z", "w"],
+                "metric": "euclidean_l2",
+                "method": "train_split_centered_pca_with_orthonormal_rows",
+                "fit_split": "train",
+                "fit_node_count": 4,
+                "fit_node_ids_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "source_coordinates_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+                "basis_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                "center": [0.0, 0.0, 0.0, 0.0],
+                "basis": [
+                    [1.0, 0.0, 0.0, 0.0],
+                    [0.0, 1.0, 0.0, 0.0],
+                    [0.0, 0.0, 1.0, 0.0],
+                    [0.0, 0.0, 0.0, 1.0]
+                ],
+                "train_rank": 2,
+                "explained_variance_ratio": [0.7, 0.3, 0.0, 0.0],
+                "cell_quantization": {"method": "nearest_integer_cell", "cell_width": 0.25},
+                "reach_radius": 1.25,
+                "random_basis_placebo_seed": 17,
+                "axis_shuffle_placebo_seed": 19,
+                "axis_shuffle_permutation": [0, 1, 2, 3],
+                "certificate": {
+                    "non_expansive": true,
+                    "orthonormal_max_error": 0.0,
+                    "spectral_norm": 1.0,
+                    "maximum_distance_expansion": 0.0,
+                    "distance_expansion_violations": 0,
+                    "tolerance": 0.00001
+                },
+                "deterministic_replay": true,
+                "deterministic_replay_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+            }),
+        );
+        write_json(
+            fixture.root.join("shadow-observers.json"),
+            &json!({
+                "schema_version": 1,
+                "projection_id": "fixture-shadow4-v1",
+                "observer_only": true,
+                "composition": {
+                    "three_dimensional_exact": true,
+                    "two_dimensional_exact": true
+                },
+                "three_dimensional": [],
+                "two_dimensional": []
+            }),
+        );
+        let mut manifest: serde_json::Value = serde_json::from_slice(
+            &fs::read(fixture.root.join("manifest.json")).expect("read manifest"),
+        )
+        .expect("parse manifest");
+        manifest["coordinate_dimensions"] = json!(4);
+        manifest["shadow"] = json!({
+            "dimensions": 4,
+            "projection": "shadow-projection.json",
+            "coordinates": "shadow-coordinates.json",
+            "observers": "shadow-observers.json",
+            "observer_only": true,
+            "used_for_admission": false,
+            "all_spatial": true,
+            "has_time_axis": false
+        });
+        for name in [
+            "coordinates.json",
+            "shadow-projection.json",
+            "shadow-coordinates.json",
+            "shadow-observers.json",
+        ] {
+            manifest["files"][name] = json!(hash_file(&fixture.root.join(name)));
+        }
+        write_json(fixture.root.join("manifest.json"), &manifest);
+        fixture
+    }
 }
 
 impl Drop for Fixture {
@@ -242,6 +361,48 @@ fn bounded_cone_reports_truncation() {
     assert!(admission.receipt.truncated);
     assert_eq!(admission.receipt.excluded_frontier_count, 1);
     assert_eq!(admission.receipt.admitted_nodes.len(), 2);
+}
+
+#[test]
+fn four_dimensional_shadow_is_verified_and_observer_only() {
+    let fixture = Fixture::create_with_shadow();
+    let pack = WorldPack::load(&fixture.root).expect("valid shadow pack");
+    let receipt = pack
+        .shadow_view("mechanics.impact", &["y".to_string(), "w".to_string()])
+        .expect("shadow view");
+    assert_eq!(receipt.shadow_values, vec![2.0, 0.0, 0.0, 0.0]);
+    assert_eq!(receipt.kept_axes, vec!["x", "z"]);
+    assert_eq!(receipt.observer_values, vec![2.0, 0.0]);
+    assert_eq!(receipt.observer_dimensions, 2);
+    assert!(receipt.all_spatial);
+    assert!(!receipt.has_time_axis);
+    assert!(receipt.observer_only);
+    assert!(!receipt.used_for_admission);
+    assert!(!receipt.holds_verdict);
+
+    let admission = pack
+        .admit("falling object", AdmissionPolicy::default())
+        .expect("graph admission remains available");
+    assert!(admission.receipt.passive);
+    assert_eq!(admission.receipt.seed_nodes, ["mechanics.fall"]);
+}
+
+#[test]
+fn shadow_coordinates_must_match_registered_projection() {
+    let fixture = Fixture::create_with_shadow();
+    let path = fixture.root.join("shadow-coordinates.json");
+    let mut shadow: serde_json::Value =
+        serde_json::from_slice(&fs::read(&path).expect("read shadow")).expect("parse shadow");
+    shadow["vectors"][0]["values"][0] = json!(99.0);
+    write_json(path.clone(), &shadow);
+    let manifest_path = fixture.root.join("manifest.json");
+    let mut manifest: serde_json::Value =
+        serde_json::from_slice(&fs::read(&manifest_path).expect("read manifest"))
+            .expect("parse manifest");
+    manifest["files"]["shadow-coordinates.json"] = json!(hash_file(&path));
+    write_json(manifest_path, &manifest);
+    let error = WorldPack::load(&fixture.root).expect_err("invalid derived shadow must fail");
+    assert!(matches!(error, PackError::Invalid(_)));
 }
 
 fn write_json(path: PathBuf, value: &serde_json::Value) {

@@ -14,8 +14,14 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "trainer"))
+
+from shadow_projection import validate_shadow_training_config  # noqa: E402
+
 DATASET = ROOT / "kaggle" / "expansion-dataset"
 TRAINER = ROOT / "trainer" / "train_jax.py"
+SHADOW_TRAINER = ROOT / "trainer" / "shadow_projection.py"
+SEMANTIC_TRAINER = ROOT / "trainer" / "semantic_geometry.py"
 KERNEL_REF = "jessealicea/new-lightcone-expansion-tpu-v0"
 WORLDS = [
     "geometry-foundation-v0",
@@ -66,6 +72,13 @@ def main() -> int:
     ):
         subprocess.run([sys.executable, str(ROOT / validator)], cwd=ROOT, check=True)
     for world in WORLDS:
+        validate_shadow_training_config(
+            json.loads(
+                (ROOT / "trainer" / "configs" / f"{world}.json").read_text(
+                    encoding="utf-8"
+                )
+            )
+        )
         subprocess.run(
             [sys.executable, str(ROOT / "trainer" / "compile_curriculum.py"), "--world-id", world],
             cwd=ROOT,
@@ -111,6 +124,8 @@ def main() -> int:
     archive = DATASET / "world-bundles.zip"
     deterministic_zip(package_root, archive)
     shutil.copy2(TRAINER, DATASET / "train_jax.py")
+    shutil.copy2(SHADOW_TRAINER, DATASET / "shadow_projection.py")
+    shutil.copy2(SEMANTIC_TRAINER, DATASET / "semantic_geometry.py")
     expansion = {
         "schema_version": 1,
         "dataset_ref": "jessealicea/new-lightcone-expansion-input-v0",
@@ -120,6 +135,8 @@ def main() -> int:
         "source_dirty": False,
         "archive_sha256": sha256(archive),
         "trainer_sha256": sha256(DATASET / "train_jax.py"),
+        "shadow_projection_sha256": sha256(DATASET / "shadow_projection.py"),
+        "semantic_geometry_sha256": sha256(DATASET / "semantic_geometry.py"),
         "worlds": world_rows,
     }
     (DATASET / "expansion-manifest.json").write_text(
@@ -131,4 +148,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

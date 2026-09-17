@@ -13,8 +13,9 @@ pub use admission::{
     Admission, AdmissionError, AdmissionPolicy, AdmissionReceipt, ConeDirection, TraversedEdge,
 };
 pub use model::{
-    Coordinates, EdgeDirection, EpistemicClass, Lexicon, NodeVector, RelationKind, SourceRecord,
-    SourceRegistry, WorldEdge, WorldManifest, WorldNode,
+    Coordinates, EdgeDirection, EpistemicClass, Lexicon, NodeVector, RelationKind,
+    ShadowCellQuantization, ShadowCertificate, ShadowCoordinates, ShadowManifest, ShadowProjection,
+    ShadowViewReceipt, SourceRecord, SourceRegistry, WorldEdge, WorldManifest, WorldNode,
 };
 pub use normalize::{normalize_text, query_terms};
 pub use pack::{PackError, WorldPack};

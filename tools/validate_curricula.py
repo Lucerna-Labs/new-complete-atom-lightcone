@@ -30,7 +30,7 @@ RELATIONS = {"causes", "enables", "supports", "grounds", "clarifies", "qualifies
 FOUNDATION_LANES = {
     "reasoning.deductive", "reasoning.inductive", "reasoning.abductive", "reasoning.analogical",
     "reasoning.causal", "reasoning.counterfactual", "reasoning.probabilistic", "thinking.bottom_up",
-    "thinking.lateral", "philosophy.analysis", "rhetoric.analysis", "geometry.structural",
+    "thinking.vertical", "thinking.nonlinear", "thinking.lateral", "philosophy.analysis", "rhetoric.analysis", "geometry.structural",
     "psychology.evidence", "neuroscience.evidence",
     "creativity.generation_selection", "creativity.conceptual_blending", "creativity.constraint_based",
     "creativity.novelty_value", "creativity.problem_framing", "creativity.tension_transformation",
@@ -61,8 +61,46 @@ def load_records() -> tuple[list[dict[str, Any]], list[str]]:
     return records, errors
 
 
+def worked_example_errors(records: list[dict[str, Any]]) -> list[str]:
+    errors: list[str] = []
+    worlds = {str(record.get("world_id")) for record in records}
+    counts: dict[str, collections.Counter[str]] = collections.defaultdict(collections.Counter)
+    examples: dict[str, set[str]] = collections.defaultdict(set)
+    connected: set[str] = set()
+    for record in records:
+        world_id = str(record.get("world_id"))
+        if record.get("record_kind") == "worked_example":
+            counts[world_id][str(record.get("split"))] += 1
+            examples[world_id].add(str(record.get("record_id")))
+        if record.get("record_kind") == "relation" and isinstance(record.get("relation"), dict):
+            connected.add(str(record["relation"].get("source_node")))
+            connected.add(str(record["relation"].get("target_node")))
+    for world_id in sorted(worlds):
+        for split in ("train", "validation", "sealed_test"):
+            if counts[world_id][split] == 0:
+                errors.append(f"world {world_id} has no worked example in {split}")
+        isolated = sorted(examples[world_id] - connected)
+        if isolated:
+            errors.append(f"world {world_id} has disconnected worked examples: {isolated}")
+    return errors
+
+
 def main() -> int:
     records, errors = load_records()
+    relation_catalog_path = ROOT / "ontology" / "relation-catalog.json"
+    try:
+        relation_catalog = load_json(relation_catalog_path)
+        relation_rows = relation_catalog.get("relations", [])
+        relation_ids = [row.get("id") for row in relation_rows]
+        if relation_catalog.get("schema_version") != 1:
+            errors.append("relation catalog schema_version must be 1")
+        if set(relation_ids) != RELATIONS or len(relation_ids) != len(set(relation_ids)):
+            errors.append("relation catalog does not close exactly over typed relations")
+        for row in relation_rows:
+            if not row.get("definition") or not row.get("lexical_cues"):
+                errors.append(f"relation catalog entry {row.get('id')} lacks semantics or cues")
+    except (OSError, json.JSONDecodeError, TypeError):
+        errors.append("relation catalog is missing or invalid")
     lanes = {lane["id"] for lane in load_json(LANE_CATALOG)["lanes"]}
     domains_data = load_json(DOMAIN_CATALOG)["domains"]
     domains = {domain["id"] for domain in domains_data}
@@ -176,6 +214,7 @@ def main() -> int:
         missing_splits = SPLITS - present_splits
         if missing_splits:
             errors.append(f"world {world_id} lacks required splits: {sorted(missing_splits)}")
+    errors.extend(worked_example_errors(records))
 
     print(f"records: {len(records)}")
     print(f"kinds: {dict(sorted(kind_counts.items()))}")

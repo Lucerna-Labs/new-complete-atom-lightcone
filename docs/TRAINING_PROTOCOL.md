@@ -40,6 +40,32 @@ Training optimizes distinct objectives and reports them separately:
 
 No aggregate score may hide a failed required family.
 
+## Protocol v3 evidence and shadow correction
+
+Protocol v2 retained relation statements in the curriculum but discarded their
+text from the training graph, then asked one global translation vector to infer
+every held-out typed relation. It also allowed the observer PCA to compete with
+placebos over coordinates whose useful variance was not explicitly organized
+for a four-dimensional observer. Those failures remain preserved as evidence.
+
+Protocol v3 keeps all thresholds unchanged and corrects the owning layers:
+
+- the compiler carries source-bound relation evidence text into the graph;
+- train-only hashed TF-IDF statistics align unseen evidence statements with
+  graph nodes, while a registered relation-semantics catalog and train-only
+  centroids score relation families;
+- curated causal worlds retain the JAX translation objective for training-edge
+  recovery; authoritative taxonomy worlds use evidence-to-descriptor recovery;
+- a train-only semantic PCA backbone occupies four dominant spatial
+  coordinates, while the remaining 44 coordinates retain a scaled JAX-trained
+  residual;
+- the observer projection is still independently fit on training nodes, remains
+  orthonormal and non-expansive, and is still excluded from admission.
+
+Optimization coordinates, final coordinates, the semantic-overlay receipt, and
+the evidence-index receipt are serialized separately so no evaluation path is
+hidden.
+
 ## Sealed evaluation
 
 Sealed tests contain unseen mechanisms, not just unseen wording. Evaluation
@@ -61,4 +87,3 @@ A world pack is accepted only when:
 - required gates pass without post-hoc threshold changes;
 - the pack reloads and produces deterministic admission receipts;
 - the training and validation receipts are present and hash-bound.
-

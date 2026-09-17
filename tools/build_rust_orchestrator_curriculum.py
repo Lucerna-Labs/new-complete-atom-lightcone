@@ -91,6 +91,14 @@ CONTROLS = [
 ]
 
 
+EXAMPLES = [
+    ("bounded-worker", "Bounded worker pipeline", "A typed command enters a bounded channel, one state owner validates the transition, a worker returns a correlated event, and overload is rejected before unbounded allocation.", "custom-rust-orchestrated-apps.typed-bus", "train"),
+    ("idempotent-retry", "Idempotent retry and reconciliation", "A timed-out effect retains its operation identity; a bounded retry is allowed only after the worker can deduplicate it, and reconciliation determines whether the original attempt committed.", "custom-rust-orchestrated-apps.failure-recovery", "validation"),
+    ("cancellation-ownership", "Cancellation-safe ownership", "An orchestrator cancels a child task only after the resource owner defines how partially completed I/O, locks, buffers, and completion events are reconciled.", "custom-rust-orchestrated-apps.state-machines", "sealed_test"),
+    ("host-boundary", "End-to-end host boundary", "A Rust coordinator passes a typed request through the real process boundary, verifies the returned identity and receipt, and distinguishes that proof from an in-memory mock.", "custom-rust-orchestrated-apps.end-to-end", "cross_domain_holdout"),
+]
+
+
 def base(identifier: str, subject: str, split: str, kind: str, epistemic: str, sources: list[str]) -> dict[str, Any]:
     return {
         "schema_version": 1,
@@ -149,6 +157,23 @@ def build() -> list[dict[str, Any]]:
                 "exceptions": []
             },
             "coverage_axes": ["mechanisms_causal_laws", "within_domain_composition", "applications_toolchains"]
+        })
+    for identifier, label, statement, subject, split in EXAMPLES:
+        node_id = f"example-{identifier}"
+        records.append({
+            **base(node_id, subject, split, "worked_example", "established", SOURCES),
+            "label": label,
+            "statement": statement,
+            "aliases": [],
+            "coverage_axes": ["deductions_predictions_execution", "applications_toolchains", "within_domain_composition"]
+        })
+        records.append({
+            **base(f"example-membership-{identifier}", subject, split, "relation", "established", SOURCES),
+            "label": f"{label} membership",
+            "statement": f"The {label.lower()} exercises a bounded Rust-orchestrator mechanism.",
+            "aliases": [],
+            "relation": {"source_node": f"rust-orchestrator.v0.{node_id}", "target_node": "rust-orchestrator.v0.root", "kind": "part_of", "polarity": 1, "direction": "forward", "conditions": ["the typed lifecycle and authority boundary remain fixed"], "exceptions": []},
+            "coverage_axes": ["applications_toolchains", "within_domain_composition"]
         })
     for index, (identifier, label, statement) in enumerate(CONTROLS):
         control_split = "train" if index == 0 else "sealed_test" if index == len(CONTROLS) - 1 or index % 2 else "validation"

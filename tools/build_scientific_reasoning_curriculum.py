@@ -70,7 +70,10 @@ CONCEPTS = [
     ("underdetermination", "Underdetermination", "Evidence underdetermines a conclusion when multiple incompatible accounts remain consistent with the available observations and assumptions.", "research-scientific-method.uncertainty"),
     ("theory-change", "Theory change", "Theory change compares empirical adequacy, explanatory reach, coherence, problem solving, assumptions, and novel predictions rather than using novelty alone.", "research-scientific-method.theory-change"),
     ("consensus", "Scientific consensus", "Scientific consensus summarizes convergent expert judgment and evidence at a time; it is strong social-epistemic evidence but remains revisable and domain-specific.", "research-scientific-method.theories"),
-    ("open-science", "Open science", "Open science practices expose methods, materials, data, code, provenance, and limitations where rights, privacy, and safety permit.", "research-scientific-method.open-science")
+    ("open-science", "Open science", "Open science practices expose methods, materials, data, code, provenance, and limitations where rights, privacy, and safety permit.", "research-scientific-method.open-science"),
+    ("forecast-time-series", "Time-series forecast", "A time-series forecast uses only information available at a stated cutoff and models temporal dependence, trend, seasonality, interventions, and revision behavior.", "forecasting-prediction.time-series"),
+    ("forecast-interval", "Forecast uncertainty interval", "A forecast interval describes a predicted outcome range with stated coverage or posterior meaning under a model and horizon.", "forecasting-prediction.uncertainty"),
+    ("forecast-failure", "Forecast failure analysis", "Forecast failure analysis separates data revision, regime shift, model misspecification, parameter error, implementation error, and irreducible variation before updating the method.", "forecasting-prediction.failure-analysis")
 ]
 
 
@@ -114,7 +117,11 @@ RELATIONS = [
     ("discovery-lateral", "alternative-hypothesis", "hypothesis", "enables", "Lateral generation expands candidate hypotheses before evidence-based selection."),
     ("bottom-up-theory", "observation", "theory", "supports", "Bottom-up scientific reasoning composes observations, mechanisms, and models toward theory without skipping their evidence chain."),
     ("open-reproducibility", "open-science", "reproducibility", "supports", "Accessible code, data, and methods support computational reproducibility where rights and safety allow."),
-    ("retrodiction-leakage", "retrodiction", "prediction", "qualifies", "Retrodiction is only an out-of-sample test when the target evidence was not used to construct the account.")
+    ("retrodiction-leakage", "retrodiction", "prediction", "qualifies", "Retrodiction is only an out-of-sample test when the target evidence was not used to construct the account."),
+    ("forecast-series-prediction", "forecast-time-series", "prediction", "part_of", "A time-series forecast is one temporally ordered prediction class."),
+    ("forecast-interval-prediction", "forecast-interval", "prediction", "qualifies", "A forecast interval qualifies predictive uncertainty at a declared horizon."),
+    ("forecast-failure-calibration", "forecast-failure", "calibration", "supports", "Failure analysis supports distinguishing calibration drift from data and mechanism changes."),
+    ("forecast-diagnosis-model", "forecast-failure", "model", "qualifies", "Diagnosed failure modes qualify model revision rather than rewarding post hoc story fitting.")
 ]
 
 
@@ -134,6 +141,14 @@ CONTROLS = [
     ("retrodiction-leak", "Retrodiction leakage", "Evidence used to build a model must not be presented as an independent successful prediction."),
     ("auxiliary-erasure", "Auxiliary-assumption erasure", "A failed prediction must not be attributed uniquely to the headline hypothesis when auxiliary assumptions could have failed."),
     ("unknown-domain", "Unknown-domain abstention", "The scientific lane must abstain when no sourced model, mechanism, or evidence covers the question's domain.")
+]
+
+
+EXAMPLES = [
+    ("rival-hypotheses", "Rival-hypothesis experiment", "A surprising growth pattern yields nutrient, temperature, contamination, and sensor-drift hypotheses; blinded controls and a preregistered measurement distinguish them while auxiliary assumptions remain visible.", "research-scientific-method.experimental", "train"),
+    ("forecast-cutoff", "Leak-free time-series forecast", "A forecast freezes its information cutoff, trains only on earlier observations, predicts a future interval, and scores the unrevised outcome separately from later data revisions.", "forecasting-prediction.time-series", "validation"),
+    ("replication-synthesis", "Replication and synthesis", "A new population study estimates the same construct with a declared protocol; effect differences are modeled before any meta-analysis or universal conclusion.", "research-scientific-method.reproducibility", "sealed_test"),
+    ("causal-mechanism", "Cross-domain causal mechanism", "An intervention changes an upstream state, measured intermediates trace the proposed mechanism, negative controls test confounding, and the warrant remains bounded to the studied system.", "research-scientific-method.causal-inference", "cross_domain_holdout"),
 ]
 
 
@@ -198,6 +213,23 @@ def build() -> list[dict[str, Any]]:
                 "exceptions": []
             },
             "coverage_axes": ["mechanisms_causal_laws", "within_domain_composition", "cross_domain_composition"]
+        })
+    for identifier, label, statement, subject, split in EXAMPLES:
+        node_id = f"example-{identifier}"
+        records.append({
+            **base(node_id, subject, split, "worked_example", "established", SOURCES),
+            "label": label,
+            "statement": statement,
+            "aliases": [],
+            "coverage_axes": ["deductions_predictions_execution", "applications_toolchains", "uncertainty_competing_hypotheses"]
+        })
+        records.append({
+            **base(f"example-membership-{identifier}", subject, split, "relation", "established", SOURCES),
+            "label": f"{label} membership",
+            "statement": f"The {label.lower()} exercises a bounded scientific-reasoning chain.",
+            "aliases": [],
+            "relation": {"source_node": f"science-reasoning.v0.{node_id}", "target_node": "science-reasoning.v0.root", "kind": "part_of", "polarity": 1, "direction": "forward", "conditions": ["the information cutoff, evidence, and scope remain fixed"], "exceptions": []},
+            "coverage_axes": ["applications_toolchains", "within_domain_composition"]
         })
     for index, (identifier, label, statement) in enumerate(CONTROLS):
         control_split = "train" if index == 0 else "sealed_test" if index == len(CONTROLS) - 1 or index % 2 else "validation"

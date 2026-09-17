@@ -29,3 +29,22 @@ permission.
 Date-sensitive medicine, security, standards, software, and scientific claims
 must carry an `as_of` or version boundary and an update obligation.
 
+## Writing-world source decision
+
+The literature and writing foundation uses original structured summaries.
+Library of Congress LCGFT and Purdue OWL are citation-only: their protected
+wording is not redistributed as curriculum. The 1920 *Elements of Style* and
+the S. H. Butcher translation of Aristotle's *Poetics* are registered through
+Project Gutenberg's United States public-domain records. The Google Developer
+Documentation Style Guide is registered under its page-level CC BY 4.0 notice,
+and Diataxis under CC BY-SA 4.0. Source labels, licenses, and locators remain in
+every compiled world manifest.
+
+OpenStax textbooks are deliberately excluded from every trainable curriculum:
+current textbook pages expressly withhold permission to train or ingest into
+large language models without separate permission. This exclusion covers the
+previously considered writing, precalculus, calculus, statistics, psychology,
+physics, chemistry, and biology books. The source validator rejects any
+excluded source identifier or locator that reappears in the active registry.
+Public availability and a surrounding Creative Commons notice are never
+treated as overriding a more specific training restriction.

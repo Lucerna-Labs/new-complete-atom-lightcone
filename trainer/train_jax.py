@@ -22,6 +22,14 @@ from typing import Any
 
 import numpy as np
 
+from shadow_projection import build_shadow_artifacts, validate_shadow_training_config
+from semantic_geometry import (
+    build_evidence_index,
+    build_semantic_overlay,
+    evaluate_evidence_edges,
+    validate_protocol_v3_config,
+)
+
 
 def canonical_bytes(value: Any) -> bytes:
     return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
@@ -42,6 +50,16 @@ def file_hash(path: Path) -> str:
 def write_json(path: Path, value: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(value, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+
+def require_fresh_output(path: Path) -> None:
+    if not path.exists():
+        return
+    existing = sorted(item.name for item in path.iterdir())
+    if existing:
+        raise RuntimeError(
+            f"output directory must be empty to prevent stale artifact admission: {existing}"
+        )
 
 
 def find_bundle(explicit: Path | None) -> Path:
@@ -180,7 +198,7 @@ def evaluate_edges(node: np.ndarray, relation: np.ndarray, arrays: dict[str, np.
         }
     ranks: list[int] = []
     direction: list[bool] = []
-    discriminated: list[bool] = []
+    discrimination_win_rates: list[float] = []
     relation_correct: list[bool] = []
     for source, target, relation_id, polarity, is_forward in zip(
         arrays["source"], arrays["target"], arrays["relation"], arrays["polarity"], arrays["forward"], strict=True
@@ -190,12 +208,12 @@ def evaluate_edges(node: np.ndarray, relation: np.ndarray, arrays: dict[str, np.
         distances = np.sum((node - query) ** 2, axis=1)
         target_distance = float(distances[int(target)])
         ranks.append(1 + int(np.sum(distances < target_distance - 1e-9)))
-        negative_target = (
-            int(target) + int(source) * 17 + int(relation_id) * 13 + 7
-        ) % len(node)
-        if negative_target == int(target):
-            negative_target = (negative_target + 1) % len(node)
-        discriminated.append(target_distance < float(distances[negative_target]))
+        if len(node) <= 1:
+            discrimination_win_rates.append(1.0)
+        else:
+            wins = distances > target_distance + 1e-9
+            wins[int(target)] = False
+            discrimination_win_rates.append(float(np.sum(wins)) / (len(node) - 1))
         relation_distances = np.sum(
             (
                 node[int(source)][None, :]
@@ -220,7 +238,8 @@ def evaluate_edges(node: np.ndarray, relation: np.ndarray, arrays: dict[str, np.
         "mrr": float(np.mean([1.0 / rank for rank in ranks])),
         "mean_rank": float(np.mean(ranks)),
         "direction_accuracy": sum(direction) / len(direction) if direction else 1.0,
-        "edge_discrimination_accuracy": sum(discriminated) / len(discriminated),
+        "edge_discrimination_accuracy": float(np.mean(discrimination_win_rates)),
+        "edge_discrimination_method": "all_non_target_pairwise_win_rate_v1",
         "relation_accuracy": sum(relation_correct) / len(relation_correct),
     }
 
@@ -272,6 +291,78 @@ def compare(observed: Any, operator: str, threshold: Any) -> bool:
     raise ValueError(f"unknown gate operator {operator}")
 
 
+def protocol_sample_counts(graph: dict[str, Any]) -> dict[str, dict[str, int]]:
+    splits = ("train", "validation", "sealed_test", "cross_domain_holdout")
+    return {
+        "edges": {
+            split: sum(
+                edge["split"] == split and edge["relation"] != "part_of"
+                for edge in graph["edges"]
+            )
+            for split in splits
+        },
+        "membership": {
+            split: sum(
+                edge["split"] == split and edge["relation"] == "part_of"
+                for edge in graph["edges"]
+            )
+            for split in splits
+        },
+        "negative_pairs": {
+            split: sum(pair["split"] == split for pair in graph["negative_pairs"])
+            for split in splits
+        },
+        "nodes": {
+            split: sum(node["split"] == split for node in graph["nodes"])
+            for split in splits
+        },
+    }
+
+
+def validate_protocol_samples(
+    graph: dict[str, Any], config: dict[str, Any]
+) -> dict[str, dict[str, int]]:
+    """Reject training or evaluation metrics backed by an empty sample set."""
+    counts = protocol_sample_counts(graph)
+    required_training = (("edges", "train"), ("membership", "train"), ("negative_pairs", "train"))
+    missing = [
+        f"{family}.{split}"
+        for family, split in required_training
+        if counts[family][split] == 0
+    ]
+    trained_relations = {
+        edge["relation"]
+        for edge in graph["edges"]
+        if edge["split"] == "train" and edge["relation"] != "part_of"
+    }
+    evaluated_relations = {
+        edge["relation"]
+        for edge in graph["edges"]
+        if edge["split"] != "train" and edge["relation"] != "part_of"
+    }
+    for relation in sorted(evaluated_relations - trained_relations):
+        missing.append(f"relation.{relation}.training_support")
+    for gate_name, gate in config["gates"].items():
+        parts = gate["metric"].split(".")
+        if len(parts) >= 3 and parts[0] in counts and parts[1] in counts[parts[0]]:
+            if counts[parts[0]][parts[1]] == 0:
+                missing.append(f"{parts[0]}.{parts[1]} required by {gate_name}")
+        if len(parts) >= 4 and parts[:2] == ["shadow", "evaluation"]:
+            split = parts[2]
+            if split in counts["nodes"] and counts["nodes"][split] == 0:
+                missing.append(f"nodes.{split} required by {gate_name}")
+        if len(parts) >= 4 and parts[:2] == ["shadow", "edge_evaluation"]:
+            split = parts[2]
+            if split in counts["edges"] and counts["edges"][split] == 0:
+                missing.append(f"edges.{split} required by {gate_name}")
+    if missing:
+        raise RuntimeError(
+            "training protocol contains empty required sample sets: "
+            + ", ".join(sorted(set(missing)))
+        )
+    return counts
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--input", type=Path)
@@ -279,6 +370,7 @@ def main() -> int:
     parser.add_argument("--config", type=Path)
     parser.add_argument("--require-tpu", action="store_true")
     args = parser.parse_args()
+    require_fresh_output(args.output)
     started = dt.datetime.now(dt.timezone.utc)
     wall_start = time.monotonic()
 
@@ -296,6 +388,9 @@ def main() -> int:
     }
     if graph["world_id"] != config["world_id"] or graph["world_id"] != bundle_manifest["world_id"]:
         raise RuntimeError("world identity differs between graph, config, and bundle")
+    validate_shadow_training_config(config)
+    validate_protocol_v3_config(config)
+    sample_counts = validate_protocol_samples(graph, config)
 
     import jax
     import jax.numpy as jnp
@@ -454,13 +549,69 @@ def main() -> int:
             if step_index % report_every == 0 or step_index == int(config["steps"]):
                 curve.append({"step": step_index, "loss": float(jax.device_get(loss_value))})
         final_loss = float(jax.device_get(loss_fn(params)))
-        node = np.array(
+        optimization_node = np.array(
             jax.device_get(node_coordinates(params)),
             dtype=np.float32,
             copy=True,
         )
-        relation = np.array(jax.device_get(params["relation"]), dtype=np.float32, copy=True)
+        optimization_relation = np.array(
+            jax.device_get(params["relation"]), dtype=np.float32, copy=True
+        )
 
+    node, semantic_overlay = build_semantic_overlay(
+        optimization_node, nodes, config
+    )
+    relation = optimization_relation
+    relational_edges = [
+        edge for edge in graph["edges"] if edge["relation"] != "part_of"
+    ]
+    relation_catalog = json.loads(
+        (bundle_root / "relation-catalog.json").read_text(encoding="utf-8")
+    )
+    evidence_index, evidence_artifact = build_evidence_index(
+        nodes, relational_edges, relation_catalog, config
+    )
+
+    shadow_artifacts = build_shadow_artifacts(
+        world_id=graph["world_id"],
+        coordinates=node,
+        nodes=nodes,
+        edges=graph["edges"],
+        config=config,
+    )
+    translation_edge_metrics = {
+        split: evaluate_edges(optimization_node, relation, arrays)
+        for split, arrays in edge_arrays_np.items()
+    }
+    evidence_edge_metrics = {
+        split: evaluate_evidence_edges(
+            nodes=nodes,
+            edges=relational_edges,
+            edge_indices=[
+                index
+                for index, edge in enumerate(relational_edges)
+                if edge["split"] == split
+            ],
+            evidence=evidence_index,
+            relation_prior_weight=float(config["relation_prior_weight"]),
+        )
+        for split in ("train", "validation", "sealed_test", "cross_domain_holdout")
+    }
+    edge_metrics: dict[str, dict[str, Any]] = {}
+    for split in ("train", "validation", "sealed_test", "cross_domain_holdout"):
+        if split == "train" and config["train_edge_evaluation_method"] == "jax_translation":
+            edge_metrics[split] = {
+                **translation_edge_metrics[split],
+                "evaluation_method": "jax_trained_translation_geometry_v1",
+            }
+        else:
+            edge_metrics[split] = {
+                **evidence_edge_metrics[split],
+                "direction_accuracy": translation_edge_metrics[split]["direction_accuracy"],
+                "direction_method": "jax_trained_translation_geometry_v1",
+                "translation_geometry": translation_edge_metrics[split],
+                "evaluation_method": "train_fitted_evidence_to_graph_v1",
+            }
     separation_threshold = float(config["negative_margin"]) - 1e-5
     metrics: dict[str, Any] = {
         "accelerator": {
@@ -474,19 +625,29 @@ def main() -> int:
             "final": final_loss,
             "decrease_fraction": (initial_loss - final_loss) / max(abs(initial_loss), 1e-12),
         },
-        "edges": {split: evaluate_edges(node, relation, arrays) for split, arrays in edge_arrays_np.items()},
+        "edges": edge_metrics,
+        "evidence_retrieval": evidence_artifact,
+        "semantic_overlay": semantic_overlay,
         "membership": {
             split: evaluate_membership(node, arrays, float(config["membership_radius"]))
             for split, arrays in membership_arrays_np.items()
         },
         "negative_pairs": {split: evaluate_pairs(node, arrays, separation_threshold) for split, arrays in pair_arrays_np.items()},
         "coordinates": {
-            "finite": bool(np.isfinite(node).all() and np.isfinite(relation).all()),
+            "finite": bool(
+                np.isfinite(node).all()
+                and np.isfinite(optimization_node).all()
+                and np.isfinite(relation).all()
+            ),
             "dimensions": int(node.shape[1]),
             "minimum_norm": float(np.min(np.linalg.norm(node, axis=1))),
             "maximum_norm": float(np.max(np.linalg.norm(node, axis=1))),
             "max_absolute_value": float(max(np.max(np.abs(node)), np.max(np.abs(relation)))),
+            "optimization_dimensions": int(optimization_node.shape[1]),
+            "optimization_max_absolute_value": float(np.max(np.abs(optimization_node))),
         },
+        "sample_counts": sample_counts,
+        "shadow": shadow_artifacts["metrics"],
     }
     gate_results: dict[str, Any] = {}
     for gate_name, gate in config["gates"].items():
@@ -510,6 +671,29 @@ def main() -> int:
         ],
     }
     write_json(args.output / "coordinates.json", coordinates)
+    write_json(
+        args.output / "optimization-coordinates.json",
+        {
+            "schema_version": 1,
+            "dimensions": int(optimization_node.shape[1]),
+            "vectors": [
+                {
+                    "node_id": node_id,
+                    "values": [
+                        round(float(value), 9)
+                        for value in optimization_node[index]
+                    ],
+                }
+                for index, node_id in enumerate(node_ids)
+            ],
+        },
+    )
+    write_json(args.output / "semantic-overlay.json", semantic_overlay)
+    write_json(args.output / "evidence-retrieval.json", evidence_artifact)
+    write_json(args.output / "shadow-projection.json", shadow_artifacts["projection"])
+    write_json(args.output / "shadow-coordinates.json", shadow_artifacts["coordinates"])
+    write_json(args.output / "shadow-observers.json", shadow_artifacts["observers"])
+    write_json(args.output / "shadow-metrics.json", shadow_artifacts["metrics"])
     write_json(args.output / "metrics.json", metrics)
     write_json(args.output / "training-curve.json", curve)
     write_json(
@@ -524,7 +708,32 @@ def main() -> int:
         },
     )
     np.save(args.output / "trained-node-coordinates.npy", node, allow_pickle=False)
+    np.save(
+        args.output / "trained-optimization-coordinates.npy",
+        optimization_node,
+        allow_pickle=False,
+    )
     np.save(args.output / "trained-relation-coordinates.npy", relation, allow_pickle=False)
+    np.save(
+        args.output / "trained-shadow-coordinates-4d.npy",
+        shadow_artifacts["shadow_array"],
+        allow_pickle=False,
+    )
+    np.save(
+        args.output / "shadow-projection-basis.npy",
+        shadow_artifacts["basis_array"],
+        allow_pickle=False,
+    )
+    np.save(
+        args.output / "shadow-random-basis-placebo.npy",
+        shadow_artifacts["random_basis_array"],
+        allow_pickle=False,
+    )
+    np.save(
+        args.output / "shadow-axis-permutation-placebo.npy",
+        shadow_artifacts["axis_permutation_array"],
+        allow_pickle=False,
+    )
     output_hashes = {
         path.name: file_hash(path)
         for path in sorted(args.output.iterdir())
@@ -554,6 +763,23 @@ def main() -> int:
         "metrics": metrics,
         "gates": gate_results,
         "output_hashes": output_hashes,
+        "shadow_projection": {
+            "projection_id": shadow_artifacts["projection"]["projection_id"],
+            "observer_only": True,
+            "used_for_admission": False,
+            "all_spatial": True,
+            "has_time_axis": False,
+            "source_dimensions": int(node.shape[1]),
+            "target_dimensions": 4,
+            "metric": "euclidean_l2",
+            "fit_split": "train",
+            "basis_sha256": shadow_artifacts["projection"]["basis_sha256"],
+            "deterministic_replay_sha256": shadow_artifacts["projection"]["deterministic_replay_sha256"],
+            "projection_artifact_sha256": output_hashes["shadow-projection.json"],
+            "coordinate_artifact_sha256": output_hashes["shadow-coordinates.json"],
+            "observer_artifact_sha256": output_hashes["shadow-observers.json"],
+            "metrics_artifact_sha256": output_hashes["shadow-metrics.json"],
+        },
         "started_at": started.isoformat(),
         "finished_at": finished.isoformat(),
         "elapsed_seconds": time.monotonic() - wall_start,

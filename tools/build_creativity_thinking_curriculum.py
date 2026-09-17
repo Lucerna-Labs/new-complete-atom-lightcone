@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Author deep creativity, bottom-up, and lateral-thinking curricula."""
+"""Author deep creativity and distinct bottom-up, vertical, nonlinear, and lateral-thinking curricula."""
 
 from __future__ import annotations
 
@@ -12,7 +12,11 @@ from curriculum_split import RelationSplitter
 
 OUTPUT = ROOT / "curricula" / "creativity-thinking" / "foundations.jsonl"
 WORLD = "creativity-thinking-v0"
-SOURCES = ["campbell-1960-bvsr", "boden-creative-mind", "de-bono-lateral-thinking", "sep-scientific-discovery", "openstax-psychology-2e"]
+SOURCES = [
+    "campbell-1960-bvsr", "boden-creative-mind", "de-bono-lateral-thinking",
+    "de-bono-lateral-vertical-1969", "vance-linear-nonlinear-2007",
+    "sep-scientific-discovery", "noba-psychology"
+]
 
 
 GROUPS = {
@@ -71,6 +75,46 @@ GROUPS = {
             ("boundary", "Construction boundary", "A construction boundary states where the available primitives and relations no longer support extrapolation.")
         ]
     },
+    "vertical": {
+        "root": "vertical.root",
+        "domain": "first-principles",
+        "subject": "first-principles.composition",
+        "lanes": ["thinking.vertical", "reasoning.deductive", "thinking.bottom_up"],
+        "concepts": [
+            ("root", "Vertical and linear refinement", "Vertical and linear refinement selects a working frame, advances through relevant dependency-ordered steps, validates each step, and checks whether the path converged or must reopen."),
+            ("selected-frame", "Selected working frame", "A selected working frame states which representation, assumptions, requirements, and success conditions currently organize the investigation."),
+            ("relevance", "Frame-relative relevance", "Frame-relative relevance prioritizes information that bears on the selected path while retaining anomalies and counterevidence for possible reopening."),
+            ("dependency", "Dependency chain", "A dependency chain orders steps so no result is used before its prerequisites have been established."),
+            ("step", "Sequential step", "A sequential step performs one declared operation and exposes its inputs and output."),
+            ("validation", "Local step validation", "Local step validation checks a result before it is admitted as an input to the next operation."),
+            ("deepening", "Path deepening", "Path deepening refines the most defensible current approach without pretending it is the only possible frame."),
+            ("convergence", "Convergence check", "A convergence check compares the current result with declared success, uncertainty, and stop conditions."),
+            ("dead-end", "Dead-end detection", "Dead-end detection identifies when further work inside the current frame cannot satisfy the requirements."),
+            ("reopen", "Frame reopening", "Frame reopening returns an invalid, exhausted, or contradicted path to assumption review and alternate-frame generation."),
+            ("trace", "Sequential dependency trace", "A sequential dependency trace preserves every validated step and the reason it was selected."),
+            ("handoff", "Vertical release boundary", "A vertical result is released only with its frame, dependency trace, checks, and remaining alternatives attached.")
+        ]
+    },
+    "nonlinear": {
+        "root": "nonlinear.root",
+        "domain": "first-principles",
+        "subject": "first-principles.composition",
+        "lanes": ["thinking.nonlinear", "reasoning.abductive", "reasoning.analogical", "reasoning.causal"],
+        "concepts": [
+            ("root", "Nonlinear thinking network", "A nonlinear thinking network integrates branching, recursive, feedback-linked, intuitive, and holistic cues, then externalizes and verifies its candidate structure before claim release."),
+            ("cue-field", "Cue field", "A cue field retains observations, internal cues, associations, constraints, tensions, and unknowns without granting every cue equal evidential weight."),
+            ("source-boundary", "Internal-external cue boundary", "The internal-external cue boundary distinguishes intuition and memory from externally checkable observations and sources."),
+            ("branch", "Branching exploration", "Branching exploration permits multiple linked paths to develop concurrently without collapsing them into one premature chain."),
+            ("association", "Association edge", "An association edge names why two cues are connected and how that connection could be checked."),
+            ("feedback", "Bounded feedback loop", "A bounded feedback loop allows downstream implications to revise earlier structure under an explicit termination rule."),
+            ("recursion", "Recursive decomposition", "Recursive decomposition revisits a candidate component at a finer scale while preserving its parent relation and stopping condition."),
+            ("holistic-pattern", "Holistic candidate pattern", "A holistic candidate pattern compresses distributed cues without erasing disagreements, missing links, or source classes."),
+            ("candidate", "Nonlinear candidate structure", "A nonlinear candidate structure is a proposed graph of relevant cues, relations, loops, and boundaries rather than an unexplained intuition."),
+            ("externalization", "Connection externalization", "Connection externalization converts implicit jumps into inspectable nodes, edges, assumptions, and alternatives."),
+            ("verification", "Nonlinear verification", "Nonlinear verification tests the externalized candidate with the appropriate logical, causal, probabilistic, empirical, or formal lane."),
+            ("stop", "Feedback stop condition", "A feedback stop condition prevents endless recursion, circular self-support, and unbounded associative drift.")
+        ]
+    },
     "lateral": {
         "root": "lateral.root",
         "domain": "first-principles",
@@ -119,6 +163,23 @@ RELATIONS = [
     ("bottom", "composition-emergence", "bottom.intermediate", "bottom.emergence", "causes", "Interacting intermediate structures can cause measured emergent behavior."),
     ("bottom", "feedback-local", "bottom.feedback", "bottom.local-relation", "qualifies", "Failure feedback qualifies which local relation or mechanism must be revised."),
     ("bottom", "boundary-abstraction", "bottom.boundary", "bottom.abstraction", "qualifies", "The construction boundary limits abstraction and extrapolation."),
+    ("vertical", "frame-relevance", "vertical.selected-frame", "vertical.relevance", "qualifies", "The selected frame qualifies which information is immediately relevant without deleting counterevidence."),
+    ("vertical", "relevance-dependency", "vertical.relevance", "vertical.dependency", "enables", "Relevant evidence enables a dependency-ordered path to be constructed."),
+    ("vertical", "dependency-step", "vertical.dependency", "vertical.step", "prerequisite", "Declared dependencies precede each sequential step."),
+    ("vertical", "step-validation", "vertical.step", "vertical.validation", "prerequisite", "Each sequential operation precedes its local validation."),
+    ("vertical", "validation-deepening", "vertical.validation", "vertical.deepening", "enables", "A validated step enables defensible path deepening."),
+    ("vertical", "deepening-convergence", "vertical.deepening", "vertical.convergence", "enables", "Path deepening enables a convergence check against declared success conditions."),
+    ("vertical", "dead-end-reopen", "vertical.dead-end", "vertical.reopen", "enables", "A demonstrated dead end enables the working frame to be reopened."),
+    ("vertical", "trace-handoff", "vertical.trace", "vertical.handoff", "prerequisite", "A complete dependency trace is prerequisite to releasing a vertical result."),
+    ("nonlinear", "cue-source-boundary", "nonlinear.cue-field", "nonlinear.source-boundary", "prerequisite", "Cue inventory precedes classification of internal and external evidence sources."),
+    ("nonlinear", "cue-branch", "nonlinear.cue-field", "nonlinear.branch", "enables", "The cue field enables several candidate paths to remain live."),
+    ("nonlinear", "branch-association", "nonlinear.branch", "nonlinear.association", "enables", "Branching paths enable explicit association edges to be proposed."),
+    ("nonlinear", "association-feedback", "nonlinear.association", "nonlinear.feedback", "enables", "Declared association edges enable bounded feedback across the candidate network."),
+    ("nonlinear", "feedback-recursion", "nonlinear.feedback", "nonlinear.recursion", "enables", "Feedback can enable recursive decomposition when the stopping rule remains explicit."),
+    ("nonlinear", "pattern-candidate", "nonlinear.holistic-pattern", "nonlinear.candidate", "enables", "A retained holistic pattern enables a candidate network structure to be stated."),
+    ("nonlinear", "candidate-externalization", "nonlinear.candidate", "nonlinear.externalization", "prerequisite", "The nonlinear candidate must be externalized before it can receive evidential weight."),
+    ("nonlinear", "externalization-verification", "nonlinear.externalization", "nonlinear.verification", "prerequisite", "Externalized connections precede independent verification."),
+    ("nonlinear", "stop-feedback", "nonlinear.stop", "nonlinear.feedback", "qualifies", "The stop condition qualifies every feedback iteration and blocks unbounded cycling."),
     ("lateral", "current-alternate", "lateral.current-frame", "lateral.alternate-frame", "enables", "Making the current frame explicit enables controlled alternatives."),
     ("lateral", "challenge-alternate", "lateral.assumption-challenge", "lateral.alternate-frame", "enables", "Challenging contingent assumptions enables alternate frames."),
     ("lateral", "perspective-alternate", "lateral.perspective", "lateral.alternate-frame", "enables", "A perspective shift enables a differently bounded representation."),
@@ -131,6 +192,10 @@ RELATIONS = [
     ("bridge", "bottom-creative", "bottom.intermediate", "creative.generation", "supports", "Bottom-up intermediate structures provide grounded material for creative generation."),
     ("bridge", "lateral-frame-creative", "lateral.alternate-frame", "creative.reframe", "supports", "Lateral alternate frames support creative reframing."),
     ("bridge", "creative-lateral-return", "creative.proposal-status", "lateral.constraint-return", "requires", "A creative proposal requires lateral constraint return before operational use."),
+    ("bridge", "lateral-vertical", "lateral.alternate-frame", "vertical.selected-frame", "enables", "Lateral exploration supplies alternate frames from which vertical refinement explicitly selects one."),
+    ("bridge", "nonlinear-vertical", "nonlinear.externalization", "vertical.selected-frame", "enables", "Externalized nonlinear structure enables a checkable frame to enter vertical refinement."),
+    ("bridge", "vertical-lateral-reopen", "vertical.reopen", "lateral.current-frame", "enables", "Vertical dead-end detection enables renewed lateral examination of the current frame."),
+    ("bridge", "bottom-nonlinear", "bottom.local-relation", "nonlinear.association", "supports", "Bottom-up local relations support evidence-weighted edges in nonlinear exploration."),
     ("bridge", "geometry-mapping", "bottom.local-relation", "creative.structural-mapping", "supports", "Explicit local relations support structural mapping across conceptual spaces.")
 ]
 
@@ -151,7 +216,25 @@ CONTROLS = [
     ("lateral", "unsafe-reframe", "A reframe must not evade safety, permission, or user exclusions."),
     ("lateral", "false-analogy", "Surface resemblance without aligned causal or relational structure must not justify transfer."),
     ("lateral", "provocation-fact", "A provocative exploration must not be stored or released as observed fact."),
-    ("lateral", "novelty-only", "A lateral candidate must not bypass comparison with a conventional candidate on validity and value.")
+    ("lateral", "novelty-only", "A lateral candidate must not bypass comparison with a conventional candidate on validity and value."),
+    ("vertical", "tunnel-vision", "A selected frame must not erase anomalies, counterevidence, or the option to reopen."),
+    ("vertical", "premature-convergence", "A plausible intermediate result must not be reported as convergence before success and stop conditions pass."),
+    ("vertical", "invalid-step", "A failed local step must not become a premise for later sequential work."),
+    ("vertical", "assumption-lock-in", "Repeated work inside one frame must not convert an untested assumption into a fact."),
+    ("nonlinear", "intuition-fact", "An intuitive or holistic impression must not be released as observed or established fact."),
+    ("nonlinear", "opaque-jump", "An association whose connecting relation cannot be externalized must remain an unsupported candidate."),
+    ("nonlinear", "runaway-feedback", "Feedback without a stop rule must not be treated as deeper understanding."),
+    ("nonlinear", "post-hoc-coherence", "A neat network assembled after seeing an outcome must not be mistaken for independent prediction or causal evidence.")
+]
+
+
+EXAMPLES = [
+    ("creative", "candidate-portfolio", "Creative candidate portfolio", "A design brief produces a conventional option, a constraint-driven option, a structural blend, and a lateral reframe; hard constraints eliminate two before novelty and value rank the survivors.", "train"),
+    ("bottom", "service-reconstruction", "Bottom-up service reconstruction", "Observed requests, state transitions, queue capacity, persistence acknowledgements, and failure receipts are composed into a service model without assuming an undocumented global coordinator.", "validation"),
+    ("lateral", "cooling-reframe", "Lateral cooling reframe", "A cooling-capacity problem is reframed through thermal storage, workload timing, heat reuse, and demand reduction, then every candidate is returned to safety, cost, and temperature constraints.", "sealed_test"),
+    ("creative", "tension-bridge", "Creative tension bridge", "A need for rapid recovery and a need for complete audit are transformed into an append-only event log plus rebuildable materialized state, with the tradeoffs kept explicit.", "cross_domain_holdout"),
+    ("vertical", "compiler-chain", "Vertical compiler investigation", "A compiler failure is followed through parsing, typing, ownership, code generation, and linkage in dependency order; every local result is validated before the path deepens.", "validation"),
+    ("nonlinear", "distributed-outage", "Nonlinear outage map", "Timing, load, retry, cache, ownership, and observation cues are linked into a bounded feedback graph, then externalized as hypotheses for independent causal and empirical checks.", "sealed_test"),
 ]
 
 
@@ -168,13 +251,13 @@ def base(record_id: str, group: str, split: str, kind: str, epistemic: str, sour
         "epistemic_class": epistemic,
         "coverage_axes": ["definitions_scope", "primitives_invariants", "mechanisms_causal_laws", "within_domain_composition"],
         "source_ids": sources,
-        "scope": "creativity, bottom-up, and lateral-thinking foundation",
+        "scope": "creativity plus distinct bottom-up, vertical, nonlinear, and lateral-thinking foundations",
         "limitations": ["Creative outputs remain proposals; domain truth and operational permission require independent lanes."],
         "as_of": "2026-09-03",
         "version_boundary": "creativity-thinking-v0",
         "split_group": record_id,
         "split": split,
-        "tags": ["creativity", "bottom-up", "lateral"]
+        "tags": ["creativity", "bottom-up", "vertical", "nonlinear", "lateral"]
     }
 
 
@@ -224,6 +307,24 @@ def build() -> list[dict[str, Any]]:
             "coverage_axes": ["mechanisms_causal_laws", "within_domain_composition", "cross_domain_composition"]
         })
         records.append(record)
+    for group, identifier, label, statement, split in EXAMPLES:
+        node_id = f"example.{group}.{identifier}"
+        epistemic = "creative" if group == "creative" else "interpretive"
+        records.append({
+            **base(node_id, group, split, "worked_example", epistemic, SOURCES),
+            "label": label,
+            "statement": statement,
+            "aliases": [],
+            "coverage_axes": ["deductions_predictions_execution", "applications_toolchains", "uncertainty_competing_hypotheses"]
+        })
+        records.append({
+            **base(f"example-membership.{group}.{identifier}", group, split, "relation", epistemic, SOURCES),
+            "label": f"{label} membership",
+            "statement": f"The {label.lower()} exercises a bounded {group} mechanism.",
+            "aliases": [],
+            "relation": {"source_node": node_id, "target_node": GROUPS[group]["root"], "kind": "part_of", "polarity": 1, "direction": "forward", "conditions": ["proposal status and hard constraints remain explicit"], "exceptions": []},
+            "coverage_axes": ["applications_toolchains", "within_domain_composition"]
+        })
     for index, (group, identifier, statement) in enumerate(CONTROLS):
         control_split = "train" if index == 0 else "sealed_test" if index == len(CONTROLS) - 1 or index % 2 else "validation"
         records.append({

@@ -44,8 +44,13 @@ def finalize(input_root: Path, training_output: Path, destination: Path, version
     if bundle["world_id"] != graph["world_id"] or not receipt["run_id"].startswith(graph["world_id"] + "-"):
         raise RuntimeError("world identity differs across input and training output")
     coordinates = load_json(training_output / "coordinates.json")
+    shadow_projection = load_json(training_output / "shadow-projection.json")
+    shadow_coordinates = load_json(training_output / "shadow-coordinates.json")
+    shadow_observers = load_json(training_output / "shadow-observers.json")
     if len(coordinates["vectors"]) != bundle["node_count"]:
         raise RuntimeError("coordinate count differs from compiled node count")
+    if len(shadow_coordinates["vectors"]) != bundle["node_count"]:
+        raise RuntimeError("shadow coordinate count differs from compiled node count")
 
     if destination.exists():
         raise RuntimeError(f"destination already exists: {destination}")
@@ -56,13 +61,24 @@ def finalize(input_root: Path, training_output: Path, destination: Path, version
     for name in ("nodes.jsonl", "edges.jsonl", "sources.json", "lexicon.json"):
         shutil.copy2(input_root / name, destination / name)
     shutil.copy2(training_output / "coordinates.json", destination / "coordinates.json")
+    for name in ("shadow-projection.json", "shadow-coordinates.json", "shadow-observers.json"):
+        shutil.copy2(training_output / name, destination / name)
     shutil.copy2(training_output / "training-receipt.json", destination / "receipts" / "training-receipt.json")
     for name in (
         "metrics.json",
         "training-curve.json",
+        "optimization-coordinates.json",
+        "semantic-overlay.json",
+        "evidence-retrieval.json",
         "relation-coordinates.json",
         "trained-node-coordinates.npy",
+        "trained-optimization-coordinates.npy",
         "trained-relation-coordinates.npy",
+        "shadow-metrics.json",
+        "trained-shadow-coordinates-4d.npy",
+        "shadow-projection-basis.npy",
+        "shadow-random-basis-placebo.npy",
+        "shadow-axis-permutation-placebo.npy",
     ):
         shutil.copy2(training_output / name, destination / "training" / name)
 
@@ -78,11 +94,32 @@ def finalize(input_root: Path, training_output: Path, destination: Path, version
             "kaggle_tpu": receipt["accelerator"]["platform"] == "kaggle" and receipt["accelerator"]["kind"] == "tpu",
             "all_pre_registered_gates": all(gate["passed"] for gate in receipt["gates"].values()),
             "coordinate_count": len(coordinates["vectors"]) == bundle["node_count"],
+            "shadow_coordinate_count": len(shadow_coordinates["vectors"]) == bundle["node_count"],
+            "shadow_projection_identity": shadow_projection["projection_id"]
+            == shadow_coordinates["projection_id"]
+            == shadow_observers["projection_id"]
+            == receipt["shadow_projection"]["projection_id"],
+            "shadow_source_dimensions": shadow_projection["source_dimensions"]
+            == coordinates["dimensions"],
+            "shadow_four_spatial_dimensions": shadow_projection["target_dimensions"] == 4
+            and shadow_coordinates["dimensions"] == 4
+            and shadow_projection["axis_names"] == ["x", "y", "z", "w"]
+            and shadow_projection["all_spatial"] is True
+            and shadow_projection["has_time_axis"] is False,
+            "shadow_observer_boundary": shadow_projection["observer_only"] is True
+            and shadow_projection["used_for_admission"] is False
+            and shadow_observers["observer_only"] is True,
+            "shadow_non_expansive": shadow_projection["certificate"]["non_expansive"] is True,
+            "shadow_deterministic": shadow_projection["deterministic_replay"] is True,
+            "shadow_composition": shadow_observers["composition"]["three_dimensional_exact"] is True
+            and shadow_observers["composition"]["two_dimensional_exact"] is True,
             "adapter_independent": bool(graph["adapter_independent"]),
         },
         "limitations": [
-            "Foundation lane anatomy only; the exhaustive subject ledger remains open.",
+            "This pack closes only its declared world and ontology revision; open-world discovery remains separately versioned.",
             "Adapter conformance is evaluated separately from world training.",
+            "The four-dimensional all-spatial shadow is observer-only; exact graph reachability and full coordinates remain authoritative.",
+            "Projection collisions, invisible edges, and false proximity remain explicit in the shadow metrics.",
         ],
     }
     if not all(validation["checks"].values()):
@@ -107,6 +144,16 @@ def finalize(input_root: Path, training_output: Path, destination: Path, version
         "node_count": bundle["node_count"],
         "edge_count": bundle["edge_count"],
         "coordinate_dimensions": coordinates["dimensions"],
+        "shadow": {
+            "dimensions": 4,
+            "projection": "shadow-projection.json",
+            "coordinates": "shadow-coordinates.json",
+            "observers": "shadow-observers.json",
+            "observer_only": True,
+            "used_for_admission": False,
+            "all_spatial": True,
+            "has_time_axis": False,
+        },
         "files": files,
         "training_receipt": "receipts/training-receipt.json",
         "validation_receipts": ["receipts/accelerator-validation.json"],
@@ -130,4 +177,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

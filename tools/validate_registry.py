@@ -38,6 +38,8 @@ REQUIRED_LANES = {
     "reasoning.counterfactual",
     "reasoning.probabilistic",
     "thinking.bottom_up",
+    "thinking.vertical",
+    "thinking.nonlinear",
     "thinking.lateral",
     "philosophy.analysis",
     "rhetoric.analysis",

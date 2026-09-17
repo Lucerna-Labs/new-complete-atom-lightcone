@@ -54,6 +54,8 @@ A domain is exhaustive only when all of the following are true:
 - positive, negative, adversarial, counterfactual, and unknown controls pass;
 - held-out mechanisms and held-out cross-domain compositions pass;
 - geometry and exact graph invariants pass;
+- full-to-4D shadow non-expansion, composition, distortion, and placebo gates
+  pass while the shadow remains excluded from admission authority;
 - artifacts reproduce from pinned inputs and seeds;
 - at least the declared adapter compatibility matrix passes;
 - the gap scanner returns no known open item for that domain;
@@ -61,4 +63,3 @@ A domain is exhaustive only when all of the following are true:
 
 The project as a whole cannot be called exhaustive while any mandatory domain
 is unsealed or the discovery ledger contains an unresolved candidate.
-

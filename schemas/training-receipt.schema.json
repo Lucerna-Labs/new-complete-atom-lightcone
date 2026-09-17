@@ -6,7 +6,7 @@
   "required": [
     "schema_version", "run_id", "protocol_id", "status", "source_revision", "source_dirty",
     "input_hashes", "split_manifest_hash", "accelerator", "framework", "seed",
-    "hyperparameters", "metrics", "gates", "output_hashes", "started_at", "finished_at"
+    "hyperparameters", "metrics", "gates", "output_hashes", "shadow_projection", "started_at", "finished_at"
   ],
   "properties": {
     "schema_version": { "const": 1 },
@@ -48,6 +48,34 @@
       }
     },
     "output_hashes": { "type": "object", "minProperties": 1, "additionalProperties": { "$ref": "#/$defs/sha256" } },
+    "shadow_projection": {
+      "type": "object",
+      "required": [
+        "projection_id", "observer_only", "used_for_admission", "all_spatial",
+        "has_time_axis", "source_dimensions", "target_dimensions", "metric",
+        "fit_split", "basis_sha256", "deterministic_replay_sha256", "projection_artifact_sha256",
+        "coordinate_artifact_sha256", "observer_artifact_sha256",
+        "metrics_artifact_sha256"
+      ],
+      "properties": {
+        "projection_id": { "type": "string", "minLength": 1 },
+        "observer_only": { "const": true },
+        "used_for_admission": { "const": false },
+        "all_spatial": { "const": true },
+        "has_time_axis": { "const": false },
+        "source_dimensions": { "type": "integer", "minimum": 4 },
+        "target_dimensions": { "const": 4 },
+        "metric": { "const": "euclidean_l2" },
+        "fit_split": { "const": "train" },
+        "basis_sha256": { "$ref": "#/$defs/sha256" },
+        "deterministic_replay_sha256": { "$ref": "#/$defs/sha256" },
+        "projection_artifact_sha256": { "$ref": "#/$defs/sha256" },
+        "coordinate_artifact_sha256": { "$ref": "#/$defs/sha256" },
+        "observer_artifact_sha256": { "$ref": "#/$defs/sha256" },
+        "metrics_artifact_sha256": { "$ref": "#/$defs/sha256" }
+      },
+      "additionalProperties": false
+    },
     "started_at": { "type": "string", "format": "date-time" },
     "finished_at": { "type": "string", "format": "date-time" },
     "elapsed_seconds": { "type": "number", "minimum": 0 },

@@ -23,9 +23,11 @@ by `ontology/discovery-manifest.json`.
 ## State semantics
 
 Every imported entry begins as `unmapped`. Mapping requires a deliberate link
-to one or more coverage-ledger items. Exclusion requires a reason. A taxonomy
-term remains a discovery item until sourced curriculum supplies definitions,
-scope, mechanisms, boundaries, controls, compositions, and sealed tests.
+to one or more coverage-ledger items. Exclusion requires a reason. The current
+MSC2020 and MeSH 2026 snapshot is fully mapped: each entry is bound to a domain
+and subfield and materialized in a source-versioned curriculum world. Mapping
+does not mean accelerator acceptance or promote a taxonomy hierarchy to a
+causal, diagnostic, or physical part-whole claim.
 
 The project cannot be called exhaustive while any authoritative discovery is
 unmapped. `tools/validate_registry.py --require-sealed` enforces that rule.
@@ -33,14 +35,16 @@ unmapped. `tools/validate_registry.py --require-sealed` enforces that rule.
 ## Work shards
 
 `tools/plan_taxonomy_training_shards.py` deterministically assigns every
-discovery exactly once to a bounded curriculum-work shard. Current planning
-uses 256 entries per shard and produces:
+discovery exactly once to a bounded curriculum-work shard. Remainders smaller
+than 32 entries are merged into the preceding shard so every world can retain
+all required split types. Current planning uses a target of 256 entries per
+shard and produces:
 
 - 29 MSC2020 shards;
-- 128 MeSH 2026 shards;
-- 157 shards total covering all 37,713 entries with zero duplicates.
+- 126 MeSH 2026 shards;
+- 155 shards total covering all 37,713 entries with zero duplicates.
 
-These are work manifests, not training claims. Every shard still requires
-sourcing, authoring, isolated splits, Kaggle TPU training, sealed evaluation,
-and adapter-independent artifact verification.
-
+All 155 shards are authored with isolated splits, unknown controls, worked
+routing examples, and source-bound hierarchy anchors. They are not training
+claims: Kaggle TPU training, sealed evaluation, and adapter-independent artifact
+verification remain mandatory.

@@ -27,7 +27,9 @@ LANE_CONTEXT: dict[str, dict[str, Any]] = {
     "reasoning.causal": {"domain": "probability-statistics", "subject": "probability-statistics.causal-inference", "sources": ["sep-causal-models"]},
     "reasoning.counterfactual": {"domain": "philosophy", "subject": "philosophy.logic", "sources": ["sep-counterfactuals", "sep-causal-models"]},
     "reasoning.probabilistic": {"domain": "probability-statistics", "subject": "probability-statistics.probability-foundations", "sources": ["sep-probability", "sep-inductive-logic"]},
-    "thinking.bottom_up": {"domain": "first-principles", "subject": "first-principles.composition", "sources": ["open-logic-project", "openstax-psychology-2e"]},
+    "thinking.bottom_up": {"domain": "first-principles", "subject": "first-principles.composition", "sources": ["open-logic-project", "noba-psychology"]},
+    "thinking.vertical": {"domain": "first-principles", "subject": "first-principles.composition", "sources": ["de-bono-lateral-vertical-1969", "open-logic-project"]},
+    "thinking.nonlinear": {"domain": "first-principles", "subject": "first-principles.composition", "sources": ["vance-linear-nonlinear-2007", "noba-psychology"]},
     "thinking.lateral": {"domain": "first-principles", "subject": "first-principles.composition", "sources": ["de-bono-lateral-thinking", "sep-scientific-discovery"]},
     "creativity.generation_selection": {"domain": "creative-writing", "subject": "creative-writing.story-structure", "sources": ["campbell-1960-bvsr", "boden-creative-mind"]},
     "creativity.conceptual_blending": {"domain": "creative-writing", "subject": "creative-writing.story-structure", "sources": ["boden-creative-mind"]},
@@ -35,11 +37,11 @@ LANE_CONTEXT: dict[str, dict[str, Any]] = {
     "creativity.novelty_value": {"domain": "creative-writing", "subject": "creative-writing.story-structure", "sources": ["campbell-1960-bvsr", "boden-creative-mind"]},
     "creativity.problem_framing": {"domain": "first-principles", "subject": "first-principles.decomposition", "sources": ["sep-scientific-discovery", "boden-creative-mind"]},
     "creativity.tension_transformation": {"domain": "creative-writing", "subject": "creative-writing.tension", "sources": ["boden-creative-mind"]},
-    "creativity.memory_recombination": {"domain": "psychology-cognitive-science", "subject": "psychology-cognitive-science.learning", "sources": ["openstax-psychology-2e", "boden-creative-mind"]},
+    "creativity.memory_recombination": {"domain": "psychology-cognitive-science", "subject": "psychology-cognitive-science.learning", "sources": ["noba-psychology", "boden-creative-mind"]},
     "philosophy.analysis": {"domain": "philosophy", "subject": "philosophy.epistemology", "sources": ["sep-argument", "open-logic-project"]},
     "rhetoric.analysis": {"domain": "rhetoric-argumentation", "subject": "rhetoric-argumentation.rhetorical-situation", "sources": ["sep-aristotle-rhetoric", "sep-argument"]},
-    "geometry.structural": {"domain": "geometry", "subject": "geometry.transformations", "sources": ["mathlib4", "openstax-precalculus-2e"]},
-    "psychology.evidence": {"domain": "psychology-cognitive-science", "subject": "psychology-cognitive-science.replication", "sources": ["openstax-psychology-2e"]},
+    "geometry.structural": {"domain": "geometry", "subject": "geometry.transformations", "sources": ["mathlib4", "msc2020"]},
+    "psychology.evidence": {"domain": "psychology-cognitive-science", "subject": "psychology-cognitive-science.replication", "sources": ["noba-psychology"]},
     "neuroscience.evidence": {"domain": "neuroscience-neurology", "subject": "neuroscience-neurology.clinical-boundaries", "sources": ["ninds-brain-basics", "ncbi-neuroscience-2e"]}
 }
 
@@ -83,6 +85,16 @@ STAGE_EXPLANATIONS = {
     "local_relations": "relations are established locally before a global story is inferred",
     "composition": "validated primitives and local relations are assembled in an explicit order",
     "abstraction": "higher-level structure retains a trace back to the observations and primitives that support it",
+    "frame_selection": "one working frame is chosen explicitly from the task requirements and currently available alternatives",
+    "relevance_filter": "information is ordered by its relevance to the selected frame without erasing anomalies or counterevidence",
+    "sequential_step": "one dependency-respecting operation advances the working path at a time",
+    "step_validation": "each local result is checked before it becomes a premise for the next step",
+    "convergence_check": "the path is tested for completion, dead end, or a need to reopen assumptions and alternate frames",
+    "cue_field": "observations, internal cues, associations, constraints, and unresolved tensions are inventoried without treating intuition as evidence",
+    "associative_topology": "branching and cross-linked cues are externalized as a graph whose connections can be inspected",
+    "feedback_iteration": "new implications can revisit earlier nodes through bounded feedback with an explicit stop condition",
+    "candidate_structure": "the traversed network is compressed into a candidate explanation, decision, or design while its path remains traceable",
+    "explicit_verification": "the nonlinear candidate is translated into checkable claims, assumptions, relations, and tests before release",
     "frame_inventory": "the current frame and plausible alternate frames are named",
     "perspective_shift": "a deliberate change of viewpoint is performed without changing the task's hard requirements",
     "remote_association": "a distant candidate is connected by a structural bridge rather than word proximity",
@@ -134,6 +146,33 @@ STAGE_EXPLANATIONS = {
     "structure": "neural structures are identified at the appropriate anatomical scale",
     "function": "functional claims are tied to tasks and evidence rather than inferred from location alone",
     "clinical_boundary": "clinical claims carry date, population, uncertainty, and non-diagnostic scope"
+}
+
+
+FOUNDATION_EXAMPLES = {
+    "reasoning.deductive": "Given that every admitted build artifact has a recorded hash and this artifact has no recorded hash, modus tollens rejects its admission without changing either premise.",
+    "reasoning.inductive": "Repeated failures from a stratified sample support a bounded reliability estimate with a confidence interval, while an unobserved deployment population remains outside the warrant.",
+    "reasoning.abductive": "A latency spike generates cache miss, lock contention, network loss, and measurement-error hypotheses; discriminating traces revise their ranking without converting the best explanation into proof.",
+    "reasoning.analogical": "A bounded work queue maps to a reservoir through capacity, inflow, outflow, and overflow relations; the analogy transfers conservation structure but not fluid-specific laws.",
+    "reasoning.causal": "Randomized rollout assignment, verified temporal order, measured compliance, and predeclared outcomes support a scoped causal effect while attrition and interference remain explicit.",
+    "reasoning.counterfactual": "A duplicated payment is compared with a world where the retry carried the same idempotency key, holding order and account state fixed under a declared service model.",
+    "reasoning.probabilistic": "A rare-event prior, sensitivity, and false-positive rate update to a posterior after a positive observation, with calibration and population shift retained as limits.",
+    "thinking.bottom_up": "A data pipeline is reconstructed from parse, validate, transform, persist, and acknowledge primitives, then checked at every typed interface before any end-to-end claim.",
+    "thinking.vertical": "A compiler failure is followed through parse, type, borrow, code-generation, and linkage stages in dependency order; each finding is validated before the investigation deepens or changes frame.",
+    "thinking.nonlinear": "A distributed outage is represented as a network of timing, load, retry, cache, ownership, and observation cues; feedback paths generate a candidate structure that is then converted into testable hypotheses.",
+    "thinking.lateral": "A cooling problem is reframed through time shifting, thermal storage, workload placement, and demand shaping; each remote association is returned to the original safety and energy constraints.",
+    "creativity.generation_selection": "Several structurally different interface concepts are generated, traced to their inputs, and selected with an explicit accessibility, latency, and maintainability rubric.",
+    "creativity.conceptual_blending": "A library lending model and a package registry contribute separately traced roles to a dependency-sharing proposal whose new behavior is labeled as a candidate, not evidence.",
+    "creativity.constraint_based": "A mobile interaction is varied in layout and motion while minimum target size, keyboard access, contrast, privacy, and destructive-action confirmation remain hard constraints.",
+    "creativity.novelty_value": "Candidate algorithms are plotted against structural novelty and measured utility so a surprising but unusable candidate does not dominate a less novel effective one.",
+    "creativity.problem_framing": "A request to make a queue faster is reframed as reducing tail latency, bounding overload, preserving fairness, or changing demand, with the original service obligations retained.",
+    "creativity.tension_transformation": "Fast recovery and auditability are reconciled by an append-only event log plus materialized state, rather than erasing either side of the tension.",
+    "creativity.memory_recombination": "A remembered circuit-breaker pattern and a new batch workflow are recombined into a candidate design, then independently checked because memory supplies material rather than truth.",
+    "philosophy.analysis": "An argument about responsibility is reconstructed into premises, meanings, inference, objections, and a qualified conclusion while rival compatibilist and incompatibilist assumptions remain visible.",
+    "rhetoric.analysis": "A technical announcement is analyzed by speaker, audience, exigence, genre, claims, evidence, framing, omissions, and plausible effects without inferring private intent.",
+    "geometry.structural": "A rigid rotation changes coordinates while preserving incidence, pairwise distance, orientation, and adjacency; a reflection is rejected when handedness is a declared invariant.",
+    "psychology.evidence": "A memory intervention is evaluated with an operational definition, comparison group, delayed measure, effect uncertainty, replication, and population limits rather than a person-level diagnosis.",
+    "neuroscience.evidence": "Converging lesion, stimulation, electrophysiology, and imaging evidence constrains a network-level function claim while reverse inference from activation alone is rejected.",
 }
 
 
@@ -277,8 +316,53 @@ def build() -> list[dict[str, Any]]:
                 "tags": ["foundation", "negative-control", lane["kind"]]
             })
 
+        example_split = ["train", "train", "validation", "sealed_test"][
+            len(root_ids) % 4
+        ]
+        example_id = f"{lane_id}.example.foundation"
+        records.append({
+            **base,
+            "record_id": example_id,
+            "record_kind": "worked_example",
+            "epistemic_class": "interpretive" if lane["kind"] in {"analysis", "creativity"} else "established",
+            "label": f"{lane['label']} worked example",
+            "statement": FOUNDATION_EXAMPLES[lane_id],
+            "aliases": [],
+            "coverage_axes": ["deductions_predictions_execution", "applications_toolchains", "uncertainty_competing_hypotheses"],
+            "split_group": example_id,
+            "split": example_split,
+            "source_ids": context["sources"],
+            "tags": ["foundation", "worked-example", lane["kind"]]
+        })
+        records.append({
+            **base,
+            "record_id": f"{lane_id}.membership.example",
+            "record_kind": "relation",
+            "epistemic_class": "interpretive" if lane["kind"] in {"analysis", "creativity"} else "established",
+            "label": f"{lane['label']} worked-example membership",
+            "statement": f"The worked example exercises the declared stages and controls of {lane['label'].lower()}.",
+            "aliases": [],
+            "relation": {
+                "source_node": example_id,
+                "target_node": root_id,
+                "kind": "part_of",
+                "polarity": 1,
+                "direction": "forward",
+                "conditions": ["the example retains its stated assumptions and limits"],
+                "exceptions": []
+            },
+            "coverage_axes": ["applications_toolchains", "within_domain_composition"],
+            "split_group": f"{lane_id}.membership.example",
+            "split": example_split,
+            "source_ids": context["sources"]
+        })
+
     bridges = [
         ("thinking.bottom_up", "reasoning.deductive", "enables", "Bottom-up primitive extraction enables a deductive lane to declare rather than assume its premises."),
+        ("thinking.vertical", "reasoning.deductive", "supports", "Validated sequential steps support a deductive derivation while keeping the chosen frame explicit."),
+        ("thinking.nonlinear", "reasoning.abductive", "enables", "A traceable network of cues enables multiple candidate explanations without granting intuition factual authority."),
+        ("thinking.lateral", "thinking.vertical", "enables", "Lateral exploration supplies alternate frames; vertical thinking can then deepen and validate one selected path."),
+        ("thinking.nonlinear", "thinking.vertical", "qualifies", "A nonlinear candidate must be externalized into checkable steps before vertical refinement can release it as a claim."),
         ("geometry.structural", "reasoning.analogical", "enables", "Structural geometry enables analogy to match relations and invariants instead of surface vocabulary."),
         ("reasoning.abductive", "reasoning.causal", "qualifies", "Abduction proposes explanations; causal controls qualify which explanation may receive causal warrant."),
         ("reasoning.probabilistic", "reasoning.inductive", "supports", "Probabilistic calibration supports the strength assigned to an inductive generalization."),
@@ -290,9 +374,16 @@ def build() -> list[dict[str, Any]]:
         ("neuroscience.evidence", "psychology.evidence", "qualifies", "Neuroscience can constrain psychological mechanism claims without reducing constructs to brain-location labels."),
         ("geometry.structural", "thinking.bottom_up", "supports", "Objects, relations, transformations, and invariants support bottom-up composition across domains.")
     ]
+    seen_bridge_relations: set[str] = set()
     for index, (left, right, relation, statement) in enumerate(bridges):
         left_context = LANE_CONTEXT[left]
         sources = sorted(set(left_context["sources"] + LANE_CONTEXT[right]["sources"]))
+        bridge_split = (
+            "cross_domain_holdout"
+            if index % 3 == 2 and relation in seen_bridge_relations
+            else "train"
+        )
+        seen_bridge_relations.add(relation)
         records.append({
             **record_base(left, left_context),
             "record_id": f"bridge.foundation.{index:02d}",
@@ -313,7 +404,7 @@ def build() -> list[dict[str, Any]]:
             },
             "coverage_axes": ["cross_domain_composition", "mechanisms_causal_laws"],
             "split_group": f"bridge.foundation.{index:02d}",
-            "split": "cross_domain_holdout" if index % 3 == 2 else "train",
+            "split": bridge_split,
             "source_ids": sources,
             "tags": ["foundation", "cross-lane-bridge"]
         })

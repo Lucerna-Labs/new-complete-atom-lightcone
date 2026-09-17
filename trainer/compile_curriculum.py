@@ -15,37 +15,60 @@ from common import canonical_hash, file_hash, normalize_text, read_jsonl, write_
 ROOT = Path(__file__).resolve().parents[1]
 CURRICULA = ROOT / "curricula"
 SOURCES = ROOT / "sources" / "source-registry.json"
+RELATION_CATALOG = ROOT / "ontology" / "relation-catalog.json"
 ONTOLOGY_FILES = [
     ROOT / "ontology" / "coverage-axes.json",
     ROOT / "ontology" / "domain-catalog.json",
     ROOT / "ontology" / "lane-catalog.json",
+    ROOT / "ontology" / "relation-catalog.json",
 ]
 
 
-def collect(world_id: str) -> list[dict[str, Any]]:
+def collect_all() -> list[dict[str, Any]]:
     records = read_jsonl(sorted(CURRICULA.rglob("*.jsonl")))
+    for record in records:
+        record.pop("__source", None)
+    return sorted(records, key=lambda record: record["record_id"])
+
+
+def collect(
+    world_id: str, curriculum_records: list[dict[str, Any]] | None = None
+) -> list[dict[str, Any]]:
+    records = curriculum_records if curriculum_records is not None else collect_all()
     selected = [record for record in records if record.get("world_id") == world_id]
     if not selected:
         raise ValueError(f"no curriculum records found for world {world_id}")
-    for record in selected:
-        record.pop("__source", None)
     return sorted(selected, key=lambda record: record["record_id"])
 
 
-def compile_bundle(world_id: str, output: Path) -> dict[str, Any]:
-    records = collect(world_id)
+def find_lane_roots(records: list[dict[str, Any]]) -> dict[str, str]:
+    """Select only actual concept nodes as lane roots.
+
+    Relation identifiers may legitimately end in `.root`; treating those as
+    nodes creates negative pairs with dangling endpoints.
+    """
+    roots: dict[str, str] = {}
+    for record in records:
+        if record.get("record_kind") != "concept" or not record["record_id"].endswith(".root"):
+            continue
+        for lane in record["lanes"]:
+            roots.setdefault(lane, record["record_id"])
+    return roots
+
+
+def compile_bundle(
+    world_id: str,
+    output: Path,
+    curriculum_records: list[dict[str, Any]] | None = None,
+) -> dict[str, Any]:
+    records = collect(world_id, curriculum_records)
     nodes: list[dict[str, Any]] = []
     edges: list[dict[str, Any]] = []
     lexicon: dict[str, list[str]] = collections.defaultdict(list)
     graph_nodes: list[dict[str, Any]] = []
     graph_edges: list[dict[str, Any]] = []
     negative_pairs: list[dict[str, Any]] = []
-    lane_roots: dict[str, str] = {}
-
-    for record in records:
-        if record["record_id"].endswith(".root"):
-            for lane in record["lanes"]:
-                lane_roots.setdefault(lane, record["record_id"])
+    lane_roots = find_lane_roots(records)
 
     for record in records:
         if record["record_kind"] == "relation":
@@ -70,6 +93,16 @@ def compile_bundle(world_id: str, output: Path) -> dict[str, Any]:
                 "relation": edge["kind"],
                 "polarity": edge["polarity"],
                 "direction": edge["direction"],
+                "text": "\n".join(
+                    part
+                    for part in (
+                        record.get("label", record["record_id"]),
+                        record["statement"],
+                        *relation.get("conditions", []),
+                        *relation.get("exceptions", []),
+                    )
+                    if part
+                ),
                 "split": record["split"],
                 "split_group": record["split_group"],
             })
@@ -95,6 +128,8 @@ def compile_bundle(world_id: str, output: Path) -> dict[str, Any]:
         graph_nodes.append({
             "node_id": node["node_id"],
             "text": f"{node['label']}\n{node['statement']}",
+            "label": node["label"],
+            "aliases": node["aliases"],
             "domain_id": node["domain_id"],
             "subject_id": node["subject_id"],
             "lanes": node["lanes"],
@@ -118,6 +153,9 @@ def compile_bundle(world_id: str, output: Path) -> dict[str, Any]:
                     })
 
     node_ids = {node["node_id"] for node in nodes}
+    invalid_roots = sorted(set(lane_roots.values()) - node_ids)
+    if invalid_roots:
+        raise ValueError(f"lane roots are not compiled nodes: {invalid_roots}")
     dangling = [
         edge["edge_id"]
         for edge in edges
@@ -177,6 +215,10 @@ def compile_bundle(world_id: str, output: Path) -> dict[str, Any]:
     write_jsonl(output / "nodes.jsonl", nodes)
     write_jsonl(output / "edges.jsonl", edges)
     write_json(output / "sources.json", compiled_sources)
+    write_json(
+        output / "relation-catalog.json",
+        json.loads(RELATION_CATALOG.read_text(encoding="utf-8")),
+    )
     write_json(output / "lexicon.json", {"schema_version": 1, "entries": {term: sorted(set(ids)) for term, ids in sorted(lexicon.items())}})
     write_json(output / "split-manifest.json", split_manifest)
     write_json(output / "training-graph.json", training_graph)

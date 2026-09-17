@@ -15,13 +15,15 @@ def main() -> int:
     parser.add_argument("--kind", choices=["lane", "domain", "subfield", "bridge"], required=True)
     parser.add_argument("--all-of-kind", action="store_true")
     parser.add_argument("--id", action="append", dest="ids", default=[])
+    parser.add_argument("--parent", action="append", dest="parents", default=[])
     parser.add_argument("--status", choices=STATUS_ORDER, required=True)
     parser.add_argument("--axis", action="append", default=[], help="axis=status")
     parser.add_argument("--evidence", required=True)
+    parser.add_argument("--remove-evidence", action="append", default=[])
     parser.add_argument("--note", required=True)
     args = parser.parse_args()
-    if not args.all_of_kind and not args.ids:
-        parser.error("provide --all-of-kind or one or more --id")
+    if not args.all_of_kind and not args.ids and not args.parents:
+        parser.error("provide --all-of-kind, one or more --id, or one or more --parent")
     evidence = ROOT / args.evidence
     if not evidence.is_file():
         parser.error(f"evidence file does not exist: {evidence}")
@@ -35,13 +37,24 @@ def main() -> int:
         updates[axis] = status
 
     ledger = json.loads(COVERAGE_LEDGER.read_text(encoding="utf-8"))
+    kind_items = [item for item in ledger["items"] if item["kind"] == args.kind]
+    known_ids = {item["id"] for item in kind_items}
+    missing_ids = set(args.ids) - known_ids
+    if missing_ids:
+        parser.error(f"coverage selection has unknown IDs: {sorted(missing_ids)}")
+    known_parents = {item.get("parent") for item in kind_items}
+    missing_parents = set(args.parents) - known_parents
+    if missing_parents:
+        parser.error(f"coverage selection has unknown parents: {sorted(missing_parents)}")
     selected = []
-    for item in ledger["items"]:
-        if item["kind"] != args.kind:
-            continue
-        if args.all_of_kind or item["id"] in args.ids:
+    for item in kind_items:
+        if args.all_of_kind or item["id"] in args.ids or item.get("parent") in args.parents:
             selected.append(item)
-    expected = len([item for item in ledger["items"] if item["kind"] == args.kind]) if args.all_of_kind else len(set(args.ids))
+    expected = (
+        len([item for item in ledger["items"] if item["kind"] == args.kind])
+        if args.all_of_kind
+        else len(selected)
+    )
     if len(selected) != expected:
         found = {item["id"] for item in selected}
         parser.error(f"coverage selection mismatch; missing {sorted(set(args.ids) - found)}")
@@ -58,6 +71,9 @@ def main() -> int:
             if current in COVERAGE_ORDER and status in COVERAGE_ORDER and COVERAGE_ORDER.index(status) < COVERAGE_ORDER.index(current):
                 parser.error(f"refusing to regress {item['id']} axis {axis}")
             item["coverage"][axis] = status
+        item["evidence"] = [
+            evidence for evidence in item["evidence"] if evidence not in args.remove_evidence
+        ]
         if args.evidence not in item["evidence"]:
             item["evidence"].append(args.evidence)
         if args.note not in item["notes"]:
@@ -69,4 +85,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

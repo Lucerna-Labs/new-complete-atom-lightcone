@@ -1,5 +1,6 @@
 use crate::model::{
-    Coordinates, EdgeDirection, Lexicon, SourceRegistry, WorldEdge, WorldManifest, WorldNode,
+    Coordinates, EdgeDirection, Lexicon, ShadowCoordinates, ShadowManifest, ShadowProjection,
+    ShadowViewReceipt, SourceRegistry, WorldEdge, WorldManifest, WorldNode,
 };
 use crate::normalize::normalize_text;
 use sha2::{Digest, Sha256};
@@ -40,6 +41,8 @@ pub struct WorldPack {
     pub sources: SourceRegistry,
     pub lexicon: BTreeMap<String, Vec<String>>,
     pub coordinates: Option<Coordinates>,
+    pub shadow_projection: Option<ShadowProjection>,
+    pub shadow_coordinates: Option<ShadowCoordinates>,
     pub(crate) outgoing: BTreeMap<String, Vec<String>>,
     pub(crate) incoming: BTreeMap<String, Vec<String>>,
 }
@@ -97,6 +100,20 @@ impl WorldPack {
         } else {
             None
         };
+        let (shadow_projection, shadow_coordinates) = if let Some(shadow) = &manifest.shadow {
+            (
+                Some(parse_file::<ShadowProjection>(&safe_join(
+                    &root,
+                    &shadow.projection,
+                )?)?),
+                Some(parse_file::<ShadowCoordinates>(&safe_join(
+                    &root,
+                    &shadow.coordinates,
+                )?)?),
+            )
+        } else {
+            (None, None)
+        };
         validate_contents(
             &manifest,
             &nodes,
@@ -104,6 +121,7 @@ impl WorldPack {
             &sources,
             &lexicon,
             coordinates.as_ref(),
+            (shadow_projection.as_ref(), shadow_coordinates.as_ref()),
         )?;
 
         let mut outgoing: BTreeMap<String, Vec<String>> = BTreeMap::new();
@@ -142,8 +160,107 @@ impl WorldPack {
             sources,
             lexicon: lexicon.entries,
             coordinates,
+            shadow_projection,
+            shadow_coordinates,
             outgoing,
             incoming,
+        })
+    }
+
+    pub fn shadow_view(
+        &self,
+        node_id: &str,
+        dropped_axes: &[String],
+    ) -> Result<ShadowViewReceipt, PackError> {
+        let shadow_manifest = self.manifest.shadow.as_ref().ok_or_else(|| {
+            PackError::Invalid("world pack has no four-dimensional shadow".into())
+        })?;
+        let projection = self.shadow_projection.as_ref().ok_or_else(|| {
+            PackError::Invalid("world pack did not load its shadow projection".into())
+        })?;
+        let coordinates = self.shadow_coordinates.as_ref().ok_or_else(|| {
+            PackError::Invalid("world pack did not load its shadow coordinates".into())
+        })?;
+        if !self.nodes.contains_key(node_id) {
+            return Err(PackError::Invalid(format!("unknown shadow node {node_id}")));
+        }
+        let mut requested = BTreeSet::new();
+        for axis in dropped_axes {
+            if !projection.axis_names.contains(axis) {
+                return Err(PackError::Invalid(format!(
+                    "unknown shadow axis {axis:?}; expected x, y, z, or w"
+                )));
+            }
+            if !requested.insert(axis.clone()) {
+                return Err(PackError::Invalid(format!(
+                    "shadow axis {axis:?} was dropped more than once"
+                )));
+            }
+        }
+        if requested.len() > 2 {
+            return Err(PackError::Invalid(
+                "observer views retain at least two of the four spatial axes".into(),
+            ));
+        }
+        let vector = coordinates
+            .vectors
+            .iter()
+            .find(|vector| vector.node_id == node_id)
+            .ok_or_else(|| PackError::Invalid(format!("shadow has no vector for {node_id}")))?;
+        let kept_indices = projection
+            .axis_names
+            .iter()
+            .enumerate()
+            .filter(|(_, axis)| !requested.contains(*axis))
+            .map(|(index, _)| index)
+            .collect::<Vec<_>>();
+        let kept_axes = kept_indices
+            .iter()
+            .map(|index| projection.axis_names[*index].clone())
+            .collect::<Vec<_>>();
+        let observer_values = kept_indices
+            .iter()
+            .map(|index| vector.values[*index])
+            .collect::<Vec<_>>();
+        let width = projection.cell_quantization.cell_width;
+        let quantized_cell = vector
+            .values
+            .iter()
+            .map(|value| (f64::from(*value) / width + 0.5).floor() as i64)
+            .collect();
+        let projection_artifact_hash = self
+            .manifest
+            .files
+            .get(&shadow_manifest.projection)
+            .cloned()
+            .ok_or_else(|| PackError::Invalid("shadow projection is not hash-bound".into()))?;
+        Ok(ShadowViewReceipt {
+            schema_version: 1,
+            world_id: self.manifest.world_id.clone(),
+            world_version: self.manifest.version.clone(),
+            manifest_hash: self.manifest_hash.clone(),
+            projection_id: projection.projection_id.clone(),
+            projection_artifact_hash,
+            node_id: node_id.to_string(),
+            all_spatial: true,
+            has_time_axis: false,
+            observer_only: true,
+            used_for_admission: false,
+            holds_verdict: false,
+            source_dimensions: projection.source_dimensions,
+            shadow_dimensions: projection.target_dimensions,
+            observer_dimensions: observer_values.len(),
+            metric: projection.metric.clone(),
+            dropped_axes: projection
+                .axis_names
+                .iter()
+                .filter(|axis| requested.contains(*axis))
+                .cloned()
+                .collect(),
+            kept_axes,
+            shadow_values: vector.values.clone(),
+            observer_values,
+            quantized_cell,
         })
     }
 }
@@ -173,6 +290,31 @@ fn validate_manifest(manifest: &WorldManifest) -> Result<(), PackError> {
             "world pack has no validation receipt".into(),
         ));
     }
+    if let Some(shadow) = &manifest.shadow {
+        if shadow.dimensions != 4
+            || !shadow.observer_only
+            || shadow.used_for_admission
+            || !shadow.all_spatial
+            || shadow.has_time_axis
+        {
+            return Err(PackError::Invalid(
+                "manifest shadow is not an observer-only four-dimensional all-spatial view".into(),
+            ));
+        }
+        for path in [&shadow.projection, &shadow.coordinates, &shadow.observers] {
+            validate_relative(path)?;
+            if !manifest.files.contains_key(path) {
+                return Err(PackError::Invalid(format!(
+                    "shadow artifact {path} is not hash-bound by the manifest"
+                )));
+            }
+        }
+        if !manifest.files.contains_key("coordinates.json") {
+            return Err(PackError::Invalid(
+                "shadow projection requires hash-bound full coordinates".into(),
+            ));
+        }
+    }
     for (path, digest) in &manifest.files {
         validate_relative(path)?;
         if digest.len() != 64
@@ -193,6 +335,7 @@ fn validate_contents(
     sources: &SourceRegistry,
     lexicon: &Lexicon,
     coordinates: Option<&Coordinates>,
+    shadow: (Option<&ShadowProjection>, Option<&ShadowCoordinates>),
 ) -> Result<(), PackError> {
     if nodes.len() != manifest.node_count || edges.len() != manifest.edge_count {
         return Err(PackError::Invalid(format!(
@@ -325,6 +468,234 @@ fn validate_contents(
         return Err(PackError::Invalid(
             "manifest declares coordinates but coordinates.json is absent".into(),
         ));
+    }
+    match (manifest.shadow.as_ref(), coordinates, shadow.0, shadow.1) {
+        (Some(shadow_manifest), Some(full), Some(projection), Some(shadow)) => {
+            validate_shadow(manifest, shadow_manifest, nodes, full, projection, shadow)?;
+        }
+        (None, _, None, None) => {}
+        _ => {
+            return Err(PackError::Invalid(
+                "manifest and loaded shadow artifacts are inconsistent".into(),
+            ));
+        }
+    }
+    Ok(())
+}
+
+fn validate_shadow(
+    manifest: &WorldManifest,
+    shadow_manifest: &ShadowManifest,
+    nodes: &BTreeMap<String, WorldNode>,
+    full: &Coordinates,
+    projection: &ShadowProjection,
+    shadow: &ShadowCoordinates,
+) -> Result<(), PackError> {
+    let expected_axes = ["x", "y", "z", "w"];
+    if projection.schema_version != 1
+        || projection.world_id != manifest.world_id
+        || projection.projection_id.trim().is_empty()
+        || !projection.observer_only
+        || projection.used_for_admission
+        || !projection.all_spatial
+        || projection.has_time_axis
+        || projection.source_dimensions != full.dimensions
+        || projection.target_dimensions != 4
+        || projection
+            .axis_names
+            .iter()
+            .map(String::as_str)
+            .collect::<Vec<_>>()
+            != expected_axes
+        || projection.metric != "euclidean_l2"
+        || projection.method != "train_split_centered_pca_with_orthonormal_rows"
+        || projection.fit_split != "train"
+        || projection.fit_node_count < 2
+        || projection.fit_node_count > nodes.len()
+        || !projection.deterministic_replay
+    {
+        return Err(PackError::Invalid(
+            "shadow projection metadata violates the four-dimensional observer contract".into(),
+        ));
+    }
+    if shadow_manifest.dimensions != 4
+        || shadow.schema_version != 1
+        || shadow.projection_id != projection.projection_id
+        || shadow.dimensions != 4
+        || shadow
+            .axis_names
+            .iter()
+            .map(String::as_str)
+            .collect::<Vec<_>>()
+            != expected_axes
+    {
+        return Err(PackError::Invalid(
+            "shadow coordinate metadata differs from its projection".into(),
+        ));
+    }
+    for digest in [
+        &projection.fit_node_ids_sha256,
+        &projection.source_coordinates_sha256,
+        &projection.basis_sha256,
+        &projection.deterministic_replay_sha256,
+    ] {
+        if digest.len() != 64
+            || !digest
+                .bytes()
+                .all(|byte| byte.is_ascii_hexdigit() && !byte.is_ascii_uppercase())
+        {
+            return Err(PackError::Invalid(
+                "shadow projection contains an invalid SHA-256".into(),
+            ));
+        }
+    }
+    if projection.center.len() != full.dimensions
+        || projection.basis.len() != 4
+        || projection
+            .basis
+            .iter()
+            .any(|row| row.len() != full.dimensions)
+        || projection.center.iter().any(|value| !value.is_finite())
+        || projection
+            .basis
+            .iter()
+            .flatten()
+            .any(|value| !value.is_finite())
+        || projection.explained_variance_ratio.len() != 4
+        || projection
+            .explained_variance_ratio
+            .iter()
+            .any(|value| !value.is_finite() || !(0.0..=1.0).contains(value))
+        || !projection.cell_quantization.cell_width.is_finite()
+        || projection.cell_quantization.cell_width <= 0.0
+        || projection.cell_quantization.method != "nearest_integer_cell"
+        || !projection.reach_radius.is_finite()
+        || projection.reach_radius <= 0.0
+    {
+        return Err(PackError::Invalid(
+            "shadow projection contains invalid numeric structure".into(),
+        ));
+    }
+    let mut permutation = projection.axis_shuffle_permutation.clone();
+    permutation.sort_unstable();
+    if permutation != (0..full.dimensions).collect::<Vec<_>>() {
+        return Err(PackError::Invalid(
+            "shadow axis-shuffle placebo is not a dimension permutation".into(),
+        ));
+    }
+    let certificate = &projection.certificate;
+    if !certificate.non_expansive
+        || certificate.distance_expansion_violations != 0
+        || !certificate.tolerance.is_finite()
+        || certificate.tolerance <= 0.0
+        || !certificate.orthonormal_max_error.is_finite()
+        || !certificate.spectral_norm.is_finite()
+        || !certificate.maximum_distance_expansion.is_finite()
+        || certificate.maximum_distance_expansion > certificate.tolerance
+        || certificate.spectral_norm > 1.0 + certificate.tolerance
+    {
+        return Err(PackError::Invalid(
+            "shadow non-expansion certificate is invalid".into(),
+        ));
+    }
+    let tolerance = certificate.tolerance.max(0.000_02);
+    for left in 0..4 {
+        for right in 0..4 {
+            let dot = projection.basis[left]
+                .iter()
+                .zip(&projection.basis[right])
+                .map(|(a, b)| a * b)
+                .sum::<f64>();
+            let expected = if left == right { 1.0 } else { 0.0 };
+            if (dot - expected).abs() > tolerance {
+                return Err(PackError::Invalid(
+                    "shadow projection rows are not orthonormal".into(),
+                ));
+            }
+        }
+    }
+
+    let full_by_id = full
+        .vectors
+        .iter()
+        .map(|vector| (vector.node_id.as_str(), vector))
+        .collect::<BTreeMap<_, _>>();
+    let shadow_by_id = shadow
+        .vectors
+        .iter()
+        .map(|vector| (vector.node_id.as_str(), vector))
+        .collect::<BTreeMap<_, _>>();
+    if full.vectors.len() != nodes.len()
+        || shadow.vectors.len() != nodes.len()
+        || shadow_by_id.len() != nodes.len()
+        || !nodes
+            .keys()
+            .all(|node| shadow_by_id.contains_key(node.as_str()))
+    {
+        return Err(PackError::Invalid(
+            "shadow coordinates do not cover every node exactly once".into(),
+        ));
+    }
+    for node_id in nodes.keys() {
+        let source = full_by_id[node_id.as_str()];
+        let observed = shadow_by_id[node_id.as_str()];
+        if observed.values.len() != 4 || observed.values.iter().any(|value| !value.is_finite()) {
+            return Err(PackError::Invalid(format!(
+                "node {node_id} has an invalid shadow vector"
+            )));
+        }
+        for axis in 0..4 {
+            let expected = source
+                .values
+                .iter()
+                .zip(&projection.center)
+                .zip(&projection.basis[axis])
+                .map(|((value, center), weight)| (f64::from(*value) - center) * weight)
+                .sum::<f64>();
+            if (expected - f64::from(observed.values[axis])).abs() > tolerance {
+                return Err(PackError::Invalid(format!(
+                    "node {node_id} shadow vector does not match the registered projection"
+                )));
+            }
+        }
+    }
+    let ordered = nodes
+        .keys()
+        .map(|node_id| {
+            (
+                full_by_id[node_id.as_str()].values.as_slice(),
+                shadow_by_id[node_id.as_str()].values.as_slice(),
+            )
+        })
+        .collect::<Vec<_>>();
+    for left in 0..ordered.len() {
+        for right in left + 1..ordered.len() {
+            let full_distance = ordered[left]
+                .0
+                .iter()
+                .zip(ordered[right].0)
+                .map(|(a, b)| {
+                    let delta = f64::from(*a) - f64::from(*b);
+                    delta * delta
+                })
+                .sum::<f64>()
+                .sqrt();
+            let shadow_distance = ordered[left]
+                .1
+                .iter()
+                .zip(ordered[right].1)
+                .map(|(a, b)| {
+                    let delta = f64::from(*a) - f64::from(*b);
+                    delta * delta
+                })
+                .sum::<f64>()
+                .sqrt();
+            if shadow_distance > full_distance + tolerance {
+                return Err(PackError::Invalid(
+                    "shadow coordinates violate non-expansion".into(),
+                ));
+            }
+        }
     }
     Ok(())
 }

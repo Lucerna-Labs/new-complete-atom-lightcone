@@ -47,3 +47,9 @@ An adapter is supported only after passing identity, passthrough, grounding,
 unknown, injection, truncation, tool-call, malformed-output, and restart tests.
 Model accuracy and boundary correctness are scored separately.
 
+The initial explicit compatibility target is `Qwen/Qwen3.8-27B`. Its target
+manifest records the official 27B multimodal architecture, 262,144-token native
+context boundary, thinking controls, and declared runtime routes. Those routes
+remain `declared`, not supported, until an exact model revision and runtime
+build produce immutable conformance receipts. The target never enters a world
+artifact; tokenizer, chat-template, and inference details remain adapter-owned.

@@ -71,7 +71,19 @@ CONCEPTS = [
     ("legibility", "Legibility", "Legibility concerns distinguishing characters and words under a particular typeface, rendering, size, and viewing condition.", "typography-color-visual-design.readability"),
     ("readability", "Readability", "Readability concerns how easily extended text can be read given language, composition, typography, content, and reader conditions.", "typography-color-visual-design.readability"),
     ("rasterization", "Rasterization", "Rasterization converts geometric glyph descriptions into pixels under a scale, grid, and rendering method.", "typography-color-visual-design.font-technology"),
-    ("hinting", "Font hinting", "Hinting supplies instructions or constraints that adjust outline rasterization at particular pixel grids and sizes.", "typography-color-visual-design.font-technology")
+    ("hinting", "Font hinting", "Hinting supplies instructions or constraints that adjust outline rasterization at particular pixel grids and sizes.", "typography-color-visual-design.font-technology"),
+    ("composition", "Visual composition", "Visual composition arranges elements, space, scale, contrast, rhythm, alignment, and hierarchy to guide attention and relationships within a bounded medium.", "typography-color-visual-design.composition"),
+    ("visual-balance", "Visual balance", "Visual balance distributes perceptual weight through position, scale, contrast, density, color, and asymmetry rather than requiring mirror symmetry.", "typography-color-visual-design.composition"),
+    ("proximity", "Visual proximity", "Proximity can signal grouping when spacing differences remain perceptible and do not conflict with stronger enclosure, alignment, or semantic cues.", "typography-color-visual-design.composition"),
+    ("alignment", "Visual alignment", "Alignment creates geometric relations among elements and reading paths while purposeful breaks can establish emphasis.", "typography-color-visual-design.composition"),
+    ("data-visualization", "Data visualization", "Data visualization maps data variables and uncertainty to perceptual marks, positions, channels, scales, annotations, and interactions for a declared analytical task.", "typography-color-visual-design.data-visualization"),
+    ("visual-encoding", "Visual encoding", "A visual encoding maps a data variable to position, length, angle, area, color, shape, texture, or another channel with known perceptual limits.", "typography-color-visual-design.data-visualization"),
+    ("data-scale", "Visualization scale", "A visualization scale maps data values into visual coordinates under domain, range, transform, ticks, clipping, and missing-data rules.", "typography-color-visual-design.data-visualization"),
+    ("uncertainty-display", "Visual uncertainty", "Uncertainty can be encoded through intervals, distributions, ensembles, opacity, texture, or annotation without hiding assumptions and sample size.", "typography-color-visual-design.data-visualization"),
+    ("icon", "Interface icon", "An icon is a compact visual sign whose meaning depends on form, label, placement, convention, state, culture, and interaction context.", "typography-color-visual-design.iconography"),
+    ("pictogram", "Pictogram", "A pictogram uses a simplified representational image to communicate an object, action, category, or warning and may require accompanying text.", "typography-color-visual-design.iconography"),
+    ("icon-family", "Icon family", "An icon family maintains coherent stroke, fill, grid, corner, perspective, optical size, and metaphor conventions across distinct meanings.", "typography-color-visual-design.iconography"),
+    ("icon-state", "Icon state", "Icon state distinguishes default, hover, focus, active, selected, disabled, error, and progress through redundant visual and semantic cues.", "typography-color-visual-design.iconography")
 ]
 
 
@@ -120,7 +132,19 @@ RELATIONS = [
     ("hint-raster", "hinting", "rasterization", "qualifies", "Hinting qualifies outline rasterization at particular grids and sizes."),
     ("geometry-type", "grid", "baseline", "supports", "Grid and baseline geometry support consistent typographic alignment."),
     ("color-type", "contrast-ratio", "legibility", "supports", "Adequate foreground-background contrast supports legibility."),
-    ("rhetoric-hierarchy", "hierarchy", "readability", "qualifies", "Hierarchy guides reading order, while excessive or inconsistent hierarchy can reduce readability.")
+    ("rhetoric-hierarchy", "hierarchy", "readability", "qualifies", "Hierarchy guides reading order, while excessive or inconsistent hierarchy can reduce readability."),
+    ("composition-hierarchy", "composition", "hierarchy", "implements", "Composition implements hierarchy through spatial and perceptual relationships."),
+    ("balance-composition", "visual-balance", "composition", "qualifies", "Perceptual balance qualifies a composition without requiring symmetry."),
+    ("proximity-hierarchy", "proximity", "hierarchy", "supports", "Consistent proximity supports grouping and hierarchy."),
+    ("alignment-grid", "alignment", "grid", "supports", "Alignment supports coherent use of a layout grid."),
+    ("visualization-encoding", "visual-encoding", "data-visualization", "part_of", "Visual encodings form the mapping core of a data visualization."),
+    ("scale-encoding", "data-scale", "visual-encoding", "qualifies", "Scale domain and transform qualify an encoding's geometry."),
+    ("uncertainty-visualization", "uncertainty-display", "data-visualization", "part_of", "Uncertainty display forms part of an evidence-faithful visualization."),
+    ("color-data", "color-space", "visual-encoding", "qualifies", "Color-space and gamut conditions qualify quantitative or categorical color encodings."),
+    ("icon-pictogram", "pictogram", "icon", "part_of", "Pictograms form one representational class of icons."),
+    ("family-icon", "icon-family", "icon", "qualifies", "An icon-family grammar qualifies individual icon geometry and optical correction."),
+    ("state-icon", "icon-state", "icon", "qualifies", "Interaction state qualifies icon appearance and exposed semantics."),
+    ("icon-color", "use-of-color", "icon-state", "qualifies", "Non-color cues qualify accessible icon-state communication.")
 ]
 
 
@@ -140,6 +164,14 @@ CONTROLS = [
     ("large-contrast-rounding", "Contrast threshold rounding", "A computed contrast value below a normative threshold must not be rounded up and reported as passing."),
     ("projection-type", "Rendered pixels are not source geometry", "A rasterized glyph image must not be treated as the original outline or font program."),
     ("readability-universal", "Universal readability claim", "One typographic setting must not be called universally most readable without population, language, task, and medium evidence.")
+]
+
+
+EXAMPLES = [
+    ("contrast-composite", "Composited contrast check", "A translucent text color is first composited over the actual background in linearized color space, then the specified relative-luminance ratio is compared without rounding up.", "typography-color-visual-design.color-accessibility", "train"),
+    ("multiscript-shaping", "Multiscript shaping sequence", "Unicode characters are segmented, shaped with the selected font and language, reordered under bidirectional rules, positioned, and line-broken without equating code points with glyphs.", "typography-color-visual-design.typesetting", "validation"),
+    ("uncertainty-chart", "Uncertainty-preserving chart", "A chart maps estimates to position and intervals to a redundant uncertainty channel, declares its scale and denominator, and avoids area encodings that exaggerate magnitude.", "typography-color-visual-design.data-visualization", "sealed_test"),
+    ("icon-state-system", "Accessible icon-state system", "A coherent icon family varies selected, disabled, error, and progress states through shape, label, semantics, and color so meaning survives color-vision variation.", "typography-color-visual-design.iconography", "cross_domain_holdout"),
 ]
 
 
@@ -203,6 +235,23 @@ def build() -> list[dict[str, Any]]:
                 "exceptions": []
             },
             "coverage_axes": ["mechanisms_causal_laws", "representations_transformations", "cross_domain_composition"]
+        })
+    for identifier, label, statement, subject, split in EXAMPLES:
+        node_id = f"example-{identifier}"
+        records.append({
+            **base(node_id, subject, split, "worked_example", "established", SOURCES),
+            "label": label,
+            "statement": statement,
+            "aliases": [],
+            "coverage_axes": ["deductions_predictions_execution", "applications_toolchains", "uncertainty_competing_hypotheses"]
+        })
+        records.append({
+            **base(f"example-membership-{identifier}", subject, split, "relation", "established", SOURCES),
+            "label": f"{label} membership",
+            "statement": f"The {label.lower()} exercises a bounded typography, color, or visual-design mechanism.",
+            "aliases": [],
+            "relation": {"source_node": f"type-color.v0.{node_id}", "target_node": "type-color.v0.root", "kind": "part_of", "polarity": 1, "direction": "forward", "conditions": ["the medium, color space, script, and user context remain declared"], "exceptions": []},
+            "coverage_axes": ["applications_toolchains", "within_domain_composition"]
         })
     for index, (identifier, label, statement) in enumerate(CONTROLS):
         control_split = "train" if index == 0 else "sealed_test" if index == len(CONTROLS) - 1 or index % 2 else "validation"

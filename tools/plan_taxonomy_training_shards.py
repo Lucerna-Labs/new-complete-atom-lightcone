@@ -55,8 +55,11 @@ def main() -> int:
     seen: set[str] = set()
     for (source_id, domain_hint), records in sorted(groups.items()):
         records.sort(key=lambda record: record["discovery_id"])
-        for part, start in enumerate(range(0, len(records), args.size), start=1):
-            chunk = records[start : start + args.size]
+        chunks = [records[start : start + args.size] for start in range(0, len(records), args.size)]
+        if len(chunks) > 1 and len(chunks[-1]) < 32:
+            chunks[-2].extend(chunks[-1])
+            chunks.pop()
+        for part, chunk in enumerate(chunks, start=1):
             shard_id = f"{source_id}-{domain_hint}-{part:04d}"
             entries = []
             for record in chunk:
@@ -128,4 +131,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

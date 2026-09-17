@@ -14,7 +14,7 @@ OUTPUT = ROOT / "curricula" / "psychology-neuroscience" / "foundations.jsonl"
 WORLD = "psychology-neuroscience-v0"
 PSY_LANES = ["psychology.evidence", "reasoning.inductive", "reasoning.causal", "reasoning.probabilistic"]
 NEURO_LANES = ["neuroscience.evidence", "reasoning.causal", "thinking.bottom_up", "geometry.structural"]
-PSY_SOURCES = ["openstax-psychology-2e"]
+PSY_SOURCES = ["noba-psychology"]
 NEURO_SOURCES = ["ninds-brain-basics", "ncbi-neuroscience-2e"]
 
 
@@ -54,7 +54,9 @@ PSYCHOLOGY = [
     ("personality", "Personality", "Personality constructs describe relatively stable patterns with contextual variation and measurement uncertainty.", "psychology-cognitive-science.personality"),
     ("stress", "Stress", "Stress involves appraisal and physiological or behavioral responses to demands, with effects shaped by duration, control, resources, and context.", "psychology-cognitive-science.health"),
     ("clinical-classification", "Clinical classification", "Clinical classification organizes symptom patterns for communication and research but does not make a diagnosis without qualified individual assessment.", "psychology-cognitive-science.clinical"),
-    ("treatment-evidence", "Psychological treatment evidence", "Treatment evidence compares benefits, harms, uncertainty, population fit, alternatives, and implementation rather than assuming one universal response.", "psychology-cognitive-science.clinical")
+    ("treatment-evidence", "Psychological treatment evidence", "Treatment evidence compares benefits, harms, uncertainty, population fit, alternatives, and implementation rather than assuming one universal response.", "psychology-cognitive-science.clinical"),
+    ("educational-learning", "Educational learning process", "Educational psychology studies how prior knowledge, attention, memory, motivation, practice, feedback, social context, and instruction interact in learning.", "psychology-cognitive-science.educational"),
+    ("formative-assessment", "Formative assessment", "Formative assessment elicits current learner understanding and supplies evidence for feedback and instructional adjustment rather than serving only as a grade.", "psychology-cognitive-science.educational")
 ]
 
 
@@ -93,7 +95,9 @@ NEUROSCIENCE = [
     ("network", "Distributed neural network", "Many neural functions emerge from interactions across distributed regions and time rather than one isolated center.", "neuroscience-neurology.systems"),
     ("reverse-inference", "Reverse inference", "Reverse inference reasons from observed neural activity to a psychological process and requires selectivity and alternative-process evidence.", "neuroscience-neurology.cognitive"),
     ("disorder", "Neurological disorder evidence", "A neurological disorder claim requires clinical criteria, differential assessment, population evidence, and current professional guidance.", "neuroscience-neurology.neurological-disorders"),
-    ("clinical-boundary", "Neurological clinical boundary", "Educational neural information cannot diagnose, rule out, or prescribe for an individual without qualified clinical assessment.", "neuroscience-neurology.clinical-boundaries")
+    ("clinical-boundary", "Neurological clinical boundary", "Educational neural information cannot diagnose, rule out, or prescribe for an individual without qualified clinical assessment.", "neuroscience-neurology.clinical-boundaries"),
+    ("computational-model", "Computational neural model", "A computational neural model specifies state variables, dynamics, inputs, parameters, observables, scale, and validation targets rather than reproducing a brain by analogy.", "neuroscience-neurology.computational"),
+    ("neural-decoding", "Neural decoding", "Neural decoding predicts a stimulus, behavior, or state from measured activity and demonstrates information availability rather than a unique causal code.", "neuroscience-neurology.computational")
 ]
 
 
@@ -142,7 +146,12 @@ RELATIONS = [
     ("bridge-working-memory", "neuro.neural-memory", "psy.working-memory", "qualifies", "Neural memory mechanisms constrain but do not replace the task-level construct of working memory."),
     ("bridge-learning", "neuro.plasticity", "psy.observational-learning", "qualifies", "Neural plasticity can support learning but does not by itself identify the psychological learning mechanism."),
     ("bridge-stress", "neuro.nervous-system", "psy.stress", "supports", "Nervous-system responses contribute to stress while appraisal and social context remain relevant."),
-    ("bridge-clinical", "neuro.clinical-boundary", "psy.clinical-classification", "supports", "Both neurological and psychological educational lanes require qualified individual assessment before diagnosis.")
+    ("bridge-clinical", "neuro.clinical-boundary", "psy.clinical-classification", "supports", "Both neurological and psychological educational lanes require qualified individual assessment before diagnosis."),
+    ("psy-formative-learning", "psy.formative-assessment", "psy.educational-learning", "supports", "Formative evidence supports feedback and adjustment within an educational learning process."),
+    ("psy-learning-education", "psy.encoding", "psy.educational-learning", "supports", "Memory encoding and retrieval mechanisms support but do not exhaust educational learning."),
+    ("neuro-model-circuit", "neuro.computational-model", "neuro.circuit", "clarifies", "A computational model clarifies proposed circuit dynamics at a declared scale."),
+    ("neuro-decode-network", "neuro.neural-decoding", "neuro.network", "measures", "Decoding measures information recoverable from distributed neural activity."),
+    ("neuro-decode-cause", "neuro.neural-decoding", "neuro.reverse-inference", "qualifies", "Decoding accuracy qualifies information availability but does not alone establish causal use or a unique mental process.")
 ]
 
 
@@ -162,6 +171,14 @@ CONTROLS = [
     ("neuro-plasticity-limitless", "Plasticity is not limitless", "Neural plasticity must not be presented as unlimited recovery or arbitrary rewiring."),
     ("neuro-stale-clinical", "Date-sensitive clinical boundary", "Neurological treatment or prognosis must not be emitted from stale or non-clinical curriculum records."),
     ("neuro-cause-after", "Temporal order control", "A neural event measured after behavior must not automatically be labeled its cause.")
+]
+
+
+EXAMPLES = [
+    ("psy", "memory-intervention", "Memory intervention study", "A delayed-retrieval intervention is compared with restudy using preregistered outcomes, blinded scoring, uncertainty intervals, attrition accounting, and a novel transfer task.", "psychology-cognitive-science.learning", "train"),
+    ("neuro", "converging-localization", "Converging neural evidence", "Lesion, stimulation, electrophysiology, and imaging evidence constrain a network-level task mechanism while reverse inference from activation alone remains blocked.", "neuroscience-neurology.cognitive", "validation"),
+    ("psy", "decision-framing", "Decision-framing replication", "A framing effect is tested across wording, stakes, numeracy, culture, and repeated choice; aggregate variation is retained instead of converted into an individual trait.", "psychology-cognitive-science.decision", "sealed_test"),
+    ("neuro", "clinical-boundary", "Neurological evidence boundary", "Educational symptoms and imaging findings generate a non-diagnostic differential and explicit urgency boundary; current clinician assessment remains required for person-level conclusions.", "neuroscience-neurology.clinical-boundaries", "cross_domain_holdout"),
 ]
 
 
@@ -235,6 +252,28 @@ def build() -> list[dict[str, Any]]:
                 "exceptions": []
             },
             "coverage_axes": ["mechanisms_causal_laws", "within_domain_composition", "cross_domain_composition"]
+        })
+    for prefix, identifier, label, statement, subject, split in EXAMPLES:
+        is_neuro = prefix == "neuro"
+        domain = "neuroscience-neurology" if is_neuro else "psychology-cognitive-science"
+        lanes = NEURO_LANES if is_neuro else PSY_LANES
+        sources = NEURO_SOURCES if is_neuro else PSY_SOURCES
+        root = "neuro.root" if is_neuro else "psy.root"
+        node_id = f"{prefix}.example.{identifier}"
+        records.append({
+            **base(node_id, domain, subject, lanes, sources, split, "worked_example", "established"),
+            "label": label,
+            "statement": statement,
+            "aliases": [],
+            "coverage_axes": ["deductions_predictions_execution", "applications_toolchains", "uncertainty_competing_hypotheses"]
+        })
+        records.append({
+            **base(f"{prefix}.example-membership.{identifier}", domain, subject, lanes, sources, split, "relation", "established"),
+            "label": f"{label} membership",
+            "statement": f"The {label.lower()} exercises a bounded, non-diagnostic evidence chain.",
+            "aliases": [],
+            "relation": {"source_node": node_id, "target_node": root, "kind": "part_of", "polarity": 1, "direction": "forward", "conditions": ["population, task, measurement, and clinical boundaries remain explicit"], "exceptions": []},
+            "coverage_axes": ["applications_toolchains", "within_domain_composition"]
         })
     for index, (identifier, label, statement) in enumerate(CONTROLS):
         is_neuro = identifier.startswith("neuro-")

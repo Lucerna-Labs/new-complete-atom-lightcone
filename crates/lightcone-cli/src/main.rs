@@ -29,6 +29,8 @@ fn run() -> Result<(), String> {
                     "sources": pack.sources.sources.len(),
                     "lexicon_terms": pack.lexicon.len(),
                     "coordinate_dimensions": pack.manifest.coordinate_dimensions,
+                    "shadow_dimensions": pack.manifest.shadow.as_ref().map(|shadow| shadow.dimensions),
+                    "shadow_observer_only": pack.manifest.shadow.as_ref().map(|shadow| shadow.observer_only),
                     "adapter_independent": pack.manifest.adapter_independent
                 }))
                 .map_err(|error| error.to_string())?
@@ -99,6 +101,28 @@ fn run() -> Result<(), String> {
                 .map_err(|error| error.to_string())?
             );
         }
+        "shadow" => {
+            let pack_path = required(&mut args, "world-pack path")?;
+            let node_id = required(&mut args, "node id")?;
+            let mut dropped_axes = Vec::new();
+            while let Some(flag) = args.next() {
+                match flag.as_str() {
+                    "--drop-axis" => {
+                        dropped_axes.push(required(&mut args, "axis x, y, z, or w")?);
+                    }
+                    other => return Err(format!("unknown option {other:?}\n{}", usage())),
+                }
+            }
+            let pack =
+                WorldPack::load(PathBuf::from(pack_path)).map_err(|error| error.to_string())?;
+            let receipt = pack
+                .shadow_view(&node_id, &dropped_axes)
+                .map_err(|error| error.to_string())?;
+            println!(
+                "{}",
+                serde_json::to_string_pretty(&receipt).map_err(|error| error.to_string())?
+            );
+        }
         "formal" => {
             let encoded = required(&mut args, "formal request JSON")?;
             no_more(&mut args)?;
@@ -144,5 +168,5 @@ fn no_more(args: &mut impl Iterator<Item = String>) -> Result<(), String> {
 }
 
 fn usage() -> String {
-    "usage:\n  lightcone-cli verify <world-pack>\n  lightcone-cli inspect <world-pack>\n  lightcone-cli admit <world-pack> <query> [--hops N] [--max-nodes N] [--direction past|future|both]\n  lightcone-cli formal '<request-json>'\n  lightcone-cli creative '<proposal-json>'".into()
+    "usage:\n  lightcone-cli verify <world-pack>\n  lightcone-cli inspect <world-pack>\n  lightcone-cli admit <world-pack> <query> [--hops N] [--max-nodes N] [--direction past|future|both]\n  lightcone-cli shadow <world-pack> <node-id> [--drop-axis x|y|z|w]...\n  lightcone-cli formal '<request-json>'\n  lightcone-cli creative '<proposal-json>'".into()
 }
