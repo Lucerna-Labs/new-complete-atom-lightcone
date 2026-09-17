@@ -4,13 +4,17 @@ This is a from-scratch, model-adaptable Lightcone and causal-world training
 system. It is being built for exhaustive, auditable coverage rather than a
 small seed pack or a single model.
 
-**Current status:** 22 curated world tranches, 155 authoritative-taxonomy
-worlds, and one source-bound coverage-audit world are independently split and
-authored. All 640 catalog items and all 9,600 required axes are locally tested,
-but the repository is not yet sealed and no active world is
-accelerator-accepted. The current curriculum inventory contains 236,240
-records: 102,516 concepts, 131,028 typed relations, 1,355 synthetic controls,
-1,093 worked examples, and 248 explicit boundary records.
+**Current status:** catalog revision v1 is sealed. Its 22 curated world
+tranches, 155 authoritative-taxonomy worlds, and one source-bound
+coverage-audit world passed all 5,339 pre-registered gates on a real
+eight-device Kaggle TPU. All 178 immutable packs were independently
+hash-validated and loaded by the Rust runtime. All 640 current catalog items
+and all 9,600 required coverage axes are sealed, with zero unresolved MSC 2020
+or MeSH 2026 discoveries. The curriculum inventory contains 236,240 records:
+102,516 concepts, 131,028 typed relations, 1,355 synthetic controls, 1,093
+worked examples, and 248 explicit boundary records. The catalog remains
+open-world: a future discovery or source revision opens a new auditable
+revision rather than silently changing this seal.
 
 ## Non-negotiable definition
 
@@ -61,7 +65,7 @@ These are foundations, not a closed list.
   imported authoritative taxonomy discovery exactly once.
 - `docs/` — architecture, coverage, sourcing, training, and validation laws.
 
-## Initial local verification
+## Verification
 
 ```bash
 cargo test --workspace
@@ -81,6 +85,9 @@ python3 tools/validate_shadow_output.py <training-output>
 
 # exercise every catalog-package prerequisite without creating upload files
 python3 kaggle/package_catalog_job.py --kernel-version 1 --validate-only
+
+# require the accepted catalog seal, not merely a structurally valid registry
+python3 tools/validate_registry.py --require-sealed
 ```
 
 The complete CPU diagnostic is `python3 tools/run_local_smoke_matrix.py`. It is
@@ -90,10 +97,10 @@ and 19 explicit held-out failures. Protocol v3 corrects the discarded-evidence
 and accidental-shadow boundaries without weakening thresholds. The current
 178-world source matrix passes every non-TPU and serialized-shadow gate,
 including the separate vertical and nonlinear lanes and the coverage audit.
-TPU identity remains intentionally unclaimed.
-Kaggle jobs are packaged only from a clean Git revision
-after the compiler, rights, leakage, split-population, revocation, and hash
-checks pass.
+Kaggle kernel `jessealicea/new-lightcone-catalog-tpu-v0` version 1 then passed
+all 178 worlds on eight TPU devices under JAX 0.10.2. Kaggle jobs are packaged
+only from a clean Git revision after the compiler, rights, leakage,
+split-population, revocation, and hash checks pass.
 
 The hash-bound aggregate CPU evidence is retained at
 `receipts/local-diagnostics/protocol-v3-cpu-20260911.json`; it explicitly records
@@ -105,6 +112,11 @@ The complete current matrix is bound by
 `receipts/local-diagnostics/protocol-v3-current-cpu-20260917.json`, and the
 exact Qwen3.8-27B llama.cpp route is bound by
 `receipts/adapters/qwen3.8-27b-llama-cpp-openai.json`.
+The accepted accelerator matrix, including every world receipt and finalized
+pack hash, is bound by `receipts/validation/catalog-tpu-v1.json`. The applied
+coverage transition and final registry hash are bound by
+`receipts/seals/catalog-v1-authorization.json` and
+`receipts/seals/catalog-v1.json`.
 
 Every protocol-v3 training run derives a hash-bound four-dimensional
 all-spatial shadow from the full 48D coordinates using a train-only fitted
@@ -114,7 +126,9 @@ exact graph. Its collisions, invisible edges, false proximity, 3D/2D
 composition, and random/axis-shuffle placebos are required receipt evidence.
 The retained protocol-v2 diagnostics preserve their twelve shadow-placebo
 failures. All 178 current-source protocol-v3 worlds pass their shadow and
-serialized-artifact checks. These diagnostics are not TPU acceptance.
+serialized-artifact checks both in the retained local diagnostic and in the
+accepted Kaggle TPU matrix. The local diagnostic by itself is not accelerator
+acceptance.
 
 ## Authored world tranches
 
@@ -130,20 +144,23 @@ sciences; engineering; first-principles analysis; computer and distributed
 data systems; HCI, linguistics, communication, and learning; health and
 agriculture; and society, culture, law, economics, history, and the arts.
 
-All 640 current catalog items have source-bound evidence and local tests, but
-the catalog remains open-ended. The imported MSC 2020 and MeSH 2026 inventories contain 37,713
-mapped entries in 155 bounded worlds. The generated curricula preserve 30,960
-MeSH scope notes, MSC classification statements, preferred labels, aliases,
-version boundaries, and published hierarchy relations. A taxonomy statement is
-not promoted into a causal claim. An authored curriculum is not a trained or
-accepted world: only a hash-bound real-TPU receipt that passes every
-pre-registered gate can advance it to accelerator-validated status.
+All 640 current catalog items have source-bound evidence, local tests, accepted
+TPU evidence, and sealed immutable packs, while the catalog remains open-ended.
+The imported MSC 2020 and MeSH 2026 inventories contain 37,713 mapped entries
+in 155 bounded worlds. The generated curricula preserve 30,960 MeSH scope
+notes, MSC classification statements, preferred labels, aliases, version
+boundaries, and published hierarchy relations. A taxonomy statement is not
+promoted into a causal claim. In general, an authored curriculum is not a
+trained or accepted world: only a hash-bound real-TPU receipt that passes every
+pre-registered gate can advance it to accelerator-validated and sealed status.
 
 The historical `foundation-lanes-v0/0.1.0` artifact is retained only for
 audit. Its acceptance was revoked after a source-rights review found current
 OpenStax textbook notices that prohibit LLM training without permission. The
-23 foundation lanes have been rolled back from the revoked artifact and now reference a
-rights-clean replacement curriculum awaiting a fresh TPU run.
+23 foundation lanes were rolled back from the revoked artifact. The
+rights-clean replacement is now the active `foundation-lanes-v0/0.2.0` pack;
+it passed the catalog-v1 TPU run and remains separately distinguishable from
+the revoked historical artifact.
 
 The exact formal-execution sidecar currently exposes 30 bounded primitives,
 including arithmetic, algebra, calculus, probability, word-problem, and exact
