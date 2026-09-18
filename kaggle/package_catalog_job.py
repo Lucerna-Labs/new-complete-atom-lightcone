@@ -74,6 +74,14 @@ def main() -> int:
         "tools/sync_authored_coverage.py",
     ):
         subprocess.run([sys.executable, str(ROOT / validator)], cwd=ROOT, check=True)
+    # Density audit, report-only for now: records the per-(item, axis)
+    # evidence depth and persists it, but does not yet fail packaging.
+    # Flips to a hard gate (--min-per-pair 4) once the depth floors hold.
+    subprocess.run(
+        [sys.executable, str(ROOT / "tools" / "audit_coverage_density.py"), "--min-per-pair", "0", "--write"],
+        cwd=ROOT,
+        check=True,
+    )
     for test_root in ("trainer", "tools", "kaggle"):
         subprocess.run(
             [
