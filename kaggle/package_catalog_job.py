@@ -74,11 +74,10 @@ def main() -> int:
         "tools/sync_authored_coverage.py",
     ):
         subprocess.run([sys.executable, str(ROOT / validator)], cwd=ROOT, check=True)
-    # Density audit, report-only for now: records the per-(item, axis)
-    # evidence depth and persists it, but does not yet fail packaging.
-    # Flips to a hard gate (--min-per-pair 4) once the depth floors hold.
+    # The v2 depth curriculum must close every record-backed mandatory
+    # (item, axis) pair at the declared floor before packaging can proceed.
     subprocess.run(
-        [sys.executable, str(ROOT / "tools" / "audit_coverage_density.py"), "--min-per-pair", "0", "--write"],
+        [sys.executable, str(ROOT / "tools" / "audit_coverage_density.py"), "--min-per-pair", "4", "--write"],
         cwd=ROOT,
         check=True,
     )

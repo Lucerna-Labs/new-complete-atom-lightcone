@@ -2,10 +2,16 @@ from __future__ import annotations
 
 import unittest
 
-from build_catalog_evidence import predict_sealed_ledger
+from build_catalog_evidence import pack_version, predict_sealed_ledger
 
 
 class CatalogSealPredictionTests(unittest.TestCase):
+    def test_catalog_revision_selects_new_immutable_pack_versions(self) -> None:
+        self.assertEqual(pack_version("geometry-foundation-v0", 1), "0.1.0")
+        self.assertEqual(pack_version("foundation-lanes-v0", 1), "0.2.0")
+        self.assertEqual(pack_version("geometry-foundation-v0", 2), "0.2.0")
+        self.assertEqual(pack_version("foundation-lanes-v0", 2), "0.3.0")
+
     def test_prediction_matches_explicit_all_axis_transition(self) -> None:
         ledger = {
             "schema_version": 1,

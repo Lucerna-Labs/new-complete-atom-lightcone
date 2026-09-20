@@ -59,8 +59,12 @@ def run_checked(*arguments: str) -> None:
     subprocess.run(arguments, cwd=ROOT, check=True, stdout=subprocess.DEVNULL)
 
 
-def pack_version(world_id: str) -> str:
-    return "0.2.0" if world_id == "foundation-lanes-v0" else "0.1.0"
+def pack_version(world_id: str, catalog_revision: int) -> str:
+    require(catalog_revision >= 1, "catalog revision must be positive")
+    # Foundation 0.1.0 was revoked, so its active sequence stays one minor
+    # version ahead of the other immutable world packs.
+    minor = catalog_revision + 1 if world_id == "foundation-lanes-v0" else catalog_revision
+    return f"0.{minor}.0"
 
 
 def git(*arguments: str) -> str:
@@ -77,6 +81,7 @@ def build_validation(args: argparse.Namespace) -> dict[str, Any]:
     require(summary["archive_sha256"] == catalog_manifest["archive_sha256"], "summary archive hash differs")
     require(summary["kernel_ref"] == catalog_manifest["kernel_ref"], "summary kernel ref differs")
     require(summary["kernel_version"] == catalog_manifest["kernel_version"], "summary kernel version differs")
+    require(summary["kernel_version"] == args.catalog_revision, "kernel version differs from catalog revision")
     require(summary["world_count"] == len(catalog_manifest["worlds"]), "summary world count differs")
     require(summary["passed_count"] == summary["world_count"], "not every world passed")
     require(summary["failed_count"] == 0, "catalog summary contains failures")
@@ -97,7 +102,7 @@ def build_validation(args: argparse.Namespace) -> dict[str, Any]:
     for world_id in sorted(manifest_rows):
         output = args.output_root / world_id
         input_root = args.package_root / world_id
-        version = pack_version(world_id)
+        version = pack_version(world_id, args.catalog_revision)
         pack_root = args.worlds_root / world_id / version
         receipt_path = output / "training-receipt.json"
         receipt = load_json(receipt_path)
@@ -152,7 +157,7 @@ def build_validation(args: argparse.Namespace) -> dict[str, Any]:
     tracked_dirty = bool(git("status", "--porcelain", "--untracked-files=no"))
     receipt = {
         "schema_version": 1,
-        "validation_id": "new-complete-lightcone-catalog-tpu-v1",
+        "validation_id": f"new-complete-lightcone-catalog-tpu-v{args.catalog_revision}",
         "status": "accepted",
         "verified_at": datetime.now(timezone.utc).isoformat(),
         "training_source": {
@@ -193,7 +198,7 @@ def build_validation(args: argparse.Namespace) -> dict[str, Any]:
             "status": adapter_receipt["status"],
         },
         "worlds": worlds,
-        "claim_scope": "All 178 worlds registered in the hash-bound catalog at the stated source revision passed every pre-registered training, held-out, negative-control, and four-dimensional shadow gate on a real eight-device Kaggle TPU and were independently hash-validated and loaded by the Rust runtime.",
+        "claim_scope": f"All 178 worlds registered in hash-bound catalog revision v{args.catalog_revision} at the stated source revision passed every pre-registered training, held-out, negative-control, and four-dimensional shadow gate on a real eight-device Kaggle TPU and were independently hash-validated and loaded by the Rust runtime.",
         "limitations": [
             "The catalog remains open-world: sealing this revision does not assert that no future domain, source revision, counterexample, or adapter can be discovered.",
             "The four-dimensional (x,y,z,w) all-spatial shadow remains observer-only; exact graph reachability and full 48-dimensional coordinates remain authoritative.",
@@ -228,14 +233,17 @@ def build_authorization(args: argparse.Namespace) -> dict[str, Any]:
     ledger = load_json(ROOT / "ontology" / "coverage-ledger.json")
     require(len(ledger["items"]) == 640, "coverage ledger item count differs")
     open_statuses = collections.Counter(item["status"] for item in ledger["items"])
-    require(set(open_statuses) == {"accelerator_validated"}, f"coverage is not accelerator validated: {dict(open_statuses)}")
+    require(
+        set(open_statuses) in ({"accelerator_validated"}, {"sealed"}),
+        f"coverage is neither uniformly accelerator validated nor uniformly sealed: {dict(open_statuses)}",
+    )
     axes = [row["id"] for row in load_json(ROOT / "ontology" / "coverage-axes.json")["axes"]]
     evidence = str(args.receipt.relative_to(ROOT))
     predicted = predict_sealed_ledger(ledger, axes, evidence, args.note)
     expected_hash = hashlib.sha256(json_bytes(predicted)).hexdigest()
     receipt = {
         "schema_version": 1,
-        "authorization_id": "new-complete-lightcone-catalog-seal-v1-authorization",
+        "authorization_id": f"new-complete-lightcone-catalog-seal-v{args.catalog_revision}-authorization",
         "status": "seal_transition_authorized",
         "authorized_at": datetime.now(timezone.utc).isoformat(),
         "validation_receipt": str(args.validation_receipt.relative_to(ROOT)),
@@ -245,6 +253,7 @@ def build_authorization(args: argparse.Namespace) -> dict[str, Any]:
         ),
         "expected_sealed_coverage_ledger_sha256": expected_hash,
         "transition": {
+            "pre_transition_status_counts": dict(sorted(open_statuses.items())),
             "item_count": len(predicted["items"]),
             "axis_count": len(axes),
             "sealed_axis_count": len(predicted["items"]) * len(axes),
@@ -283,7 +292,7 @@ def build_completion(args: argparse.Namespace) -> dict[str, Any]:
     run_checked(sys.executable, str(ROOT / "tools" / "validate_adapters.py"))
     receipt = {
         "schema_version": 1,
-        "seal_id": "new-complete-lightcone-catalog-v1",
+        "seal_id": f"new-complete-lightcone-catalog-v{args.catalog_revision}",
         "status": "sealed",
         "seal_applied": True,
         "sealed_at": datetime.now(timezone.utc).isoformat(),
@@ -323,16 +332,19 @@ def main() -> int:
     validation.add_argument("--adapter-receipt", type=Path, required=True)
     validation.add_argument("--lightcone-cli", type=Path, required=True)
     validation.add_argument("--receipt", type=Path, required=True)
+    validation.add_argument("--catalog-revision", type=int, required=True)
 
     authorization = subparsers.add_parser("authorization")
     authorization.add_argument("--validation-receipt", type=Path, required=True)
     authorization.add_argument("--receipt", type=Path, required=True)
     authorization.add_argument("--note", required=True)
+    authorization.add_argument("--catalog-revision", type=int, required=True)
 
     completion = subparsers.add_parser("completion")
     completion.add_argument("--validation-receipt", type=Path, required=True)
     completion.add_argument("--authorization-receipt", type=Path, required=True)
     completion.add_argument("--receipt", type=Path, required=True)
+    completion.add_argument("--catalog-revision", type=int, required=True)
 
     args = parser.parse_args()
     for field in (

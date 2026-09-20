@@ -189,15 +189,27 @@ class Builder:
 
         corpus = load_corpus()
         by_subject: dict[str, list[dict[str, Any]]] = collections.defaultdict(list)
-        cross_domain_nodes: list[str] = []
+        local_nodes_by_subject: dict[str, list[str]] = collections.defaultdict(list)
+        local_nodes: list[str] = []
         for record in corpus:
             by_subject[record["subject_id"]].append(record)
-            if record.get("record_kind") != "relation":
-                cross_domain_nodes.append(record["record_id"])
+            if (
+                record.get("world_id") == WORLD_ID
+                and record.get("record_kind") != "relation"
+            ):
+                local_nodes_by_subject[record["subject_id"]].append(record["record_id"])
+                local_nodes.append(record["record_id"])
         self.material = {
             subject: SubfieldMaterial(records) for subject, records in by_subject.items()
         }
-        self.any_nodes = cross_domain_nodes
+        # Compiled edges must close over nodes owned by this world.  Source
+        # curricula from other worlds may inform statements and provenance,
+        # but their node IDs cannot become coverage-closure endpoints.
+        self.local_nodes_by_subject = {
+            subject: list(dict.fromkeys(nodes))
+            for subject, nodes in local_nodes_by_subject.items()
+        }
+        self.any_nodes = list(dict.fromkeys(local_nodes))
         self.output: list[dict[str, Any]] = []
         self.generated_nodes: dict[str, list[str]] = collections.defaultdict(list)
         self.pending_examples: list[tuple[str, str]] = []  # (worked_example id, subject)
@@ -263,10 +275,11 @@ class Builder:
         return record_id
 
     def endpoints(self, subject: str, count: int) -> list[str]:
-        material = self.material.get(subject)
-        pool = list((material.node_ids if material else [])) + self.generated_nodes[subject]
+        pool = list(self.generated_nodes[subject]) + self.local_nodes_by_subject.get(
+            subject, []
+        )
         if len(pool) < count:
-            pool = pool + self.any_nodes
+            pool.extend(node for node in self.any_nodes if node not in pool)
         return pool[:count] if pool else []
 
     # -- axis templates ----------------------------------------------------
@@ -456,9 +469,15 @@ class Builder:
                 sources=sources, relation=relation,
             )
         elif axis == "cross_domain_composition":
+            generated_any = [
+                node
+                for generated in self.generated_nodes.values()
+                for node in generated
+            ]
             foreign = [
-                node for node in self.any_nodes
-                if not node.startswith(f"coverage.depth.") and node not in set(nodes)
+                node
+                for node in [*self.any_nodes, *generated_any]
+                if node not in set(nodes)
             ]
             target = (
                 foreign[digest_index(f"foreign:{item_id}:{axis}:{index}", len(foreign))]
@@ -500,7 +519,7 @@ class Builder:
 
     # -- driver -------------------------------------------------------------
 
-    def run(self, min_per_pair: int) -> dict[str, int]:
+    def run(self, min_per_pair: int, *, write: bool = True) -> dict[str, int]:
         counts, errors, _scanned = collect_pair_counts(skip=OUTPUT)
         if errors:
             raise SystemExit(f"curricula scan errors: {errors[:3]}")
@@ -577,11 +596,15 @@ class Builder:
             per_axis["deductions_predictions_execution"] += 1
 
         self.output.sort(key=lambda record: record["record_id"])
-        OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-        OUTPUT.write_text(
-            "".join(json.dumps(record, ensure_ascii=False, sort_keys=True) + "\n" for record in self.output),
-            encoding="utf-8",
-        )
+        if write:
+            OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+            OUTPUT.write_text(
+                "".join(
+                    json.dumps(record, ensure_ascii=False, sort_keys=True) + "\n"
+                    for record in self.output
+                ),
+                encoding="utf-8",
+            )
         return dict(sorted(per_axis.items()))
 
 
