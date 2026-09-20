@@ -6,7 +6,12 @@ from pathlib import Path
 
 import numpy as np
 
-from train_jax import evaluate_edges, require_fresh_output, validate_protocol_samples
+from train_jax import (
+    evaluate_edges,
+    pairwise_squared_distances,
+    require_fresh_output,
+    validate_protocol_samples,
+)
 
 
 def graph(*, include_cross_edge: bool) -> dict[str, object]:
@@ -38,6 +43,20 @@ CONFIG = {
 
 
 class ProtocolSampleTests(unittest.TestCase):
+    def test_pairwise_distance_algebra_matches_broadcast_reference(self) -> None:
+        query = np.asarray(
+            [[0.0, 1.0, -2.0], [4.0, -3.0, 2.0]], dtype=np.float32
+        )
+        nodes = np.asarray(
+            [[1.0, 0.0, 2.0], [-2.0, 3.0, 1.0], [4.0, -3.0, 2.0]],
+            dtype=np.float32,
+        )
+        expected = np.sum(
+            (query[:, None, :] - nodes[None, :, :]) ** 2, axis=2
+        )
+        observed = pairwise_squared_distances(np, query, nodes)
+        np.testing.assert_allclose(observed, expected, rtol=1e-6, atol=1e-6)
+
     def test_empty_gated_split_is_rejected(self) -> None:
         with self.assertRaisesRegex(RuntimeError, "edges.cross_domain_holdout"):
             validate_protocol_samples(graph(include_cross_edge=False), CONFIG)

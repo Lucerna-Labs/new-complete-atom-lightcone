@@ -81,7 +81,15 @@ def build_validation(args: argparse.Namespace) -> dict[str, Any]:
     require(summary["archive_sha256"] == catalog_manifest["archive_sha256"], "summary archive hash differs")
     require(summary["kernel_ref"] == catalog_manifest["kernel_ref"], "summary kernel ref differs")
     require(summary["kernel_version"] == catalog_manifest["kernel_version"], "summary kernel version differs")
-    require(summary["kernel_version"] == args.catalog_revision, "kernel version differs from catalog revision")
+    expected_kernel_version = (
+        args.expected_kernel_version
+        if args.expected_kernel_version is not None
+        else args.catalog_revision
+    )
+    require(
+        summary["kernel_version"] == expected_kernel_version,
+        "kernel version differs from the expected training run",
+    )
     require(summary["world_count"] == len(catalog_manifest["worlds"]), "summary world count differs")
     require(summary["passed_count"] == summary["world_count"], "not every world passed")
     require(summary["failed_count"] == 0, "catalog summary contains failures")
@@ -333,6 +341,7 @@ def main() -> int:
     validation.add_argument("--lightcone-cli", type=Path, required=True)
     validation.add_argument("--receipt", type=Path, required=True)
     validation.add_argument("--catalog-revision", type=int, required=True)
+    validation.add_argument("--expected-kernel-version", type=int)
 
     authorization = subparsers.add_parser("authorization")
     authorization.add_argument("--validation-receipt", type=Path, required=True)

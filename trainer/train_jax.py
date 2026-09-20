@@ -47,6 +47,21 @@ def file_hash(path: Path) -> str:
     return digest.hexdigest()
 
 
+def pairwise_squared_distances(array_module: Any, query: Any, nodes: Any) -> Any:
+    """Return all query/node squared distances without a QxNxD tensor.
+
+    Expanding ``query[:, None, :] - nodes[None, :, :]`` scales working memory
+    with the coordinate dimension and exhausted both a 16 GiB RTX card and a
+    Kaggle TPU worker on the depth-complete coverage world.  The quadratic
+    identity keeps only the QxN result matrix while preserving the objective.
+    The maximum removes tiny negative roundoff from the algebraic form.
+    """
+    query_norm = array_module.sum(array_module.square(query), axis=1, keepdims=True)
+    node_norm = array_module.sum(array_module.square(nodes), axis=1)[None, :]
+    distances = query_norm + node_norm - 2.0 * (query @ nodes.T)
+    return array_module.maximum(distances, 0.0)
+
+
 def write_json(path: Path, value: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(value, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
@@ -482,7 +497,7 @@ def main() -> int:
             relation = current["relation"]
             rel = relation[train_edges["relation"]] * train_edges["polarity"][:, None]
             query = node[train_edges["source"]] + rel
-            distances = jnp.sum((query[:, None, :] - node[None, :, :]) ** 2, axis=2)
+            distances = pairwise_squared_distances(jnp, query, node)
             logits = -distances / float(config["softmax_temperature"])
             edge_loss = -jnp.mean(jax.nn.log_softmax(logits, axis=1)[jnp.arange(logits.shape[0]), train_edges["target"]])
             observed_delta = (
