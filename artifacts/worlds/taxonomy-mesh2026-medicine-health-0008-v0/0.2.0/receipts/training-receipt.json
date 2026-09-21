@@ -1,0 +1,723 @@
+{
+  "accelerator": {
+    "device_count": 8,
+    "devices": [
+      "TPU_0(process=0,(0,0,0,0))",
+      "TPU_1(process=0,(1,0,0,0))",
+      "TPU_2(process=0,(0,1,0,0))",
+      "TPU_3(process=0,(1,1,0,0))",
+      "TPU_4(process=0,(0,2,0,0))",
+      "TPU_5(process=0,(1,2,0,0))",
+      "TPU_6(process=0,(0,3,0,0))",
+      "TPU_7(process=0,(1,3,0,0))"
+    ],
+    "kernel_ref": "jessealicea/new-lightcone-catalog-tpu-v0",
+    "kernel_version": 4,
+    "kind": "tpu",
+    "platform": "kaggle"
+  },
+  "elapsed_seconds": 22.63290972300001,
+  "failure": null,
+  "finished_at": "2026-09-21T17:15:03.824679+00:00",
+  "framework": {
+    "name": "jax",
+    "version": "0.10.2"
+  },
+  "gates": {
+    "coordinate_bound": {
+      "metric": "coordinates.max_absolute_value",
+      "observed": 1.4065014123916626,
+      "operator": "lte",
+      "passed": true,
+      "threshold": 5.0
+    },
+    "cross_domain_edge_discrimination": {
+      "metric": "edges.cross_domain_holdout.edge_discrimination_accuracy",
+      "observed": 0.9963359164420484,
+      "operator": "gte",
+      "passed": true,
+      "threshold": 0.5
+    },
+    "finite_coordinates": {
+      "metric": "coordinates.finite",
+      "observed": true,
+      "operator": "eq",
+      "passed": true,
+      "threshold": true
+    },
+    "loss_decrease": {
+      "metric": "loss.decrease_fraction",
+      "observed": 0.6196928398103911,
+      "operator": "gte",
+      "passed": true,
+      "threshold": 0.1
+    },
+    "sealed_edge_discrimination": {
+      "metric": "edges.sealed_test.edge_discrimination_accuracy",
+      "observed": 0.9969195225259918,
+      "operator": "gte",
+      "passed": true,
+      "threshold": 0.7
+    },
+    "sealed_negative_separation": {
+      "metric": "negative_pairs.sealed_test.separation_accuracy",
+      "observed": 1.0,
+      "operator": "gte",
+      "passed": true,
+      "threshold": 0.7
+    },
+    "sealed_relation_family": {
+      "metric": "edges.sealed_test.relation_accuracy",
+      "observed": 0.9714285714285714,
+      "operator": "gte",
+      "passed": true,
+      "threshold": 0.2
+    },
+    "shadow_all_spatial": {
+      "metric": "shadow.all_spatial",
+      "observed": true,
+      "operator": "eq",
+      "passed": true,
+      "threshold": true
+    },
+    "shadow_composes_to_2d": {
+      "metric": "shadow.composition_2d_exact",
+      "observed": true,
+      "operator": "eq",
+      "passed": true,
+      "threshold": true
+    },
+    "shadow_composes_to_3d": {
+      "metric": "shadow.composition_3d_exact",
+      "observed": true,
+      "operator": "eq",
+      "passed": true,
+      "threshold": true
+    },
+    "shadow_cross_domain_beats_axis_shuffle": {
+      "metric": "shadow.edge_evaluation.cross_domain_holdout.beats_axis_shuffle",
+      "observed": true,
+      "operator": "eq",
+      "passed": true,
+      "threshold": true
+    },
+    "shadow_cross_domain_beats_random": {
+      "metric": "shadow.edge_evaluation.cross_domain_holdout.beats_random_basis",
+      "observed": true,
+      "operator": "eq",
+      "passed": true,
+      "threshold": true
+    },
+    "shadow_deterministic_replay": {
+      "metric": "shadow.deterministic_replay",
+      "observed": true,
+      "operator": "eq",
+      "passed": true,
+      "threshold": true
+    },
+    "shadow_four_dimensions": {
+      "metric": "shadow.target_dimensions",
+      "observed": 4,
+      "operator": "eq",
+      "passed": true,
+      "threshold": 4
+    },
+    "shadow_has_no_time_axis": {
+      "metric": "shadow.has_time_axis",
+      "observed": false,
+      "operator": "eq",
+      "passed": true,
+      "threshold": false
+    },
+    "shadow_non_expansive": {
+      "metric": "shadow.non_expansive",
+      "observed": true,
+      "operator": "eq",
+      "passed": true,
+      "threshold": true
+    },
+    "shadow_not_used_for_admission": {
+      "metric": "shadow.used_for_admission",
+      "observed": false,
+      "operator": "eq",
+      "passed": true,
+      "threshold": false
+    },
+    "shadow_observer_only": {
+      "metric": "shadow.observer_only",
+      "observed": true,
+      "operator": "eq",
+      "passed": true,
+      "threshold": true
+    },
+    "shadow_sealed_beats_axis_shuffle": {
+      "metric": "shadow.evaluation.sealed_test.beats_axis_shuffle",
+      "observed": true,
+      "operator": "eq",
+      "passed": true,
+      "threshold": true
+    },
+    "shadow_sealed_beats_random": {
+      "metric": "shadow.evaluation.sealed_test.beats_random_basis",
+      "observed": true,
+      "operator": "eq",
+      "passed": true,
+      "threshold": true
+    },
+    "shadow_sealed_neighbor_recall": {
+      "metric": "shadow.evaluation.sealed_test.neighbor_recall_at_k",
+      "observed": 0.6285714285714287,
+      "operator": "gte",
+      "passed": true,
+      "threshold": 0.1
+    },
+    "shadow_validation_beats_axis_shuffle": {
+      "metric": "shadow.evaluation.validation.beats_axis_shuffle",
+      "observed": true,
+      "operator": "eq",
+      "passed": true,
+      "threshold": true
+    },
+    "shadow_validation_beats_random": {
+      "metric": "shadow.evaluation.validation.beats_random_basis",
+      "observed": true,
+      "operator": "eq",
+      "passed": true,
+      "threshold": true
+    },
+    "shadow_validation_neighbor_recall": {
+      "metric": "shadow.evaluation.validation.neighbor_recall_at_k",
+      "observed": 0.6857142857142859,
+      "operator": "gte",
+      "passed": true,
+      "threshold": 0.1
+    },
+    "tpu_backend": {
+      "metric": "accelerator.is_tpu",
+      "observed": true,
+      "operator": "eq",
+      "passed": true,
+      "threshold": true
+    },
+    "train_edge_recovery": {
+      "metric": "edges.train.hits_at_5",
+      "observed": 0.9418386491557224,
+      "operator": "gte",
+      "passed": true,
+      "threshold": 0.7
+    },
+    "train_membership_geometry": {
+      "metric": "membership.train.within_radius_accuracy",
+      "observed": 1.0,
+      "operator": "gte",
+      "passed": true,
+      "threshold": 0.75
+    },
+    "validation_edge_discrimination": {
+      "metric": "edges.validation.edge_discrimination_accuracy",
+      "observed": 0.9963916181201634,
+      "operator": "gte",
+      "passed": true,
+      "threshold": 0.7
+    },
+    "validation_negative_separation": {
+      "metric": "negative_pairs.validation.separation_accuracy",
+      "observed": 1.0,
+      "operator": "gte",
+      "passed": true,
+      "threshold": 0.7
+    },
+    "validation_relation_family": {
+      "metric": "edges.validation.relation_accuracy",
+      "observed": 0.967741935483871,
+      "operator": "gte",
+      "passed": true,
+      "threshold": 0.2
+    }
+  },
+  "hyperparameters": {
+    "anchor_weight": 0.02,
+    "coordinate_dimensions": 48,
+    "edge_discrimination_method": "all_non_target_pairwise_win_rate_v1",
+    "evidence_feature_dimensions": 2048,
+    "feature_dimensions": 384,
+    "learned_scale": 0.5,
+    "learning_rate": 0.008,
+    "membership_radius": 1.25,
+    "membership_weight": 0.18,
+    "negative_margin": 1.15,
+    "negative_weight": 0.65,
+    "relation_classification_weight": 0.5,
+    "relation_prior_weight": 2.0,
+    "relation_regularization": 0.05,
+    "seed": 20261010,
+    "semantic_overlay_feature_dimensions": 1024,
+    "semantic_overlay_negative_scale": 1.3,
+    "semantic_overlay_residual_scale": 0.03,
+    "semantic_overlay_stage_scale": 0.8,
+    "semantic_overlay_text_dimensions": 2,
+    "semantic_overlay_text_scale": 0.3,
+    "shadow_axis_shuffle_seed_offset": 130363,
+    "shadow_cell_width": 0.25,
+    "shadow_dimensions": 4,
+    "shadow_fit_split": "train",
+    "shadow_knn_k": 5,
+    "shadow_metric": "euclidean_l2",
+    "shadow_random_seed_offset": 104729,
+    "shadow_reach_radius": 1.25,
+    "shadow_tolerance": 1e-05,
+    "softmax_temperature": 0.16,
+    "steps": 1200,
+    "structural_dimensions": 24,
+    "structural_scale": 1.0,
+    "train_edge_evaluation_method": "train_fitted_evidence"
+  },
+  "input_hashes": {
+    "edges.jsonl": "0507e5996dc8d32b0dcf361a5ddd8deadedca84f782398385ac08ce2b3433b75",
+    "lexicon.json": "1a703d4f487c6e71ef88ddd79a1c286739fe07f365b62234da172f039837e2b2",
+    "nodes.jsonl": "c6426dbbdd41fdba7d633b9b1a1311823824b6a9a6343aaff88018d509e706a1",
+    "records.jsonl": "50db96ec51d8fe144a7afa7684590d3d77ada1da9935b749b9da2f3e16bcc1bc",
+    "relation-catalog.json": "bde19fb7c98f3e3cc71cdc1225eba5b73382204ff875f8c00c34db49a1ffe3e8",
+    "run-context.json": "6d0b3fb2e08a31311cf5cc396470b3824e250ed632ede33537f0d599d01c7b59",
+    "sources.json": "e5e25c041d5e86f08518814f23be071b80734c99a2044f30f09f5661e844aea5",
+    "split-manifest.json": "09a08e0736275bca942c6445ea8a3cee1b0cdf5d6457af7cf0521bb81cff5786",
+    "training-config.json": "2a750ae22d5c055408ca77e39573023ed9937eb783313a455af99c1f7e498c1a",
+    "training-graph.json": "4659950301abb1e5dd157f6d771dfda013bba9a8b16e83552362c22e39bff6ee"
+  },
+  "metrics": {
+    "accelerator": {
+      "backend": "tpu",
+      "device_count": 8,
+      "is_tpu": true,
+      "training_device": "TPU_0(process=0,(0,0,0,0))"
+    },
+    "coordinates": {
+      "dimensions": 48,
+      "finite": true,
+      "max_absolute_value": 1.4065014123916626,
+      "maximum_norm": 1.310032844543457,
+      "minimum_norm": 0.06470872461795807,
+      "optimization_dimensions": 48,
+      "optimization_max_absolute_value": 1.0
+    },
+    "edges": {
+      "cross_domain_holdout": {
+        "count": 32,
+        "direction_accuracy": 1.0,
+        "direction_method": "jax_trained_translation_geometry_v1",
+        "edge_discrimination_accuracy": 0.9963359164420484,
+        "edge_discrimination_method": "all_non_target_pairwise_win_rate_v1",
+        "evaluation_method": "train_fitted_evidence_to_graph_v1",
+        "hits_at_1": 0.03125,
+        "hits_at_10": 0.96875,
+        "hits_at_5": 0.84375,
+        "mean_rank": 3.71875,
+        "mrr": 0.39341809640522873,
+        "relation_accuracy": 1.0,
+        "relation_classification_method": "train_centroid_plus_registered_semantic_prior_v1",
+        "retrieval_method": "train_fitted_hashed_tfidf_plus_exact_label_v2",
+        "translation_geometry": {
+          "count": 32,
+          "direction_accuracy": 1.0,
+          "edge_discrimination_accuracy": 0.6561236522911051,
+          "edge_discrimination_method": "all_non_target_pairwise_win_rate_v1",
+          "hits_at_1": 0.0,
+          "hits_at_10": 0.0,
+          "hits_at_5": 0.0,
+          "mean_rank": 256.15625,
+          "mrr": 0.005116241785726202,
+          "relation_accuracy": 0.96875
+        }
+      },
+      "sealed_test": {
+        "count": 35,
+        "direction_accuracy": 0.9142857142857143,
+        "direction_method": "jax_trained_translation_geometry_v1",
+        "edge_discrimination_accuracy": 0.9969195225259918,
+        "edge_discrimination_method": "all_non_target_pairwise_win_rate_v1",
+        "evaluation_method": "train_fitted_evidence_to_graph_v1",
+        "hits_at_1": 0.11428571428571428,
+        "hits_at_10": 0.9428571428571428,
+        "hits_at_5": 0.9142857142857143,
+        "mean_rank": 3.2857142857142856,
+        "mrr": 0.4594557823129251,
+        "relation_accuracy": 0.9714285714285714,
+        "relation_classification_method": "train_centroid_plus_registered_semantic_prior_v1",
+        "retrieval_method": "train_fitted_hashed_tfidf_plus_exact_label_v2",
+        "translation_geometry": {
+          "count": 35,
+          "direction_accuracy": 0.9142857142857143,
+          "edge_discrimination_accuracy": 0.6431651906045438,
+          "edge_discrimination_method": "all_non_target_pairwise_win_rate_v1",
+          "hits_at_1": 0.0,
+          "hits_at_10": 0.0,
+          "hits_at_5": 0.0,
+          "mean_rank": 265.77142857142854,
+          "mrr": 0.003992202991277977,
+          "relation_accuracy": 0.9714285714285714
+        }
+      },
+      "train": {
+        "count": 533,
+        "direction_accuracy": 0.9812382739212008,
+        "direction_method": "jax_trained_translation_geometry_v1",
+        "edge_discrimination_accuracy": 0.9967786470317536,
+        "edge_discrimination_method": "all_non_target_pairwise_win_rate_v1",
+        "evaluation_method": "train_fitted_evidence_to_graph_v1",
+        "hits_at_1": 0.0375234521575985,
+        "hits_at_10": 0.9774859287054409,
+        "hits_at_5": 0.9418386491557224,
+        "mean_rank": 3.3902439024390243,
+        "mrr": 0.4110124034854904,
+        "relation_accuracy": 0.99812382739212,
+        "relation_classification_method": "train_centroid_plus_registered_semantic_prior_v1",
+        "retrieval_method": "train_fitted_hashed_tfidf_plus_exact_label_v2",
+        "translation_geometry": {
+          "count": 533,
+          "direction_accuracy": 0.9812382739212008,
+          "edge_discrimination_accuracy": 0.9992793676640892,
+          "edge_discrimination_method": "all_non_target_pairwise_win_rate_v1",
+          "hits_at_1": 0.7823639774859287,
+          "hits_at_10": 0.9962476547842402,
+          "hits_at_5": 0.9774859287054409,
+          "mean_rank": 1.5347091932457786,
+          "mrr": 0.8651575389380268,
+          "relation_accuracy": 1.0
+        }
+      },
+      "validation": {
+        "count": 31,
+        "direction_accuracy": 0.8064516129032258,
+        "direction_method": "jax_trained_translation_geometry_v1",
+        "edge_discrimination_accuracy": 0.9963916181201634,
+        "edge_discrimination_method": "all_non_target_pairwise_win_rate_v1",
+        "evaluation_method": "train_fitted_evidence_to_graph_v1",
+        "hits_at_1": 0.12903225806451613,
+        "hits_at_10": 0.9032258064516129,
+        "hits_at_5": 0.8709677419354839,
+        "mean_rank": 3.6774193548387095,
+        "mrr": 0.43568031430934656,
+        "relation_accuracy": 0.967741935483871,
+        "relation_classification_method": "train_centroid_plus_registered_semantic_prior_v1",
+        "retrieval_method": "train_fitted_hashed_tfidf_plus_exact_label_v2",
+        "translation_geometry": {
+          "count": 31,
+          "direction_accuracy": 0.8064516129032258,
+          "edge_discrimination_accuracy": 0.6755064776975915,
+          "edge_discrimination_method": "all_non_target_pairwise_win_rate_v1",
+          "hits_at_1": 0.0,
+          "hits_at_10": 0.0,
+          "hits_at_5": 0.0,
+          "mean_rank": 241.7741935483871,
+          "mrr": 0.004389166378762937,
+          "relation_accuracy": 0.9354838709677419
+        }
+      }
+    },
+    "evidence_retrieval": {
+      "exact_label_weight": 0.0,
+      "feature_dimensions": 2048,
+      "fit_document_count": 1193,
+      "fit_split": "train",
+      "idf_sha256": "fd7dc1bfd21ce8c70a6c7cf90375e2a8863b57fd06329b4094877e3aaf22684b",
+      "label_phrase_sha256": "bff7c366fc2494d404858604bad79be3a193e0e28ddf429a2de75fa2c3564543",
+      "method": "train_fitted_hashed_tfidf_plus_exact_label_v2",
+      "relation_centroids_sha256": "7430262f97cefe4a34f3dcdc8397c79372a7e98cc1f51bd74d074e555e30d870",
+      "relation_prior_weight": 2.0,
+      "relation_priors_sha256": "44d6c454ee6454a5f37e488323246aafc73a85fbc460aa8b916499bc54940a72",
+      "relations": [
+        "qualifies",
+        "supports"
+      ],
+      "schema_version": 1
+    },
+    "loss": {
+      "decrease_fraction": 0.6196928398103911,
+      "final": 2.8100600242614746,
+      "initial": 7.388922214508057
+    },
+    "membership": {
+      "cross_domain_holdout": {
+        "count": 13,
+        "maximum_distance": 0.6752869486808777,
+        "mean_distance": 0.5970603227615356,
+        "radius": 1.25,
+        "within_radius_accuracy": 1.0
+      },
+      "sealed_test": {
+        "count": 13,
+        "maximum_distance": 0.6705712676048279,
+        "mean_distance": 0.5691580176353455,
+        "radius": 1.25,
+        "within_radius_accuracy": 1.0
+      },
+      "train": {
+        "count": 217,
+        "maximum_distance": 0.7275471091270447,
+        "mean_distance": 0.5869566798210144,
+        "radius": 1.25,
+        "within_radius_accuracy": 1.0
+      },
+      "validation": {
+        "count": 13,
+        "maximum_distance": 0.6887058615684509,
+        "mean_distance": 0.5950939655303955,
+        "radius": 1.25,
+        "within_radius_accuracy": 1.0
+      }
+    },
+    "negative_pairs": {
+      "cross_domain_holdout": {
+        "count": 1,
+        "mean_distance": 1.3318140506744385,
+        "minimum_distance": 1.3318140506744385,
+        "separation_accuracy": 1.0,
+        "threshold": 1.1499899999999998
+      },
+      "sealed_test": {
+        "count": 1,
+        "mean_distance": 1.3343102931976318,
+        "minimum_distance": 1.3343102931976318,
+        "separation_accuracy": 1.0,
+        "threshold": 1.1499899999999998
+      },
+      "train": {
+        "count": 1,
+        "mean_distance": 1.3327642679214478,
+        "minimum_distance": 1.3327642679214478,
+        "separation_accuracy": 1.0,
+        "threshold": 1.1499899999999998
+      },
+      "validation": {
+        "count": 1,
+        "mean_distance": 1.3370361328125,
+        "minimum_distance": 1.3370361328125,
+        "separation_accuracy": 1.0,
+        "threshold": 1.1499899999999998
+      }
+    },
+    "sample_counts": {
+      "edges": {
+        "cross_domain_holdout": 32,
+        "sealed_test": 35,
+        "train": 533,
+        "validation": 31
+      },
+      "membership": {
+        "cross_domain_holdout": 13,
+        "sealed_test": 13,
+        "train": 217,
+        "validation": 13
+      },
+      "negative_pairs": {
+        "cross_domain_holdout": 1,
+        "sealed_test": 1,
+        "train": 1,
+        "validation": 1
+      },
+      "nodes": {
+        "cross_domain_holdout": 27,
+        "sealed_test": 28,
+        "train": 660,
+        "validation": 28
+      }
+    },
+    "semantic_overlay": {
+      "basis_sha256": "34f162e729c4ba9e5a416d843635a44de0ac6d189b70052747978c40561c91c4",
+      "explained_variance_ratio": [
+        0.2764810786740295,
+        0.10213744720378261
+      ],
+      "feature_center_sha256": "be9fb73bff8c575ee8333267fd937feb7a7f1cb05588026560de395e5c173e64",
+      "feature_dimensions": 1024,
+      "finite": true,
+      "fit_node_count": 660,
+      "fit_node_ids_sha256": "eba52d9b9ff22c50371e10f7f7809c0810628454de0b58ffb179e1f1a1e3a94b",
+      "fit_split": "train",
+      "method": "train_only_text_pca_four_coordinate_backbone_v1",
+      "negative_scale": 1.3,
+      "residual_scale": 0.03,
+      "schema_version": 1,
+      "semantic_dimensions": 2,
+      "semantic_scale": 0.3,
+      "stage_scale": 0.8
+    },
+    "shadow": {
+      "all_spatial": true,
+      "collided_placements": 743,
+      "collision_classes": 9,
+      "composition_2d_exact": true,
+      "composition_2d_max_error": 5.551115123125783e-17,
+      "composition_3d_exact": true,
+      "composition_3d_max_error": 5.551115123125783e-17,
+      "deterministic_replay": true,
+      "deterministic_replay_sha256": "0abcdcae01a077368ba712825cd0df2a9cca57ded578c148c75acb814331c4b4",
+      "distance_expansion_violations": 0,
+      "edge_evaluation": {
+        "cross_domain_holdout": {
+          "axis_shuffle_normalized_distance_stress": 0.9240216091713122,
+          "beats_axis_shuffle": true,
+          "beats_random_basis": true,
+          "edge_count": 32,
+          "normalized_distance_stress": 0.0002526158582467104,
+          "random_basis_normalized_distance_stress": 0.808736121500467,
+          "stress_margin_vs_axis_shuffle": 0.9237689933130654,
+          "stress_margin_vs_random": 0.8084835056422203,
+          "usable_edge_count": 32
+        },
+        "sealed_test": {
+          "axis_shuffle_normalized_distance_stress": 0.9575239516153957,
+          "beats_axis_shuffle": true,
+          "beats_random_basis": true,
+          "edge_count": 35,
+          "normalized_distance_stress": 0.0023655327033892267,
+          "random_basis_normalized_distance_stress": 0.836292414629983,
+          "stress_margin_vs_axis_shuffle": 0.9551584189120065,
+          "stress_margin_vs_random": 0.8339268819265938,
+          "usable_edge_count": 35
+        },
+        "train": {
+          "axis_shuffle_normalized_distance_stress": 0.9805551873026295,
+          "beats_axis_shuffle": true,
+          "beats_random_basis": true,
+          "edge_count": 533,
+          "normalized_distance_stress": 0.0003991903561955917,
+          "random_basis_normalized_distance_stress": 0.8535486214719374,
+          "stress_margin_vs_axis_shuffle": 0.9801559969464338,
+          "stress_margin_vs_random": 0.8531494311157418,
+          "usable_edge_count": 533
+        },
+        "validation": {
+          "axis_shuffle_normalized_distance_stress": 0.9838378632319552,
+          "beats_axis_shuffle": true,
+          "beats_random_basis": true,
+          "edge_count": 31,
+          "normalized_distance_stress": 0.0009135593973689301,
+          "random_basis_normalized_distance_stress": 0.8530483988361659,
+          "stress_margin_vs_axis_shuffle": 0.9829243038345863,
+          "stress_margin_vs_random": 0.852134839438797,
+          "usable_edge_count": 31
+        }
+      },
+      "evaluation": {
+        "cross_domain_holdout": {
+          "axis_shuffle_neighbor_recall_at_k": 0.08888888888888889,
+          "beats_axis_shuffle": true,
+          "beats_random_basis": true,
+          "distance_correlation": 0.9999875662976148,
+          "neighbor_count": 5,
+          "neighbor_recall_at_k": 0.6444444444444444,
+          "query_count": 27,
+          "random_basis_neighbor_recall_at_k": 0.23703703703703707,
+          "recall_margin_vs_axis_shuffle": 0.5555555555555555,
+          "recall_margin_vs_random": 0.40740740740740733
+        },
+        "sealed_test": {
+          "axis_shuffle_neighbor_recall_at_k": 0.08571428571428572,
+          "beats_axis_shuffle": true,
+          "beats_random_basis": true,
+          "distance_correlation": 0.9999875587818088,
+          "neighbor_count": 5,
+          "neighbor_recall_at_k": 0.6285714285714287,
+          "query_count": 28,
+          "random_basis_neighbor_recall_at_k": 0.23571428571428574,
+          "recall_margin_vs_axis_shuffle": 0.5428571428571429,
+          "recall_margin_vs_random": 0.3928571428571429
+        },
+        "train": {
+          "axis_shuffle_neighbor_recall_at_k": 0.05757575757575758,
+          "beats_axis_shuffle": true,
+          "beats_random_basis": true,
+          "distance_correlation": 0.9999868565646877,
+          "neighbor_count": 5,
+          "neighbor_recall_at_k": 0.656060606060606,
+          "query_count": 660,
+          "random_basis_neighbor_recall_at_k": 0.22181818181818183,
+          "recall_margin_vs_axis_shuffle": 0.5984848484848484,
+          "recall_margin_vs_random": 0.4342424242424242
+        },
+        "validation": {
+          "axis_shuffle_neighbor_recall_at_k": 0.08571428571428573,
+          "beats_axis_shuffle": true,
+          "beats_random_basis": true,
+          "distance_correlation": 0.9999875438859908,
+          "neighbor_count": 5,
+          "neighbor_recall_at_k": 0.6857142857142859,
+          "query_count": 28,
+          "random_basis_neighbor_recall_at_k": 0.2785714285714286,
+          "recall_margin_vs_axis_shuffle": 0.6000000000000002,
+          "recall_margin_vs_random": 0.40714285714285736
+        }
+      },
+      "false_proximity_pairs": 0,
+      "false_proximity_rate": 0.0,
+      "finite": true,
+      "fit_node_count": 660,
+      "full_far_pair_count": 2956,
+      "has_time_axis": false,
+      "invisible_edges": 49,
+      "invisible_edges_by_split": {
+        "cross_domain_holdout": 0,
+        "sealed_test": 2,
+        "train": 43,
+        "validation": 4
+      },
+      "maximum_distance_expansion": 0.0,
+      "non_expansive": true,
+      "observer_only": true,
+      "orthonormal_max_error": 1.5543122344752192e-15,
+      "projection_id": "taxonomy-mesh2026-medicine-health-0008-v0-all-spatial-shadow4-v1",
+      "schema_version": 1,
+      "source_dimensions": 48,
+      "spectral_norm": 0.9999999999999999,
+      "target_dimensions": 4,
+      "used_for_admission": false
+    }
+  },
+  "output_hashes": {
+    "coordinates.json": "6de349b752043d640f01695d40ff4000f015599e4bc003417eca4b1bc7e9fc14",
+    "evidence-retrieval.json": "213cf22eed96da72282782283da5b2635c4145b99d3cb417d7de5789b6c57062",
+    "metrics.json": "0e9b54a669418887780841d60449378832cebae05b1fd732eec8f2e7085875db",
+    "optimization-coordinates.json": "d271c262fbd42fc90f5a3c54256483a427a2f56b72f7b6332ca8eba95bacaf0e",
+    "relation-coordinates.json": "280b08d79c7d24a644f14c08909f36743cd56f236dee0cad9a5c9d60d997fb7c",
+    "semantic-overlay.json": "48495a0133593b84a80594902563f7fd9c54ed74a484734d2ff12bc272e14312",
+    "shadow-axis-permutation-placebo.npy": "25755cb583cdba6dbe6e1e6830224282dfa9c9e7f5eb3220d5b85bf43b64ba7f",
+    "shadow-coordinates.json": "4eb627dc28b0e8085f61e5610b1e9ec5ebadec727df9972b59e414b91f44319a",
+    "shadow-metrics.json": "dbd917f88031537abdb07b5c5c4eae32b4aa474cd0c2c0c31acf27f7dd6faa18",
+    "shadow-observers.json": "22dedbfc3e8afb94e5d7e8bf63a026a23149370cd79e4fe71a8b5a17159a84fb",
+    "shadow-projection-basis.npy": "6bb242ae2fd90772cfc2591b28bd13873955e3f10c21bc12459b7179f3358f3a",
+    "shadow-projection.json": "06f5dd6a5b37ca93decfeb85a7654131286d9bd596c392ba5bb5c551daf9af75",
+    "shadow-random-basis-placebo.npy": "ff39184efe155862108ba0d559b4fa79cba0f2302eeea685e8d838b643048d98",
+    "trained-node-coordinates.npy": "a62a98da4aec7432e7a930bba09b96d860434585136240c1b74ffc5f6d18db65",
+    "trained-optimization-coordinates.npy": "c2550212fb7c0f9b523d0375e5cd15f59c9d4148953c8f8c2f2b64ff5d25e595",
+    "trained-relation-coordinates.npy": "b72bb46725d275f6a981b292ca8be9bbe21ddcbf2725f74e66418df73f946108",
+    "trained-shadow-coordinates-4d.npy": "e74d1c744ce9a381fbe340ecf80c0704746cbe887d805396bd4fd3f6ddc680f9",
+    "training-curve.json": "68499639e8335df0a878dfcb8db13891f4d0421d1f6f6716f6c1c7450d98fb5e"
+  },
+  "protocol_id": "taxonomy-mesh2026-medicine-health-0008-v0-kaggle-tpu-v3",
+  "run_id": "taxonomy-mesh2026-medicine-health-0008-v0-20260921T171441Z",
+  "schema_version": 1,
+  "seed": 20261010,
+  "shadow_projection": {
+    "all_spatial": true,
+    "basis_sha256": "0b05062aa9497d47ddc8d60965912194f0b242b70f0b46c046b5d81e9653ca85",
+    "coordinate_artifact_sha256": "4eb627dc28b0e8085f61e5610b1e9ec5ebadec727df9972b59e414b91f44319a",
+    "deterministic_replay_sha256": "0abcdcae01a077368ba712825cd0df2a9cca57ded578c148c75acb814331c4b4",
+    "fit_split": "train",
+    "has_time_axis": false,
+    "metric": "euclidean_l2",
+    "metrics_artifact_sha256": "dbd917f88031537abdb07b5c5c4eae32b4aa474cd0c2c0c31acf27f7dd6faa18",
+    "observer_artifact_sha256": "22dedbfc3e8afb94e5d7e8bf63a026a23149370cd79e4fe71a8b5a17159a84fb",
+    "observer_only": true,
+    "projection_artifact_sha256": "06f5dd6a5b37ca93decfeb85a7654131286d9bd596c392ba5bb5c551daf9af75",
+    "projection_id": "taxonomy-mesh2026-medicine-health-0008-v0-all-spatial-shadow4-v1",
+    "source_dimensions": 48,
+    "target_dimensions": 4,
+    "used_for_admission": false
+  },
+  "source_dirty": false,
+  "source_revision": "265fbe981ea5eb34bfb6488b2f2627be2a5a319e",
+  "split_manifest_hash": "c783663feda5b0772887f513b4bfd0c386439ba1fe7ed0bb284d1161bd00f6b5",
+  "started_at": "2026-09-21T17:14:41.191849+00:00",
+  "status": "passed"
+}
