@@ -43,6 +43,47 @@ def node(node_id: str, split: str, text: str, *tags: str) -> dict[str, object]:
 
 
 class SemanticGeometryTests(unittest.TestCase):
+    def test_exact_authored_target_label_is_retrieved_without_target_id(self) -> None:
+        config = {
+            **CONFIG,
+            "world_id": "coverage-closure-v0",
+            "train_edge_evaluation_method": "train_fitted_evidence",
+            "evidence_exact_label_weight": 2.0,
+        }
+        nodes = [
+            {**node("source", "train", "orbital source"), "label": "Orbital source anchor"},
+            {**node("target", "train", "resonant destination"), "label": "Resonant target anchor"},
+            {**node("other", "train", "resonant destination"), "label": "Other target anchor"},
+        ]
+        edges = [
+            {
+                "source_node": "source",
+                "target_node": "target",
+                "relation": "supports",
+                "split": "train",
+                "text": "Orbital evidence supports Resonant target anchor.",
+            }
+        ]
+        catalog = {
+            "relations": [
+                {
+                    "id": "supports",
+                    "definition": "Provides evidence for a target.",
+                    "lexical_cues": ["support", "supports"],
+                }
+            ]
+        }
+        evidence, artifact = build_evidence_index(nodes, edges, catalog, config)
+        metrics = evaluate_evidence_edges(
+            nodes=nodes,
+            edges=edges,
+            edge_indices=[0],
+            evidence=evidence,
+            relation_prior_weight=2.0,
+        )
+        self.assertEqual(artifact["exact_label_weight"], 2.0)
+        self.assertEqual(metrics["hits_at_1"], 1.0)
+
     def test_overlay_is_train_only_and_keeps_48_dimensions(self) -> None:
         nodes = [
             node("a", "train", "alpha cause"),
@@ -113,6 +154,20 @@ class SemanticGeometryTests(unittest.TestCase):
         changed = {**CONFIG, "semantic_overlay_residual_scale": 0.5}
         with self.assertRaisesRegex(ValueError, "registered|protocol-v3"):
             validate_protocol_v3_config(changed)
+
+    def test_coverage_world_uses_registered_dense_world_controls(self) -> None:
+        coverage = {
+            **CONFIG,
+            "world_id": "coverage-closure-v0",
+            "train_edge_evaluation_method": "train_fitted_evidence",
+            "evidence_exact_label_weight": 2.0,
+            "semantic_overlay_residual_scale": 0.005,
+        }
+        validate_protocol_v3_config(coverage)
+        with self.assertRaisesRegex(ValueError, "registered|protocol-v3"):
+            validate_protocol_v3_config(
+                {**coverage, "semantic_overlay_residual_scale": 0.03}
+            )
 
 
 if __name__ == "__main__":

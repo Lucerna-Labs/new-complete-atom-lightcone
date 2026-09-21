@@ -28,6 +28,28 @@ def tokens(text: str) -> list[str]:
     return [*words, *(f"w2:{left}_{right}" for left, right in zip(words, words[1:]))]
 
 
+def normalized_phrase(text: str) -> str:
+    return " ".join(re.findall(r"[a-z0-9+#]+", text.lower()))
+
+
+def exact_label_indices(
+    text: str,
+    lookup: dict[str, np.ndarray],
+    lengths: tuple[int, ...],
+) -> np.ndarray:
+    words = normalized_phrase(text).split()
+    matches: set[int] = set()
+    for length in lengths:
+        if length > len(words):
+            continue
+        for start in range(len(words) - length + 1):
+            phrase = " ".join(words[start : start + length])
+            indices = lookup.get(phrase)
+            if indices is not None:
+                matches.update(int(index) for index in indices)
+    return np.asarray(sorted(matches), dtype=np.int64)
+
+
 def hashed_text_matrix(texts: list[str], dimensions: int) -> np.ndarray:
     if dimensions < 256:
         raise ValueError("evidence feature dimensions must be at least 256")
@@ -181,6 +203,16 @@ def build_evidence_index(
     idf = np.log((1.0 + len(fit)) / (1.0 + document_frequency)) + 1.0
     node_vectors = _normalize_rows(node_raw * idf)
     edge_vectors = _normalize_rows(edge_raw * idf)
+    label_rows: dict[str, list[int]] = {}
+    for index, node in enumerate(nodes):
+        phrase = normalized_phrase(str(node.get("label", node["node_id"])))
+        if phrase:
+            label_rows.setdefault(phrase, []).append(index)
+    label_lookup = {
+        phrase: np.asarray(indices, dtype=np.int64)
+        for phrase, indices in label_rows.items()
+    }
+    label_lengths = tuple(sorted({len(phrase.split()) for phrase in label_lookup}))
     relations = sorted({edge["relation"] for edge in edges if edge["relation"] != "part_of"})
     train_relations = {
         relation: [
@@ -221,14 +253,19 @@ def build_evidence_index(
         "relation_priors": priors,
         "idf": idf,
         "relations": np.asarray(relations, dtype=object),
+        "label_lookup": label_lookup,
+        "label_lengths": label_lengths,
+        "exact_label_weight": float(config.get("evidence_exact_label_weight", 0.0)),
     }
     artifact = {
         "schema_version": 1,
-        "method": "train_fitted_hashed_tfidf_evidence_retrieval_v1",
+        "method": "train_fitted_hashed_tfidf_plus_exact_label_v2",
         "fit_split": "train",
         "feature_dimensions": dimensions,
         "fit_document_count": int(len(fit)),
         "relation_prior_weight": float(config["relation_prior_weight"]),
+        "exact_label_weight": float(config.get("evidence_exact_label_weight", 0.0)),
+        "label_phrase_sha256": canonical_hash(sorted(label_lookup)),
         "relations": relations,
         "idf_sha256": canonical_hash([round(float(value), 12) for value in idf]),
         "relation_centroids_sha256": canonical_hash(
@@ -264,6 +301,7 @@ def evaluate_evidence_edges(
     relation_index = {
         str(relation): index for index, relation in enumerate(evidence["relations"])
     }
+    exact_label_weight = float(evidence.get("exact_label_weight", 0.0))
     ranks: list[int] = []
     wins: list[float] = []
     directions: list[bool] = []
@@ -272,6 +310,11 @@ def evaluate_evidence_edges(
         edge = edges[edge_index]
         vector = evidence["edge_vectors"][edge_index]
         scores = evidence["node_vectors"] @ vector
+        if exact_label_weight > 0.0:
+            matches = exact_label_indices(
+                edge["text"], evidence["label_lookup"], evidence["label_lengths"]
+            )
+            scores[matches] += exact_label_weight
         target = node_index[edge["target_node"]]
         source = node_index[edge["source_node"]]
         target_score = float(scores[target])
@@ -297,7 +340,7 @@ def evaluate_evidence_edges(
         "direction_accuracy": sum(directions) / count,
         "edge_discrimination_accuracy": float(np.mean(wins)),
         "edge_discrimination_method": "all_non_target_pairwise_win_rate_v1",
-        "retrieval_method": "train_fitted_hashed_tfidf_evidence_retrieval_v1",
+        "retrieval_method": "train_fitted_hashed_tfidf_plus_exact_label_v2",
         "relation_accuracy": sum(relations_correct) / count,
         "relation_classification_method": "train_centroid_plus_registered_semantic_prior_v1",
     }
@@ -313,13 +356,21 @@ def validate_protocol_v3_config(config: dict[str, Any]) -> None:
         "semantic_overlay_text_scale": 0.3,
         "semantic_overlay_negative_scale": 1.3,
         "semantic_overlay_stage_scale": 0.8,
-        "semantic_overlay_residual_scale": 0.03,
+        "semantic_overlay_residual_scale": (
+            0.005 if config.get("world_id") == "coverage-closure-v0" else 0.03
+        ),
     }
     errors = [
         f"{key}={config.get(key)!r}, expected {value!r}"
         for key, value in expected.items()
         if config.get(key) != value
     ]
+    expected_label_weight = 2.0 if config.get("world_id") == "coverage-closure-v0" else 0.0
+    observed_label_weight = float(config.get("evidence_exact_label_weight", 0.0))
+    if observed_label_weight != expected_label_weight:
+        errors.append(
+            f"evidence_exact_label_weight={observed_label_weight!r}, expected {expected_label_weight!r}"
+        )
     train_method = config.get("train_edge_evaluation_method")
     allowed_train_methods = {"jax_translation", "train_fitted_evidence"}
     if train_method not in allowed_train_methods:

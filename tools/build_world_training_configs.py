@@ -21,6 +21,9 @@ def main() -> int:
         if world_id.startswith("taxonomy-") or world_id == "coverage-closure-v0":
             config["steps"] = 1200
             config["train_edge_evaluation_method"] = "train_fitted_evidence"
+        if world_id == "coverage-closure-v0":
+            config["evidence_exact_label_weight"] = 2.0
+            config["semantic_overlay_residual_scale"] = 0.005
         path = root / config_name
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(json.dumps(config, indent=2, sort_keys=True) + "\n", encoding="utf-8")

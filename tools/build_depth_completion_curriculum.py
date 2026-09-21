@@ -212,6 +212,8 @@ class Builder:
         self.any_nodes = list(dict.fromkeys(local_nodes))
         self.output: list[dict[str, Any]] = []
         self.generated_nodes: dict[str, list[str]] = collections.defaultdict(list)
+        self.generated_node_labels: dict[str, str] = {}
+        self.generated_node_sources: dict[str, list[str]] = {}
         self.pending_examples: list[tuple[str, str]] = []  # (worked_example id, subject)
 
     # -- record assembly -------------------------------------------------
@@ -232,6 +234,7 @@ class Builder:
         relation: dict[str, Any] | None = None,
         synthetic: bool = False,
         limitations: list[str] | None = None,
+        split: str | None = None,
     ) -> str:
         kind, item_id, axis = pair
         record_id = f"coverage.depth.{kind}.{slug(item_id)}.{slug(axis)}.{index}"
@@ -256,7 +259,7 @@ class Builder:
             "as_of": AS_OF,
             "version_boundary": VERSION_BOUNDARY,
             "split_group": record_id,
-            "split": stable_split(record_id),
+            "split": split or stable_split(record_id),
             "tags": ["depth-completion", f"axis-{slug(axis)}"],
         }
         if aliases:
@@ -270,9 +273,39 @@ class Builder:
         self.output.append(record)
         if record_kind != "relation":
             self.generated_nodes[subject].append(record_id)
+            self.generated_node_labels[record_id] = label
+            self.generated_node_sources[record_id] = list(sources)
         if record_kind == "worked_example":
             self.pending_examples.append((record_id, subject))
         return record_id
+
+    def seed_subject_anchors(self, per_axis: collections.Counter[str]) -> None:
+        """Give every subfield two source-bound endpoints owned by this world."""
+        for subject in sorted(self.subfield_parent):
+            domain = self.subfield_parent[subject]
+            material = self.material.get(subject)
+            subject_label = self.labels_by_id.get(subject, subject)
+            source_pool = material.sources if material else list(ROOT_SOURCES)
+            corpus_labels = material.labels[:3] if material else [subject_label]
+            for index, role in enumerate(("source", "target")):
+                self.emit(
+                    pair=("anchor", subject, "definitions_scope"),
+                    index=index,
+                    subject=subject,
+                    lanes=self.domain_lanes[domain],
+                    record_kind="concept",
+                    epistemic_class="established",
+                    label=f"{subject_label} {role} anchor",
+                    statement=(
+                        f"The {role} endpoint for {subject_label} is grounded by registered "
+                        f"corpus objects {corpus_labels}; it exists to close typed depth "
+                        "relations inside this world and does not create a new domain claim."
+                    ),
+                    sources=[source_pool[index % len(source_pool)]],
+                    aliases=[f"{subject_label.lower()} {role} endpoint"],
+                    split="train",
+                )
+                per_axis["definitions_scope"] += 1
 
     def endpoints(self, subject: str, count: int) -> list[str]:
         pool = list(self.generated_nodes[subject]) + self.local_nodes_by_subject.get(
@@ -306,6 +339,14 @@ class Builder:
         exceptions = clamp(material.exceptions if material else [], f"excepts:{item_id}:{axis}")
         relations_list = clamp(material.relation_summaries if material else [], f"rels:{item_id}:{axis}")
         nodes = self.endpoints(subject, 2)
+        source_endpoint_label = (
+            self.generated_node_labels.get(nodes[0], nodes[0]) if nodes else "the source endpoint"
+        )
+        target_endpoint_label = (
+            self.generated_node_labels.get(nodes[1], nodes[1])
+            if len(nodes) >= 2
+            else "the target endpoint"
+        )
 
         if axis == "definitions_scope":
             self.emit(
@@ -344,7 +385,8 @@ class Builder:
                 epistemic_class="established",
                 label=f"{subject_label} mechanism chain",
                 statement=(
-                    f"Causal structure of {subject_label} is carried by its typed relations "
+                    f"The typed mechanism for {subject_label} connects {source_endpoint_label} "
+                    f"to {target_endpoint_label}. Causal structure is carried by relations "
                     f"{relations_list or ['the registered typed graph']}; mechanism claims stay graph-local."
                 ),
                 sources=sources, relation=relation,
@@ -387,7 +429,8 @@ class Builder:
                 epistemic_class="established",
                 label=f"{subject_label} prerequisite structure",
                 statement=(
-                    f"Prerequisite structure of {subject_label} is declared by conditions "
+                    f"The prerequisite relation for {subject_label} connects {source_endpoint_label} "
+                    f"to {target_endpoint_label} under conditions "
                     f"{conditions or ['the record scope']}; no consequence is released as assumption-free."
                 ),
                 sources=sources, relation=relation,
@@ -463,7 +506,8 @@ class Builder:
                 epistemic_class="established",
                 label=f"{subject_label} composition",
                 statement=(
-                    f"Within-domain composition of {subject_label} composes its registered objects "
+                    f"Within-domain composition of {subject_label} connects {source_endpoint_label} "
+                    f"to {target_endpoint_label} and composes registered objects "
                     f"{labels or ['the corpus objects']} through typed relations only; proximity alone cannot authorize transfer."
                 ),
                 sources=sources, relation=relation,
@@ -476,7 +520,7 @@ class Builder:
             ]
             foreign = [
                 node
-                for node in [*self.any_nodes, *generated_any]
+                for node in [*generated_any, *self.any_nodes]
                 if node not in set(nodes)
             ]
             target = (
@@ -489,16 +533,18 @@ class Builder:
                     "source_node": nodes[0], "target_node": target,
                     "kind": "analogous_to", "polarity": 0, "direction": "bidirectional",
                 }
+            target_label = self.generated_node_labels.get(target, target)
+            target_sources = self.generated_node_sources.get(target, [])
             self.emit(
                 pair=pair, index=index, subject=subject, lanes=lanes,
                 record_kind="relation" if relation else "boundary",
                 epistemic_class="interpretive",
                 label=f"{subject_label} cross-domain bridge",
                 statement=(
-                    f"Cross-domain bridge from {subject_label} to an external corpus object is declared as an analogy only; "
+                    f"Cross-domain bridge from {subject_label} to {target_label} is declared as an analogy only; "
                     "the bridge carries no empirical warrant and must be re-grounded before any use as evidence."
                 ),
-                sources=sources, relation=relation,
+                sources=unique([*sources, *target_sources], 8), relation=relation,
             )
         elif axis == "unknown_abstention":
             pair_labels = labels or [item_label, subject_label]
@@ -524,6 +570,7 @@ class Builder:
         if errors:
             raise SystemExit(f"curricula scan errors: {errors[:3]}")
         per_axis: collections.Counter[str] = collections.Counter()
+        self.seed_subject_anchors(per_axis)
         for item in self.ledger["items"]:
             kind = item["kind"]
             item_id = item["id"]
@@ -564,6 +611,7 @@ class Builder:
         for example_id, subject in self.pending_examples:
             anchors = self.endpoints(subject, 1)
             anchor = anchors[0] if anchors else example_id
+            example_label = self.generated_node_labels.get(example_id, example_id)
             self.output.append(
                 {
                     "schema_version": 1,
@@ -575,7 +623,7 @@ class Builder:
                     "record_kind": "relation",
                     "epistemic_class": "established",
                     "label": f"grounding edge for {example_id}",
-                    "statement": f"Registered corpus node {anchor} grounds worked example {example_id}; the edge exists to keep the example on the typed graph.",
+                    "statement": f"Registered corpus node {anchor} grounds worked example {example_label} ({example_id}); the edge exists to keep the example on the typed graph.",
                     "relation": {
                         "source_node": anchor,
                         "target_node": example_id,
