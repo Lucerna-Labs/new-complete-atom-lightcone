@@ -1,7 +1,7 @@
 """Cell and molecular biology causation: membranes, enzymes, DNA, protein synthesis, division."""
 
 WORLD = "biology-causation-v0"
-PREFIX = "bio"
+PREFIX = "bioc"
 DOMAIN = "biology"
 SUBJECT = "biology.cell"
 SOURCES = ["ncbi-molecular-cell", "nhgri-genomics-facts"]
