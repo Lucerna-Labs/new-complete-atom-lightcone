@@ -230,6 +230,15 @@ The existing code is in `Atom-lightcone-27b-harness/crates/atom-executive` and
 4. Creativity and probability output never pass through the causal cone. Keep
    `atom-creative-paths` scoring and the choice ledger, so Jesse chooses.
 
+**Eighth reasoning world, geometric/spatial (located 2026-10-02).** It already exists as
+measured engines in a-rag-atom `atom-cognitive-engine`:
+- BUILD-8 geometric (`src/geometry.rs`; betweenness, congruence, symmetry; 4/4);
+- BUILD-9 spatial (`src/spatial.rs`; chirality, frames, direction composition and
+  contradiction, containment; 5/5).
+
+It was never added to the lane catalog or `LANE_GOALS`. Author it as the eighth
+reasoning world, and let the engine call BUILD-8/9 as that world's executor.
+
 ## 7. Phase F — Kaggle TPU training and sealing
 
 - **Iterate per world:** a single-world kernel in the pattern of
