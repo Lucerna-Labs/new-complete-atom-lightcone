@@ -85,22 +85,26 @@ there; they are recorded as a remaining item, not changed in v3.
 - **L04 MEASURED.** Every validator in the preflight passed, density_ok true,
   and the unittest suites passed (21, 17 including the new reopen tests, and
   3). Rust workspace `cargo test` passed.
-- **L05 INCONCLUSIVE.** `run_local_smoke_matrix.py --world <w>
-  --reuse-compiled --output-root /tmp/v3-smoke` returned
-  `error_without_receipt` (trainer exit code 1, `missing_receipt`) for both
-  worlds within seconds. The cause has not been investigated. It may be the
-  invocation (output root outside the repo, `--reuse-compiled`
-  expectations, or the JAX environment) rather than a gate failure. A
-  diagnostic rerun was interrupted at the owner's request.
+- **L05 MEASURED (2026-10-02).** The 2026-10-01 `error_without_receipt` was
+  environmental: the matrix was launched with the system `python3`, which has
+  no JAX, so `trainer/train_jax.py` died at `import jax` (exit 1) before
+  writing a receipt. Rerun with the repo virtualenv on CPU:
+  `JAX_PLATFORMS=cpu .venv/bin/python tools/run_local_smoke_matrix.py
+  --world languages-compilers-v0 --world math-probability-information-v0
+  --reuse-compiled --require-non-tpu-pass --output-root <scratch>` exit 0:
+  2/2 non-TPU passes, 2/2 serialized-shadow passes. In both receipts the only
+  unpassed gate is `tpu_backend` (trainer exit 2, expected on CPU). Run ids
+  `languages-compilers-v0-20261002T130927Z` and
+  `math-probability-information-v0-20261002T130934Z`. No thresholds changed;
+  diagnostic only, not accelerator evidence.
 - **L06 MEASURED.** `kaggle/package_catalog_job.py --kernel-version 5
   --validate-only` exit 0: 178 training protocols valid, nothing packaged.
 
 ## Next steps
 
-1. Diagnose L05: rerun one world without `| tail` and read the trainer's
-   stderr. Try the README's documented form first. Do not change gate
-   thresholds.
-2. If the smoke passes, provide Kaggle credentials (none are configured
+1. ~~Diagnose L05~~ done 2026-10-02 (missing JAX in system Python; passes
+   under `.venv`).
+2. Provide Kaggle credentials (none are configured
    locally), package for real (needs a clean tree), and run kernel version 5
    on an eight-device TPU.
 3. Validation, authorization and completion receipts for v3, per
