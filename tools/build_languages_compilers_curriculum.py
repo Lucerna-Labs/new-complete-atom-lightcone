@@ -106,6 +106,13 @@ COMPILER = [
 ]
 
 
+# Root names for languages whose bare name is also an everyday English word, so
+# the word alone never becomes a seed term for the language.
+ROOT_NAMES = {
+    "go": ("Go programming language", ["golang", "go language"]),
+}
+
+
 # Each profile is version-scoped and intentionally separates language semantics
 # from one compiler, runtime, package registry, or host platform.
 LANGUAGES = [
@@ -558,7 +565,7 @@ def build() -> list[dict[str, Any]]:
                 ),
                 "label": label,
                 "statement": statement,
-                "aliases": [label.lower()],
+                "aliases": [],
             }
         )
         if identifier != "root":
@@ -600,8 +607,9 @@ def build() -> list[dict[str, Any]]:
 
     for index, (language_id, label, subject, source, semantics, types, resources, concurrency, toolchain, boundaries) in enumerate(LANGUAGES, start=1):
         sources = language_sources(language_id, source)
+        root_label, root_aliases = ROOT_NAMES.get(language_id, (label, []))
         node_specs = [
-            ("root", label, semantics),
+            ("root", root_label, semantics),
             ("types", f"{label} type model", types),
             ("resources", f"{label} resource model", resources),
             ("concurrency", f"{label} concurrency model", concurrency),
@@ -619,7 +627,7 @@ def build() -> list[dict[str, Any]]:
                     ),
                     "label": node_label,
                     "statement": statement,
-                    "aliases": [node_label.lower()],
+                    "aliases": list(root_aliases) if suffix == "root" else [],
                     "tags": ["foundation", "language-ecosystems", f"language-{language_id}"],
                 }
             )
@@ -699,7 +707,7 @@ def build() -> list[dict[str, Any]]:
                 ),
                 "label": label,
                 "statement": statement,
-                "aliases": [label.lower()],
+                "aliases": [],
                 "coverage_axes": ["exceptions_boundaries", "errors_adversarial_misuse", "unknown_abstention"],
                 "synthetic": True,
                 "tags": ["negative-control", domain],

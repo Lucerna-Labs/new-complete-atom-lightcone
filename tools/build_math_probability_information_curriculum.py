@@ -154,7 +154,7 @@ MATH = [
     ("network-flow", "Network flow", "A network flow assigns edge values satisfying capacity and conservation constraints except at source and sink.", "formal-mathematics.graph-theory"),
     ("matching", "Graph matching", "A matching is a set of edges sharing no endpoints under the graph's incidence relation.", "formal-mathematics.graph-theory"),
     ("coloring", "Graph coloring", "A proper vertex coloring assigns colors so adjacent vertices differ and seeks feasibility or minimum color count.", "formal-mathematics.graph-theory"),
-    ("set", "Set", "A set is determined extensionally by which objects are its members.", "formal-mathematics.set-theory"),
+    ("set", "Set (mathematics)", "A set is determined extensionally by which objects are its members.", "formal-mathematics.set-theory"),
     ("subset", "Subset", "A is a subset of B when every member of A is a member of B.", "formal-mathematics.set-theory"),
     ("union", "Set union", "A union contains exactly the objects belonging to at least one input set.", "formal-mathematics.set-theory"),
     ("intersection", "Set intersection", "An intersection contains exactly the objects belonging to every input set.", "formal-mathematics.set-theory"),

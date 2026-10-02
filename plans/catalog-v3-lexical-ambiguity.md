@@ -64,6 +64,51 @@ there; they are recorded as a remaining item, not changed in v3.
   `kaggle/package_catalog_job.py --kernel-version 5 --validate-only` passes
   without creating upload files. Prediction: MEASURED.
 
+## Results so far (2026-10-01, end of session)
+
+- **L01 FAILED (prediction incomplete).** 291 records changed, none added or
+  removed: 288 alias-only changes, all in languages-compilers and all exactly
+  `label.lower()` -> `[]`; `lang.go.root` and `math.set` as planned. One
+  unpredicted record also changed: `mpi.membership.math.set`, whose label and
+  statement are derived from the Set label ("Set (mathematics) world
+  membership"). The change is consistent with the intent, but the prediction
+  said no other record would change. Kept on record, not reverted. Full diff:
+  `plans/catalog-v3-reopen.json`.
+- **L02 MEASURED.** Compiled staging lexicons: no bare `go`; `golang`,
+  `go language` and `go programming language` -> `lang.go.root`; `c`, `r`,
+  `php` and `c++` still reach their roots, with only all-caps source forms;
+  no bare `set`; `set mathematics` -> `math.set`.
+- **L03 MEASURED.** `tools/reopen_coverage.py` (2 unit tests) reopened 46
+  items (3 domains, 39 subfields, 4 lanes) to `authored`. Registry status:
+  46 authored / 594 sealed. `validate_registry.py` passes;
+  `--require-sealed` fails as intended.
+- **L04 MEASURED.** Every validator in the preflight passed, density_ok true,
+  and the unittest suites passed (21, 17 including the new reopen tests, and
+  3). Rust workspace `cargo test` passed.
+- **L05 INCONCLUSIVE.** `run_local_smoke_matrix.py --world <w>
+  --reuse-compiled --output-root /tmp/v3-smoke` returned
+  `error_without_receipt` (trainer exit code 1, `missing_receipt`) for both
+  worlds within seconds. The cause has not been investigated. It may be the
+  invocation (output root outside the repo, `--reuse-compiled`
+  expectations, or the JAX environment) rather than a gate failure. A
+  diagnostic rerun was interrupted at the owner's request.
+- **L06 MEASURED.** `kaggle/package_catalog_job.py --kernel-version 5
+  --validate-only` exit 0: 178 training protocols valid, nothing packaged.
+
+## Next steps
+
+1. Diagnose L05: rerun one world without `| tail` and read the trainer's
+   stderr. Try the README's documented form first. Do not change gate
+   thresholds.
+2. If the smoke passes, provide Kaggle credentials (none are configured
+   locally), package for real (needs a clean tree), and run kernel version 5
+   on an eight-device TPU.
+3. Validation, authorization and completion receipts for v3, per
+   `tools/build_catalog_evidence.py`; the ledger is then reopened ->
+   validated -> sealed.
+4. Import the v3 packs into a-rag-atom (new catalog hash pin, adapter
+   catalog checks) and rerun its admission checks.
+
 ## Stop condition
 
 No upload, no Kaggle run, no ledger promotion beyond `authored`, no seal, no
