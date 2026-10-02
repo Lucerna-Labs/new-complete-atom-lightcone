@@ -166,6 +166,20 @@ Use `.venv/bin/python`. The system Python has no JAX.
 
 ## 6. Phase E — AtomDB attachment (harness-first, as Jesse always built it)
 
+**Evidence (E19, 2026-10-02, a-rag-atom `docs/ATOMDB-CONE-E19.md`):** all 178 v2 worlds
+were stored in a scratch AtomDB store (5 s, 153 MB) and delivered by AtomDB's
+`activate` inside the cone.
+- E16R: 43/45, the same as cone1/cone2, at a median of 115 prompt tokens (cone1 254,
+  cone2 5,758).
+- E17R pressure: 32/60, better than cone1 (29) and cone2 (26).
+- With reasoning: 45/60, equal to cone1.
+- With reversed packets the scores collapse (direction survives).
+- **Required:** the cone must gate AtomDB's cues as well as its arcs. AtomDB as is
+  delivered nothing on these questions. Arcs must follow edge direction.
+- Prototype: `tools/atomdb-cone` + `tools/atomdb_cone.py` in a-rag-atom.
+
+**This makes AtomDB the recommended delivery path for the cone.**
+
 Use the AtomDb-MCP core (the newest and most correct line) as the substrate.
 
 1. **Fix first:** in `src/store.rs` `commit_cell`, update the `incoming` index (it
