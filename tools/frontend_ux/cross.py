@@ -1,0 +1,103 @@
+"""Cross-area bridges, UX myths (counterexamples), boundaries and worked examples."""
+
+# (id, label, statement, aliases, domain, subject)
+CONCEPTS = [
+    ("task-abandonment", "Task abandonment", "Users give up on a task, such as leaving a checkout before paying.", [], "human-computer-interaction", "human-computer-interaction.usability"),
+    ("trust-in-interface", "Trust in the interface", "Users' confidence that the interface will do what they intend.", [], "human-computer-interaction", "human-computer-interaction.usability"),
+    ("assistive-tech-user", "Assistive technology user", "A person using a screen reader, switch device, magnifier or keyboard only.", [], "frontend-web-development", "frontend-web-development.accessibility"),
+    ("legal-accessibility-risk", "Accessibility compliance failure", "Failing the WCAG success criteria that laws and contracts often require.", [], "frontend-web-development", "frontend-web-development.accessibility"),
+]
+
+BRIDGES = [
+    ("bridge-inp-repeat", "inp-slow", "repeated-clicks", "causes", "Slow Interaction to Next Paint causes repeated clicking because the first click seems ignored.", "no immediate visual feedback appears", ""),
+    ("bridge-unresponsive-abandon", "perceived-unresponsive", "task-abandonment", "causes", "An interface perceived as unresponsive causes task abandonment.", "the delay repeats across steps", ""),
+    ("bridge-lcp-abandon", "lcp-slow", "task-abandonment", "causes", "Slow Largest Contentful Paint causes task abandonment before the page is used.", "the user arrived with a quick goal", ""),
+    ("bridge-misclick-trust", "misclick-from-shift", "trust-in-interface", "inhibits", "A mis-click caused by layout shift inhibits trust in the interface.", "the mis-click triggers an unwanted action", ""),
+    ("bridge-duplicate-trust", "duplicate-submission", "trust-in-interface", "inhibits", "Duplicate submission inhibits trust in the interface.", "the user is charged or messaged twice", ""),
+    ("bridge-loss-trust", "accidental-data-loss", "trust-in-interface", "inhibits", "Accidental data loss inhibits trust in the interface.", "the lost work cannot be recovered", ""),
+    ("bridge-errors-abandon", "task-errors", "task-abandonment", "causes", "Task errors and slow completion cause task abandonment.", "errors keep recurring", ""),
+    ("bridge-frustration-abandon", "user-frustration", "task-abandonment", "causes", "User frustration causes task abandonment.", "an easier alternative exists", ""),
+    ("bridge-keyboard-at", "keyboard-inaccessible", "assistive-tech-user", "prevents", "A control unusable by keyboard prevents an assistive technology user from completing the task.", "the control is required for the task", ""),
+    ("bridge-focus-at", "focus-invisible", "task-errors", "causes", "Invisible keyboard focus causes task errors for keyboard users who cannot see where they are.", "the user navigates by keyboard", ""),
+    ("bridge-keyboard-legal", "keyboard-inaccessible", "legal-accessibility-risk", "causes", "A control unusable by keyboard causes an accessibility compliance failure.", "WCAG 2.1.1 Keyboard applies", ""),
+    ("bridge-contrast-legal", "low-text-contrast", "legal-accessibility-risk", "causes", "Low text contrast causes an accessibility compliance failure.", "WCAG 1.4.3 Contrast (Minimum) applies", ""),
+    ("bridge-reading-errors", "reading-difficulty", "task-errors", "causes", "Reading difficulty causes task errors and slow completion.", "the task depends on reading instructions or labels", ""),
+    ("bridge-clipped-reading", "text-clipped-on-zoom", "reading-difficulty", "causes", "Text clipped when zoomed causes reading difficulty for users who need larger text.", "the clipped text carries content", ""),
+    ("bridge-overflow-reading", "layout-overflow", "reading-difficulty", "causes", "Horizontal layout overflow causes reading difficulty when users must scroll sideways for each line.", "body text is affected", ""),
+    ("bridge-hidden-overlay-errors", "overlay-hidden-behind", "task-errors", "causes", "An overlay hidden behind other content causes task errors because users cannot reach the menu or dialog.", "the overlay holds required controls", ""),
+    ("bridge-toolbar-errors", "content-hidden-under-toolbar", "task-errors", "causes", "Content hidden under the mobile toolbar causes task errors when the main button cannot be seen.", "the hidden content includes the primary action", ""),
+    ("bridge-stale-errors", "stale-results-shown", "task-errors", "causes", "Stale search results shown cause task errors when users act on results for the wrong query.", "the user selects a result", ""),
+    ("bridge-desync-trust", "state-desync", "trust-in-interface", "inhibits", "Out-of-sync UI state inhibits trust in the interface.", "the contradiction is visible to the user", ""),
+    ("bridge-frozen-frustration", "input-frozen", "user-frustration", "causes", "An input field that cannot be typed in causes user frustration.", "the field is required", ""),
+    ("bridge-lag-frustration", "input-lag", "user-frustration", "causes", "Typing input lag causes user frustration.", "the lag exceeds about 100 ms", ""),
+    ("bridge-frames-frustration", "dropped-frames", "user-frustration", "causes", "Dropped animation frames cause user frustration during scrolling.", "the stutter is frequent", ""),
+    ("bridge-clutter-load", "visual-clutter", "working-memory-load", "causes", "Visual clutter causes higher working memory load.", "users must sort relevant from irrelevant elements", ""),
+    ("bridge-hierarchy-load", "clear-visual-hierarchy", "working-memory-load", "inhibits", "Clear visual hierarchy inhibits working memory load.", "the hierarchy matches the task order", ""),
+    ("bridge-choices-load", "number-of-choices", "working-memory-load", "causes", "A larger number of choices shown at once causes higher working memory load.", "the choices must be compared", ""),
+    ("bridge-target-taperrors", "target-size", "tap-errors", "inhibits", "A larger target size inhibits tap errors on touch screens.", "targets are also spaced apart", ""),
+    ("bridge-status-unresponsive", "system-status-visible", "perceived-unresponsive", "prevents", "Visible system status prevents the interface being perceived as unresponsive.", "the status appears within about 100 ms", ""),
+    ("bridge-progress-abandon", "progress-indicator", "task-abandonment", "inhibits", "A progress indicator inhibits task abandonment during long waits.", "progress actually advances", ""),
+    ("bridge-recovery-abandon", "error-recovery", "task-abandonment", "inhibits", "Error recovery by the user inhibits task abandonment.", "recovery is quick", ""),
+    ("bridge-findability-abandon", "findability", "task-abandonment", "inhibits", "Findability of content inhibits task abandonment.", "the content the user seeks exists", ""),
+    ("bridge-semantic-findability", "heading-structure", "scanning-efficiency", "causes", "Logical heading structure causes efficient scanning for sighted users as well.", "headings are visually distinct", ""),
+    ("bridge-tokens-contrast", "design-tokens", "low-text-contrast", "inhibits", "Design tokens inhibit low text contrast when the token palette is checked once for contrast.", "only checked token pairs are used for text", ""),
+    ("bridge-zoomedout-reading", "zoomed-out-desktop-render", "reading-difficulty", "causes", "Zoomed-out desktop rendering on phones causes reading difficulty.", "the user does not pinch-zoom", ""),
+    ("bridge-colorlost-errors", "information-lost-to-colorblind", "task-errors", "causes", "Information lost to colour-blind users causes task errors.", "the colour carries status needed for the task", ""),
+]
+
+# Myths: (id, label, statement, target)
+MYTHS = [
+    ("three-click-rule", "Myth: every page must be reachable in three clicks", "Users tolerate more clicks when each click clearly leads closer to their goal; information scent matters more than click count.", "deep-navigation"),
+    ("users-dont-scroll", "Myth: users never scroll below the fold", "Users scroll when the visible part signals that useful content continues; a false bottom stops scrolling, not scrolling itself.", "key-content-missed"),
+    ("more-choice-better", "Myth: offering more options always helps users", "More simultaneous options increase decision time and load; good defaults and progressive disclosure often serve users better.", "number-of-choices"),
+    ("placeholder-is-label", "Myth: placeholder text is a fine replacement for a label", "Placeholder text disappears when typing begins and is often low contrast, so it fails as the only label.", "placeholder-as-label"),
+    ("aria-fixes-all", "Myth: adding ARIA makes any element accessible", "ARIA changes only what is announced; it adds no keyboard behaviour, and wrong ARIA is worse than none.", "aria-misuse"),
+    ("outline-ugly-remove", "Myth: focus outlines are ugly and can be removed", "Removing focus outlines without a replacement makes the interface unusable by keyboard; style them instead.", "focus-outline-removed"),
+    ("zindex-higher-wins", "Myth: a higher z-index always puts an element on top", "z-index only orders elements inside the same stacking context; a child of a low-ranked context can never rise above it.", "z-index-value"),
+    ("colour-alone-ok", "Myth: red and green are enough to show error and success", "Many users cannot distinguish red from green; add icons or text.", "color-only-meaning"),
+    ("users-read-everything", "Myth: users read every word on a page", "Most users scan headings, links and the start of lines; key information must be visible in those places.", "scanning-efficiency"),
+    ("faster-hardware-fixes", "Myth: performance only matters on slow computers", "Many users browse on mid-range phones and slow networks, where heavy JavaScript causes long main-thread tasks.", "large-js-bundle"),
+    ("spinner-is-enough", "Myth: a spinner is always enough feedback", "For waits beyond about 10 seconds users need progress and an estimate, not just a spinner.", "spinner-only"),
+    ("confirm-everything", "Myth: confirmation dialogs prevent all mistakes", "Frequent confirmations become automatic clicks; undo protects users better.", "confirmation-dialog-overuse"),
+    ("pure-black-best", "Myth: pure black with pure white is the best dark mode", "Maximum contrast in dark mode can cause halation; softened palettes read better while still meeting contrast.", "dark-mode-pure-white"),
+    ("index-keys-fine", "Myth: array index keys are always fine for lists", "Index keys break item identity when lists reorder, insert or delete, mixing up row state.", "unstable-list-keys"),
+    ("vh-is-viewport", "Myth: 100vh always equals the visible screen height", "On many mobile browsers 100vh is taller than the visible area while the toolbar shows.", "full-height-100vh"),
+    ("more-features-better-ux", "Myth: more features mean a better user experience", "Each added feature competes for attention and increases clutter unless it serves a real task.", "visual-clutter"),
+    ("lazy-load-everything", "Myth: lazy loading every image always helps", "Lazy loading the first-screen hero delays the largest paint; only below-the-fold images should be lazy.", "lazy-loaded-hero"),
+    ("disabled-buttons-explain", "Myth: a disabled submit button explains what is wrong", "A greyed-out button gives no reason; users need specific messages about which field blocks submission.", "error-message-vague"),
+    ("small-text-modern", "Myth: small light-grey text looks modern without cost", "Small, low-contrast text measurably slows reading and excludes low-vision users.", "low-text-contrast"),
+    ("one-size-breakpoints", "Myth: designing for three fixed device widths covers everyone", "Real viewports vary continuously; fluid layouts prevent overflow between breakpoints.", "fixed-width-layout"),
+]
+
+BOUNDARIES = [
+    ("expert-efficiency", "Boundary: expert users and dense interfaces", "Experienced users of specialised tools can benefit from dense screens and shortcuts that would overwhelm newcomers.", "visual-clutter"),
+    ("recall-shortcuts", "Boundary: keyboard shortcuts rely on recall", "Shortcuts require recall but speed up experts; they should complement, not replace, visible options.", "recall-required"),
+    ("large-text-contrast", "Boundary: large text needs less contrast", "Text at least 24 px, or 18.66 px bold, needs only a 3:1 ratio under WCAG.", "low-text-contrast"),
+    ("decorative-images", "Boundary: decorative images", "Purely decorative images should have empty alt text so screen readers skip them.", "missing-alt-text"),
+    ("hicks-familiar-lists", "Boundary: familiar sorted lists", "Choosing from a long but familiar, well-ordered list, such as countries, is slowed less than Hick's law suggests.", "decision-time"),
+    ("fitts-touch", "Boundary: Fitts's law on touch screens", "On touch screens finger size and occlusion matter as much as distance; edges give no pointer-stop advantage.", "acquisition-time"),
+    ("optimistic-risky", "Boundary: optimistic updates for risky actions", "Payments and irreversible actions should wait for confirmation instead of updating optimistically.", "optimistic-update"),
+    ("index-keys-static", "Boundary: static lists", "Index keys are harmless for lists that never reorder and hold no per-row state.", "unstable-list-keys"),
+    ("animation-meaningful", "Boundary: meaningful motion", "Small, quick transitions that explain state changes help understanding; the risk comes from large or decorative motion.", "motion-animation"),
+    ("cls-input-window", "Boundary: shifts right after input", "Layout shifts within 500 ms of a user interaction do not count toward CLS, since users expect a response.", "cls-high"),
+    ("confirm-high-stakes", "Boundary: confirmations for rare, high-stakes actions", "Confirmations remain useful for rare, irreversible actions when worded specifically.", "confirmation-dialog-overuse"),
+    ("dark-mode-preference", "Boundary: dark mode is a preference", "Some users read better in dark mode and others in light mode; offering both serves more people.", "dark-mode-pure-white"),
+]
+
+# Worked examples: (id, label, statement, subject, clarified concepts)
+EXAMPLES = [
+    ("dropdown-behind-header", "Dropdown hidden behind a sticky header", "A menu with z-index 9999 still renders under the sticky header because its parent card has transform: translateZ(0), creating a stacking context below the header; moving the menu to a root-level portal fixes it.", "frontend-web-development.css-layout", ["stacking-context", "portal-rendering"]),
+    ("flex-url-overflow", "Long URL breaking a card layout", "A long URL inside a flex card forces the card wider than the phone screen; adding min-width: 0 and overflow-wrap: anywhere lets it wrap.", "frontend-web-development.css-layout", ["flex-min-width-auto", "min-width-zero"]),
+    ("checkout-double-charge", "Double charge from a slow checkout button", "A Pay button gives no feedback for two seconds, users click again and are charged twice; disabling the button with a visible spinner and an idempotency key prevents it.", "human-computer-interaction.interaction-design", ["duplicate-submission", "idempotent-request"]),
+    ("hero-lazy-lcp", "Hero image marked lazy", "A marketing page sets loading=lazy on its hero banner and LCP jumps to 4 seconds; removing lazy and adding fetchpriority=high brings it under 2.5 seconds.", "frontend-web-development.performance", ["lazy-loaded-hero", "preloading-key-resource"]),
+    ("ad-shift-misclick", "Ad loading above a button", "An ad slot without reserved height loads above the Buy button and pushes it down as the user taps, so they tap Cancel instead.", "frontend-web-development.performance", ["late-injected-content", "misclick-from-shift"]),
+    ("icon-button-silent", "Icon-only close button", "A close button containing only an X icon is announced as \"button\" by screen readers; adding aria-label=\"Close dialog\" names it.", "frontend-web-development.accessibility", ["icon-only-button", "aria-label-added"]),
+    ("modal-tab-escape", "Tab escaping a modal", "A custom div modal lets Tab move focus to links behind it; switching to <dialog> with showModal() keeps focus inside.", "frontend-web-development.accessibility", ["modal-without-focus-management", "native-dialog"]),
+    ("status-colour-only", "Order status shown only in colour", "An order table marks failed orders red and shipped ones green; adding status text and icons makes it readable for colour-blind staff.", "typography-color-visual-design.visual-hierarchy", ["color-only-meaning", "redundant-encoding"]),
+    ("search-race", "Search results for the wrong query", "Typing \"cat\" then \"car\" shows cat results because the slower first request finished last; aborting stale requests fixes it.", "frontend-web-development.component-systems", ["race-condition-fetch", "request-cancellation"]),
+    ("todo-index-keys", "Checked item moving rows", "Deleting the first to-do item makes the next item appear checked, because rows were keyed by index; keying by item id fixes it.", "frontend-web-development.component-systems", ["unstable-list-keys", "stable-ids"]),
+    ("mobile-cta-hidden", "Call-to-action hidden on mobile", "A 100vh landing section puts its Sign up button under the mobile toolbar; switching to 100dvh keeps it visible.", "frontend-web-development.css-layout", ["full-height-100vh", "dynamic-viewport-units"]),
+    ("delete-undo", "Undo instead of confirm for delete", "An email client replaces its \"Delete?\" dialog with an Undo toast; accidental deletions drop because users actually notice the toast.", "human-computer-interaction.interaction-design", ["undo-available", "habituated-confirmations"]),
+    ("placeholder-form", "Placeholder-only signup form", "A form using only placeholders leaves users unsure which field is which after typing; persistent labels above fields fix the errors.", "human-computer-interaction.usability", ["placeholder-as-label", "persistent-label"]),
+    ("phone-keyboard", "Phone field showing a letter keyboard", "A type=text phone field opens the full keyboard; type=tel with autocomplete=tel opens the number pad and fills the user's number.", "human-computer-interaction.usability", ["semantic-input-type", "autocomplete-attributes"]),
+]

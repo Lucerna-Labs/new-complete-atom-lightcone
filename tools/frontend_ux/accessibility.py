@@ -1,0 +1,61 @@
+"""Accessibility: semantics, keyboard, focus, assistive technology, perception."""
+
+DOMAIN = "frontend-web-development"
+SUBJECT = "frontend-web-development.accessibility"
+SOURCES = ["w3c-wcag-22", "w3c-wai-aria-12", "mdn-web-docs"]
+
+CONCEPTS = [
+    ("semantic-html", "Semantic HTML elements", "Native elements such as button, a, nav, main, label and headings that carry built-in roles and behaviour.", []),
+    ("div-as-button", "Clickable div used as a button", "A div or span with a click handler but no button role, focusability or keyboard handling.", []),
+    ("keyboard-inaccessible", "Control unusable by keyboard", "A control that cannot be reached with Tab or activated with Enter or Space.", []),
+    ("screen-reader-announcement", "Screen reader announcement", "What assistive technology speaks for an element: its role, name and state.", []),
+    ("accessible-name-missing", "Missing accessible name", "An interactive element with no text, label or aria-label, announced only as \"button\" or not at all.", []),
+    ("icon-only-button", "Icon-only button", "A button that shows only an icon with no visible text.", []),
+    ("aria-label-added", "Accessible label provided", "Providing a visible label, aria-label or aria-labelledby for an element.", []),
+    ("aria-misuse", "Incorrect ARIA roles and states", "ARIA attributes that contradict the element's real behaviour, such as role=button without key handling.", []),
+    ("misleading-semantics", "Misleading assistive technology semantics", "Assistive technology users are told a control behaves differently from how it actually behaves.", []),
+    ("focus-outline-removed", "Focus outline removed", "CSS that sets outline: none on focus without any replacement indicator.", []),
+    ("focus-invisible", "Invisible keyboard focus", "Keyboard users cannot see which element currently has focus.", []),
+    ("focus-visible-style", "Visible focus style", "A clear :focus-visible indicator with sufficient contrast around the focused element.", []),
+    ("modal-without-focus-management", "Modal without focus management", "A dialog that opens without moving focus into it or containing focus while open.", []),
+    ("focus-lost-behind-modal", "Keyboard focus lost behind a modal", "Tab moves focus to page content hidden behind an open dialog.", []),
+    ("native-dialog", "Native dialog element with showModal", "Using <dialog> with showModal(), which makes the rest of the page inert and manages focus.", []),
+    ("missing-alt-text", "Missing alternative text", "An informative image without an alt attribute or with a meaningless one.", []),
+    ("image-info-unavailable", "Image information unavailable to blind users", "Screen reader users cannot get the information an image conveys.", []),
+    ("small-touch-target", "Small touch target", "A tappable control smaller than about 24 by 24 CSS pixels, or crowded against neighbours.", []),
+    ("tap-errors", "Tap errors on touch screens", "Users hit the wrong control or miss the target, especially with motor impairments.", []),
+    ("motion-animation", "Large motion animation", "Parallax, zooming or large sliding animations.", []),
+    ("vestibular-discomfort", "Vestibular discomfort from motion", "Dizziness or nausea in people with vestibular disorders triggered by on-screen motion.", []),
+    ("prefers-reduced-motion", "Respecting reduced-motion preference", "Disabling or reducing non-essential motion when prefers-reduced-motion: reduce is set.", []),
+    ("heading-structure", "Logical heading structure", "Headings h1 to h6 used in order to outline the page.", []),
+    ("screen-reader-navigation", "Screen reader page navigation", "Screen reader users jumping between headings, landmarks and links to scan a page.", []),
+    ("dynamic-update-silent", "Silent dynamic content update", "Content that changes without page reload (search results, errors) without informing assistive technology.", []),
+    ("live-region", "ARIA live region", "An aria-live or role=status region that makes assistive technology announce changes.", []),
+    ("text-zoom-200", "Text zoomed to 200 percent", "Users enlarging text up to 200 percent for readability.", []),
+    ("fixed-height-text-box", "Fixed-height text containers", "Containers with fixed pixel heights around text.", []),
+    ("text-clipped-on-zoom", "Text clipped when zoomed", "Enlarged text overflows or is cut off by its container.", []),
+]
+
+RELATIONS = [
+    ("div-keyboard", "div-as-button", "keyboard-inaccessible", "causes", "A clickable div used as a button causes a control unusable by keyboard.", "no tabindex and key handlers are added", ""),
+    ("semantic-prevents-keyboard", "semantic-html", "keyboard-inaccessible", "prevents", "Semantic HTML elements prevent a control unusable by keyboard, because native buttons and links are focusable and keyboard operable.", "the native element is used for its intended purpose", ""),
+    ("semantic-announcement", "semantic-html", "screen-reader-announcement", "enables", "Semantic HTML elements enable a correct screen reader announcement of role and state.", "the element is not overridden with conflicting ARIA", ""),
+    ("icon-noname", "icon-only-button", "accessible-name-missing", "causes", "An icon-only button causes a missing accessible name.", "no aria-label or visually hidden text is provided", ""),
+    ("label-prevents-noname", "aria-label-added", "accessible-name-missing", "prevents", "An accessible label provided prevents a missing accessible name.", "the label describes the action", ""),
+    ("noname-announcement", "accessible-name-missing", "screen-reader-announcement", "inhibits", "A missing accessible name inhibits a useful screen reader announcement.", "the user relies on a screen reader", ""),
+    ("ariamisuse-misleading", "aria-misuse", "misleading-semantics", "causes", "Incorrect ARIA roles and states cause misleading assistive technology semantics.", "the ARIA overrides the native role", ""),
+    ("outline-invisible", "focus-outline-removed", "focus-invisible", "causes", "A focus outline removed causes invisible keyboard focus.", "no replacement focus style exists", ""),
+    ("focusstyle-prevents", "focus-visible-style", "focus-invisible", "prevents", "A visible focus style prevents invisible keyboard focus.", "the indicator has enough contrast against its background", ""),
+    ("modal-focuslost", "modal-without-focus-management", "focus-lost-behind-modal", "causes", "A modal without focus management causes keyboard focus lost behind a modal.", "the user navigates with Tab", ""),
+    ("dialog-prevents", "native-dialog", "focus-lost-behind-modal", "prevents", "A native dialog element with showModal prevents keyboard focus lost behind a modal by making the page inert.", "the dialog is opened with showModal rather than show", ""),
+    ("alt-unavailable", "missing-alt-text", "image-info-unavailable", "causes", "Missing alternative text causes image information unavailable to blind users.", "the image conveys information", "decorative images should have empty alt text"),
+    ("target-taperrors", "small-touch-target", "tap-errors", "causes", "A small touch target causes tap errors on touch screens.", "the user operates the interface by touch", ""),
+    ("motion-vestibular", "motion-animation", "vestibular-discomfort", "causes", "Large motion animation causes vestibular discomfort from motion for susceptible users.", "the motion is large or prolonged", ""),
+    ("reduced-prevents", "prefers-reduced-motion", "vestibular-discomfort", "prevents", "Respecting the reduced-motion preference prevents vestibular discomfort from motion.", "the user has enabled reduced motion in the operating system", ""),
+    ("headings-navigation", "heading-structure", "screen-reader-navigation", "enables", "Logical heading structure enables screen reader page navigation.", "headings reflect the real content hierarchy", ""),
+    ("silent-missed", "dynamic-update-silent", "screen-reader-announcement", "prevents", "A silent dynamic content update prevents a screen reader announcement of the change.", "focus stays elsewhere", ""),
+    ("liveregion-announces", "live-region", "screen-reader-announcement", "causes", "An ARIA live region causes a screen reader announcement of dynamic changes.", "the region exists in the DOM before its content changes", ""),
+    ("zoom-clipped", "text-zoom-200", "text-clipped-on-zoom", "enables", "Text zoomed to 200 percent enables text clipped when zoomed in rigid layouts.", "containers cannot grow", ""),
+    ("fixedheight-clipped", "fixed-height-text-box", "text-clipped-on-zoom", "causes", "Fixed-height text containers cause text clipped when zoomed.", "overflow is hidden or the box cannot expand", ""),
+    ("label-announcement", "aria-label-added", "screen-reader-announcement", "enables", "An accessible label provided enables a meaningful screen reader announcement.", "the element is exposed to assistive technology", ""),
+]

@@ -1,0 +1,53 @@
+"""Component systems and UI state: rendering, identity, synchronisation (framework-neutral)."""
+
+DOMAIN = "frontend-web-development"
+SUBJECT = "frontend-web-development.component-systems"
+SOURCES = ["mdn-web-docs"]
+
+CONCEPTS = [
+    ("duplicated-state", "Duplicated state", "The same fact stored in two places, such as a selected item kept both in a list and in a separate variable.", []),
+    ("state-desync", "Out-of-sync UI state", "Two parts of the interface show contradictory values for the same thing.", []),
+    ("single-source-of-truth", "Single source of truth", "Each fact stored once, with other values derived from it when needed.", []),
+    ("unstable-list-keys", "Unstable list item keys", "List items identified by array index or random values instead of stable IDs.", []),
+    ("item-state-mixup", "List item state mix-up", "After reordering, inserting or deleting, input text or checkbox state appears on the wrong row.", []),
+    ("stable-ids", "Stable item identifiers", "Keys taken from persistent IDs of the underlying data.", []),
+    ("state-lifted-too-high", "State held too high in the tree", "Frequently changing state stored in a top-level component that many children depend on.", []),
+    ("excessive-rerenders", "Excessive re-rendering", "Large parts of the component tree re-render on every small change.", []),
+    ("input-lag", "Typing input lag", "Characters appear noticeably after keystrokes.", []),
+    ("colocated-state", "State colocated with its users", "State kept in the smallest component subtree that needs it.", []),
+    ("stale-closure", "Stale closure over old state", "A callback or timer that captured an old value of state keeps using it after the state changed.", []),
+    ("outdated-value-used", "Outdated value used in an update", "An update is computed from an old value, losing intermediate changes.", []),
+    ("functional-update", "Functional state update", "Updating state from the current value passed in by the framework, not a captured variable.", []),
+    ("race-condition-fetch", "Out-of-order network responses", "Two requests for different inputs return in the reverse order of sending.", []),
+    ("stale-results-shown", "Stale search results shown", "Results for an earlier query overwrite results for the latest query.", []),
+    ("request-cancellation", "Cancelling superseded requests", "Aborting or ignoring responses for requests that are no longer current.", ["abortcontroller"]),
+    ("controlled-input-unsynced", "Controlled input not updating state", "An input bound to state whose change handler does not update that state.", []),
+    ("input-frozen", "Input field that cannot be typed in", "The visible value snaps back, so typing appears to do nothing.", []),
+    ("effect-missing-cleanup", "Effect without cleanup", "Subscriptions, timers or listeners added when a component mounts but never removed.", []),
+    ("memory-leak-ui", "UI memory leak", "Memory use grows as components mount and unmount, eventually slowing the page.", []),
+    ("design-tokens", "Design tokens", "Named values for colour, spacing, type and radius shared across components.", []),
+    ("visual-inconsistency", "Visual inconsistency", "Similar elements use slightly different colours, spacing or sizes across screens.", []),
+    ("component-reuse", "Shared component library", "Reusing the same implemented components instead of rebuilding similar ones per screen.", []),
+    ("behaviour-inconsistency", "Inconsistent component behaviour", "Similar-looking controls behave differently in different places.", []),
+]
+
+RELATIONS = [
+    ("dup-desync", "duplicated-state", "state-desync", "causes", "Duplicated state causes out-of-sync UI state when only one copy is updated.", "an update path forgets one of the copies", ""),
+    ("sot-prevents", "single-source-of-truth", "state-desync", "prevents", "A single source of truth prevents out-of-sync UI state.", "derived values are computed rather than stored", ""),
+    ("keys-mixup", "unstable-list-keys", "item-state-mixup", "causes", "Unstable list item keys cause a list item state mix-up after reordering or deletion.", "the rows hold local state such as input text", ""),
+    ("stableids-prevent", "stable-ids", "item-state-mixup", "prevents", "Stable item identifiers prevent a list item state mix-up.", "the IDs are unique within the list", ""),
+    ("high-rerenders", "state-lifted-too-high", "excessive-rerenders", "causes", "State held too high in the tree causes excessive re-rendering.", "the state changes frequently, such as on each keystroke", ""),
+    ("rerenders-lag", "excessive-rerenders", "input-lag", "causes", "Excessive re-rendering causes typing input lag.", "the re-rendered subtree is expensive", ""),
+    ("rerenders-longtasks", "excessive-rerenders", "long-tasks", "causes", "Excessive re-rendering causes long main-thread tasks.", "rendering runs on the main thread", ""),
+    ("colocate-prevents", "colocated-state", "excessive-rerenders", "inhibits", "State colocated with its users inhibits excessive re-rendering.", "unrelated siblings do not read the state", ""),
+    ("stale-outdated", "stale-closure", "outdated-value-used", "causes", "A stale closure over old state causes an outdated value used in an update.", "the callback runs after the state changed", ""),
+    ("functional-prevents", "functional-update", "outdated-value-used", "prevents", "A functional state update prevents an outdated value used in an update.", "the update depends only on the passed-in current value", ""),
+    ("race-stale", "race-condition-fetch", "stale-results-shown", "causes", "Out-of-order network responses cause stale search results shown.", "each response writes its results unconditionally", ""),
+    ("cancel-prevents", "request-cancellation", "stale-results-shown", "prevents", "Cancelling superseded requests prevents stale search results shown.", "only the latest request may write results", ""),
+    ("controlled-frozen", "controlled-input-unsynced", "input-frozen", "causes", "A controlled input not updating state causes an input field that cannot be typed in.", "the value attribute is bound to the unchanged state", ""),
+    ("nocleanup-leak", "effect-missing-cleanup", "memory-leak-ui", "causes", "An effect without cleanup causes a UI memory leak.", "the component mounts and unmounts repeatedly", ""),
+    ("tokens-prevent-visual", "design-tokens", "visual-inconsistency", "inhibits", "Design tokens inhibit visual inconsistency.", "components read values from the tokens rather than hard-coding them", ""),
+    ("reuse-prevents-behaviour", "component-reuse", "behaviour-inconsistency", "prevents", "A shared component library prevents inconsistent component behaviour.", "teams use the shared components rather than forking them", ""),
+    ("leak-longtasks", "memory-leak-ui", "long-tasks", "causes", "A UI memory leak causes long main-thread tasks as garbage collection grows.", "the page stays open for a long session", ""),
+    ("stale-desync", "stale-results-shown", "state-desync", "causes", "Stale search results shown cause out-of-sync UI state between the query box and the list.", "the query field shows the latest text", ""),
+]
