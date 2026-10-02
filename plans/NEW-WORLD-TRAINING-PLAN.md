@@ -209,6 +209,27 @@ Use the AtomDb-MCP core (the newest and most correct line) as the substrate.
    against ungated recall and a placebo, as in D66 but with trained positions.
    Then add the LLM.
 
+## 6b. Phase E2 — the seven reasoning worlds and the creativity lane
+
+Jesse's design: the engine adds one of **7 standalone reasoning worlds** (deductive,
+inductive, abductive, analogical, causal, counterfactual, probabilistic) alongside the
+general world, falling back one by one. **Creativity stays outside the cone** and
+returns independently probability-scored paths for Jesse to choose from.
+The existing code is in `Atom-lightcone-27b-harness/crates/atom-executive` and
+`atom-creative-paths`; there, the seven are lanes in `foundation-lanes-v0`.
+
+1. Author each reasoning type as its own world: the steps of that kind of reasoning
+   as directed structure (for example abduction: observation → candidate explanations
+   → discriminating evidence → best explanation). Use the same authoring rules as
+   Phase A.
+2. The engine selects with the `LANE_GOALS` mapping and structural features from
+   `atom-executive`. Add **one-by-one fallback** as a candidate order against the
+   current all-in-one-pass execution.
+3. Delivery: two cone-gated AtomDB packets per prompt (general world plus the selected
+   reasoning world). Measure accuracy and tokens against general-only.
+4. Creativity and probability output never pass through the causal cone. Keep
+   `atom-creative-paths` scoring and the choice ledger, so Jesse chooses.
+
 ## 7. Phase F — Kaggle TPU training and sealing
 
 - **Iterate per world:** a single-world kernel in the pattern of
