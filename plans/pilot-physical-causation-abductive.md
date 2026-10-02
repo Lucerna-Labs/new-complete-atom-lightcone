@@ -71,3 +71,49 @@ unchanged):
 
 Gate A results will be appended here. If a target isn't met, it's recorded as unmet,
 and targets are never lowered after the fact.
+
+## Gate A results (2026-10-02) — all targets met
+
+**physical-causation-v0** (`tools/build_physical_causation_curriculum.py` with
+`tools/physical_causation/*.py`, commit `102cf43`):
+
+| Target | Required | Actual |
+|---|---|---|
+| Concepts | ≥ 200 | 221 |
+| Non-membership relations | ≥ 300 | 314 |
+| Causal share | ≥ 70% | 79% |
+| Negative polarity | ≥ 25 | 56 |
+| Counterexamples / boundaries / worked examples | ≥ 20 / 12 / 12 | 23 / 14 / 16 |
+| Most-reused condition | ≤ 3 | 2 |
+| Per subfield | ≥ 10 concepts and ≥ 15 relations | all 8 subfields (smallest: statistical, 15 / 17) |
+| Coverage axes | ≥ 14 / 15 | 14 (all but adapter_accessibility) |
+| Single-word labels | ≤ 15% | 2.7% |
+
+Compiled to 280 nodes and 550 edges.
+
+**reasoning-abductive-v0** (commit `a775b6f`):
+
+| Target | Required | Actual |
+|---|---|---|
+| Concepts | ≥ 40 | 41 |
+| Method relations | ≥ 60 | 60 |
+| Fallacies | ≥ 6 | 8 |
+| Physics-bridging worked examples | ≥ 8 | 8 |
+
+Compiled to 65 nodes and 137 edges.
+
+**Both worlds:**
+- `validate_sources`, `validate_curricula` and `validate_registry` pass;
+  `sync_authored_coverage` reports no uncredited axes.
+- Both are appended last in `world_catalog.PILOT_WORLD_CONFIGS`, so all 178 existing
+  generated configs are byte-identical.
+- **CPU smoke:** `JAX_PLATFORMS=cpu .venv/bin/python tools/run_local_smoke_matrix.py
+  --world physical-causation-v0 --world reasoning-abductive-v0 --reuse-compiled`:
+  both `non_tpu_gates_passed`, the only open gate being `tpu_backend`. Run ids:
+  `physical-causation-v0-20261002T184027Z`, `reasoning-abductive-v0-20261002T184032Z`.
+
+**Still open:**
+- The admission audit, done in Phase B with locally finalized diagnostic packs.
+- A coverage-ledger reopen for the physics and philosophy items credited by the new
+  records, needed before sealing (`tools/reopen_coverage.py`).
+- The hardcoded world count in `build_catalog_evidence.py`.
