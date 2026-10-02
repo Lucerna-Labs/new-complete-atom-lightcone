@@ -63,7 +63,7 @@ RELATIONS = [
     ("premature-frustration", "premature-inline-validation", "user-frustration", "causes", "Validation while the user is still typing causes user frustration by flagging unfinished input as wrong.", "errors show before the user has finished", ""),
     ("blur-prevents", "validation-on-blur", "premature-inline-validation", "prevents", "Validation when leaving the field prevents validation while the user is still typing.", "errors are cleared live once corrected", ""),
     ("type-keyboard", "input-type-mismatch", "wrong-mobile-keyboard", "causes", "A generic text input for specific data causes the wrong mobile keyboard shown.", "the user is on a phone or tablet", ""),
-    ("semantic-prevents-keyboard", "semantic-input-type", "wrong-mobile-keyboard", "prevents", "Appropriate input types prevent the wrong mobile keyboard shown.", "the browser supports the input type or inputmode", ""),
+    ("inputtype-prevents-keyboard", "semantic-input-type", "wrong-mobile-keyboard", "prevents", "Appropriate input types prevent the wrong mobile keyboard shown.", "the browser supports the input type or inputmode", ""),
     ("autocomplete-effort", "autocomplete-attributes", "form-completion-effort", "inhibits", "Autocomplete attributes inhibit form completion effort.", "the browser has stored data for those fields", ""),
     ("keyboard-effort", "wrong-mobile-keyboard", "form-completion-effort", "causes", "The wrong mobile keyboard shown causes higher form completion effort.", "the user must switch keyboard modes", ""),
     ("frustration-errors", "user-frustration", "task-errors", "causes", "User frustration causes task errors and slow completion as attention shifts to the annoyance.", "the frustration persists across the task", ""),

@@ -29,6 +29,10 @@ CONCEPTS = [
     ("visual-inconsistency", "Visual inconsistency", "Similar elements use slightly different colours, spacing or sizes across screens.", []),
     ("component-reuse", "Shared component library", "Reusing the same implemented components instead of rebuilding similar ones per screen.", []),
     ("behaviour-inconsistency", "Inconsistent component behaviour", "Similar-looking controls behave differently in different places.", []),
+    ("server-rendered-html", "Server-rendered HTML", "Markup produced on the server so content appears before client JavaScript runs.", ["ssr"]),
+    ("interactive-page", "Interactive client-side page", "A page whose controls respond because client JavaScript has attached event handlers and state.", []),
+    ("client-only-values", "Client-only values during render", "Values such as the current time, random numbers, window size or local storage read while rendering.", []),
+    ("hydration-mismatch", "Hydration mismatch", "The first client render produces different markup from the server-rendered HTML.", []),
 ]
 
 RELATIONS = [
@@ -49,5 +53,10 @@ RELATIONS = [
     ("tokens-prevent-visual", "design-tokens", "visual-inconsistency", "inhibits", "Design tokens inhibit visual inconsistency.", "components read values from the tokens rather than hard-coding them", ""),
     ("reuse-prevents-behaviour", "component-reuse", "behaviour-inconsistency", "prevents", "A shared component library prevents inconsistent component behaviour.", "teams use the shared components rather than forking them", ""),
     ("leak-longtasks", "memory-leak-ui", "long-tasks", "causes", "A UI memory leak causes long main-thread tasks as garbage collection grows.", "the page stays open for a long session", ""),
+    ("ssr-hydrates", "server-rendered-html", "interactive-page", "transforms_to", "Server-rendered HTML transforms into an interactive client-side page through hydration.", "the client JavaScript loads and attaches event handlers", ""),
+    ("clientonly-mismatch", "client-only-values", "hydration-mismatch", "causes", "Client-only values during render cause a hydration mismatch.", "the value differs between the server render and the first client render", ""),
+    ("mismatch-desync", "hydration-mismatch", "state-desync", "causes", "A hydration mismatch causes out-of-sync UI state between what users saw and what the client renders.", "the framework patches or discards the server markup", ""),
+    ("bundle-delays-interactive", "large-js-bundle", "interactive-page", "inhibits", "A large JavaScript bundle inhibits an interactive client-side page from becoming ready quickly.", "hydration waits for the bundle to load and run", ""),
+    ("ssr-lcp", "server-rendered-html", "lcp-slow", "inhibits", "Server-rendered HTML inhibits slow Largest Contentful Paint for content-heavy pages.", "the server responds quickly", ""),
     ("stale-desync", "stale-results-shown", "state-desync", "causes", "Stale search results shown cause out-of-sync UI state between the query box and the list.", "the query field shows the latest text", ""),
 ]

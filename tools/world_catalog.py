@@ -53,6 +53,7 @@ COVERAGE_WORLD_CONFIGS = [("coverage-closure-v0", "coverage-closure-v0.json")]
 PILOT_WORLD_CONFIGS = [
     ("physical-causation-v0", "physical-causation-v0.json"),
     ("reasoning-abductive-v0", "reasoning-abductive-v0.json"),
+    ("frontend-ux-causation-v0", "frontend-ux-causation-v0.json"),
 ]
 WORLD_CONFIGS = [
     *FOUNDATION_WORLD_CONFIGS,
