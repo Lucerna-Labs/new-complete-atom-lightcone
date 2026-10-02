@@ -117,3 +117,25 @@ Compiled to 65 nodes and 137 edges.
 - A coverage-ledger reopen for the physics and philosophy items credited by the new
   records, needed before sealing (`tools/reopen_coverage.py`).
 - The hardcoded world count in `build_catalog_evidence.py`.
+
+## Admission audit (2026-10-02, Phase B setup)
+
+**Scratch catalog:** 178 pinned v2 worlds plus both pilot worlds as **diagnostic
+packs**. These were built by a-rag-atom `tools/diagnostic_pack.py` from the CPU smoke
+output. Their receipts record `diagnostic_cpu_only` and the release validator's
+errors ("training source was dirty"; "accelerator is not Kaggle TPU"). Admission ran
+through `admit-batch --unpinned`, which keeps the production loader's hash checks but
+not its 178-world pin.
+
+- **Dropped-ball question:** "let go of" seeds `pc.release` (alias), the right entry.
+  **Partly unmet:** gravity and falling are not seeded, because the question says
+  "fall" while the lexicon holds "falling under gravity" / "free fall". Exact-term
+  admission misses inflections (Phase D).
+- **Hub effect:** the 2-hop cone from `pc.release` admitted 237 of 280 nodes, because
+  every concept's `part_of` membership edge to `pc.root` puts the whole world within
+  2 hops. This affects every catalog world with a root. Candidate fix for Phase D:
+  exclude membership edges from traversal (`allowed_relations`). The 1-hop cone and
+  AtomDB delivery are unaffected.
+- **Collisions:** 16 of 330 physical terms and 3 of 69 abductive terms also occur in
+  other worlds. All 19 are the same real concepts ("atmospheric pressure",
+  "magnetic field", "base rate"), not ambiguous words.
