@@ -1,0 +1,58 @@
+"""Optics: light, reflection, refraction, absorption, colour, shadows."""
+
+SUBJECT = "physics.optics"
+SOURCES = ["nasa-ems-tour"]
+
+CONCEPTS = [
+    ("light-source", "Light source emission", "A source such as the Sun, a flame or a lamp emits visible light.", []),
+    ("visible-light", "Visible light", "The narrow band of electromagnetic radiation, wavelengths about 400 to 700 nanometres, that human eyes detect.", []),
+    ("straight-line-propagation", "Straight-line light travel", "In a uniform medium light travels in straight lines.", []),
+    ("opaque-object", "Opaque object blocking", "An object that absorbs or reflects light rather than letting it pass through.", []),
+    ("shadow", "Shadow formation", "A shadow is the region behind an opaque object that light from the source cannot reach.", []),
+    ("reflection", "Reflection of light", "Light bounces off a surface; on a smooth mirror the angle of reflection equals the angle of incidence.", []),
+    ("mirror-image", "Mirror image", "A flat mirror forms an image that appears as far behind the mirror as the object is in front.", []),
+    ("refraction", "Refraction of light", "Light bends when it passes at an angle between materials in which it travels at different speeds.", []),
+    ("speed-change-in-medium", "Light slowing in a medium", "Light travels more slowly in water or glass than in air.", []),
+    ("lens-focusing", "Lens focusing", "A curved transparent lens refracts light so rays converge to or diverge from a focus.", []),
+    ("apparent-bending", "Apparent bending of objects in water", "A straw in water looks bent at the surface because light from the submerged part refracts as it leaves the water.", []),
+    ("dispersion", "Dispersion into colours", "Different wavelengths refract by slightly different amounts, spreading white light into a spectrum.", []),
+    ("rainbow", "Rainbow", "Sunlight refracted, internally reflected and dispersed by raindrops forms an arc of colours opposite the Sun.", []),
+    ("absorption", "Absorption of light", "A material absorbs some wavelengths of light and converts their energy into heat.", []),
+    ("dark-surface-heating", "Dark surface heating", "Dark surfaces absorb most visible light and warm more in sunlight than light-coloured surfaces.", []),
+    ("surface-colour", "Surface colour appearance", "An object's colour is the mix of wavelengths it reflects rather than absorbs.", []),
+    ("scattering", "Scattering by air molecules", "Air molecules scatter short blue wavelengths far more strongly than long red ones.", ["rayleigh scattering"]),
+    ("blue-sky", "Blue sky colour", "Scattered blue light reaches the eye from every direction of the daytime sky.", []),
+    ("red-sunset", "Red sunset colour", "At sunrise and sunset sunlight crosses so much air that blue is scattered away, leaving reds and oranges.", []),
+    ("long-path-through-air", "Long sunlight path through air", "When the Sun is low, its light travels through much more atmosphere to reach an observer.", []),
+    ("eye-detection", "Eye detecting light", "Light entering the eye is focused by the lens onto the retina, which signals the brain.", []),
+    ("total-internal-reflection", "Total internal reflection", "Light inside a dense medium striking its surface beyond the critical angle is reflected entirely back inside.", []),
+    ("optical-fibre", "Optical fibre guiding light", "A thin glass fibre traps light by repeated total internal reflection and carries it along bends.", []),
+    ("ultraviolet", "Ultraviolet radiation", "Electromagnetic radiation with wavelengths shorter than violet light; the Sun emits it strongly.", []),
+    ("sunburn", "Sunburn of skin", "Skin damaged by excessive ultraviolet exposure reddens and burns.", []),
+    ("sunscreen", "Sunscreen protection", "Sunscreen absorbs or reflects ultraviolet radiation before it reaches the skin.", []),
+]
+
+RELATIONS = [
+    ("source-visible", "light-source", "visible-light", "causes", "Light source emission causes visible light to travel outward.", "the source is switched on or burning", ""),
+    ("straight-shadow", "straight-line-propagation", "shadow", "enables", "Straight-line light travel enables shadow formation behind opaque objects.", "the medium is uniform", ""),
+    ("opaque-shadow", "opaque-object", "shadow", "causes", "An opaque object blocking light causes shadow formation behind it.", "a light source shines on the object", ""),
+    ("visible-reflection", "visible-light", "reflection", "enables", "Visible light striking a surface enables reflection of light.", "the surface is not perfectly absorbing", ""),
+    ("reflection-mirror", "reflection", "mirror-image", "causes", "Reflection of light from a flat mirror causes a mirror image.", "the mirror is smooth", ""),
+    ("speed-refraction", "speed-change-in-medium", "refraction", "causes", "Light slowing in a medium causes refraction of light at the boundary.", "light crosses the boundary at an angle", "light meeting the boundary head-on is not bent"),
+    ("refraction-lens", "refraction", "lens-focusing", "enables", "Refraction of light enables lens focusing.", "the lens surfaces are curved", ""),
+    ("refraction-bending", "refraction", "apparent-bending", "causes", "Refraction of light leaving water causes apparent bending of objects in water.", "the object is partly submerged", ""),
+    ("refraction-dispersion", "refraction", "dispersion", "causes", "Refraction of light causes dispersion into colours because each wavelength bends differently.", "the material's refractive index varies with wavelength", ""),
+    ("dispersion-rainbow", "dispersion", "rainbow", "causes", "Dispersion into colours inside raindrops causes a rainbow.", "the Sun is behind the observer and rain is in front", ""),
+    ("visible-absorption", "visible-light", "absorption", "enables", "Visible light falling on a material enables absorption of light.", "the material absorbs those wavelengths", ""),
+    ("absorption-darkheat", "absorption", "dark-surface-heating", "causes", "Absorption of light causes dark surface heating.", "the surface is dark", ""),
+    ("absorption-colour", "absorption", "surface-colour", "causes", "Absorption of some wavelengths causes surface colour appearance from the remaining reflected light.", "the illumination contains many wavelengths", ""),
+    ("scattering-blue", "scattering", "blue-sky", "causes", "Scattering by air molecules causes blue sky colour.", "the Sun is above the horizon", ""),
+    ("longpath-red", "long-path-through-air", "red-sunset", "causes", "A long sunlight path through air causes red sunset colour.", "the Sun is near the horizon", ""),
+    ("longpath-scattering", "long-path-through-air", "scattering", "causes", "A long sunlight path through air causes much more scattering by air molecules, removing blue light from the direct beam.", "the Sun is low", ""),
+    ("visible-eye", "visible-light", "eye-detection", "enables", "Visible light enables eye detecting light.", "light reaches the eye", ""),
+    ("tir-fibre", "total-internal-reflection", "optical-fibre", "enables", "Total internal reflection enables an optical fibre guiding light.", "bends are not too sharp", ""),
+    ("uv-sunburn", "ultraviolet", "sunburn", "causes", "Ultraviolet radiation causes sunburn of skin.", "exposure is long or intense", ""),
+    ("sunscreen-uv", "sunscreen", "sunburn", "prevents", "Sunscreen protection prevents sunburn of skin by blocking ultraviolet radiation.", "it is applied thickly and renewed", "sweat or swimming washes it off"),
+    ("opaque-eye", "opaque-object", "eye-detection", "inhibits", "An opaque object blocking light inhibits eye detecting light from things behind it.", "the object lies between the eye and the scene", ""),
+    ("refraction-tir", "speed-change-in-medium", "total-internal-reflection", "enables", "Light slowing in a medium enables total internal reflection at its surface.", "the angle exceeds the critical angle", ""),
+]

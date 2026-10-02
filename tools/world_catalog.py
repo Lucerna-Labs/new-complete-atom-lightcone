@@ -48,10 +48,14 @@ def taxonomy_world_configs() -> list[tuple[str, str]]:
 
 TAXONOMY_WORLD_CONFIGS = taxonomy_world_configs()
 COVERAGE_WORLD_CONFIGS = [("coverage-closure-v0", "coverage-closure-v0.json")]
+# Pilot worlds (2026-10-02) are appended last so every existing world keeps its
+# position-derived seed and identical generated config.
+PILOT_WORLD_CONFIGS = [("physical-causation-v0", "physical-causation-v0.json")]
 WORLD_CONFIGS = [
     *FOUNDATION_WORLD_CONFIGS,
     *TAXONOMY_WORLD_CONFIGS,
     *COVERAGE_WORLD_CONFIGS,
+    *PILOT_WORLD_CONFIGS,
 ]
 GENERATED_WORLD_CONFIGS = [
     pair for pair in WORLD_CONFIGS if pair[0] != "foundation-lanes-v0"
