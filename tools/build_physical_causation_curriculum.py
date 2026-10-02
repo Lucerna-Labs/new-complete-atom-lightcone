@@ -19,14 +19,14 @@ from registry_lib import ROOT
 
 sys.path.insert(0, str(ROOT / "tools"))
 from physical_causation import (  # noqa: E402
-    acoustics, cross, electromagnetism, fluids, materials, mechanics, optics, statistical, thermodynamics,
+    acoustics, cross, electromagnetism, fluids, kitchen, materials, mechanics, optics, statistical, thermodynamics,
 )
 
 OUTPUT = ROOT / "curricula" / "physical-causation" / "foundations.jsonl"
 WORLD = "physical-causation-v0"
 PREFIX = "pc"
 LANES = ["reasoning.causal", "reasoning.deductive", "thinking.bottom_up"]
-SUBFIELDS = [mechanics, thermodynamics, fluids, electromagnetism, optics, acoustics, materials, statistical]
+SUBFIELDS = [mechanics, thermodynamics, fluids, electromagnetism, optics, acoustics, materials, statistical, kitchen]
 NEGATIVE = {"inhibits", "prevents", "contradicts", "undercuts", "counterexample"}
 LIMITATIONS = [
     "Everyday-scale classical description; relativistic, quantum and extreme regimes are bounded by explicit boundary records.",
