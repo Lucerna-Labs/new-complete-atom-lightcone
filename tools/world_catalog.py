@@ -50,7 +50,10 @@ TAXONOMY_WORLD_CONFIGS = taxonomy_world_configs()
 COVERAGE_WORLD_CONFIGS = [("coverage-closure-v0", "coverage-closure-v0.json")]
 # Pilot worlds (2026-10-02) are appended last so every existing world keeps its
 # position-derived seed and identical generated config.
-PILOT_WORLD_CONFIGS = [("physical-causation-v0", "physical-causation-v0.json")]
+PILOT_WORLD_CONFIGS = [
+    ("physical-causation-v0", "physical-causation-v0.json"),
+    ("reasoning-abductive-v0", "reasoning-abductive-v0.json"),
+]
 WORLD_CONFIGS = [
     *FOUNDATION_WORLD_CONFIGS,
     *TAXONOMY_WORLD_CONFIGS,
