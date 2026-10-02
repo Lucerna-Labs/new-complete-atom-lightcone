@@ -38,3 +38,28 @@ labels disappear while typing.
   compiles; the CPU smoke passes all non-TPU gates.
 
 Unmet targets will be recorded as unmet.
+
+## Gate results (2026-10-02): all targets met
+
+| Target | Required | Actual |
+|---|---|---|
+| Concepts | ≥ 200 | 208 |
+| Non-membership relations | ≥ 230 | about 260 (255 before the hydration additions) |
+| Causal share | ≥ 65% | 76% |
+| Negative polarity | ≥ 30 | 89 |
+| Myths / boundaries / worked examples | ≥ 18 / 10 / 12 | 20 / 12 / 14 |
+| Most-reused condition | ≤ 3 | 1 |
+| Per area | ≥ 18 concepts and ≥ 15 relations | all 7 areas (smallest: components and state, 28 concepts) |
+| Coverage axes | ≥ 14 / 15 | 14 (all but adapter_accessibility) |
+| Single-word labels | ≤ 15% | 1 label, "Learnability" |
+
+- **Validation:** the first run failed on one duplicate relation ID
+  (`semantic-prevents-keyboard` was used in both the accessibility and usability
+  modules); the usability one was renamed `inputtype-prevents-keyboard`.
+- The first build also lacked the `representations_transformations` axis. It was
+  closed with genuine content, not a forced edge: server-rendered HTML
+  **transforms into** an interactive page through hydration, with hydration-mismatch
+  causes.
+- The validators pass, and the world is appended last in `PILOT_WORLD_CONFIGS`
+  (existing configs unchanged).
+- **CPU smoke:** `non_tpu_gates_passed` (only `tpu_backend` open), run `frontend-ux-causation-v0-20261002T224517Z`.
