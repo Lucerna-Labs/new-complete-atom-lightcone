@@ -139,3 +139,24 @@ not its 178-world pin.
 - **Collisions:** 16 of 330 physical terms and 3 of 69 abductive terms also occur in
   other worlds. All 19 are the same real concepts ("atmospheric pressure",
   "magnetic field", "base rate"), not ambiguous words.
+
+## Phase B pre-run finding (2026-10-02): admission, not content, limits reach
+
+E20 question sets were frozen in a-rag-atom `docs/causal-recovery-evidence/2026-10-02/e20/`:
+- TruthfulQA physics-keyword items: 22, selected mechanically from the
+  Misconceptions/Science/Weather categories; about half are actually physics.
+- Claude-authored misleading physics questions: 40. Not independent, since the
+  same author wrote the world.
+- An independent coder set is pending (`docs/E20-QUESTION-PROMPT.md`).
+
+Before any model call, the deployed exact-phrase admission over the 180-world catalog
+**seeds physical-causation-v0 on only 8/40 Claude questions and 2/22 TruthfulQA
+items**; the cone-gated AtomDB packet carries pilot content for 6 and 1.
+
+Natural wording doesn't match the label phrases: "speeds up as it falls" vs "Falling
+under gravity"; "salt on an icy road" vs "Freezing point depression"; "ice cube cools
+a drink" vs "Heat transfer". Even the author's own phrasing misses.
+
+**Phase B can't measure the world's value until admission reaches it.** This moves a
+Phase D item forward: candidate admission orders that connect everyday wording to
+world concepts without becoming noisy.
