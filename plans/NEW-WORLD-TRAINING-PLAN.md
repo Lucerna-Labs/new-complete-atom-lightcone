@@ -184,7 +184,14 @@ Use the AtomDb-MCP core (the newest and most correct line) as the substrate.
 4. **Executable direction and polarity in retrieval:** today every bond conducts both
    ways and negative edges conduct like positive ones. Add direction-aware arcs and an
    inhibitory signal as a candidate order. Keep the current behaviour as the control.
-5. **Harness test without the LLM first:** cone-gated recall over the stored world
+5. **Token efficiency (measured gate).** AtomDB returns byte-budgeted context packets:
+   only passages where several query cues converge, and nothing for unknown queries.
+   In E16R, the raw 2-hop cone cost about 5,800 prompt tokens (it overflowed 32K once)
+   against about 250 for 1-hop at equal accuracy. Compare tokens used and accuracy for:
+   (i) the cone rendered into the prompt; (ii) cone-gated AtomDB packets; (iii) the cone
+   held in thermodynamic soft context. The candidate should match (i)'s accuracy with
+   far fewer tokens.
+6. **Harness test without the LLM first:** cone-gated recall over the stored world
    against ungated recall and a placebo, as in D66 but with trained positions.
    Then add the LLM.
 
