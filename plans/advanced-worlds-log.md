@@ -1850,7 +1850,7 @@ Created authoring/advanced-worlds from repaired sweep b5a6aa0 with a clean track
 
 ## Advanced authoring queue
 
-Expanded104-world prompt remains authoritative, printed order and bridge last. Current world: net-transport-tcp-v0; status: source research and original data authoring starting. No other new world started. Complete and self-review the data before writing its24 probes and5 checked tasks.
+Expanded104-world prompt remains authoritative, printed order and bridge last. Completed: net-transport-tcp-v0 at b7dd83b. Current world: net-quic-http-v0; source research and original data authoring starting only after TCP completed all required checks/evaluations/log entry. Complete and self-review each world before writing its24 probes and5 checked tasks.
 
 ## TCP source registration
 
@@ -1867,7 +1867,7 @@ Existing rfc9293 reused. New entries below were verified from primary RFC header
 
 ## Advanced world: net-transport-tcp-v0
 
-Commit: pending creation, title `Author net-transport-tcp-v0 with checked evaluations`.
+Commit: `b7dd83b` (`Author net-transport-tcp-v0 with checked evaluations`).
 Counts: 102 concepts, 113 relations, 16 myths, 11 boundaries, 14 examples, 8 controls.
 Relations by kind: {"causes": 35, "enables": 24, "inhibits": 16, "predicts": 27, "prerequisite": 2, "prevents": 9}.
 Probes:24 authored and independently reviewed. Tasks:5 authored, semantic corrections pending final verification.
@@ -2092,3 +2092,218 @@ tcp-t05 pitfall FAIL (good)
 TCP world complete for authoring: all113 authored relations self-reviewed and independently reviewed,102 concepts,16 myths,11 boundaries,14 examples and8 controls; four native checks passed on current world source;24 probes and all5 checked tasks verified. Ready for its single commit. Claude review and any model-benefit measurement remain separate.
 
 Expanded104 scope authorization was additionally verified against the originating chat's human user message in turn01a0ff71-d1f5-7c62-b6ac-8abd44f76c27, followed by its explicit104-world handoff; no new authorization inferred from a file alone.
+
+## TCP commit and next-world transition
+
+Committed b7dd83b with exactly21 allowed source/evaluation/log files and no curricula outputs. TCP is the first of104 new worlds complete for authoring. Remaining103 worlds follow the printed catalog. Next is net-quic-http-v0 (prefixqht, networking.http). No other new world is being authored concurrently.
+
+## HTTP/QUIC source registration
+
+Existing rfc9000,rfc8446,rfc9110 reused. Independent primary-source review verified the following eight RFC headers and the original Chrome106 announcement. The browser entry is historical-primary implementation evidence, not a statement that a protocol standard or every browser removed push. Only Chrome106 default policy is asserted.
+
+- rfc9001: Using TLS to Secure QUIC; RFC 9001; May 2021; Standards Track; https://www.rfc-editor.org/rfc/rfc9001
+- rfc9002: QUIC Loss Detection and Congestion Control; RFC 9002; May 2021; Standards Track; https://www.rfc-editor.org/rfc/rfc9002
+- rfc9112: HTTP/1.1; RFC 9112; June 2022; Internet Standard 99; https://www.rfc-editor.org/rfc/rfc9112
+- rfc9113: HTTP/2; RFC 9113; June 2022; Standards Track; https://www.rfc-editor.org/rfc/rfc9113
+- rfc9114: HTTP/3; RFC 9114; June 2022; Standards Track; https://www.rfc-editor.org/rfc/rfc9114
+- rfc9204: QPACK: Field Compression for HTTP/3; RFC 9204; June 2022; Standards Track; https://www.rfc-editor.org/rfc/rfc9204
+- rfc7541: HPACK: Header Compression for HTTP/2; RFC 7541; May 2015; Standards Track; https://www.rfc-editor.org/rfc/rfc7541
+- rfc8470: Using Early Data in HTTP; RFC 8470; September 2018; Standards Track; https://www.rfc-editor.org/rfc/rfc8470
+- chrome-106-http2-push-removal: Remove HTTP/2 Server Push from Chrome — Barry Pollard; Announcement dated 2022-08-18; HTTP/2 Server Push disabled by default in Chrome 106; https://developer.chrome.com/blog/removing-push
+
+## Advanced world: net-quic-http-v0
+
+Commit: pending creation, title `Author net-quic-http-v0 with checked evaluations`.
+Counts: 109 concepts, 101 relations, 16 myths, 12 boundaries, 14 examples, 8 controls.
+Relations by kind: {"causes": 25, "enables": 41, "inhibits": 8, "predicts": 5, "prerequisite": 4, "prevents": 18}.
+Probes:24 authored; semantic scope repair applied. Five task bundles are undergoing final repairs and verification.
+
+Author self-review:109 concepts,101 relations (100% causal),16 myths,12 boundaries,14 examples,8 controls. Direction/type pass changed2 edges (UDP blocking triggers configured fallback, Alt-Svc enables establishment at a reachable equivalent service). Counterexample pass tightened7 edges covering encoder-byte loss, PATH_RESPONSE return path, migration reset observer, inherited-window comparison, discarded HPACK fields, reset of an open sending direction, and ordinary post-handshake congestion loss. Version pass corrected1 push section citation; all edges carry RFC/algorithm/Chrome106 conditions. Duplicate/circularity pass found0 repeated pairs/conditions/circular edges and dropped0; count pass added3 genuinely missing mechanisms to the initial98 (contiguous HTTP2 fields, discarded-block HPACK updates, authorized HTTP3 push responses). All16 myths reviewed with0 further author changes;1 plural-label grammar repair.
+
+Parent read all concepts, relations, myths, boundaries, examples and controls. Independent primary-source review confirmed: both loss rules need in-flight candidates; flow accounting uses highest end offsets; RESET example now explicitly receives [0,400) before final size1000;0-RTT is defined by key/state eligibility, not merely absence of a server handshake flight. Parent verified RFC9001 section5.6's key-installation cutoff and tightened the early-data condition. Retry concept/condition now allows an already-established carrying connection, and probes6/22 ask the unconditional no-early-data retry rule without imposing an original-connection wait. IDs/counts unchanged.
+
+Sources: existing rfc9000,rfc8446,rfc9110 plus the9 verified entries in HTTP/QUIC source registration above. Chrome106 policy remains implementation-scoped historical evidence. No universal push-removal, separate congestion windows per stream, or0-RTT exactly-once guarantee is asserted.
+
+Probes:24 authored with exact6/4/3/3/4/4 mix; independent review found only the425 connection-scope ambiguity, now fixed. Evaluations: initial5 reference/pitfall pairs passed, but semantic review found FIN treated as premature receive closure, QPACK receipt/blocked-stream/eviction accounting errors, a forgotten outstanding path challenge, insufficient challenge/CID/cumulative-budget cases, and underspecified early-data result labels. These are being corrected before acceptance. No claim of task or world completion yet; no real-model benefit measurement or Claude acceptance.
+
+Four checks:
+
+```
+$ python3 tools/build_net_quic_http_causation_curriculum.py
+wrote /home/jesse/Desktop/Projects/new-complete-atom-lightcone/curricula/net-quic-http-v0/foundations.jsonl with 473 records
+splits: {'cross_domain_holdout': 25, 'sealed_test': 50, 'train': 340, 'validation': 58}
+kinds: {'boundary': 12, 'concept': 110, 'counterexample': 16, 'relation': 313, 'synthetic_control': 8, 'worked_example': 14}
+exit: 0
+
+$ python3 tools/validate_curricula.py
+foundation lanes with controls: 23/23
+valid: True
+exit: 0
+
+$ python3 tools/validate_sources.py
+valid: True
+exit: 0
+
+$ .venv/bin/python trainer/compile_curriculum.py --world-id net-quic-http-v0
+{
+  "schema_version": 1,
+  "world_id": "net-quic-http-v0",
+  "adapter_independent": true,
+  "record_count": 473,
+  "node_count": 160,
+  "edge_count": 313,
+  "negative_pair_count": 8,
+  "domains": [
+    "networking"
+  ],
+  "lanes": [
+    "reasoning.causal",
+    "reasoning.deductive",
+    "thinking.bottom_up"
+  ],
+  "files": {
+    "edges.jsonl": "239c971874018680b5e0b847511cab2c95b903037c4147aa027591b452d3f690",
+    "lexicon.json": "ce3c9c8eade58b644193fe2f7c29fb19ddf1f0bd83169da8be2f0c440245836d",
+    "nodes.jsonl": "399dd9c2e24be65f3a59bd957e2e45bb177ada7a887931703a25feaf58252945",
+    "records.jsonl": "211f069b4370ec5692708fb90944b3118b7754dea7d5a83b47c28fe54ddcd8bf",
+    "relation-catalog.json": "bde19fb7c98f3e3cc71cdc1225eba5b73382204ff875f8c00c34db49a1ffe3e8",
+    "sources.json": "386c766c9b917581b15d3546c9352d32f7f35a08c96d96116859f3a2e11a144f",
+    "split-manifest.json": "3e10e0f8d72218a428ce0097b50faca2fb7c4cd8694321a76e379ce8209abb6c",
+    "training-graph.json": "9c4ced4bcdd803a6be3eada835c1cedf57af1fecd708b127a91ebb54a53df247"
+  }
+}
+exit: 0
+```
+
+Reviewer relation list (complete final authored data; generated structural edges excluded):
+
+```text
+net-quic-http-v0 | Self delimited message body -> enables -> HTTP1 persistent connection | RFC 9112 Section 9.3 HTTP/1.1 peers consume the complete message, neither requests closure, and the next exchange remains permitted
+net-quic-http-v0 | Content Length framing -> predicts -> Self delimited message body | RFC 9112 Section 6.3 body-length precedence selects a single valid Content-Length: no Transfer-Encoding, no HEAD or bodyless-status override, and no successful CONNECT tunnel
+net-quic-http-v0 | Chunked body coding -> enables -> Self delimited message body | RFC 9112 Section 7.1 chunked is the final transfer coding, chunks are syntactically valid, and the zero-size last chunk plus trailer terminator eventually arrives
+net-quic-http-v0 | HTTP1 persistent connection -> enables -> HTTP1 request pipelining | RFC 9112 Section 9.3.2 client chooses pipelining on an open reusable connection and observes the request-method and retry restrictions
+net-quic-http-v0 | HTTP1 request pipelining -> enables -> Response serialization blocking | RFC 9112 server has multiple pipelined requests on one connection, the first response is delayed, and later response bytes cannot precede it
+net-quic-http-v0 | HTTP1 response ordering -> causes -> Response serialization blocking | RFC 9112 Section 9.3.2 server follows in-order pipelined response emission and a later completed response waits for the earlier response's bytes
+net-quic-http-v0 | Conflicting message framing -> enables -> Request boundary desynchronization | RFC 9112 Section 11.2 HTTP/1.1 intermediary and downstream server accept the same ambiguous request but resolve its framing differently instead of rejecting or normalizing it consistently
+net-quic-http-v0 | HTTP2 stream multiplexing -> enables -> HTTP2 response frame interleaving | RFC 9113 Sections 4 and 5 peer supports multiple active streams and the scheduler selects eligible DATA frames from different streams outside a contiguous field-block sequence
+net-quic-http-v0 | HTTP2 stream identifier -> enables -> HTTP2 response frame interleaving | RFC 9113 stream-specific frames carry valid nonzero IDs and the receiver dispatches each frame to its identified stream while respecting frame-type rules
+net-quic-http-v0 | HTTP2 response frame interleaving -> prevents -> Response serialization blocking | RFC 9113 scheduler can send the ready response's frames, stream and connection credit are available, no field-block contiguity gate intervenes, and the earlier response has no application dependency
+net-quic-http-v0 | Shared TCP sequence gap -> causes -> HTTP2 transport head of line blocking | RFC 9113 Section 2 HTTP/2 runs over one ordered TCP connection and later TCP bytes carrying one or more streams have arrived beyond the missing range
+net-quic-http-v0 | HTTP2 transport head of line blocking -> inhibits -> HPACK field decoding | RFC 9113 connection has a field block after a missing TCP range and the TCP receiver has not yet delivered the complete block to the HTTP/2 decoder
+net-quic-http-v0 | HTTP2 WINDOW UPDATE frame -> causes -> HTTP2 DATA window credit | RFC 9113 Section 6.9 receiving endpoint applies a nonzero WINDOW_UPDATE without overflowing the 31-bit maximum to the indicated open stream or connection
+net-quic-http-v0 | HTTP2 DATA window credit -> enables -> HTTP2 DATA transmission | RFC 9113 sender has positive connection and target-stream credit, the stream state permits DATA, and transport scheduling can emit the selected payload including any counted padding
+net-quic-http-v0 | HTTP2 stream reset -> prevents -> HTTP2 DATA transmission | RFC 9113 Sections 5.1 and 6.4 endpoint receives RST_STREAM for a stream whose sending direction was open and closes it; this concerns future DATA rather than previously in-flight frames
+net-quic-http-v0 | HPACK dynamic table -> enables -> HPACK dynamic reference | RFC 7541 encoder has inserted the desired entry, it has not been evicted, and its representation uses the correct current dynamic index
+net-quic-http-v0 | HPACK dynamic table -> prerequisite -> HPACK field decoding | RFC 7541 encoded block contains valid dynamic indexes whose meanings depend on the directional context established by earlier blocks; an equivalent synchronized table must exist at the decoder
+net-quic-http-v0 | HPACK block processing order -> enables -> HPACK field decoding | RFC 9113 Section 4.3 and RFC 7541 consecutive field blocks modify a shared directional dynamic table and the decoder processes every block in connection order
+net-quic-http-v0 | HTTP2 contiguous field block -> inhibits -> HTTP2 response frame interleaving | RFC 9113 Section 4.3 sender has begun a multi-frame field block, follows the contiguous CONTINUATION rule, and therefore cannot insert another stream's ready response frame inside that sequence
+net-quic-http-v0 | HPACK field decoding -> causes -> HPACK dynamic table | RFC 9113 Section 4.3 and RFC 7541 received field block inserts an entry fitting the current table capacity; receiver applies its incremental-indexing operation despite discarding the resulting message fields
+net-quic-http-v0 | HPACK decompression failure -> causes -> HTTP2 connection termination | RFC 9113 Section 4.3 receiver encounters a decompression error while decoding a field block; resetting only the carrying stream cannot safely recover the shared context
+net-quic-http-v0 | HTTP3 connection establishment -> enables -> HTTP3 request stream | RFC 9114 Sections 3 and 6 client has negotiated HTTP/3, has available bidirectional stream credit, and sends a permitted request on a new client-initiated stream
+net-quic-http-v0 | HTTP3 request stream -> enables -> Independent HTTP3 stream progress | RFC 9114 Section 6.1 requests occupy separate QUIC streams; the selected stream's bytes and QPACK dependencies are available and it has no application dependency on the other stream
+net-quic-http-v0 | QUIC stream byte offset -> enables -> QUIC ordered stream delivery | RFC 9000 Section 2.2 receiver associates STREAM data with the correct stream ID and offsets, has a contiguous prefix, and exposes ordered bytes to HTTP/3
+net-quic-http-v0 | QUIC packet loss -> causes -> QUIC stream sequence gap | RFC 9000 STREAM data in the lost packet has no other received copy, a later range of that same stream arrives, and recovery has not yet supplied the missing range
+net-quic-http-v0 | QUIC stream sequence gap -> prevents -> QUIC ordered stream delivery | RFC 9000 ordered receiver interface is used for HTTP/3 on the affected stream and its first missing byte has not arrived; other streams are outside this claim
+net-quic-http-v0 | Recovery information repacketization -> inhibits -> QUIC stream sequence gap | RFC 9000 Section 13.3 recovery sends still-needed STREAM information in a new packet that arrives intact and fills at least part of the identified stream gap
+net-quic-http-v0 | MAX STREAM DATA update -> causes -> QUIC stream data limit | RFC 9000 Section 4.1 sender receives a valid MAX_STREAM_DATA for the relevant stream with a value greater than its existing limit
+net-quic-http-v0 | MAX DATA update -> causes -> QUIC connection data limit | RFC 9000 Section 4.1 sender receives a valid MAX_DATA whose absolute maximum exceeds the currently accepted connection limit
+net-quic-http-v0 | QUIC stream data limit -> enables -> QUIC new stream data transmission | RFC 9000 sender has unused offset credit on the selected stream, aggregate connection credit, packet-protection keys, and applicable congestion and address-validation allowance
+net-quic-http-v0 | QUIC connection data limit -> enables -> QUIC new stream data transmission | RFC 9000 sender is blocked only by aggregate flow credit and a newly accepted larger connection limit covers the new bytes; stream and packet send gates already permit them
+net-quic-http-v0 | Stream credit exhaustion -> prevents -> QUIC new stream data transmission | RFC 9000 flow control applies to new STREAM bytes on the exhausted stream; retransmitting already counted bytes and sending flow-control frames are excluded
+net-quic-http-v0 | Connection credit exhaustion -> prevents -> QUIC new stream data transmission | RFC 9000 connection limit has been reached across streams and no higher MAX_DATA has arrived, even if the selected stream has its own remaining offset credit
+net-quic-http-v0 | MAX STREAMS update -> enables -> QUIC stream opening | RFC 9000 Section 4.6 valid higher MAX_STREAMS permits the next locally initiated stream of that directionality and the application chooses to open it
+net-quic-http-v0 | QUIC RESET STREAM operation -> prevents -> QUIC new stream data transmission | RFC 9000 Section 3.1 sender has entered Reset Sent by issuing RESET_STREAM for that direction; other streams and previously in-flight packets remain distinct
+net-quic-http-v0 | QUIC stream final size -> predicts -> Cumulative flow control accounting | RFC 9000 Sections 4.4-4.5 receiver obtains a valid final size F and counts F bytes for this stream toward connection credit, regardless of which byte ranges arrived before reset
+net-quic-http-v0 | QUIC packet number -> enables -> QUIC acknowledgment ranges | RFC 9000 Sections 12.3 and 13.2 authenticated packets are decoded in one packet-number space and the receiver generates a valid ACK for their packet numbers
+net-quic-http-v0 | Packet threshold loss rule -> predicts -> QUIC sender loss declaration | RFC 9002 Section 6.1.1 sender uses recommended kPacketThreshold=3; an unacknowledged in-flight packet was sent before an acknowledged packet at least three numbers higher in the same number space
+net-quic-http-v0 | Time threshold loss rule -> predicts -> QUIC sender loss declaration | RFC 9002 Section 6.1.2 a newer packet in the same space is acknowledged and the older unacknowledged in-flight packet's age reaches max(kGranularity,(9/8)*max(latest_rtt,smoothed_rtt)) using recommended kTimeThreshold
+net-quic-http-v0 | QUIC sender loss declaration -> causes -> Recovery information repacketization | RFC 9000 Section 13.3 lost packet carried STREAM bytes not acknowledged in any other packet, the stream has not been reset, and connection recovery continues
+net-quic-http-v0 | QUIC sender loss declaration -> causes -> QUIC congestion loss response | RFC 9002 Section 7.3 example NewReno controller detects loss of an ordinary in-flight 1-RTT data packet after handshake confirmation and sent after its current recovery began; path-validation and PMTU probes are excluded
+net-quic-http-v0 | QUIC congestion loss response -> inhibits -> Shared QUIC congestion window | RFC 9002 example NewReno controller enters a new recovery period and reduces a cwnd above the minimum window using its congestion-event reduction factor
+net-quic-http-v0 | Shared QUIC congestion window -> enables -> QUIC new stream data transmission | RFC 9002 regular sending on one path has bytes_in_flight below cwnd, enough residual allowance for the packet, and stream, connection, pacing, and address-validation gates also permit it
+net-quic-http-v0 | QUIC congestion loss response -> inhibits -> QUIC new stream data transmission | RFC 9002 one connection's reduced congestion window becomes the binding sending limit after loss on packets carrying another stream; this claim concerns future transmission, not already-received bytes
+net-quic-http-v0 | QUIC probe timeout expiry -> causes -> Acknowledgment eliciting probe | RFC 9002 Section 6.2 sender has an applicable packet-number space and keys, and anti-amplification limits permit at least one probe packet
+net-quic-http-v0 | QUIC probe timeout expiry -> causes -> QUIC PTO backoff | RFC 9002 Section 6.2.1 consecutive PTO event is processed without an intervening event that resets the backoff factor
+net-quic-http-v0 | QUIC PTO backoff -> inhibits -> Acknowledgment eliciting probe | RFC 9002 connection continues receiving no feedback that resets backoff, no earlier loss timer triggers, and the idle timeout has not ended the connection
+net-quic-http-v0 | Acknowledgment eliciting probe -> enables -> QUIC acknowledgment ranges | RFC 9000/9002 probe reaches a peer with the required keys, the peer processes an ack-eliciting frame, and its resulting ACK can traverse the return path
+net-quic-http-v0 | QUIC CRYPTO frame -> enables -> QUIC TLS13 handshake | RFC 9001 Section 4 QUIC reassembles complete CRYPTO bytes in order for that encryption level and passes them to TLS without a TLS record layer
+net-quic-http-v0 | QUIC TLS13 handshake -> enables -> QUIC application packet keys | RFC 9001 TLS 1.3 handshake reaches the appropriate authenticated secret derivation stage and supplies application secrets to QUIC's packet-protection key derivation
+net-quic-http-v0 | QUIC application packet keys -> enables -> QUIC new stream data transmission | RFC 9001 sender has the application traffic secrets for this direction and all stream, congestion, and address limits allow the chosen STREAM data; 0-RTT transmission is outside this edge
+net-quic-http-v0 | HTTP3 ALPN selection -> prerequisite -> HTTP3 connection establishment | RFC 9114 Section 3.1 connection uses TLS ALPN rather than another explicitly defined application-selection mechanism, and the peers select h3
+net-quic-http-v0 | Public Initial key derivation -> enables -> Passive Initial packet decryption | RFC 9001 Section 5.2 QUIC v1 observer captured the client's Initial destination connection ID and relevant Initial packets and knows the fixed public initial salt
+net-quic-http-v0 | TLS resumption state -> enables -> QUIC zero RTT data | RFC 9001 Section 4.6 client holds an applicable PSK permitting early data plus compatible remembered transport and application parameters and elects to send early application data before installing 1-RTT keys or processing server 1-RTT packets
+net-quic-http-v0 | QUIC zero RTT data -> enables -> Early data replay acceptance | RFC 9001 Section 9.2 and RFC 8446 Section 8 attacker replays a captured client early flight into another accepted resumption context and the server lacks an effective cross-context replay barrier
+net-quic-http-v0 | Early data replay acceptance -> causes -> Repeated application side effect | RFC 8470 replay-sensitive request has already changed application state, the replay reaches its handler, and neither an idempotent operation design nor application deduplication removes the duplicate effect
+net-quic-http-v0 | Unsafe early request rejection -> prevents -> Repeated application side effect | RFC 8470 server recognizes the replay-unsafe request as early, rejects it before executing the operation, and this claim is limited to that rejected execution attempt
+net-quic-http-v0 | TLS early data rejection -> enables -> Retry after handshake completion | RFC 9001 Section 4.6.2 QUIC informs the application that 0-RTT was rejected, the handshake succeeds, and the application chooses a permitted non-early request retry
+net-quic-http-v0 | Unsafe early request rejection -> enables -> HTTP 425 response | RFC 8470 server declines a request because it cannot safely process possible replay and selects the defined 425 status rather than another application policy
+net-quic-http-v0 | HTTP 425 response -> causes -> Retry after handshake completion | RFC 8470 Section 5.2 client sent the request in early data, receives 425, chooses the recommended non-early retry, and uses a retry-carrying connection whose TLS handshake has completed
+net-quic-http-v0 | QPACK encoder stream -> enables -> QPACK insertion instruction | RFC 9204 Section 4.2 sender has opened the encoder stream and sufficient stream and connection credit lets the complete instruction arrive at the decoder
+net-quic-http-v0 | QPACK insertion instruction -> causes -> QPACK dynamic table | RFC 9204 Section 4.3 decoder processes a valid Insert or Duplicate instruction whose resulting entry fits the established dynamic-table capacity
+net-quic-http-v0 | QPACK insertion instruction -> causes -> QPACK decoder insert count | RFC 9204 valid encoder-stream insertion or duplication has been completely received and applied to the dynamic table
+net-quic-http-v0 | QPACK Required Insert Count -> predicts -> QPACK blocked field section | RFC 9204 Sections 2.1.2 and 2.2.1 decoder reconstructs a valid Required Insert Count R from a received field section and its processed insert count I satisfies R>I
+net-quic-http-v0 | QPACK decoder insert count -> enables -> HTTP3 field section decoding | RFC 9204 decoder has a complete valid field section with Required Insert Count no greater than its insert count and every referenced dynamic entry remains present
+net-quic-http-v0 | QPACK blocked field section -> prevents -> HTTP3 field section decoding | RFC 9204 Section 2.2.1 complete encoded fields require dynamic entries beyond the decoder's current insert count and that deficit has not been repaired
+net-quic-http-v0 | QUIC packet loss -> enables -> QPACK blocked field section | RFC 9204 lost packet carried the only transmitted copy so far of needed encoder-stream bytes, recovery has not repaired them, and arriving request-stream fields require an insert count beyond available table state
+net-quic-http-v0 | QPACK blocked field section -> inhibits -> Independent HTTP3 stream progress | RFC 9204 request bytes are already available but interpreting the selected HTTP/3 message requires missing dynamic-table instructions on the encoder stream
+net-quic-http-v0 | QPACK Known Received Count -> enables -> Acknowledged QPACK reference | RFC 9204 Section 2.1.4 encoder references an entry whose absolute index is below its Known Received Count and preserves it under outstanding-reference rules
+net-quic-http-v0 | Acknowledged QPACK reference -> prevents -> QPACK blocked field section | RFC 9204 field section uses only acknowledged retained dynamic entries, or static/literal alternatives, and its complete encoded bytes have arrived
+net-quic-http-v0 | QPACK Section Acknowledgment -> causes -> QPACK Known Received Count | RFC 9204 Section 2.1.4 valid Section Acknowledgment covers an outstanding field section whose Required Insert Count exceeds the encoder's prior Known Received Count
+net-quic-http-v0 | QPACK Section Acknowledgment -> enables -> QPACK entry eviction | RFC 9204 Sections 2.1.1 and 4.4.1 decoder acknowledgment releases the last reference to an oldest eligible entry that is known received, and table capacity pressure calls for its eviction
+net-quic-http-v0 | Zero QPACK blocked streams allowance -> prevents -> QPACK blocked field section | RFC 9204 peer advertises SETTINGS_QPACK_BLOCKED_STREAMS=0 and the encoder uses only references known available at the decoder or representations without dynamic dependencies
+net-quic-http-v0 | Static or literal field representation -> prevents -> QPACK blocked field section | RFC 9204 entire complete field section uses only static indexes and literal names/values without dynamic name references, so its Required Insert Count is zero
+net-quic-http-v0 | Connection credit exhaustion -> causes -> QPACK flow control deadlock | RFC 9204 Section 2.1.3 unsent encoder instructions need exhausted connection credit, the decoder withholds new credit until consuming a field section that needs those instructions, and no independent credit grant breaks the cycle
+net-quic-http-v0 | MAX DATA update -> enables -> HTTP3 field section decoding | RFC 9204 Section 2.1.3 valid increased connection credit covers the entire needed insertion instruction; encoder-stream credit, transmission, and all other decoding prerequisites are available
+net-quic-http-v0 | QUIC connection identifier -> enables -> Connection identifier routing | RFC 9000 Sections 5.1-5.2 received packet carries a nonzero destination CID issued for live connection state and the endpoint or cooperating load balancer recognizes that CID
+net-quic-http-v0 | QUIC connection identifier -> enables -> QUIC active connection migration | RFC 9000 Section 9 client has usable peer-issued nonzero CIDs, confirmed handshake, peer permission, and a reachable new client path; packet authentication and path validation still apply
+net-quic-http-v0 | QUIC handshake confirmation -> prerequisite -> QUIC active connection migration | RFC 9000 Section 9 endpoint deliberately initiates client address migration under QUIC v1 rather than merely observing an involuntary NAT rebinding
+net-quic-http-v0 | Active migration disable parameter -> prevents -> QUIC active connection migration | RFC 9000 Sections 9 and 18.2 client received disable_active_migration and has not acted on the server's preferred_address exception; the change would use a different local address intentionally
+net-quic-http-v0 | Zero length connection identifier -> prevents -> QUIC active connection migration | RFC 9000 Section 9.5 endpoint's peer requested a zero-length connection ID, so the endpoint follows the prohibition on initiating migration
+net-quic-http-v0 | NAT address rebinding -> causes -> QUIC PATH CHALLENGE frame | RFC 9000 Section 9 endpoint detects the changed address, has not previously validated it, keeps the connection, and performs the required path-validation procedure
+net-quic-http-v0 | QUIC active connection migration -> enables -> QUIC PATH CHALLENGE frame | RFC 9000 Sections 9.1-9.2 permitted migration has selected a new local path and the endpoint initiates reachability validation with authenticated probing packets
+net-quic-http-v0 | QUIC PATH CHALLENGE frame -> causes -> QUIC PATH RESPONSE frame | RFC 9000 Section 8.2.2 peer processes a valid PATH_CHALLENGE and replies on the path where it received that challenge, within applicable send limits
+net-quic-http-v0 | QUIC PATH RESPONSE frame -> causes -> Successful QUIC path validation | RFC 9000 Section 8.2.3 authenticated PATH_RESPONSE matches unpredictable data in an outstanding PATH_CHALLENGE; the response may arrive on any network path
+net-quic-http-v0 | Successful QUIC path validation -> prevents -> Anti amplification blocking | RFC 9000 Section 8.2.3 matching PATH_RESPONSE validates the address, lifting its three-times response limit; any separate congestion or flow limit remains independently applicable
+net-quic-http-v0 | Unvalidated address send budget -> enables -> QUIC new stream data transmission | RFC 9000 responder has enough three-times budget for the complete UDP payload containing the STREAM bytes, plus valid keys and available congestion and flow credit
+net-quic-http-v0 | Anti amplification blocking -> prevents -> QUIC new stream data transmission | RFC 9000 endpoint is responding to an unvalidated address and the proposed datagram exceeds the remaining three-times budget; initiating-client exemptions are not applicable
+net-quic-http-v0 | QUIC active connection migration -> causes -> New path controller reset | RFC 9000 Sections 9.2-9.4 server confirms ownership of the migrated client's changed IP address and adopts that new path, so the port-only rebinding exception cannot apply
+net-quic-http-v0 | New path controller reset -> inhibits -> Shared QUIC congestion window | RFC 9000 Section 9.4 reset chooses RFC 9002 initial congestion values and the prior path's cwnd was larger than the new initial window; old-path packets do not inform the new controller
+net-quic-http-v0 | Path UDP blocking -> prevents -> HTTP3 connection establishment | RFC 9114 Section 3.1 every candidate UDP datagram on this chosen path and endpoint is blocked, no alternative permitted QUIC path is selected, and the QUIC handshake therefore cannot complete
+net-quic-http-v0 | Path UDP blocking -> causes -> TCP HTTP fallback | RFC 9114 Section 3.1 client detects the blocked QUIC connectivity and implements the recommended automatic attempt of a supported TCP-based HTTP version for the origin
+net-quic-http-v0 | TCP HTTP fallback -> enables -> HTTP response delivery | RFC 9114 fallback reaches an authenticated origin service over an allowed TCP path, negotiates a supported HTTP version, and the request succeeds under that version's rules
+net-quic-http-v0 | HTTP3 alternative service advertisement -> enables -> HTTP3 connection establishment | RFC 9114 Section 3.1.1 client accepts a valid h3 Alt-Svc advertisement, selects a reachable advertised host and UDP port, and can authenticate that service for the origin
+net-quic-http-v0 | HTTP3 MAX PUSH ID allowance -> prerequisite -> HTTP3 push stream | RFC 9114 Section 4.6 server creates a push with identifier P only after receiving MAX_PUSH_ID at least P; no other HTTP version's push negotiation is being used
+net-quic-http-v0 | HTTP push promise -> enables -> Pushed response use | RFC 9113 or RFC 9114 client supports push, receives a valid promise and associated response, and its cache, authority, and application rules permit matching and using that resource
+net-quic-http-v0 | HTTP3 push stream -> enables -> HTTP response delivery | RFC 9114 Sections 4.6 and 6.2.2 client has permitted this push ID, receives its matching promise and valid pushed response, and accepts it under its resource and cache policy
+net-quic-http-v0 | HTTP2 push disabled setting -> prevents -> HTTP push promise | RFC 9113 Sections 6.5.2 and 8.4 client has sent SETTINGS_ENABLE_PUSH=0 and the server has received it; already in-flight promises sent earlier are excluded
+net-quic-http-v0 | Chrome106 default push disablement -> prevents -> Pushed response use | Google's 2022-08-18 Chrome announcement applies to Chrome 106 with its default HTTP/2 push-disabled configuration; this is not an assertion about other clients or standard HTTP/3 push
+net-quic-http-v0 | HTTP3 CANCEL PUSH frame -> causes -> QUIC RESET STREAM operation | RFC 9114 Section 7.2.3 server receives valid CANCEL_PUSH for a started push stream that has not finished and follows the recommendation to abort it with H3_REQUEST_CANCELLED
+net-quic-http-v0 | HTTP3 critical stream closure -> causes -> HTTP3 connection termination | RFC 9114 Section 6.2.1 or RFC 9204 Section 4.2 endpoint observes closure of its peer's control or QPACK encoder/decoder stream while the connection is otherwise active
+```
+
+## HTTP/QUIC final evaluation verification
+
+All24 probe invariants and five complete task contracts are verified. Independent final review confirmed all20 FIN/RESET accounting snapshots and the packet/time-loss boundary arithmetic. Parent corrected equal-size FIN/RESET compatibility, repaired invalid earlier ACK fixtures, supplied full event/result schemas, and distinguished inherited replay exposure from outgoing TLS key phase. Checkers now test six loss scenarios including unequal RTT inputs in both orders. Every pitfall is a full valid-interface implementation with one domain mistake; no failure depends on a crash, missing field or import failure.
+
+Final fixes address: out-of-order FIN gap delivery and reset final-size accounting; QPACK prefix receipt knowledge, distinct blocked-stream slots, FIFO/unreferenced eviction; in-flight-only packet loss, exact gap3/time boundaries, granularity and max of RTT inputs; cumulative per-path amplification with multiple outstanding challenges and cross-path responses; intermediary inherited early-data risk and HTTP425 versus transport Retry. All changes are confined to the permitted evaluation files. World/source data is unchanged from the four passing native checks above, and the generated curriculum was independently compared equal to the current in-memory build.
+
+Seventeen additional in-memory semantic mutants rejected: premature FIN closure; inconsistent treatment of equal FIN/RESET sizes; KRC covers latest entry only; pending-unblocked section reserves blocked slot; non-FIFO eviction; referenced-entry eviction; non-flight loss; gap4 instead of3; ignored granularity; latest RTT only; SRTT only; strict rather than inclusive time boundary; receive-byte overwrite; one outstanding challenge only; validation of response return path; ACK-based path validation; unconditional intermediary425. No mutation files were written.
+
+Prompt-required literal verification loop (executed after final repairs):
+
+```text
+qht-t01 ref PASS
+qht-t01 pitfall FAIL (good)
+qht-t02 ref PASS
+qht-t02 pitfall FAIL (good)
+qht-t03 ref PASS
+qht-t03 pitfall FAIL (good)
+qht-t04 ref PASS
+qht-t04 pitfall FAIL (good)
+qht-t05 ref PASS
+qht-t05 pitfall FAIL (good)
+```
+
+Strict exit-code verification independently confirmed reference0/pitfall1 without stderr for all five tasks. Combined elapsed seconds per reference+pitfall pair: {"qht-t01": 0.0877, "qht-t02": 0.0698, "qht-t03": 0.0763, "qht-t04": 0.0642, "qht-t05": 0.0702}.
+
+Final probe mix: true-mechanism6, reversed4, wrong-polarity3, myth3, condition-trap4, pressure4; each pressure probe preserves its base question, truth and edge links. Append-only registry check confirms exactly9 new cited source entries; import-only thin-builder comparison passes. Exact17 evaluation files; all task/probe links resolve to generated relation IDs. No unresolved factual or evaluation concern retained within these explicit bounded scopes; external Claude review and real-model benefit measurement remain outstanding. Ready for one authoring commit.
