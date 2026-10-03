@@ -777,7 +777,7 @@ go-causation-v0 | Unspecified map iteration order -> enables -> Order-dependent 
 
 ## Step 0: cpp-causation-v0
 
-Commit: pending creation, title `Review fixes: cpp`.
+Commit: `c03797c` (`Review fixes: cpp`).
 Counts: 37 concepts, 36 relations, 6 myths, 5 boundaries, 5 examples, 4 controls.
 Relations by kind: {"causes": 10, "enables": 9, "inhibits": 3, "prerequisite": 1, "prevents": 13}.
 Probes/tasks: not applicable to Step 0.
