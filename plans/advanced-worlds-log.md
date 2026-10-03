@@ -1109,7 +1109,7 @@ chemistry-causation-v0 | Dissolving a solute -> enables -> Chemical reaction | t
 
 ## Step 0: biology-causation-v0
 
-Commit: pending creation, title `Review fixes: biology`.
+Commit: `f431543` (`Review fixes: biology`).
 Counts: 38 concepts, 35 relations, 5 myths, 4 boundaries, 4 examples, 4 controls.
 Relations by kind: {"causes": 3, "enables": 20, "inhibits": 3, "predicts": 1, "prerequisite": 7, "prevents": 1}.
 Probes/tasks: not applicable to Step 0.
