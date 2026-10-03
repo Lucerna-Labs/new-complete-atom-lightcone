@@ -892,7 +892,7 @@ The same ownership conflict persisted across three consecutive goal turns in cha
 
 ## Step 0: go-causation-v0
 
-Commit: pending creation, title `Review fixes: go`.
+Commit: `bcf1867` (`Review fixes: go`).
 Counts: 40 concepts, 32 relations, 5 myths, 4 boundaries, 4 examples, 4 controls.
 Relations by kind: {"causes": 8, "enables": 7, "inhibits": 1, "predicts": 2, "prerequisite": 2, "prevents": 12}.
 Probes/tasks: not applicable to Step 0.
