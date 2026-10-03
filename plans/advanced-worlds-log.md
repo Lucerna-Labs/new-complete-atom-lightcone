@@ -98,7 +98,7 @@ exit: 0
 
 ## Step 0: algebra-causation-v0
 
-Commit: pending creation, title `Review fixes: algebra`.
+Commit: `5300627` (`Review fixes: algebra`).
 Counts: 33 concepts, 26 relations, 5 myths, 5 boundaries, 5 examples, 6 controls.
 Relations by kind: {"enables": 7, "predicts": 16, "prerequisite": 2, "prevents": 1}.
 Probes/tasks: not applicable to Step 0. Sources added: none; existing mathlib4 (and existing NIST DLMF where named) retained.
