@@ -1001,7 +1001,7 @@ go-causation-v0 | Unspecified map iteration order -> enables -> Order-dependent 
 
 ## Step 0: chemistry-causation-v0
 
-Commit: pending creation, title `Review fixes: chemistry`.
+Commit: `b682ff8` (`Review fixes: chemistry`).
 Counts: 41 concepts, 34 relations, 5 myths, 3 boundaries, 4 examples, 4 controls.
 Relations by kind: {"causes": 10, "enables": 10, "inhibits": 3, "predicts": 8, "prerequisite": 2, "prevents": 1}.
 Probes/tasks: not applicable to Step 0.
