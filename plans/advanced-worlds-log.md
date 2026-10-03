@@ -1420,3 +1420,675 @@ quantum-causation-v0 | Particle spin -> enables -> Nuclear spin precession | a n
 ## Sweep final source check
 
 All 11 modules produce exactly their current generated foundations records in an in-memory rebuild, including the final Go atomic-access definition and independent quantum corrections. An initial ad-hoc import omitted tools from sys.path and raised ModuleNotFoundError; correcting that invocation passed all eleven comparisons without a tool change. Four required checks already passed for each final module. The temporary quantum fixup is data-only and will be folded into this goal's initial quantum commit on the current branch; no pre-existing commit or other branch is rebased. Historical checkpoint hashes in this log are superseded by the final consolidation table in the advanced branch.
+
+## Final sweep commit identities
+
+Only this goal's unpublished commits on its working sweep branch were consolidated; the tree is byte-identical before/after and pre-existing history/other branches were untouched. Each of 11 worlds now has exactly one Review fixes commit. Earlier hashes are historical checkpoints.
+
+```
+b6902a1 Review fixes: quantum
+a2a673b Review fixes: algebra
+df03200 Review fixes: calculus
+d567897 Review fixes: geometry
+4485990 Review fixes: information
+c3dea12 Review fixes: python
+c9e39e3 Review fixes: go
+48db68f Review fixes: cpp
+090cb3a Review fixes: chemistry
+76a655f Review fixes: biology
+fbe3a21 Review fixes: color
+```
+
+## Rust branch setup
+
+Switched to the prescribed authoring/rust-coding branch. The 20 verified sweep source entries are appended here too because generated curricula stay in place across branch switches and the required global validator resolves every generated record's source IDs. This is source-metadata registration only; no sibling world module or branch history is imported or merged.
+
+## Reviewable kitchen myth append — scope clarification pending
+
+The prompt requires kitchen myths but its Step 0 file allowance names existing modules in the fix list. The kitchen data module cannot emit myths: the unchanged builder reads only cross.MYTHS. The following exact two data entries need an append to tools/physical_causation/cross.py on authoring/kitchen; no existing cross records or builder logic would change. This proposed exception has not been applied.
+
+```python
+("searing-seals-juices", "Myth: searing seals in meat juices",
+ "Searing develops a browned surface but does not create a waterproof seal; moisture can still leave during cooking.",
+ "maillard-browning"),
+("salt-boils-much-hotter", "Myth: seasoning salt makes cooking water much hotter",
+ "Dissolved salt raises the boiling point, but the increase at ordinary seasoning concentrations is small and does not explain a substantial acceleration of cooking.",
+ "salted-cooking-water"),
+```
+
+Both targets are kitchen-owned concepts and inherit the verified food-science citation. The builder does not consume a kitchen.MYTHS array, so adding it there would leave the required myths absent from generated records. Source: review requirements, unchanged physical builder lines159-168 and the read-only kitchen audit.
+
+## Step 0: rust-coding-v0
+
+Commit: `6ce48de` (`Review fixes: rust`).
+Counts: 49 concepts, 44 authored relations, 6 myths, 6 boundaries, 4 examples, 4 controls.
+Relations by kind: {"causes": 13, "enables": 15, "inhibits": 1, "predicts": 2, "prerequisite": 1, "prevents": 12}.
+Probes/tasks: not applicable to Step 0.
+
+Self-review: 48 original relations → 44 retained, four drops, zero new relation IDs. Direction/polarity pass changed 14 unique retained edges (11 endpoint and 10 kind changes overlap). Counterexample pass tightened all 44 statements, conditions and exceptions; version pass states Rust1.63+ with compiler/library/Cargo regimes. All six myths corrected/qualified, three boundary records added, all 40 old concept definitions tightened and nine specific target/order concepts added. Count pass: 100% causal kinds, no padding; unique IDs/pairs/conditions and exact labels/verbs passed.
+
+Dropped:
+- rule-blocks-shared: merged into rule-blocks-mut after both targeted the same conflicting-borrow rejection.
+- rule-blocks-race: aliasing shorthand alone omits interior mutability/Send/Sync and is no runtime synchronization mechanism.
+- ownership-prereq-rule: local ownership is not a separate necessary prerequisite for reference validity/exclusivity.
+- sync-refuses-unsafe-share: marker is an eligibility contract, not itself a runtime anti-race mechanism.
+
+Every requested fix handled: Copy means implementing Copy (including &T); remaining fields after partial move remain usable; locals drop individually in reverse declaration order; NLL includes destructor liveness; std::thread::scope1.63+ permits bounded non-static borrowing; reference obligations apply inside unsafe.
+
+Parent and independent reviewer read all49 concepts/all44 relations and every scaffold record. They confirmed two final counterexamples: ? can invoke a panicking/diverging From conversion or exit-time destructor. Result/Option propagation conditions now require terminating normal conversion/cleanup. No other unresolved actionable factual issue identified; Claude acceptance pending.
+
+Ten stdin compile probes passed using installed rustc1.98.1: shared &T Copy, remaining partial fields, legal shared reborrow from &mut, NLL ending and scoped non-static threads accepted; ordinary spawn borrowed local rejected E0373; Drop-held shared borrow E0506; Drop-held mutable borrow E0503; whole-value use after partial move E0382; partial move from Drop type E0509. Initial rustc -o /dev/null invocation tried to create /dev/rmeta temporary storage and failed; rerunning with -o - and discarded stdout passed without saved testfiles. These probes check selected acceptance/rejection cases, not runtime drop order; that order was verified in the Rust Reference.
+
+Sources added: rust-reference (https://doc.rust-lang.org/reference/); rust-std-199 (https://doc.rust-lang.org/std/, docs identify1.99.0/b940084d7 2026-09-28); rust-by-example (https://doc.rust-lang.org/rust-by-example/), all citation_only, standards-primary, retrieved2026-10-02. Existing rust-book/cargo-reference retained. Docs and installed compiler versions are intentionally distinguished.
+
+Builder AST comparison confirms only authoring data changed; all builder logic is identical to original94f950a.
+
+Four checks:
+
+```
+$ python3 tools/build_rust_coding_curriculum.py
+wrote /home/jesse/Desktop/Projects/new-complete-atom-lightcone/curricula/rust-coding/foundations.jsonl with 191 records
+splits: {'cross_domain_holdout': 7, 'sealed_test': 18, 'train': 145, 'validation': 21}
+kinds: {'boundary': 6, 'concept': 50, 'counterexample': 6, 'relation': 121, 'synthetic_control': 4, 'worked_example': 4}
+exit: 0
+
+$ python3 tools/validate_curricula.py
+foundation lanes with controls: 23/23
+valid: True
+exit: 0
+
+$ python3 tools/validate_sources.py
+valid: True
+exit: 0
+
+$ .venv/bin/python trainer/compile_curriculum.py --world-id rust-coding-v0
+{
+  "schema_version": 1,
+  "world_id": "rust-coding-v0",
+  "adapter_independent": true,
+  "record_count": 191,
+  "node_count": 70,
+  "edge_count": 121,
+  "negative_pair_count": 4,
+  "domains": [
+    "language-ecosystems"
+  ],
+  "lanes": [
+    "reasoning.causal",
+    "reasoning.deductive",
+    "thinking.bottom_up"
+  ],
+  "files": {
+    "edges.jsonl": "afdc37f5fc150493744ec3e5b331e3b5004fb9bdb1b5eae0633e5ded654bf1ef",
+    "lexicon.json": "793dd5e015bce803ab59411de23ce0a8b8a4d0e35f87aa2506645ca6b6b1e0c6",
+    "nodes.jsonl": "5b5fefb081aa2cba4025215dc573087c9d2b0522fd2fb26937b0efdebb8ef560",
+    "records.jsonl": "0354bf301e315a4a981a574e057233e3b5e8dc284d15840e5b206e025d43a5c7",
+    "relation-catalog.json": "bde19fb7c98f3e3cc71cdc1225eba5b73382204ff875f8c00c34db49a1ffe3e8",
+    "sources.json": "6efdc29e506dd5f008e2c878a1b80f69c4aa736f25c5a3346f5bdc64c2e9a5c9",
+    "split-manifest.json": "61dc0c6f5f13f4c3768d3843d5a8261524162698730105607ebc908523eb96c7",
+    "training-graph.json": "d4b970c07cbf389a3b739a87ada7e0e6c8bb56aff42e4a4055a98761aa8b198d"
+  }
+}
+exit: 0
+```
+
+Reviewer relation list:
+
+```text
+rust-coding-v0 | Move of a value -> causes -> Moved-from binding | Rust 1.63+; an initialized non-Copy local is moved in a value-consuming context rather than reborrowed
+rust-coding-v0 | Move of a value -> causes -> Ownership of a value | Rust 1.63+; a successful let binding receives a non-Copy owned value by move and retains it
+rust-coding-v0 | Move of a value -> prevents -> Double free of memory | Rust 1.63+ safe code; a Box or other sound exclusive resource owner moves between locals without unsafe duplication of its allocation handle
+rust-coding-v0 | Ownership of a value -> prevents -> Double free of memory | Rust 1.63+ safe code; one Box owns an allocation and all underlying unsafe implementations uphold their safety contracts
+rust-coding-v0 | Copy trait duplication -> prevents -> Moved-from binding | Rust 1.63+; the assigned type implements Copy, including &T regardless of whether T implements Copy
+rust-coding-v0 | Explicit clone -> prevents -> Moved-from binding | Rust 1.63+; Clone::clone borrows the original through &self, returns successfully and only the returned value is moved
+rust-coding-v0 | Ownership of a value -> causes -> Drop at scope end | Rust 1.63+; an ordinary initialized owning local remains unmoved when its drop scope exits normally and has not been forgotten or wrapped in ManuallyDrop
+rust-coding-v0 | Drop at scope end -> causes -> Drop trait implementation | Rust 1.63+; the initialized local implements Drop and ordinary scope-exit destruction reaches it
+rust-coding-v0 | Drop at scope end -> causes -> Heap storage deallocation | Rust 1.63+; a Box of non-zero-sized contents still owns its allocation and its contents and allocator are destroyed without aborting
+rust-coding-v0 | Local declaration order -> predicts -> Drop at scope end | Rust 1.63+; initialized unmoved locals share a drop scope and no destructor aborts the remaining cleanup
+rust-coding-v0 | Rc shared ownership -> inhibits -> Managed payload destruction | Rust 1.63+; one Rc handle is dropped while at least one other strong Rc handle to the same payload remains
+rust-coding-v0 | Drop at scope end -> causes -> Mutex lock release | Rust 1.63+; a successfully acquired std::sync::MutexGuard reaches its ordinary drop without being forgotten
+rust-coding-v0 | Shared borrow -> prevents -> Mutable borrow | Rust 1.63+ safe code; ordinary &T and &mut T borrows overlap at the same location and the shared referent is not accessed through an UnsafeCell abstraction
+rust-coding-v0 | Mutable borrow -> prevents -> Shared borrow | Rust 1.63+ safe code; a direct shared borrow of the same owned location overlaps a mutable reference that is subsequently used
+rust-coding-v0 | Aliasing XOR mutation rule -> predicts -> Compile-time rejection | Rust 1.63+ safe code; direct borrows of the same place require overlapping &mut T and &T access and are not a permitted reborrow or interior-mutability operation
+rust-coding-v0 | Borrow checker -> prevents -> Dangling reference | Rust 1.63+; the lifetime error is visible in safe reference creation and use, and unsafe dependencies uphold their contracts
+rust-coding-v0 | Borrow checker -> causes -> Compile-time rejection | Rust 1.63+; code reaches borrow checking and contains a conflicting ordinary borrow or a reference use after its referent's lifetime
+rust-coding-v0 | Moved-from binding -> causes -> Compile-time rejection | Rust 1.63+; a non-Copy value has moved out and later code attempts whole-value use before replacing it
+rust-coding-v0 | Lifetime parameter -> enables -> Borrow checker | Rust 1.63+; a function signature uses a generic lifetime tying its input and output references or expressing an outlives bound
+rust-coding-v0 | Lifetime elision -> enables -> Borrow checker | Rust 1.63+; omitted reference lifetimes follow the input/output elision rules, such as one input reference determining one output reference
+rust-coding-v0 | Last use of a borrow -> enables -> Mutable borrow ending | Rust 1.63+ non-lexical lifetimes; a local nonescaping &mut reference has no later required use, drop use or stronger lifetime constraint
+rust-coding-v0 | Last use of a borrow -> enables -> Shared borrow ending | Rust 1.63+ non-lexical lifetimes; a local nonescaping &T reference has no later ordinary use, destructor use or escaping lifetime requirement
+rust-coding-v0 | Reborrow through a reference -> enables -> Mutable borrow | Rust 1.63+; a fresh &mut *r is derived from a valid &mut T and the outer reference is not used incompatibly until the reborrow ends
+rust-coding-v0 | Send marker trait -> enables -> Thread spawn boundary | Rust 1.63+ std::thread::spawn; all captured fields make the closure Send, the closure and result satisfy 'static, and the result is also Send
+rust-coding-v0 | Thread spawn boundary -> prevents -> Dangling reference | Rust 1.63+; std::thread::spawn requires the closure and returned value to satisfy Send + 'static, excluding borrows of caller locals that can expire first
+rust-coding-v0 | Sync marker trait -> enables -> Shared borrow | Rust 1.63+; T is Sync, so &T is Send, and the reference lifetime covers every receiving-thread use
+rust-coding-v0 | Sync marker trait -> prerequisite -> Arc shared ownership | Rust 1.63+; the default-allocator Arc<T> is transferred across threads and T must satisfy both Send and Sync
+rust-coding-v0 | Arc shared ownership -> enables -> Thread spawn boundary | Rust 1.63+; cloned Arc<T> handles enter std::thread::spawn closures and T is Send + Sync + 'static
+rust-coding-v0 | Rc shared ownership -> enables -> Reference counting cycle | Rust 1.63+; a constructed graph uses strong Rc links for every edge of an ownership cycle and no edge is subsequently cleared
+rust-coding-v0 | Reference counting cycle -> causes -> Leaked memory | Rust 1.63+; all external owners of a strong Rc or Arc cycle are dropped, the internal links remain intact and no code can break the cycle
+rust-coding-v0 | Mutex guard borrowing -> prevents -> Data race | Rust 1.63+; every conflicting access to the same protected memory takes the same std::sync::Mutex and all unsafe code respects its contract
+rust-coding-v0 | Mutex guard borrowing -> enables -> Mutable borrow | Rust 1.63+; a successfully acquired std::sync::MutexGuard is mutably borrowed through DerefMut and stays alive throughout the resulting access
+rust-coding-v0 | Question mark operator -> causes -> Early error return | Rust 1.63+; ? is applied to Err(E) in a Result-returning function whose error type supports the required From conversion, that conversion terminates normally, and exit-time cleanup completes without panic or divergence
+rust-coding-v0 | Question mark operator -> causes -> Early None return | Rust 1.63+; ? is applied to None within a function or closure returning a compatible Option, and exit-time cleanup completes without panic or divergence
+rust-coding-v0 | Result enum -> prevents -> Panic unwinding | Rust 1.63+; the selected failure path returns Err directly without panicking, and the caller handles or propagates it without panic-producing unwrap or expect
+rust-coding-v0 | Panic unwinding -> causes -> Drop at scope end | Rust 1.63+; panic=unwind propagates through Rust frames and cleanup proceeds without an aborting second panic or abort boundary
+rust-coding-v0 | Option enum -> prevents -> Null pointer dereference | Rust 1.63+ safe code; Option<&T> is matched as Some(valid_reference) or None and no raw pointer or unsound unsafe code is involved
+rust-coding-v0 | Monomorphization of generics -> enables -> Static dispatch | Rust 1.63+ rustc; a generic T: Trait call is specialized for a concrete non-trait-object T and resolved to its trait implementation
+rust-coding-v0 | Trait object -> enables -> Vtable method dispatch | Rust 1.63+; a dyn-compatible method is called through &dyn Trait or Box<dyn Trait> using trait-object dispatch semantics
+rust-coding-v0 | Heap allocation with Box -> enables -> Trait object | Rust 1.63+; concrete T implements a dyn-compatible trait and satisfies the trait object's lifetime bound for coercion to Box<dyn Trait>
+rust-coding-v0 | Partial move of a field -> causes -> Moved-from binding | Rust 1.63+; a non-Copy field moves out of a struct that does not implement Drop and the missing field has not been reinitialized
+rust-coding-v0 | Drop trait implementation -> prevents -> Partial move of a field | Rust 1.63+; safe code tries to move a non-Copy field directly out of a struct implementing Drop rather than replacing that field
+rust-coding-v0 | Cargo build invocation -> enables -> Borrow checker | Rust 1.63+ Cargo; an enabled package target needs compilation rather than cache reuse and preceding compiler stages succeed
+rust-coding-v0 | Cargo check invocation -> enables -> Borrow checker | Rust 1.63+ Cargo; selected code requires checking, reaches borrow analysis and is not satisfied by an up-to-date cached result
+```
+
+## Kitchen branch setup
+
+Switched to prescribed authoring/kitchen at78bd3b2. Carried only the permitted running log and appended missing, already-verified source citations so global generated-curriculum validation can resolve the retained sweep and Rust records. No other world code or branch history imported. The two cross.MYTHS additions remain pending the narrow file-scope clarification; kitchen module corrections can proceed independently.
+
+## Kitchen scope clarification authorized and source ownership corrected
+
+Jesse explicitly allowed only the two proposed kitchen myth entries in cross.py and required the kitchen commit to contain only kitchen.py, cross.py and food-science source registrations it actually cites. The 23 copied sweep/Rust registrations have been removed from the kitchen change; the existing registrations were already committed on their owning branches. Kitchen now adds only mcgee-food-cooking-2004 and nist-nacl-water-eutectic-2017. The running log will be carried to advanced-worlds separately, not included in the kitchen commit. A clean detached validation checkout under ignored artifacts/staging will run the native four checks with kitchen sources and its own generated physical curriculum, preserving other branches' generated outputs in the primary checkout.
+
+## Step 0: kitchen in physical-causation-v0
+
+Commit: `10aebca` (`Review fixes: kitchen`).
+
+Kitchen-only counts:47 concepts,59 authored relations; two requested myths appended to cross.MYTHS. Existing shared boundaries/examples/controls unchanged. Probes/tasks not required for Step0.
+
+Self-review (overlapping passes):54 originals ->52 retained plus7 new. Three endpoint changes,8 kind changes; all52 retained conditions rewritten;12 concepts added. Drops: carryover-settles (a cooking process does not transform into equilibrium and environmental cooling defeats the claimed guarantee); gradient-crack (merged its rapid-gradient/fracture hypothesis into uneven-grow-crack). All59 relations use causal kinds, without padding; exact labels/verbs, global IDs/pairs and condition uniqueness passed.
+
+Physical regimes name pressure, sensible versus latent heat, thermal losses, food composition and ordinary NaCl/water equilibrium near about -21 degrees Celsius. Maillard temperature describes a rate regime; the sucrose caramelization condition is not a universal sugar threshold. Exactly two myths were appended after explicit Jesse approval; all prior cross content preserved. Gluten hydration/kneading/gas-retention and emulsification/coalescence mechanisms added.
+
+Parent and independent reviewer read all47 concepts/all59 relations/both myths. Three final counterexamples repaired before checks: sensible refrigerator cooling versus a phase-change plateau; direct frost growth on exposed existing ice with latent-heat removal; reactant mobility in the drier Maillard comparator. No other confirmed actionable issue remains; Claude review pending.
+
+Sources added and actually cited:mcgee-food-cooking-2004 (Scribner revised2004 edition, publisher metadata verified without claiming access to unavailable detailed chapters); nist-nacl-water-eutectic-2017 (NIST ThermoML, Thermochimica Acta647:94-100,2017). No nonfood source addition remains in the kitchen diff, per Jesse's explicit instruction.
+
+Native four-check receipts in the clean detached validation checkout follow. All four commands exited0. The parent post-check script then looked in an incorrectly assumed directory physical-causation-v0 and raised FileNotFoundError; corrected it to the builder's actual OUTPUT, physical-causation/foundations.jsonl. Both generated myths and their provenance then passed, and an in-memory build exactly matches the generated file. No builder/tool/source change was needed for that invocation correction.
+
+```
+$ python3 tools/build_physical_causation_curriculum.py
+wrote curricula/physical-causation/foundations.jsonl with 987 records
+splits: {'cross_domain_holdout': 84, 'sealed_test': 58, 'train': 777, 'validation': 68}
+kinds: {'boundary': 14, 'concept': 268, 'counterexample': 25, 'relation': 658, 'synthetic_control': 6, 'worked_example': 16}
+exit: 0
+$ python3 tools/validate_curricula.py
+foundation lanes with controls: 23/23
+valid: True
+exit: 0
+$ python3 tools/validate_sources.py
+valid: True
+exit: 0
+$ .venv/bin/python trainer/compile_curriculum.py --world-id physical-causation-v0
+node_count: 329
+edge_count: 658
+record_count: 987
+exit: 0
+```
+
+The compiler's complete saved bundle manifest corresponding to the printed JSON result:
+
+```json
+{
+  "adapter_independent": true,
+  "domains": [
+    "physics"
+  ],
+  "edge_count": 658,
+  "files": {
+    "edges.jsonl": "8e828fe07f3c8728d23327402548afbeff4027259a739635ce51451eee8590a3",
+    "lexicon.json": "768129fa134f3175e145b60d3ab09df57fa9a9d02d6273c1c313a7b539fe7555",
+    "nodes.jsonl": "e5d24212a7d1844fb3ed12136fa769404696e4701dccc47f0ac1f6047e426ca0",
+    "records.jsonl": "789fd4c0f761294b71a34d847fb70051f4373c28a7914c028b7af81526878c4c",
+    "relation-catalog.json": "bde19fb7c98f3e3cc71cdc1225eba5b73382204ff875f8c00c34db49a1ffe3e8",
+    "sources.json": "f626f46f594abbd85335d5aba48e77b766081b385da6b74101883a4dff697b11",
+    "split-manifest.json": "d4b6f37606f9ad17c827a4394d18e704e3b49a9f688782f9a53901a24f6ef73a",
+    "training-graph.json": "d17d24e6aa7bfd04fd9ff25232ff5031d8c060ed77b0a2b119a4afc6e3543c9c"
+  },
+  "lanes": [
+    "reasoning.causal",
+    "reasoning.deductive",
+    "thinking.bottom_up"
+  ],
+  "negative_pair_count": 6,
+  "node_count": 329,
+  "record_count": 987,
+  "schema_version": 1,
+  "world_id": "physical-causation-v0"
+}
+```
+
+Validation directory: `/home/jesse/Desktop/Projects/new-complete-atom-lightcone/artifacts/staging/kitchen-review-validation`, based on78bd3b2 with only the exact three kitchen candidate files overlaid. The existing primary virtualenv was linked; original generated outputs were preserved. Checked-file SHA256 values (identical to primary candidate):
+
+```json
+{
+  "tools/physical_causation/kitchen.py": "2b68eb499437745e4a8f2ed89e50d0efec24ae75149fbe8c85ae0aab9c567de9",
+  "tools/physical_causation/cross.py": "1973a09aea136a5f3300be41217e86d40f770943c7d3619c9585e4780ad0594b",
+  "sources/source-registry.json": "24226ca6370b6266dcf6b1bdae3ab7a66be4c73cfc7b030cfab6525882284110"
+}
+```
+
+Both required myth counterexamples occur once and cite the food-science source. Existing source entries and cross data are unchanged. Relations by kind: {"causes": 24, "enables": 23, "inhibits": 10, "predicts": 2}.
+
+Reviewer relation list:
+
+```text
+physical-causation-v0 | Stovetop burner -> causes -> Heat transfer | the operating gas or resistive-electric burner transfers net thermal energy to a cooler pan placed within its heating region
+physical-causation-v0 | Combustion of fuel -> enables -> Stovetop burner | the gas supply is ignited with enough oxidant to sustain combustion and the released heat reaches the hob
+physical-causation-v0 | Stovetop burner -> causes -> Pan hot spots | an uneven or undersized burner heats the pan nonuniformly over an interval in which conduction has not equalized its base temperature
+physical-causation-v0 | Conductive pan base -> inhibits -> Pan hot spots | a sufficiently thick aluminium or copper layer, including a clad base, is compared with a poorer heat-spreading base under the same burner pattern
+physical-causation-v0 | Joule heating -> enables -> Kettle heating element | current flows through a resistive element with a thermal path to the kettle water
+physical-causation-v0 | Kettle heating element -> causes -> Temperature rise | liquid water below its local boiling temperature receives more heater energy than it loses, without a simultaneous phase change consuming the net input
+physical-causation-v0 | Limescale layer on an element -> inhibits -> Heat transfer | an adherent low-conductivity scale layer separates the heater metal from the water and the comparison fixes surface area and the temperature difference across the heat-transfer path
+physical-causation-v0 | Stirring a fluid -> enables -> Heat transfer | stirring circulates the liquid between the heated base and cooler regions without substantial isolated stagnant pockets
+physical-causation-v0 | Bubble nucleation sites -> enables -> Boiling of a liquid | the heated liquid supports vapour-bubble growth at the local pressure and stable nuclei are available in cavities or suspended particles
+physical-causation-v0 | Heat transfer -> causes -> Rolling boil | water has reached its saturation temperature at fixed local pressure and continuing heat input supports vigorous bubbling while liquid remains
+physical-causation-v0 | Bubble nucleation sites -> inhibits -> Superheated water in a microwave | available heterogeneous nuclei support bubble growth as water passes saturation and vapour can escape the container
+physical-causation-v0 | Microwave oven field -> enables -> Superheated water in a microwave | water absorbs microwave power in a container with insufficient active nucleation sites and reaches a temperature above saturation at the local pressure
+physical-causation-v0 | Superheated water in a microwave -> enables -> Boiling of a liquid | the water is above its local saturation temperature and a disturbance introduces a nucleus large enough to grow rather than collapse
+physical-causation-v0 | Pot lid trapping steam -> enables -> Temperature rise | matched pots receive the same burner power below boiling, the loose lid reduces evaporation and convection losses, and neither pot becomes pressurized
+physical-causation-v0 | Pot lid trapping steam -> causes -> Condensation of vapour | water vapour reaches a lid surface cooler than the dew-point temperature set by the local water-vapour partial pressure
+physical-causation-v0 | Condensation of vapour -> enables -> Steam scald on skin | hot cooking steam contacts cooler skin and the duration and condensing mass can deliver a thermally injurious energy dose
+physical-causation-v0 | Microwave oven field -> causes -> Dielectric heating of food | the food has dipolar or ionic loss at the applied microwave frequency and absorbs nonzero electromagnetic power
+physical-causation-v0 | Dielectric heating of food -> causes -> Temperature rise | local microwave absorption exceeds conductive and evaporative losses and energy consumption by melting or other phase changes
+physical-causation-v0 | Microwave penetration depth -> predicts -> Dielectric heating of food | a homogeneous food slab is modelled with exponential power attenuation of a dominant incident plane wave, neglecting reflections and standing-wave interference
+physical-causation-v0 | Thermal conduction -> enables -> Temperature rise | net conduction supplies sensible heat to the centre and local phase changes do not consume all of that incoming energy
+physical-causation-v0 | Frozen core of food -> inhibits -> Temperature rise | ice is melting within the food's composition-dependent melting range while the core receives a fixed net heat input; the temperature need not remain constant
+physical-causation-v0 | Heat transfer -> causes -> Thawing of frozen food | the surroundings remain warmer than the relevant food melting range and enough cumulative heat enters to reach and traverse part of that range
+physical-causation-v0 | Cold water thawing bath -> enables -> Heat transfer | the same package area is exposed to a maintained bath or still air above the food's thawing range, and water-side heat-transfer resistance is lower
+physical-causation-v0 | Refrigerator heat pumping -> causes -> Temperature drop | heat extraction exceeds gains in the modelled cabinet region, which has positive heat capacity and loses sensible energy rather than remaining on a phase-change temperature plateau
+physical-causation-v0 | Refrigerator heat pumping -> causes -> Temperature rise | condenser surfaces are hotter than the entering room air and transfer net heat to that air while the compressor operates
+physical-causation-v0 | Temperature drop -> causes -> Frost deposition in a freezer | supplied water vapour reaches an exposed already-ice-coated surface held below its local frost point, with supersaturation relative to ice and cooling sufficient to remove the latent heat of deposition
+physical-causation-v0 | Frost deposition in a freezer -> causes -> Freezer frost buildup | deposition on the surface exceeds sublimation, melting and defrost removal over the storage interval
+physical-causation-v0 | Sublimation of ice -> causes -> Freezer burn on food | the frozen surface sustains net vapour loss through incomplete or vapour-permeable packaging for sufficient storage time
+physical-causation-v0 | Boiling of a liquid -> inhibits -> Maillard browning | the food remains wet in dilute aqueous liquid boiling near atmospheric pressure and is compared with the same formulation and pH at a hotter, less-wet surface for a similar time, with sufficient reactant mobility retained in the drier comparison
+physical-causation-v0 | Hot oven air -> causes -> Roast surface drying | air circulation maintains a water-vapour partial pressure below equilibrium with the moist surface and net evaporation exceeds surface moisture replenishment
+physical-causation-v0 | Roast surface drying -> enables -> Maillard browning | reducing sugars and amino groups are present, moisture loss allows the heated surface to become hotter, and sufficient molecular mobility remains for the reactions
+physical-causation-v0 | Temperature rise -> enables -> Caramelisation of sugar | plain sucrose or concentrated sucrose syrup is heated to about 160 degrees Celsius or higher for a cooking interval that permits decomposition; this is not a universal threshold for all sugars
+physical-causation-v0 | Temperature rise -> causes -> Oil smoking in a pan | the particular oil in its current refined or used condition is held hot enough to emit visible smoke without assuming one threshold for every oil
+physical-causation-v0 | Oil layer in a frying pan -> enables -> Heat transfer | a thin oil film bridges gaps between a hotter pan and cooler food without a persistent insulating vapour blanket
+physical-causation-v0 | Oil layer in a frying pan -> enables -> Drying crust in frying | the oil is above the local boiling temperature of water and sustained net moisture loss develops a hotter exterior while the wetter interior may continue emitting steam
+physical-causation-v0 | Boiling of a liquid -> enables -> Drying crust in frying | vaporization removes exterior water faster than it is replenished and vapour leaves the food rather than condensing back into that layer
+physical-causation-v0 | Rolling boil -> causes -> Starch foam on boiling water | starchy food has released foam-stabilizing material and continuing steam generation produces bubbles that persist at the liquid surface
+physical-causation-v0 | Starch foam on boiling water -> causes -> Pot boiling over | foam generation exceeds collapse and drainage long enough for the foam level to pass the pot rim
+physical-causation-v0 | Reduced burner heat input -> inhibits -> Pot boiling over | the reduced burner power lowers the sustained vaporization rate before continued foam generation exhausts the remaining headspace
+physical-causation-v0 | Double boiler -> inhibits -> Temperature rise | water remains in the lower vessel at fixed pressure and initially cooler upper contents receive heat only through that water or saturated steam, without direct hotter surfaces or internal exothermic reactions
+physical-causation-v0 | Boiling of a liquid -> enables -> Double boiler | liquid water persists in the lower pot at constant pressure while the upper vessel is heated through the water or its saturated steam
+physical-causation-v0 | Heat transfer -> causes -> Carryover cooking | the outer regions remain hotter than the centre and inward energy transport continues raising the centre temperature despite heat loss to the surroundings
+physical-causation-v0 | Condensation of vapour -> causes -> Canning jar sealing | a hot jar cools with a lid and gasket that seat as vapour condenses, leaving internal pressure below ambient without appreciable subsequent leakage
+physical-causation-v0 | Thermal expansion -> causes -> Thermal shock cracking | rapid heating or cooling creates a steep temperature gradient through a brittle vessel and the resulting tensile stress exceeds the local strength at a flaw
+physical-causation-v0 | Boiling point temperature -> enables -> Maillard browning | increased cooker pressure raises the aqueous cooking temperature and suitable reducing sugars, amino groups, pH and exposure time permit Maillard chemistry without requiring a dry crust
+physical-causation-v0 | Boiling point temperature -> predicts -> Temperature rise | nearly pure water boils at fixed external pressure with liquid remaining, negligible superheating and no material change in solute concentration
+physical-causation-v0 | Freezing point depression -> enables -> Ice and salt freezing mixture | sodium chloride dissolves into water in contact with ice, and sufficient ice melts to absorb heat as the mixture approaches its composition-dependent phase equilibrium
+physical-causation-v0 | Ice and salt freezing mixture -> causes -> Freezing of a liquid | the brine stays colder than the cream mixture's current freezing range and sustained heat transfer removes enough latent heat to freeze at least part of its water
+physical-causation-v0 | Pot lid trapping steam -> inhibits -> Evaporation from a liquid surface | below boiling, covered and uncovered liquids are compared at the same surface temperature and the loose lid reduces the water-vapour gradient without pressurizing the vessel
+physical-causation-v0 | Thermal convection -> enables -> Hot oven air | air circulation replaces cooled air near the food with hotter oven air and a positive air-to-food temperature difference remains
+physical-causation-v0 | Evaporation from a liquid surface -> causes -> Roast surface drying | the surrounding air accepts vapour and net evaporation exceeds moisture migration from the food interior to its surface
+physical-causation-v0 | Rolling boil -> causes -> Pot water loss | the pot is uncovered, liquid remains and no water addition or condensate return compensates for the escaping vapour
+physical-causation-v0 | Salted cooking water -> causes -> Boiling point temperature | dissolved sodium chloride is added to water at fixed external pressure without another volatile solute
+physical-causation-v0 | Wheat flour hydration -> enables -> Gluten protein network | gluten-forming wheat proteins and sufficient water are present before protein-setting heat treatment
+physical-causation-v0 | Dough kneading -> enables -> Gluten protein network | hydrated wheat dough is mixed within a development range before excessive mechanical treatment damages its network
+physical-causation-v0 | Gluten protein network -> enables -> Dough gas retention | a sufficiently continuous and extensible wheat-dough network surrounds gas cells without rupturing under the applied expansion
+physical-causation-v0 | Emulsifying shear -> enables -> Food emulsion | immiscible food liquids are mixed with enough deformation to break droplets and are observed before complete phase separation
+physical-causation-v0 | Food emulsifier -> inhibits -> Emulsion droplet coalescence | a compatible emulsifier covers the newly created interface sufficiently under the formulation's temperature, pH and ionic conditions
+physical-causation-v0 | Emulsion droplet coalescence -> inhibits -> Food emulsion | interfacial films fail and merging proceeds far enough to disrupt the desired dispersed-droplet structure
+```
+
+## Branch-specific generated output preserved
+
+The freshly rebuilt Rust curriculum was moved, with every file hash unchanged, from curricula/rust-coding to artifacts/staging/rust-coding-v0/authoring-curriculum beside its compiled input bundle. This preserves the data while preventing the sweep/advanced global validator from reading another branch's generated records and requiring unrelated source registrations. No generated data was deleted. Kitchen validation output remains in its isolated validation checkout.
+
+## Final algebra concept precision check: algebra-causation-v0
+
+Commit: pending creation, title `Review fixes: algebra`.
+Counts: 33 concepts, 26 relations, 5 myths, 5 boundaries, 5 examples, 6 controls.
+Relations by kind: {"enables": 7, "predicts": 16, "prerequisite": 2, "prevents": 1}.
+Probes/tasks: not applicable to Step 0.
+
+Final minor concept precision repair from the independent math review: Group generator now explicitly uses integer powers, including negative powers for infinite cyclic groups. All 26 relation statements and conditions are unchanged from their already-reviewed state; full four checks rerun for the changed concept record. No new source or scope change. The correction is folded into this goal's unpublished algebra commit on its owning sweep branch before advanced authoring. Earlier checkpoint hashes remain historical.
+
+Four checks:
+
+```
+$ python3 tools/build_algebra_causation_curriculum.py
+wrote /home/jesse/Desktop/Projects/new-complete-atom-lightcone/curricula/algebra-causation-v0/foundations.jsonl with 143 records
+splits: {'cross_domain_holdout': 6, 'sealed_test': 13, 'train': 107, 'validation': 17}
+kinds: {'boundary': 5, 'concept': 34, 'counterexample': 5, 'relation': 88, 'synthetic_control': 6, 'worked_example': 5}
+exit: 0
+
+$ python3 tools/validate_curricula.py
+foundation lanes with controls: 23/23
+valid: True
+exit: 0
+
+$ python3 tools/validate_sources.py
+valid: True
+exit: 0
+
+$ .venv/bin/python trainer/compile_curriculum.py --world-id algebra-causation-v0
+{
+  "schema_version": 1,
+  "world_id": "algebra-causation-v0",
+  "adapter_independent": true,
+  "record_count": 143,
+  "node_count": 55,
+  "edge_count": 88,
+  "negative_pair_count": 6,
+  "domains": [
+    "formal-mathematics"
+  ],
+  "lanes": [
+    "reasoning.causal",
+    "reasoning.deductive",
+    "thinking.bottom_up"
+  ],
+  "files": {
+    "edges.jsonl": "70bbb047eef688440bac97acef774cda7b3a241df3b9d2bc99c30ed48ca07428",
+    "lexicon.json": "9e5a2ab8ca8bf6038795932ee5863bb024f692e6990bb69236e9b9e64d8541da",
+    "nodes.jsonl": "0924e39134f6a59c1d551b72a9f7e9bf54a5a020c91031ad4ca807eef489d371",
+    "records.jsonl": "f24c2af52e9b18971eb4bd03fd0a58bd8e84735a289aad4b3884185a20ef1f48",
+    "relation-catalog.json": "bde19fb7c98f3e3cc71cdc1225eba5b73382204ff875f8c00c34db49a1ffe3e8",
+    "sources.json": "1a2648c21c25c3889d15861f6e7c17e885fc99c4795bedb2d4bea9c160c500b5",
+    "split-manifest.json": "dadb9fbc38b2312bbc6b2f396159eec5c39999b89bda977f99c0dc4481ee4756",
+    "training-graph.json": "2cfa8093b67c9f51d447b9e29d9a9f5822f0ebec7bb9dcc49cb8a459ed661f6b"
+  }
+}
+exit: 0
+```
+
+Reviewer relation list (complete final authored data; generated structural edges excluded):
+
+```text
+algebra-causation-v0 | Cyclic group -> predicts -> Subgroup | G is a finite cyclic group of order n >= 1 and d is a positive divisor of n
+algebra-causation-v0 | Lagrange theorem on subgroups -> predicts -> Subgroup | H is a subgroup of a finite group G; this statement does not assert a subgroup for every divisor
+algebra-causation-v0 | Cosets of a subgroup -> enables -> Lagrange theorem on subgroups | G is finite and the distinct left cosets of H partition G, each with |H| elements
+algebra-causation-v0 | Normal subgroup -> enables -> Quotient group | H is normal in a group G and multiplication on G/H is induced from G
+algebra-causation-v0 | Group homomorphism -> predicts -> Subgroup | phi maps a group G to a group K and preserves their binary operations
+algebra-causation-v0 | Kernel of a homomorphism -> predicts -> Group homomorphism | phi:G->K is a group homomorphism and ker(phi) = {e_G}
+algebra-causation-v0 | Kernel of a homomorphism -> predicts -> Normal subgroup | phi:G->K preserves group multiplication and ker(phi) is the preimage of e_K
+algebra-causation-v0 | Group isomorphism -> predicts -> Order of an element | phi:G->K is a bijective group homomorphism and g belongs to G, including the infinite-order case
+algebra-causation-v0 | Zero divisor -> prevents -> Field axioms | a and b are nonzero elements of a unital commutative ring and ab = 0
+algebra-causation-v0 | Field axioms -> predicts -> Integral domain | F is a field with 1 != 0, so multiplying ab = 0 by a nonzero a inverse forces b = 0
+algebra-causation-v0 | Ring axioms -> enables -> Polynomial ring | R is a unital commutative ring and polynomials in one indeterminate have finite coefficient support
+algebra-causation-v0 | Basis of a vector space -> predicts -> Vector space | B is a linearly independent spanning set of a vector space V over a fixed field F
+algebra-causation-v0 | Linear map -> predicts -> Vector space | T:V->W is linear over one field F and its image inherits addition and scalar multiplication from W
+algebra-causation-v0 | Group action on a set -> enables -> Symmetric group | G acts faithfully on a finite set X: only e_G fixes every point of X
+algebra-causation-v0 | Dihedral symmetry of a square -> enables -> Group action on a set | the eight Euclidean isometries preserving a nondegenerate square act by their vertex permutations
+algebra-causation-v0 | Modular arithmetic -> predicts -> Cyclic group | n is a positive integer and addition is the induced operation on Z/nZ
+algebra-causation-v0 | Lagrange theorem on subgroups -> predicts -> Fermat little theorem | p is prime, a is an integer, p does not divide a, and (Z/pZ)^* has order p-1
+algebra-causation-v0 | Modular arithmetic -> predicts -> Abelian group | n >= 1 is an integer and residues modulo n inherit the commutative addition of integers
+algebra-causation-v0 | Group homomorphism -> enables -> Quotient group | phi:G->K is a group homomorphism and the quotient uses ker(phi), not an arbitrary subgroup
+algebra-causation-v0 | Identity element -> prerequisite -> Inverse element | in a monoid the chosen identity e is used in both equations gh = hg = e
+algebra-causation-v0 | Identity element -> prerequisite -> Subgroup | H is a subset of a group G and must contain e_G to qualify as a subgroup of G
+algebra-causation-v0 | Dimension of a space -> predicts -> Vector space | V and W are finite-dimensional vector spaces over the same field F and dim_F(V) = dim_F(W)
+algebra-causation-v0 | Permutation of elements -> predicts -> Order of an element | the permutation acts on a finite nonempty set; fixed points count as length-one cycles
+algebra-causation-v0 | Field axioms -> enables -> Vector space | F is a field, n is a nonnegative integer, and scalars act coordinatewise on F^n
+algebra-causation-v0 | Lagrange theorem on subgroups -> predicts -> Order of an element | g belongs to a finite group G and the subgroup generated by g has order ord(g)
+algebra-causation-v0 | Abelian group -> predicts -> Normal subgroup | H is any subgroup of an abelian group G, so ghg^(-1) = h for g in G and h in H
+```
+
+## Step 0 completed — final authoritative commit map
+
+All thirteen final worlds passed four checks. Kitchen used the clean validation checkout and its commit contains exactly kitchen.py, the two authorized cross.MYTHS additions and its two cited food-science sources; no log or unrelated registration is in that commit. Final math precision repair explicitly includes negative integer generator powers. Earlier checkpoint hashes are superseded by this map.
+
+```
+b6902a1 Review fixes: quantum
+1deaa08 Review fixes: algebra
+94bef2c Review fixes: calculus
+c9056b8 Review fixes: geometry
+6feeb6e Review fixes: information
+75bfa6d Review fixes: python
+6315759 Review fixes: go
+833b2eb Review fixes: cpp
+e5fcad1 Review fixes: chemistry
+69300e3 Review fixes: biology
+b5a6aa0 Review fixes: color
+6ce48de Review fixes: rust (authoring/rust-coding)
+10aebca Review fixes: kitchen (authoring/kitchen)
+```
+
+Created authoring/advanced-worlds from repaired sweep b5a6aa0 with a clean tracked tree and only generated curricula untracked, using the exact prescribed checkout command. All subsequent authoring stays on this branch. No branch merge, push, AtomDB import or Claude acceptance performed. No pre-existing commits or other branch histories were rebased; only this goal's own unpublished sweep corrections were consolidated while on that branch.
+
+## Advanced authoring queue
+
+Expanded104-world prompt remains authoritative, printed order and bridge last. Current world: net-transport-tcp-v0; status: source research and original data authoring starting. No other new world started. Complete and self-review the data before writing its24 probes and5 checked tasks.
+
+## TCP source registration
+
+Existing rfc9293 reused. New entries below were verified from primary RFC headers and the original BBR paper; no existing source entry changed. RFC6928 is Experimental. BBR scope is the original2016 design, not later BBR revisions. ACM page denied automated access; its publisher-layout original PDF was verified at https://web.stanford.edu/class/cs244/papers/bbr.pdf and DOI metadata corroborated identity. Queue article is registered scholarly-reference without asserting peer-review status.
+
+- rfc5681: TCP Congestion Control; RFC 5681; September 2009; Standards Track; https://www.rfc-editor.org/rfc/rfc5681
+- rfc6298: Computing TCP's Retransmission Timer; RFC 6298; June 2011; Standards Track; https://www.rfc-editor.org/rfc/rfc6298
+- rfc2018: TCP Selective Acknowledgment Options; RFC 2018; October 1996; Standards Track; https://www.rfc-editor.org/rfc/rfc2018
+- rfc6675: A Conservative Loss Recovery Algorithm Based on Selective Acknowledgment (SACK) for TCP; RFC 6675; August 2012; Standards Track; https://www.rfc-editor.org/rfc/rfc6675
+- rfc7323: TCP Extensions for High Performance; RFC 7323; September 2014; Standards Track; https://www.rfc-editor.org/rfc/rfc7323
+- rfc6928: Increasing TCP's Initial Window; RFC 6928; April 2013; Experimental; https://www.rfc-editor.org/rfc/rfc6928
+- rfc9438: CUBIC for Fast and Long-Distance Networks; RFC 9438; August 2023; Standards Track; https://www.rfc-editor.org/rfc/rfc9438
+- bbr-2016-queue: BBR: Congestion-Based Congestion Control — Neal Cardwell, Yuchung Cheng, C. Stephen Gunn, Soheil Hassas Yeganeh and Van Jacobson; September–October 2016; Queue 14(5), 20–53; doi:10.1145/3012426.3022184; https://queue.acm.org/detail.cfm?id=3022184
+
+## Advanced world: net-transport-tcp-v0
+
+Commit: pending creation, title `Author net-transport-tcp-v0 with checked evaluations`.
+Counts: 102 concepts, 113 relations, 16 myths, 11 boundaries, 14 examples, 8 controls.
+Relations by kind: {"causes": 35, "enables": 24, "inhibits": 16, "predicts": 27, "prerequisite": 2, "prevents": 9}.
+Probes:24 authored and independently reviewed. Tasks:5 authored, semantic corrections pending final verification.
+
+Author self-review: initial finished data had101 concepts/112 relations,16 myths,11 boundaries,14 examples,8 controls; all112 relations reviewed and all nine sources registered. Direction/type pass changed3 edges (Karn ambiguity target, SACK pipe credit, reneged-gap expansion) and dropped1 mispolarized BBR application-limited-filter edge while preserving the fact as a boundary. Counterexample pass tightened3 edges (specified Reno delayed-ACK behavior, bounded TIME_WAIT duplicates, CUBIC packet-loss scope). Version pass found no additional change; every edge states RFC/controller/model regime. Duplicate pass found0 pairs/conditions/circular edges;2 example IDs renamed to eliminate raw-ID collisions. Myth pass changed1 CUBIC claim and reviewed all16;2 plural-label grammar fixes made. All required count ranges passed without padding.
+
+Parent read all concepts, relations, myths, boundaries, examples and controls. Independent source reviewer confirmed3 repairs: CUBIC time/parameter units; polynomial reference distinguished from clamped next-RTT ACK target; sender-side ACK baseline added before classifying an out-of-order response as duplicate. Parent applied all3 without changing IDs and added1 explicit full-MSS Nagle escape mechanism, producing102 concepts/113 relations. New concept Queued full segment payload and relation full-segment-escapes-nagle are supported by RFC9293 section3.7.4; the independent reviewer checked that addition. All final causal kinds remain100%.
+
+All24 probes were independently reviewed: exact6/4/3/3/4/4 mix, reality-correct truth values, meaningful reversed claims and pressure copies with unchanged base truth/links. Myth probes may link emitted counterexample edges as well as authored mechanism edges; these are actual compiled relation IDs, not nonexistent raw IDs.
+
+Evaluation code is still under revision before commit. Initial five reference/pitfall checks passed, but parent semantic review found the CUBIC checker and reference compared W_est with the next-RTT clamped target instead of W_cubic(t), demonstrating that agreement with a checker alone is insufficient. Corrections add a discriminating case. The initial RTO task mislabeled sample initialization as a timer start; it is being narrowed to the accurate estimator/backoff component. Reassembly coverage will use transmitted data for every receive and test partial range release. Window and Nagle cases are being broadened at meaningful boundaries. No claim of task or world completion yet.
+
+Sources added: rfc5681,rfc6298,rfc2018,rfc6675,rfc7323,rfc6928,rfc9438,bbr-2016-queue, exactly as the registration section above; rfc9293 reused. BBR remains original2016 only. Open doubts: no unresolved factual world/probe error identified at stated precision; evaluation revisions pending, independent Claude review and real-model benefit evaluation not performed.
+
+Four checks:
+
+```
+$ python3 tools/build_net_transport_tcp_causation_curriculum.py
+wrote /home/jesse/Desktop/Projects/new-complete-atom-lightcone/curricula/net-transport-tcp-v0/foundations.jsonl with 470 records
+splits: {'cross_domain_holdout': 24, 'sealed_test': 47, 'train': 343, 'validation': 56}
+kinds: {'boundary': 11, 'concept': 103, 'counterexample': 16, 'relation': 318, 'synthetic_control': 8, 'worked_example': 14}
+exit: 0
+
+$ python3 tools/validate_curricula.py
+foundation lanes with controls: 23/23
+valid: True
+exit: 0
+
+$ python3 tools/validate_sources.py
+valid: True
+exit: 0
+
+$ .venv/bin/python trainer/compile_curriculum.py --world-id net-transport-tcp-v0
+{
+  "schema_version": 1,
+  "world_id": "net-transport-tcp-v0",
+  "adapter_independent": true,
+  "record_count": 470,
+  "node_count": 152,
+  "edge_count": 318,
+  "negative_pair_count": 8,
+  "domains": [
+    "networking"
+  ],
+  "lanes": [
+    "reasoning.causal",
+    "reasoning.deductive",
+    "thinking.bottom_up"
+  ],
+  "files": {
+    "edges.jsonl": "408e135e88b3ab7e55a5a56a9186998ffd2ef708a1a21fff0d6d5610092a7d25",
+    "lexicon.json": "efe730001c5529bdabe3bd2d8c5d442941804c462ee52853ec5ae2d4fa54a567",
+    "nodes.jsonl": "74d660f8c21b5f1030fa905342aafe477cd9bb01ff75fd42e826bd7bd97e798a",
+    "records.jsonl": "56f65c8c24de7858b18e2734e2ff6096a709eed5364482c56d1da511d4ec38da",
+    "relation-catalog.json": "bde19fb7c98f3e3cc71cdc1225eba5b73382204ff875f8c00c34db49a1ffe3e8",
+    "sources.json": "6d95d53213a456ade85d7d49f6cfaa20b811542ad6b1a1c8a585c2aa3ae13cdf",
+    "split-manifest.json": "ad4b0b9e39c8a3a940ae7c62ddf91ce724e24f3b2e00a81f1a3723f39aac89a5",
+    "training-graph.json": "7e54d62c3f2b9247ed8a46242d47231466285b60ec77d1eab29bc54ab6965c2c"
+  }
+}
+exit: 0
+```
+
+Reviewer relation list (complete final authored data; generated structural edges excluded):
+
+```text
+net-transport-tcp-v0 | TCP active open -> causes -> Initial SYN segment | RFC 9293 Section 3.10.1: a valid active OPEN is processed in CLOSED with resources available and no existing connection
+net-transport-tcp-v0 | Initial SYN segment -> causes -> SYN ACK segment | RFC 9293 Section 3.10.7: a valid SYN without ACK reaches a matching LISTEN endpoint that accepts the request
+net-transport-tcp-v0 | SYN ACK segment -> causes -> Final handshake acknowledgment | RFC 9293 ordinary three-way open: the endpoint in SYN-SENT receives an acceptable SYN-ACK that acknowledges its own SYN
+net-transport-tcp-v0 | SYN ACK segment -> causes -> Established connection state | RFC 9293 Section 3.10.7.3: SYN-SENT processing accepts the peer SYN and an ACK advancing SND.UNA beyond ISS
+net-transport-tcp-v0 | Final handshake acknowledgment -> causes -> Established connection state | RFC 9293 ordinary passive open: the endpoint remains in SYN-RECEIVED and receives an acceptable ACK covering its SYN
+net-transport-tcp-v0 | Initial SYN segment -> predicts -> TCP sequence number | RFC 9293 sequence accounting: an opening SYN at ISS contains no data and addition is modulo 2^32
+net-transport-tcp-v0 | TCP FIN segment -> predicts -> TCP sequence number | RFC 9293 sequence accounting: an accepted segment starts at S, has L payload octets, and carries FIN but not SYN; the next position is S+L+1 modulo 2^32
+net-transport-tcp-v0 | TCP sequence number -> enables -> Out of order buffering | RFC 9293 receiver: valid in-window segments beyond RCV.NXT arrive and the implementation retains them pending earlier bytes
+net-transport-tcp-v0 | Cumulative acknowledgment -> causes -> Acknowledged buffer release | RFC 9293 sender: SND.UNA < SEG.ACK <= SND.NXT under serial arithmetic and the acknowledged bytes remain in the retransmission queue
+net-transport-tcp-v0 | Cumulative acknowledgment -> inhibits -> Outstanding flight size | RFC 5681 FlightSize accounting: the ACK advances the cumulative data boundary and no concurrent transmission is included in this state update
+net-transport-tcp-v0 | Data segment loss -> causes -> Receive sequence gap | RFC 9293 stream reassembly: a segment carrying previously unseen bytes is lost, at least one later range is received, and no retransmission has filled the missing range
+net-transport-tcp-v0 | Network packet reordering -> causes -> Out of order arrival | RFC 9293 connection: two distinct in-window data ranges are delivered intact in reversed order with the lower range still absent
+net-transport-tcp-v0 | Out of order arrival -> causes -> Duplicate acknowledgment | RFC 5681 Section 3.2 receiver follows the immediate-ACK recommendation for a new segment beyond a gap; its pure ACK has no SYN or FIN, and the data sender already received the same cumulative ACK number and window and still has outstanding data
+net-transport-tcp-v0 | Receive sequence gap -> causes -> Byte stream head of line blocking | RFC 9293 established byte stream: later data is held beyond RCV.NXT and the application's ordered receive operation requires bytes at or beyond the missing range
+net-transport-tcp-v0 | Data retransmission -> enables -> Receive gap repair | RFC 9293 receiver still accepts the missing sequence range, and the retransmitted copy can reach it intact before the connection terminates
+net-transport-tcp-v0 | Receive gap repair -> enables -> Ordered byte delivery | RFC 9293 receiver: the repaired range begins at RCV.NXT, any following buffered ranges are contiguous, and the application requests the resulting available bytes
+net-transport-tcp-v0 | Out of order buffering -> enables -> Ordered byte delivery | RFC 9293 receiver keeps the later ranges intact until all earlier gaps are filled and then services an application receive
+net-transport-tcp-v0 | Application receive consumption -> inhibits -> Receive buffer occupancy | RFC 9293 receive-buffer accounting: the application consumes queued in-order bytes and no simultaneous arrival or reassembly allocation is included in this update
+net-transport-tcp-v0 | Receive buffer occupancy -> inhibits -> Advertised receive window | RFC 9293 receiver SWS avoidance: fixed RCV.BUFF is partly held as RCV.USER and the receiver computes how far it may advance the existing window's right edge without retracting prior credit
+net-transport-tcp-v0 | Application receive consumption -> enables -> Receive window update | RFC 9293 Section 3.8.6.2.2 receiver: consumption reaches the selected receiver SWS-avoidance threshold and an ACK can advertise the enlarged window
+net-transport-tcp-v0 | Advertised receive window -> predicts -> New data sending allowance | RFC 5681 sender outside loss recovery: rwnd <= cwnd, SND.NXT is the highest transmitted data boundary, and no SYN, FIN, window shrink, or zero-window probe is being accounted
+net-transport-tcp-v0 | Congestion window -> predicts -> New data sending allowance | RFC 5681 sender outside recovery: cwnd <= rwnd, no retransmission is pending, and all quantities refer to data bytes in one consistent pre-send state
+net-transport-tcp-v0 | Outstanding flight size -> inhibits -> New data sending allowance | RFC 5681 normal transmission: fixed positive min(cwnd,rwnd) exceeds FlightSize, and an additional unacknowledged data byte is counted without changing either window
+net-transport-tcp-v0 | New data sending allowance -> enables -> New data transmission | RFC 9293/RFC 5681 established sender: unsent application data exists, both windows admit it, and segmentation, pacing, and Nagle conditions permit release
+net-transport-tcp-v0 | Receiver flow control -> prevents -> Receive credit overrun | RFC 9293 conforming sender honors the latest acceptable receive-window right edge; zero-window probes and retransmitted bytes are excluded from this ordinary-new-data claim
+net-transport-tcp-v0 | Zero receive window -> prevents -> New data transmission | RFC 9293 sender has accepted the zero advertisement and has no residual ordinary new-data credit; the periodic zero-window probe is a separate exception to ordinary transmission
+net-transport-tcp-v0 | Zero receive window -> causes -> Zero window probe | RFC 9293 Section 3.8.6.1 sender has queued new or retransmittable data, the connection remains open, and its zero-window probing timer becomes due
+net-transport-tcp-v0 | Zero window probe -> enables -> Receive window update | RFC 9293 receiver has reopened a previously zero window, the probe reaches it, and the replying ACK with its current nonzero window reaches the sender
+net-transport-tcp-v0 | Receive window update -> enables -> New data transmission | RFC 9293 sender accepts a nonzero reopening advertisement that grants new sequence space; queued data, congestion credit, and other send rules also permit transmission
+net-transport-tcp-v0 | Reno slow start -> causes -> Congestion window | RFC 5681 Section 3.1 sender selects slow start below ssthresh and implements the recommended increase min(N,SMSS) for an ACK covering N new bytes
+net-transport-tcp-v0 | Advancing data acknowledgment -> causes -> Acknowledgment clock | RFC 5681 ACK-clocked sender has data outstanding and receives an authentic advancing ACK; receiver cheating and ACK replication are absent
+net-transport-tcp-v0 | Acknowledgment clock -> enables -> New data transmission | RFC 5681 sender has queued data and an open receive window, and the ACK arrival frees enough congestion credit under the current congestion-control state
+net-transport-tcp-v0 | Slow start threshold -> predicts -> Reno slow start | RFC 5681 Section 3.1 sender is outside fast recovery and compares a positive cwnd with its current ssthresh; the equality case is excluded
+net-transport-tcp-v0 | Reno additive increase -> causes -> Congestion window | RFC 5681 Section 3.1 sender is congestion-window limited above ssthresh and uses the recommended acknowledged-byte counting method during an RTT with new-data ACKs
+net-transport-tcp-v0 | Reno multiplicative decrease -> causes -> Slow start threshold | RFC 5681 loss response is entered on the third duplicate ACK and excludes Limited Transmit bytes from FlightSize; the resulting bound is below the prior ssthresh
+net-transport-tcp-v0 | Duplicate acknowledgment -> causes -> Reno fast retransmit | RFC 5681 Section 3.2 sender receives three duplicate ACKs as defined in Section 2 without an intervening advance of SND.UNA and is entering this recovery event
+net-transport-tcp-v0 | Reno fast retransmit -> causes -> Data retransmission | RFC 5681 Section 3.2 has just triggered fast retransmit for outstanding data and the connection has not been aborted
+net-transport-tcp-v0 | Duplicate acknowledgment -> causes -> Reno fast recovery | RFC 5681 Reno sender implements fast retransmit and fast recovery together, has received the third qualifying duplicate ACK, and is not using a different recovery algorithm
+net-transport-tcp-v0 | Reno fast recovery -> causes -> Congestion window | RFC 5681 Section 3.2 third-duplicate-ACK event: the lost segment is retransmitted and the three duplicate ACKs are used to account for departed segments
+net-transport-tcp-v0 | Advancing data acknowledgment -> inhibits -> Reno fast recovery | RFC 5681 Section 3.2 step 6: a Reno sender receives the next ACK of previously unacknowledged data and deflates cwnd to ssthresh; NewReno and SACK recovery rules are excluded
+net-transport-tcp-v0 | Network packet reordering -> causes -> Spurious retransmission | RFC 5681 sender receives three qualifying duplicate ACKs from later arrivals before the delayed but intact original arrives, and retransmits the apparent missing segment
+net-transport-tcp-v0 | Initial congestion window -> enables -> New data transmission | RFC 5681 established sender begins its first data flight with sufficient receiver credit and queued data; handshake ACKs have not enlarged cwnd
+net-transport-tcp-v0 | Experimental enlarged initial window -> predicts -> Initial congestion window | RFC 6928 Section 2 optional experiment is selected for a new connection, SMSS is in bytes, and no SYN/SYN-ACK loss or other stated fallback requires a smaller window
+net-transport-tcp-v0 | Unambiguous RTT sample -> predicts -> Smoothed RTT estimate | RFC 6298 Section 2 sender uses recommended alpha=1/8 with a valid sample R and distinguishes first-sample initialization from later smoothing
+net-transport-tcp-v0 | Unambiguous RTT sample -> predicts -> RTT variation estimate | RFC 6298 Section 2.3 subsequent-sample update uses recommended beta=1/4 and performs the deviation update before updating SRTT
+net-transport-tcp-v0 | Smoothed RTT estimate -> predicts -> Retransmission timeout interval | RFC 6298 estimator has at least one valid RTT sample, clock granularity G and RTTVAR are known, and this is the base RTO recomputation
+net-transport-tcp-v0 | RTT variation estimate -> predicts -> Retransmission timeout interval | RFC 6298 Section 2 computation holds SRTT and G fixed with 4*RTTVAR>G and neither the recommended one-second floor nor a configured upper bound binding
+net-transport-tcp-v0 | Retransmission timeout interval -> predicts -> Retransmission timer expiry | RFC 6298 running timer retains its scheduled interval, outstanding data remains, no ACK restarts or stops it, and the timer service runs at its configured resolution
+net-transport-tcp-v0 | Retransmission timer expiry -> causes -> Data retransmission | RFC 6298 Section 5.4 sender has outstanding data when its retransmission timer expires and the connection is still eligible for retransmission
+net-transport-tcp-v0 | Retransmission timer expiry -> causes -> Exponential RTO backoff | RFC 6298 Section 5.5 retransmission-timer expiry is processed and the current RTO is below any permitted maximum
+net-transport-tcp-v0 | Exponential RTO backoff -> inhibits -> Retransmission timer expiry | RFC 6298 sender repeatedly times out without new RTT samples or ACK progress, and the doubling has not saturated a configured RTO maximum
+net-transport-tcp-v0 | Retransmission timer expiry -> inhibits -> Congestion window | RFC 5681 Section 3.1 data-loss timeout occurs with cwnd greater than one SMSS; the sender applies the Reno loss window regardless of its initial window
+net-transport-tcp-v0 | Retransmission timer expiry -> causes -> Slow start threshold | RFC 5681 Section 3.1 first retransmission-timer loss detection for this segment; this is not a repeated timer retransmission of that same segment
+net-transport-tcp-v0 | Cumulative acknowledgment -> prevents -> Running retransmission timer | RFC 6298 Section 5.2 incoming ACK acknowledges all outstanding data and no new segment starts another timer in the same modeled event
+net-transport-tcp-v0 | Advancing data acknowledgment -> causes -> Running retransmission timer | RFC 6298 Section 5.3 ACK acknowledges new data while some transmitted data remains unacknowledged
+net-transport-tcp-v0 | Karn RTT sampling filter -> prevents -> Ambiguous RTT sample admission | RFC 6298 Section 3 sender has retransmitted the relevant data and has no timestamp information identifying which transmission instance produced the ACK
+net-transport-tcp-v0 | TCP timestamp echo -> enables -> Unambiguous RTT sample | RFC 6298 Section 3 and RFC 7323 RTTM: timestamps were negotiated and a valid echo associates the ACK with the transmission being timed, including an otherwise ambiguous retransmission case
+net-transport-tcp-v0 | SACK permission offer -> prerequisite -> Selective acknowledgment blocks | RFC 2018 Section 4 data receiver may send SACK options only after receiving SACK-Permitted in the data sender's SYN for this connection
+net-transport-tcp-v0 | Out of order buffering -> enables -> Selective acknowledgment blocks | RFC 2018 SACK-capable receiver received permission and chooses to report currently queued noncontiguous data in an established connection
+net-transport-tcp-v0 | Selective acknowledgment blocks -> causes -> SACK recovery scoreboard | RFC 6675 sender receives valid new SACK information within transmitted sequence space and updates its scoreboard before recovery decisions
+net-transport-tcp-v0 | SACK recovery scoreboard -> enables -> Multiple loss recovery | RFC 6675 recovery has SACK evidence sufficient for IsLost to classify multiple holes, available congestion and receive credit, and successful repair transmissions
+net-transport-tcp-v0 | SACK recovery scoreboard -> predicts -> SACK pipe estimate | RFC 6675 Section 4 sender knows HighACK, HighData, HighRxt, SACKed intervals, and IsLost results and counts both qualifying original and retransmitted octets
+net-transport-tcp-v0 | SACK pipe estimate -> predicts -> New data sending allowance | RFC 6675 NextSeg rule 2 applies: cwnd-pipe is at least one SMSS, no earlier eligible lost range takes priority, unsent data exists, and receiver credit is at least cwnd-pipe
+net-transport-tcp-v0 | SACK recovery scoreboard -> enables -> Data retransmission | RFC 6675 NextSeg rule 1: the range is above HighRxt, below the highest SACKed octet, IsLost returns true, and the recovery loop has sufficient cwnd-pipe credit
+net-transport-tcp-v0 | Selective acknowledgment blocks -> inhibits -> Spurious retransmission | RFC 2018/6675 sender uses valid SACK blocks to omit reported data from retransmission selection and the receiver does not subsequently renege on those ranges
+net-transport-tcp-v0 | SACK receiver reneging -> causes -> Receive sequence gap | RFC 2018 Section 8 receiver discards a SACKed block immediately above an existing gap while retaining still-later bytes, and no other retained copy supplies the discarded block
+net-transport-tcp-v0 | Unacknowledged data retention -> enables -> Data retransmission | RFC 2018 Section 8 sender retains the original unacknowledged bytes and a later loss-recovery decision requests those bytes following receiver discard
+net-transport-tcp-v0 | Small application write -> enables -> Short data segment | RFC 9293 established sender has no other queued payload, Nagle is disabled or no data is unacknowledged, and available credit plus other send rules allow this write to depart
+net-transport-tcp-v0 | Classic Nagle algorithm -> inhibits -> Short data segment | RFC 9293 Section 3.7.4 classic rule is enabled, the queued unsent bytes are less than Eff.snd.MSS, and SND.NXT>SND.UNA
+net-transport-tcp-v0 | Queued full segment payload -> prevents -> Nagle batching delay | RFC 9293 classic Nagle sender has at least Eff.snd.MSS unsent bytes and both receive and congestion credit admit a full-sized segment; the claim concerns the Nagle gate rather than pacing or other send restrictions
+net-transport-tcp-v0 | Classic Nagle algorithm -> causes -> Nagle batching delay | RFC 9293 classic Nagle sender has a nonempty sub-MSS pending buffer after a preceding segment departed and neither its acknowledgment nor enough additional bytes has yet arrived
+net-transport-tcp-v0 | Delayed acknowledgment -> causes -> Nagle batching delay | RFC 9293 classic Nagle interaction: one short segment is unacknowledged, the peer defers its ACK, pending data stays below MSS, and no piggybacked or other advancing ACK releases it sooner
+net-transport-tcp-v0 | Classic Nagle algorithm -> inhibits -> Request delivery completion | RFC 9293 request-response case: an earlier request fragment is unacknowledged, the unsent remainder is below MSS, and the server cannot parse the request before that remainder arrives
+net-transport-tcp-v0 | Nagle disable operation -> prevents -> Nagle batching delay | RFC 9293 application disables classic Nagle through the supported connection control before supplying subsequent writes; this claim concerns Nagle's hold alone
+net-transport-tcp-v0 | Cumulative acknowledgment -> prevents -> Nagle batching delay | RFC 9293 classic Nagle sender receives an acceptable ACK making SND.UNA=SND.NXT while a short write is pending; any subsequent delay has a different send gate
+net-transport-tcp-v0 | Delayed acknowledgment -> inhibits -> Congestion window | RFC 5681 slow start uses the recommended min(N,SMSS) increment; the receiver combines two full-sized segments per ACK instead of acknowledging each, with all else including delivered bytes fixed
+net-transport-tcp-v0 | TCP FIN segment -> causes -> TCP half close | RFC 9293 Section 3.6.1 peer accepts an in-order FIN after its preceding data and has not closed its own sending direction
+net-transport-tcp-v0 | TCP FIN segment -> causes -> TIME WAIT retention | RFC 9293 Section 3.10.7.4 endpoint is in FIN-WAIT-2 and accepts the peer's in-order FIN, with no abort or permitted special reopening involved
+net-transport-tcp-v0 | TIME WAIT retention -> enables -> Closing FIN acknowledgment | RFC 9293 closing endpoint retains its connection state and receives the peer's retransmitted FIN while in TIME-WAIT
+net-transport-tcp-v0 | Peer FIN retransmission -> causes -> Closing FIN acknowledgment | RFC 9293 TIME-WAIT processing accepts the repeated peer FIN belonging to this connection and emits its acknowledgment
+net-transport-tcp-v0 | Peer FIN retransmission -> causes -> TIME WAIT retention | RFC 9293 Section 3.10.7.4 endpoint processes the peer's repeated FIN in TIME-WAIT under the ordinary close procedure
+net-transport-tcp-v0 | Closing FIN acknowledgment -> prevents -> Peer FIN retransmission | RFC 9293 peer is in LAST-ACK, the ACK covers its FIN and arrives before another retransmission event, and the peer deletes this connection's control block
+net-transport-tcp-v0 | TIME WAIT retention -> inhibits -> Connection tuple reuse | RFC 9293 implementation uses the baseline two-MSL TIME-WAIT policy for this four-tuple and does not invoke the specified conditional reopening mechanisms
+net-transport-tcp-v0 | TIME WAIT retention -> prevents -> Old duplicate acceptance | RFC 9293 bounded-lifetime model: earlier-incarnation data was sent no later than entry to TIME-WAIT, every copy respects the assumed MSL, and tuple reuse waits for the full two-MSL interval
+net-transport-tcp-v0 | Bilateral scale option exchange -> prerequisite -> TCP receive window scaling | RFC 7323 Section 2.2 Window Scale negotiation occurs in this connection's SYN and SYN-ACK; neither peer may enable scaling from only its own offer
+net-transport-tcp-v0 | TCP receive window scaling -> enables -> Advertised receive window | RFC 7323 both SYN offers enabled scaling, the receiver advertised a nonzero shift, its receive capacity warrants larger credit, and the advertisement is in a non-SYN segment
+net-transport-tcp-v0 | Wire window field -> predicts -> Advertised receive window | RFC 7323 Section 2.3 incoming segment has no SYN, scaling is enabled, S is the shift sent by this data receiver, and the advertisement passes TCP window-update checks
+net-transport-tcp-v0 | Receive window shift count -> predicts -> Representable receive window | RFC 7323 non-SYN window encoding uses a negotiated integer shift S from 0 through 14 and the full unsigned 16-bit field range
+net-transport-tcp-v0 | Wire window field -> predicts -> Representable receive window | RFC 7323 Section 2.2 segment carries SYN, including SYN-ACK, so its Window field is interpreted without scaling even if it contains a Window Scale option
+net-transport-tcp-v0 | Advertised receive window -> predicts -> Window limited rate bound | TCP steady-state idealization supported by RFC 7323: fixed rwnd is the binding outstanding-data limit, RTT is positive and fixed, and losses, startup, and application stalls are excluded
+net-transport-tcp-v0 | Round trip time -> predicts -> Window limited rate bound | TCP ideal steady state: W is a positive fixed binding window in bytes, RTT includes feedback delay, and the rate in bytes per second is limited by this window rather than the link
+net-transport-tcp-v0 | Bottleneck service rate -> predicts -> Propagation bandwidth delay product | Original 2016 BBR fluid path model uses a fixed bottleneck rate in bytes per second and a fixed queue-free round-trip propagation time in seconds
+net-transport-tcp-v0 | Excess bottleneck arrival rate -> causes -> Bottleneck queue occupancy | TCP traffic fluid queue model has available buffer space, constant rates during the measured interval, no earlier admission drop, and aggregate arrivals exceed service
+net-transport-tcp-v0 | Bottleneck queue occupancy -> predicts -> Bottleneck queueing delay | FIFO work-conserving bottleneck model has C>0 bytes per second, Q counts all work ahead of the arriving packet, and there is no priority bypass or service interruption
+net-transport-tcp-v0 | Bottleneck queueing delay -> causes -> Round trip time | TCP RTT comparison fixes propagation, serialization, ACK policy, and route; the timed exchange traverses the extra queue and is not retransmitted
+net-transport-tcp-v0 | Large drop tail buffer -> enables -> Persistent bufferbloat | Loss-based TCP traffic keeps a bottleneck occupied above its propagation BDP, the deep queue has no AQM or earlier congestion marking, and competing offered load sustains its backlog
+net-transport-tcp-v0 | Reno multiplicative decrease -> inhibits -> Bottleneck queue occupancy | RFC 5681 loss response lowers the flow's offered rate enough that total arrival rate stays below bottleneck service while a queue exists; other flows do not replace the withdrawn load
+net-transport-tcp-v0 | CUBIC epoch elapsed time -> predicts -> CUBIC polynomial window | RFC 9438 congestion avoidance fixes C in segments per second cubed, K and t in seconds, and W_max and W_cubic in segments; t excludes application-limited intervals
+net-transport-tcp-v0 | CUBIC polynomial window -> enables -> Congestion window | RFC 9438 Sections 4.2-4.5 sender is in congestion avoidance outside the Reno-friendly region, is not application-limited, and receives an ACK of new data with a target above current cwnd
+net-transport-tcp-v0 | CUBIC Reno window estimate -> predicts -> Congestion window | RFC 9438 Section 4.3 updated W_est exceeds W_cubic(t) and the sender follows the specified Reno-friendly branch setting cwnd to W_est
+net-transport-tcp-v0 | CUBIC congestion reduction -> inhibits -> Congestion window | RFC 9438 Section 4.6 packet-loss event uses beta_cubic=0.7 and max(beta_cubic*flight_size,2 segments) is below current cwnd; RTO, ECN-specific handling, and spurious-event undo are excluded
+net-transport-tcp-v0 | CUBIC decrease factor -> predicts -> Slow start threshold | RFC 9438 Section 4.6 uses the recommended beta_cubic=0.7 with flight_size and threshold expressed consistently in segments and excludes an RTO-specific override
+net-transport-tcp-v0 | Delivery rate sample -> predicts -> BBR 2016 bandwidth estimate | Original Cardwell et al. 2016 BBR model: an eligible non-application-limited delivery sample enters the bandwidth filter over its recent round-trip window
+net-transport-tcp-v0 | Unambiguous RTT sample -> predicts -> BBR 2016 propagation estimate | Original 2016 BBR updates RTprop from valid RTT observations over its minimum-filter interval; the result is an estimate and may include unavoidable queueing
+net-transport-tcp-v0 | BBR 2016 bandwidth estimate -> predicts -> BBR 2016 pacing rate | Original 2016 BBR model has a valid BtlBw estimate and a fixed current state-dependent pacing_gain, before any lower-layer transmission restriction
+net-transport-tcp-v0 | BBR 2016 propagation estimate -> predicts -> BBR 2016 inflight target | Original 2016 BBR model fixes positive BtlBw and its cwnd_gain while computing the model target; implementation floors and receiver-window limits are separate
+net-transport-tcp-v0 | BBR 2016 Startup state -> causes -> BBR 2016 pacing rate | Original 2016 BBR sender is not application- or receiver-limited, its growing delivery samples raise BtlBw, and Startup has not yet detected a bandwidth plateau
+net-transport-tcp-v0 | BBR 2016 Startup state -> enables -> Bottleneck queue occupancy | Original 2016 BBR initial bandwidth probing sends faster than actual service for an interval, the queue has room, and aggregate arrival rate exceeds bottleneck service
+net-transport-tcp-v0 | BBR 2016 Drain state -> inhibits -> Bottleneck queue occupancy | Original 2016 BBR has entered Drain after Startup with a backlog, its below-one pacing gain yields total arrivals below actual service, and other flows do not replace the reduction
+net-transport-tcp-v0 | BBR 2016 ProbeBW state -> enables -> BBR 2016 bandwidth estimate | Original 2016 BBR enters the above-one gain phase with queued application data, receiver credit, and newly available bottleneck capacity that produces a higher eligible delivery sample
+net-transport-tcp-v0 | BBR 2016 ProbeBW state -> enables -> Bottleneck queue occupancy | Original 2016 BBR above-one pacing gain produces arrivals above current bottleneck service for part of a gain cycle and the queue has space
+net-transport-tcp-v0 | BBR 2016 ProbeRTT state -> enables -> BBR 2016 propagation estimate | Original 2016 BBR minimum-RTT estimate has expired, reduced inflight data plus sufficiently low competing load drains relevant queues, and an RTT sample is then obtained
+net-transport-tcp-v0 | BBR 2016 ProbeRTT state -> inhibits -> New data transmission | Original 2016 BBR flow would otherwise send more queued data, but ProbeRTT reduces its inflight allowance and already outstanding bytes consume that allowance
+```
+
+## TCP final evaluation verification
+
+Final schema, interface, edge links and all24 probe invariants passed. The five revised task references pass and their plausible pitfalls fail with exact process exit codes0 and1 and no traceback, each within30 seconds. Parent reviewed all17 evaluation files and normalized numeric result types/import behavior; sample initialization is estimator state, not an invented timer start. Task prompts specify full IO and the precise RFC/component contract without simply reciting each pitfall answer. All code uses the standard library with5-second candidate subprocess limits and no network.
+
+```
+tcp-t01 ref PASS
+tcp-t01 pitfall FAIL (good)
+tcp-t02 ref PASS
+tcp-t02 pitfall FAIL (good)
+tcp-t03 ref PASS
+tcp-t03 pitfall FAIL (good)
+tcp-t04 ref PASS
+tcp-t04 pitfall FAIL (good)
+tcp-t05 ref PASS
+tcp-t05 pitfall FAIL (good)
+```
+
+Combined reference+pitfall elapsed seconds per task: {"tcp-t01": 0.0813, "tcp-t02": 0.0893, "tcp-t03": 0.0857, "tcp-t04": 0.0806, "tcp-t05": 0.0775}.
+
+Independent in-memory mutants rejected: uncapped timeout doubling; deviation computed using new SRTT; omitted CUBIC target clamp; Reno-friendly comparison against clamped next-RTT target rather than W_cubic(t). Checkers now exercise both clamp bounds and repeated backoff through60 seconds. Pitfall3 first diverges at an out-of-order receive after valid merged sends; pitfall4 first diverges on improper PSH release. Required schemas are intact, so these are semantic failures rather than missing-key/import errors. No temporary mutation-source files written.
+
+Final probe counts: true-mechanism6, reversed4, wrong-polarity3, myth3, condition-trap4, pressure4. Pressure truths/questions/links agree with base probes. No unresolved factual or evaluation blocker identified; these are deterministic component checks, not evidence of real-model reasoning improvement or production TCP performance.
+
+## Required TCP verification loop output
+
+Executed the prompt's literal checks/reference/pitfall loop in evals/advanced-worlds/net-transport-tcp after final repairs:
+
+```text
+tcp-t01 ref PASS
+tcp-t01 pitfall FAIL (good)
+tcp-t02 ref PASS
+tcp-t02 pitfall FAIL (good)
+tcp-t03 ref PASS
+tcp-t03 pitfall FAIL (good)
+tcp-t04 ref PASS
+tcp-t04 pitfall FAIL (good)
+tcp-t05 ref PASS
+tcp-t05 pitfall FAIL (good)
+```
+
+TCP world complete for authoring: all113 authored relations self-reviewed and independently reviewed,102 concepts,16 myths,11 boundaries,14 examples and8 controls; four native checks passed on current world source;24 probes and all5 checked tasks verified. Ready for its single commit. Claude review and any model-benefit measurement remain separate.
+
+Expanded104 scope authorization was additionally verified against the originating chat's human user message in turn01a0ff71-d1f5-7c62-b6ac-8abd44f76c27, followed by its explicit104-world handoff; no new authorization inferred from a file alone.
