@@ -314,7 +314,7 @@ calculus-causation-v0 | First derivative sign change -> predicts -> Local minimu
 
 ## Step 0: geometry-causation-v0
 
-Commit: pending creation, title `Review fixes: geometry`.
+Commit: `e7f0af7` (`Review fixes: geometry`).
 Counts: 40 concepts, 31 relations, 5 myths, 7 boundaries, 6 examples, 7 controls.
 Relations by kind: {"causes": 1, "enables": 3, "predicts": 23, "prerequisite": 2, "prevents": 2}.
 Probes/tasks: not applicable to Step 0. Sources added: none; existing mathlib4 (and existing NIST DLMF where named) retained.
@@ -417,4 +417,115 @@ geometry-causation-v0 | Parallel postulate -> predicts -> Triangle angle sum | t
 geometry-causation-v0 | Uniform scaling -> prevents -> Angle distortion | the transformation is one dilation x -> c+k(x-c) with the same k > 0 in every direction in Euclidean space
 geometry-causation-v0 | Pythagorean relation -> enables -> Converse Pythagorean test | a nondegenerate triangle has lengths a,b,c satisfying a^2+b^2=c^2, and a right triangle with legs a,b is constructed and compared by SSS
 geometry-causation-v0 | Area additivity -> enables -> Tessellation area calculation | the patch is exactly a finite union of congruent tiles with pairwise disjoint interiors; shared boundaries have zero area
+```
+
+## Step 0: information-causation-v0
+
+Commit: pending creation, title `Review fixes: information`.
+Counts: 35 concepts, 28 relations, 6 myths, 8 boundaries, 6 examples, 7 controls.
+Relations by kind: {"enables": 7, "predicts": 20, "prerequisite": 1}.
+Probes/tasks: not applicable to Step 0.
+
+Self-review: 41 old and 28 final edges read. Direction pass replaced 27 old claims and added one CIRC edge, including mutual information → capacity. Counterexample pass tightened all 28 conditions to finite/discrete/iid/DMC/AWGN or ECMA regimes. Fourteen true drops are listed below. Version pass: ECMA-130 second edition is explicit; mathematical hypotheses replace vague typical conditions. Myth pass: all 5 original myths corrected and 1 conditioning myth added. All 3 original boundaries corrected, 5 added. Count pass: 41 → 28 without padding; 100% allowed kinds; no duplicate pairs/conditions or label/verb errors. Parent read all 28 final edges and all myths/boundaries/examples. Open doubts: no unresolved claim retained; independent Claude review remains pending.
+
+Dropped IDs:
+- surprise-causes-bits: unit/definition; formula moved to probability → surprise.
+- limit-inhibits-coding: theorem does not inhibit coding; above-capacity boundary retained.
+- bit-enables-entropy: unit is not a mechanism.
+- surprise-enables-entropy: entropy definition; computation in source → entropy.
+- correction-enables-noisy-use: expected-error-count guarantee false; coding theorem retained.
+- channelcoding-causes-redundancy: definition restatement.
+- processing-prevents-restoring: wrong target; data-processing bound retained.
+- pigeonhole-causes-growth: identity code refutes forced growth; no-universal-shrinking myth and counting bound retained.
+- bit-prereq-length: binary unit not necessary for general lengths.
+- floor-prereq-limit: source coding not prerequisite for channel capacity.
+- noise-causes-detection-need: need is not detection; separate detection not mandatory.
+- additivity-enables-blockcoding: duplicate of corrected block-code bound.
+- typical-predicts-channel: insufficient channel/decoder assumptions.
+- parity-inhibits-correction: adds information; inability to locate flip is a boundary, and known erasures can be recovered.
+
+Meaningful regressions run in memory: conditioning example Hprior=0.468995593589, Hposterior(Y=1)=1, average Hconditional=0.2; counting inequality for all n=1..9, 0<=k<n; repetition correction for both source bits and all <=1 flips; parity check on every valid 4-bit even-parity codeword and all 16 masks. All passed.
+
+Sources added: ecma-130-cdrom-2e, ECMA-130 second edition June 1996, clause 17 and Annex C (https://www.ecma-international.org/wp-content/uploads/ECMA-130_2nd_edition_june_1996.pdf). Existing shannon-1948 retained; its original corrected paper was verified at https://web.mit.edu/6.976/www/handout/shannon.pdf because the registered Harvard mirror did not load. Source registry's prior entry was not changed.
+
+Four checks:
+
+```
+$ python3 tools/build_information_causation_curriculum.py
+wrote /home/jesse/Desktop/Projects/new-complete-atom-lightcone/curricula/information-causation-v0/foundations.jsonl with 165 records
+splits: {'cross_domain_holdout': 6, 'sealed_test': 17, 'train': 116, 'validation': 26}
+kinds: {'boundary': 8, 'concept': 36, 'counterexample': 6, 'relation': 102, 'synthetic_control': 7, 'worked_example': 6}
+exit: 0
+
+$ python3 tools/validate_curricula.py
+foundation lanes with controls: 23/23
+valid: True
+exit: 0
+
+$ python3 tools/validate_sources.py
+valid: True
+exit: 0
+
+$ .venv/bin/python trainer/compile_curriculum.py --world-id information-causation-v0
+{
+  "schema_version": 1,
+  "world_id": "information-causation-v0",
+  "adapter_independent": true,
+  "record_count": 165,
+  "node_count": 63,
+  "edge_count": 102,
+  "negative_pair_count": 7,
+  "domains": [
+    "information-communication"
+  ],
+  "lanes": [
+    "reasoning.causal",
+    "reasoning.deductive",
+    "thinking.bottom_up"
+  ],
+  "files": {
+    "edges.jsonl": "efdeab53341021021a981af0b361efa42876b7e92a0de10befdc7f5a24524016",
+    "lexicon.json": "e1aae8e0c4a5b6fd872b34d1ba24d37db420d69b1cd99dac891fed265114e8bb",
+    "nodes.jsonl": "f1e359bb4217cdf2f0a97c337670cfc50dcbc031cc9e870b44f594fc903fe15e",
+    "records.jsonl": "393569e366fa8ad3eb6543d8bf6d8d7ca7077e4afaa8250206bd72c42fb33872",
+    "relation-catalog.json": "bde19fb7c98f3e3cc71cdc1225eba5b73382204ff875f8c00c34db49a1ffe3e8",
+    "sources.json": "b6b0a1c7c02e08d25ed660c71e4a0092e4265e0161803f41cc86f03648e7ae10",
+    "split-manifest.json": "797724e2813e8b8d0feb6a190bfe1053f0ae399f880055ce7d34469555bffe29",
+    "training-graph.json": "28e0226d356088c900021be2a7bdce0d5cf66d7c13c180795c9fd3f268c955d7"
+  }
+}
+exit: 0
+```
+
+Reviewer relation list (complete final authored data; generated structural edges excluded):
+
+```text
+information-causation-v0 | Outcome probability -> predicts -> Surprise of an outcome | the outcome belongs to a discrete source and 0 < p <= 1; the logarithm base is two
+information-causation-v0 | Message source -> predicts -> Entropy of a source | X has a fixed finite probability distribution p(x), and zero-probability terms contribute zero to H(X)
+information-causation-v0 | Uniform source distribution -> predicts -> Entropy of a source | the alphabet has exactly M >= 1 symbols and the entropy is compared across all probability distributions on that same alphabet
+information-causation-v0 | Certain source outcome -> predicts -> Surprise of an outcome | one discrete outcome has probability p = 1, so -log2(p) = 0 bits
+information-causation-v0 | Independent outcomes -> predicts -> Additivity of independent information | X and Y are independent finite discrete random variables and the joint entropy is measured with the same logarithm base
+information-causation-v0 | Entropy of a source -> predicts -> Entropy compression floor | a finite discrete source X is encoded by a binary uniquely decodable symbol code and every possible source sequence must be recovered exactly
+information-causation-v0 | Prefix-free code -> enables -> Unique decoding | the binary symbol code is injective, each codeword is finite and nonempty, and no distinct codeword is a prefix of another
+information-causation-v0 | Entropy compression floor -> predicts -> Expected code length | the source is iid on a finite alphabet with at least two positive-probability symbols and a binary prefix code is designed for n-symbol blocks
+information-causation-v0 | Pigeonhole compression limit -> predicts -> Incompressible random data | X is uniform over n-bit strings, the encoder is injective, and 0 <= k < n is an integer: fewer than a 2^(-k) fraction can have output length strictly below n-k
+information-causation-v0 | Redundancy in messages -> enables -> Error detection | the binary block code has minimum Hamming distance d >= 2 and between 1 and d-1 bit substitutions occur in a transmitted codeword
+information-causation-v0 | Parity check -> enables -> Error detection | the original XOR constraint is satisfied and an odd number of checked bits, including the check bit if affected, are flipped once
+information-causation-v0 | Repetition coding -> enables -> Error correction | one bit is sent as m identical copies for odd m >= 3 and at most (m-1)/2 of those copies are flipped
+information-causation-v0 | Channel coding with redundancy -> enables -> Noisy channel | the channel is discrete and memoryless with finite alphabets, 0 < R < C, and block length may grow without bound and the codebook and decoder may be designed for the channel
+information-causation-v0 | Noisy channel -> predicts -> Code rate | independent bit flips occur with fixed probability 0 <= p <= 1/2, messages are equiprobable, block error tends to zero as length grows with a limiting rate R, and h2(p)=-p*log2(p)-(1-p)*log2(1-p) with 0log2(0)=0
+information-causation-v0 | Signal power and bandwidth -> predicts -> Channel capacity | the channel is band-limited additive white Gaussian noise with bandwidth B > 0 Hz, finite average signal power P >= 0 watts and one-sided noise density N0 > 0 watts per Hz, so noise power is N0*B
+information-causation-v0 | Mutual information -> predicts -> Channel capacity | the channel has fixed transition probabilities p(y|x), finite alphabets and no memory, and capacity is measured in bits per channel use
+information-causation-v0 | Data processing inequality -> predicts -> Mutual information | X,Y,Z are finite discrete variables forming X->Y->Z, so Z is conditionally independent of X given Y and no extra side information is supplied
+information-causation-v0 | Observation of evidence -> predicts -> Conditional entropy | X and Y are finite discrete variables and H(X|Y) averages over the actual distribution of all observations Y, rather than fixing one surprising y
+information-causation-v0 | Conditional entropy -> predicts -> Mutual information | X and Y are finite discrete variables with a fixed marginal law of X; any comparison keeps H(X) constant
+information-causation-v0 | Independent outcomes -> predicts -> Mutual information | the joint law of finite discrete X and Y satisfies p(x,y)=p(x)p(y) at every pair
+information-causation-v0 | Typical sequences -> enables -> Code for a source | the source is iid on a finite alphabet, block length tends to infinity, and atypical blocks are counted as errors rather than falsely claiming exact lossless recovery
+information-causation-v0 | Entropy of a source -> predicts -> Typical sequences | X_i are iid on a finite alphabet with entropy H; for epsilon > 0 and sufficiently large n, the epsilon-typical set has probability at least 1-epsilon and size between (1-epsilon)*2^(n*(H-epsilon)) and 2^(n*(H+epsilon))
+information-causation-v0 | Uniform source distribution -> predicts -> Password entropy | the generator chooses each of L characters uniformly and independently from the same M-symbol alphabet, and the attacker knows the procedure but has no correlated side information
+information-causation-v0 | Redundancy of language -> predicts -> Entropy of a source | a stationary source over M symbols has nonuniform single-symbol probabilities or H(X_t|X_(t-1),...,X_(t-k)) < log2(M) for some finite k, and the comparison concerns its entropy rate
+information-causation-v0 | Code for a source -> predicts -> Expected code length | a finite source distribution p(x) and finite binary codeword lengths l(x) are fixed before taking the expectation
+information-causation-v0 | Unique decoding -> prerequisite -> Code for a source | one symbol code is extended by concatenation to all finite source sequences, recovery must be exact, and no framing or side channel resolves boundaries
+information-causation-v0 | Repetition coding -> predicts -> Code rate | each binary source symbol is mapped to exactly m identical channel bits with fixed integer m >= 1 and no additional framing symbols
+information-causation-v0 | Cross-interleaved Reed-Solomon coding -> enables -> Error correction | ECMA-130 second edition clause 17 and Annex C encoding is used, and each constituent Reed-Solomon decoding step has error count e and known erasure count s satisfying 2e+s <= 4
 ```
