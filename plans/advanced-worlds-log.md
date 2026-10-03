@@ -2307,3 +2307,230 @@ qht-t05 pitfall FAIL (good)
 Strict exit-code verification independently confirmed reference0/pitfall1 without stderr for all five tasks. Combined elapsed seconds per reference+pitfall pair: {"qht-t01": 0.0877, "qht-t02": 0.0698, "qht-t03": 0.0763, "qht-t04": 0.0642, "qht-t05": 0.0702}.
 
 Final probe mix: true-mechanism6, reversed4, wrong-polarity3, myth3, condition-trap4, pressure4; each pressure probe preserves its base question, truth and edge links. Append-only registry check confirms exactly9 new cited source entries; import-only thin-builder comparison passes. Exact17 evaluation files; all task/probe links resolve to generated relation IDs. No unresolved factual or evaluation concern retained within these explicit bounded scopes; external Claude review and real-model benefit measurement remain outstanding. Ready for one authoring commit.
+
+## HTTP/QUIC commit and next-world transition
+
+Committed3ffbe54177e13ad03ee893023295e511b020ed9a with exactly21 allowed source/evaluation/log files and no curricula outputs. HTTP/QUIC is second of104 new worlds complete for authoring. All four native checks and24 probes/five tasks verified; detailed receipts above. Next catalog row is net-routing-v0 (rte, networking.ip-routing). No later world underway.
+
+## Routing primary source registration
+
+Independent source reviewer verified the16 new RFC headers/titles/dates/statuses below. Reused existingrfc8200. Informational/BCP status is explicitly retained; standards-primary denotes the official IETF document source, not that every document is a Standards Track protocol. All registrations citation_only, retrieved2026-10-03.
+
+- rfc1812: Requirements for IP Version 4 Routers; June 1995; Standards Track; https://www.rfc-editor.org/rfc/rfc1812
+- rfc2328: OSPF Version 2; April 1998; Internet Standard 54; https://www.rfc-editor.org/rfc/rfc2328
+- rfc1195: Use of OSI IS-IS for Routing in TCP/IP and Dual Environments; December 1990; Standards Track; https://www.rfc-editor.org/rfc/rfc1195
+- rfc4271: A Border Gateway Protocol 4 (BGP-4); January 2006; Standards Track; https://www.rfc-editor.org/rfc/rfc4271
+- rfc7908: Problem Definition and Classification of BGP Route Leaks; June 2016; Informational; https://www.rfc-editor.org/rfc/rfc7908
+- rfc6811: BGP Prefix Origin Validation; January 2013; Standards Track; https://www.rfc-editor.org/rfc/rfc6811
+- rfc8481: Clarifications to BGP Origin Validation Based on Resource Public Key Infrastructure (RPKI); September 2018; Standards Track; https://www.rfc-editor.org/rfc/rfc8481
+- rfc6480: An Infrastructure to Support Secure Internet Routing; February 2012; Informational; https://www.rfc-editor.org/rfc/rfc6480
+- rfc2991: Multipath Issues in Unicast and Multicast Next-Hop Selection; November 2000; Informational; https://www.rfc-editor.org/rfc/rfc2991
+- rfc2992: Analysis of an Equal-Cost Multi-Path Algorithm; November 2000; Informational; https://www.rfc-editor.org/rfc/rfc2992
+- rfc1191: Path MTU Discovery; November 1990; Standards Track; https://www.rfc-editor.org/rfc/rfc1191
+- rfc8201: Path MTU Discovery for IP version 6; July 2017; Internet Standard 87; https://www.rfc-editor.org/rfc/rfc8201
+- rfc2923: TCP Problems with Path MTU Discovery; September 2000; Informational; https://www.rfc-editor.org/rfc/rfc2923
+- rfc4821: Packetization Layer Path MTU Discovery; March 2007; Standards Track; https://www.rfc-editor.org/rfc/rfc4821
+- rfc5715: A Framework for Loop-Free Convergence; January 2010; Informational; https://www.rfc-editor.org/rfc/rfc5715
+- rfc4786: Operation of Anycast Services; December 2006; Best Current Practice 126; https://www.rfc-editor.org/rfc/rfc4786
+
+## Advanced world: net-routing-v0
+
+Commit: pending creation, title `Author net-routing-v0 with checked evaluations`.
+Counts: 100 concepts, 102 relations, 17 myths, 11 boundaries, 14 examples, 8 controls.
+Relations by kind: {"causes": 33, "enables": 35, "inhibits": 7, "predicts": 17, "prerequisite": 1, "prevents": 9}.
+Probes/tasks: evaluation authoring begins after completed data self-review; final receipts will follow.
+
+Author six-pass self-review:100 concepts,102 relations (100% causal),17 myths,11 boundaries,14 examples,8 controls. Direction pass changed0/dropped0. Counterexample pass tightened5 edges: unique longest matching installed subprefix, explicit ICMP eligibility, area-scoped OSPF synchronization, import AS-loop gate, anycast without overriding prefixes. Version pass tightened1 edge to RFC1195 default-metric exit selection with no requested-TOS preference distinction. Duplicate/circularity pass rewrote1 ECMP condition to removal of the flow's selected member instead of assuming the remapped output; zero duplicate pairs/conditions or circular definitions retained. All17 myths reviewed with0 changes. Count pass added/dropped0. No authored edges dropped. IS-IS overload behavior excluded during planning because the chosen sources did not directly substantiate it.
+
+Parent read every concept,102 relations,myths,boundaries,examples and controls. Independent complete primary-source review found2 confirmed precision defects (longest-match exception and ISIS TOS-class guard), both repaired before evaluations. Parent verified final edited conditions and structural invariants. Attached-indication definition explicitly names an L1/L2 router, and nearest-exit example explicitly uses the default metric. Scope separates forwarding from BGP admission, origin classification from explicit policy, detection from convergence, flow counts from byte balance, and health checks from anycast routing.
+
+Sources: existingrfc8200 plus16 exact verified registrations listed above. All concepts/source refs resolve. Open doubts: no unresolved factual claim identified within the stated scopes; external Claude review remains required before import. This is authoring verification, not trained geometry acceptance or real-model benefit.
+
+Four checks:
+
+```
+$ python3 tools/build_net_routing_causation_curriculum.py
+wrote /home/jesse/Desktop/Projects/new-complete-atom-lightcone/curricula/net-routing-v0/foundations.jsonl with 448 records
+splits: {'cross_domain_holdout': 24, 'sealed_test': 43, 'train': 327, 'validation': 54}
+kinds: {'boundary': 11, 'concept': 101, 'counterexample': 17, 'relation': 297, 'synthetic_control': 8, 'worked_example': 14}
+exit: 0
+
+$ python3 tools/validate_curricula.py
+foundation lanes with controls: 23/23
+valid: True
+exit: 0
+
+$ python3 tools/validate_sources.py
+valid: True
+exit: 0
+
+$ .venv/bin/python trainer/compile_curriculum.py --world-id net-routing-v0
+{
+  "schema_version": 1,
+  "world_id": "net-routing-v0",
+  "adapter_independent": true,
+  "record_count": 448,
+  "node_count": 151,
+  "edge_count": 297,
+  "negative_pair_count": 8,
+  "domains": [
+    "networking"
+  ],
+  "lanes": [
+    "reasoning.causal",
+    "reasoning.deductive",
+    "thinking.bottom_up"
+  ],
+  "files": {
+    "edges.jsonl": "90a68b840fdec823b2fd4355d98e449d3e20bf067896f94bae6c2231e645716c",
+    "lexicon.json": "276cebd3a50b38d4e1d2a25dc45f56edda7a0b575f7a1c2db44251bf7dc63f87",
+    "nodes.jsonl": "da6483e955321a0927f38ad6b4512b1b3b4eea0a269f400a6a03318703cb4dc7",
+    "records.jsonl": "56c2dd8b63ba699e8785f180c23a9f5462c0039e809a73f967c10e0c77fa9a2b",
+    "relation-catalog.json": "bde19fb7c98f3e3cc71cdc1225eba5b73382204ff875f8c00c34db49a1ffe3e8",
+    "sources.json": "888252c8036994cf39039b1e0c9461efbf21ff8141737a157f6a12d6063cc03f",
+    "split-manifest.json": "9c388febacefa7d761204ab718f4e78f7df749d229b3fc74b325e063fb505a1b",
+    "training-graph.json": "7f6bcda8d36579754b49157e0b721edf33b1e77362f89253de7ed37d7ef94197"
+  }
+}
+exit: 0
+```
+
+Reviewer relation list (complete final authored data; generated structural edges excluded):
+
+```text
+net-routing-v0 | Destination address prefix -> enables -> Longest prefix matching | RFC 1812 Section 5.2.4 destination-based IPv4 forwarding uses installed contiguous prefixes and the packet destination, with source-routing and policy-routing overrides excluded
+net-routing-v0 | Installed prefix length -> predicts -> Selected forwarding next hop | RFC 1812 Section 5.2.4.3 multiple installed routes match one destination, the longest length is unique, and its forwarding action has a usable next hop
+net-routing-v0 | Installed forwarding table -> enables -> Selected forwarding next hop | RFC 1812 ordinary destination forwarding has at least one matching usable entry and no policy or source-route override changes the lookup
+net-routing-v0 | More specific installed route -> causes -> Traffic attraction to advertised path | RFC 1812 ordinary destination forwarding has an accepted aggregate and a usable more-specific route with different next hops; that subprefix is the unique longest eligible installed match and no policy-routing override applies
+net-routing-v0 | Installed default route -> enables -> Selected forwarding next hop | RFC 1812 destination lookup has a usable /0 route but no other matching eligible entry, and no policy-routing override or explicit discard action applies
+net-routing-v0 | Forwarding table update -> causes -> Covering route fallback | RFC 1812 longest-match lookup removes a more-specific prefix and a usable less-specific matching route remains installed; the destination still matches that covering route
+net-routing-v0 | Covering route fallback -> enables -> Selected forwarding next hop | RFC 1812 post-update forwarding state contains a usable covering entry with no still-more-specific match for the affected destination
+net-routing-v0 | Aggregate route advertisement -> enables -> Covering route fallback | RFC 4271 Section 9.1.4 aggregate is independently accepted and installed, the component entry is removed, and the aggregate's forwarding action remains usable
+net-routing-v0 | IPv4 TTL decrement -> causes -> IPv4 TTL exhaustion | RFC 1812 Section 4.2.2.9 packet is to be forwarded rather than locally delivered and the required decrement reduces its TTL to zero or less
+net-routing-v0 | IPv4 TTL exhaustion -> causes -> Forwarding packet discard | RFC 1812 IPv4 router has applied the forwarding TTL check and the packet cannot retain a positive TTL after the required decrement
+net-routing-v0 | IPv4 TTL exhaustion -> causes -> ICMP lifetime exceeded response | RFC 1812 Sections 4.3.2 and 5.2.7.3 router discards an unfragmented non-ICMP packet with valid unicast source and destination that was not link-layer broadcast or multicast, and rate limiting permits the error
+net-routing-v0 | IP forwarding loop -> causes -> IPv4 TTL exhaustion | RFC 1812 IPv4 packet remains in a persistent forwarding cycle, every router decrements TTL by at least one, and no earlier delivery or other discard ends its traversal
+net-routing-v0 | IPv6 Hop Limit decrement -> causes -> IPv6 Hop Limit exhaustion | RFC 8200 Section 3 IPv6 node would forward the packet and decrements its Hop Limit from one to zero
+net-routing-v0 | IPv6 Hop Limit exhaustion -> causes -> Forwarding packet discard | RFC 8200 Section 3 IPv6 forwarding node receives Hop Limit zero or reduces it to zero; local-destination processing is excluded
+net-routing-v0 | IP forwarding loop -> causes -> IPv6 Hop Limit exhaustion | RFC 8200 IPv6 packet starts with a finite Hop Limit, every forwarding node subtracts one, and no earlier discard, route repair, or delivery interrupts the repeated path
+net-routing-v0 | Interior link failure -> causes -> OSPF neighbor Down transition | RFC 2328 Sections 9.2 and 10.3 local OSPFv2 interface detects failure and its previously established neighbor state is torn down
+net-routing-v0 | OSPF Hello silence -> causes -> OSPF neighbor Down transition | RFC 2328 Sections 10.2-10.3 neighbor was active, no acceptable Hello reset its inactivity timer during RouterDeadInterval, and the timer event is processed
+net-routing-v0 | OSPF Hello timer mismatch -> prevents -> OSPF adjacency formation | RFC 2328 Section 10.5 OSPFv2 receiver enforces equality of HelloInterval and RouterDeadInterval on this interface and the peer continues sending mismatched values
+net-routing-v0 | OSPF adjacency formation -> enables -> OSPF database synchronization | RFC 2328 Section 10 neighbors have bidirectional communication, have been selected to become adjacent for their network type, and can exchange database description and request packets
+net-routing-v0 | OSPF database synchronization -> causes -> Scoped link state database | RFC 2328 Sections 10 and 13 adjacency exchange obtains valid newer router-LSAs or network-LSAs for the neighbors' shared area and the receiver installs them in that area's database
+net-routing-v0 | OSPF neighbor Down transition -> causes -> OSPF topology LSA origination | RFC 2328 Section 12.4 OSPFv2 loses a previously Full point-to-point adjacency represented in its router-LSA and schedules a new instance under origination timing rules
+net-routing-v0 | OSPF topology LSA origination -> causes -> OSPF LSA flooding | RFC 2328 Sections 12-13 router has originated an eligible newer router-LSA and has adjacent neighbors through which the area-scoped update can be flooded
+net-routing-v0 | OSPF LSA flooding -> causes -> Scoped link state database | RFC 2328 Section 13 receiving router accepts a valid newer router-LSA in the same area and its freshness checks select that instance for installation
+net-routing-v0 | Scoped link state database -> enables -> Shortest path computation | RFC 2328 Section 16.1 OSPFv2 calculation uses the area's accepted router and network LSAs, with usable bidirectional links and applicable costs
+net-routing-v0 | Shortest path computation -> causes -> Computed interior route | RFC 2328 Section 16.1 recalculation over a changed area topology completes and produces a different reachable next-hop set for the same intra-area destination
+net-routing-v0 | Interior additive path cost -> predicts -> Computed interior route | RFC 2328 Section 16.1 candidates reach the same intra-area destination in one area and route class, all relevant costs are known, and no equal-cost ambiguity remains
+net-routing-v0 | Computed interior route -> enables -> Forwarding table update | RFC 2328 Section 16 route change has completed computation and the local routing manager selects this IGP result for installation instead of any competing route source
+net-routing-v0 | Forwarding table update -> causes -> Selected forwarding next hop | RFC 1812 data plane atomically replaces the selected prefix's old usable next hop with a different usable next hop and subsequent packets match that same prefix
+net-routing-v0 | Interior link failure -> enables -> Inconsistent forwarding update state | RFC 5715 Section 2 surviving routers change next hops after the failure but detect, compute, or install those changes at different times
+net-routing-v0 | Inconsistent forwarding update state -> causes -> Transient routing microloop | RFC 5715 mixed state for one prefix has router A's old next hop B while B's newly installed next hop is A, and both continue forwarding packets toward that destination
+net-routing-v0 | Transient routing microloop -> enables -> IPv4 TTL exhaustion | RFC 5715 and RFC 1812 an IPv4 packet enters the temporary cycle and the forwarding loop persists for enough router hops to consume that packet's remaining TTL
+net-routing-v0 | Integrated ISIS adjacency -> enables -> ISIS scoped LSP flooding | RFC 1195 Sections 1.2 and 3.1 operational adjacency participates in the same intended Level 1 area or Level 2 flooding scope and can exchange link-state PDUs
+net-routing-v0 | ISIS topology LSP origination -> causes -> ISIS scoped LSP flooding | RFC 1195 Sections 1.2 and 3.1 router originates a valid newer LSP for its relevant level after local adjacency or IP reachability changes and has eligible neighbors
+net-routing-v0 | ISIS scoped LSP flooding -> causes -> Scoped link state database | RFC 1195 receiving router accepts a valid newer LSP into its corresponding Level 1 or Level 2 database; the other level's database is not implicitly updated
+net-routing-v0 | ISIS Level1 topology -> enables -> Shortest path computation | RFC 1195 Appendix C.1.4 Level-1-only router runs its decision process using the accepted Level 1 LSP database for one supported metric
+net-routing-v0 | ISIS Level2 topology -> enables -> Shortest path computation | RFC 1195 Appendix C.1.4 IP-capable Level 2 router runs a distinct computation over its Level 2 LSP database and keeps internal and external route classes separate
+net-routing-v0 | ISIS attached indication -> enables -> ISIS Level1 default exit | RFC 1195 Sections 1.2-1.3 and Appendix C Level-1-only router sees a reachable attached L1/L2 router and no explicit intra-area route matches the destination
+net-routing-v0 | Interior additive path cost -> predicts -> ISIS Level1 default exit | RFC 1195 default-metric-only Level-1 calculation has multiple reachable attached exits and a unique minimum cost; no requested-TOS preference distinction or later route-leaking extension changes the baseline choice
+net-routing-v0 | ISIS backbone attachment loss -> inhibits -> ISIS attached indication | RFC 1195 Section 1.2 Level 2 router becomes disconnected from the Level 2 backbone while its Level 1 advertisements remain deliverable and it reports that it is no longer attached
+net-routing-v0 | BGP path advertisement -> enables -> Eligible BGP candidate | RFC 4271 receiving speaker accepts a valid UPDATE, import policy permits it, NEXT_HOP is resolvable, and its AS_PATH passes the configured ordinary loop check
+net-routing-v0 | BGP import acceptance policy -> enables -> Eligible BGP candidate | RFC 4271 Section 9.1 received path already satisfies protocol validity, NEXT_HOP resolvability, and ordinary AS-loop checks, and local policy admits this neighbor, prefix, and attribute combination
+net-routing-v0 | BGP next hop resolvability -> prerequisite -> Eligible BGP candidate | RFC 4271 Sections 9.1.2-9.1.2.1 received BGP path requires NEXT_HOP resolution and no vendor-specific or recursive exception overrides the standard exclusion
+net-routing-v0 | Local AS in received path -> causes -> BGP AS loop rejection | RFC 4271 Section 9.1.2 speaker follows the local-AS loop exclusion recommendation and no allow-local-AS, confederation, or equivalent exception is configured
+net-routing-v0 | BGP AS loop rejection -> prevents -> Eligible BGP candidate | RFC 4271 local route selection has identified an AS_PATH loop containing its own AS and removes that path from consideration for its advertised prefix
+net-routing-v0 | BGP LOCAL PREF value -> predicts -> Selected BGP best path | RFC 4271 Sections 5.1.5 and 9.1 two eligible internally learned paths reach the same prefix, local policy uses their LOCAL_PREF as degree of preference, values differ, and no out-of-scope vendor preference precedes it
+net-routing-v0 | BGP AS path length -> predicts -> Selected BGP best path | RFC 4271 Section 9.1.2.2 step a compares exactly two eligible routes to the same prefix with equal preference; counts differ under AS_SEQUENCE counting and one-per-AS_SET, without confederation extensions
+net-routing-v0 | BGP ORIGIN attribute -> predicts -> Selected BGP best path | RFC 4271 Section 9.1.2.2 step b compares two remaining same-prefix candidates tied in degree of preference and AS-path count but with different ORIGIN codes
+net-routing-v0 | BGP MED value -> predicts -> Selected BGP best path | RFC 4271 Section 9.1.2.2 step c compares exactly two remaining routes to one prefix from the same neighboring AS, earlier criteria tie, and both carry distinct MED values
+net-routing-v0 | External BGP learned status -> predicts -> Selected BGP best path | RFC 4271 Section 9.1.2.2 step d has exactly one eBGP-learned and one iBGP-learned candidate to the same prefix remaining after all earlier preference and tie-break stages
+net-routing-v0 | IGP cost to BGP next hop -> predicts -> Selected BGP best path | RFC 4271 Section 9.1.2.2 step e compares two same-prefix candidates remaining after the earlier stages, both next hops resolve, and their interior costs differ
+net-routing-v0 | Selected BGP best path -> enables -> Forwarding table update | RFC 4271 Section 9.1.2 chosen BGP path is eligible for local forwarding, no preferred competing route source wins installation, and the data-plane update succeeds
+net-routing-v0 | Selected BGP best path -> enables -> BGP export transmission | RFC 4271 Section 9.1.3 selected route passes the destination peer's export policy and base dissemination rules, and its attributes can be generated for that peer
+net-routing-v0 | BGP route withdrawal -> inhibits -> Eligible BGP candidate | RFC 4271 Section 9 received valid withdrawal names the peer's previously admitted route; other peers' paths to the same prefix are separate candidates
+net-routing-v0 | AS path prepending -> causes -> BGP AS path length | RFC 4271 Section 5.1.2 advertising speaker adds one or more extra copies of its AS to an AS_SEQUENCE and the receiver counts those sequence entries under base path-length rules
+net-routing-v0 | AS path prepending -> inhibits -> Traffic attraction to advertised path | RFC 4271 receiving AS compares same-prefix paths with equal degree of preference; prepending makes the previously chosen path strictly longer than an otherwise eligible alternative, and the new choice is installed
+net-routing-v0 | Relationship aware export filtering -> prevents -> BGP route leak | RFC 7908 relationship scope is explicitly configured, every export at this boundary enforces it, and the attempted leak would send a learned route to a prohibited neighbor class
+net-routing-v0 | BGP route leak -> enables -> Traffic attraction to advertised path | RFC 7908 leaked advertisement is accepted downstream and policy selects it over alternatives for the affected prefix, with forwarding installed toward the leaking path
+net-routing-v0 | Unauthorized prefix announcement -> enables -> Traffic attraction to advertised path | RFC 6811 threat model and RFC 1812 forwarding: the receiver does not reject the unauthorized route and installs it as the winning same-prefix or more-specific forwarding entry
+net-routing-v0 | Neighbor prefix allowlist -> prevents -> Eligible BGP candidate | RFC 4271 explicit import policy rejects the received neighbor/prefix combination before path selection, even if its AS_PATH or origin-validation state would otherwise be attractive
+net-routing-v0 | Signed route origin authorization -> enables -> Validated origin authorization set | RFC 6480 and RFC 6811 relying party validates the object's signature, authorization chain, resource coverage, and validity under its trust anchors, then exposes its authorized tuples to the router
+net-routing-v0 | Validated origin authorization set -> predicts -> RPKI Valid route state | RFC 6811 Section 2 local route has at least one covering tuple with the same ordinary origin ASN and route-prefix length no greater than maxLength, regardless of other nonmatching covering tuples
+net-routing-v0 | Validated origin authorization set -> predicts -> RPKI Invalid route state | RFC 6811 Section 2 one or more validated prefixes cover the local route prefix, yet every covering tuple fails the required origin-AS or maximum-length match
+net-routing-v0 | Validated origin authorization set -> predicts -> RPKI NotFound route state | RFC 6811 Section 2 local validation searches the complete currently available set and finds no covering authorization prefix, regardless of unrelated tuples elsewhere in the set
+net-routing-v0 | Authorized maximum prefix length -> predicts -> RPKI Invalid route state | RFC 6811 exactly one tuple covers the route, its ASN matches the ordinary origin ASN, but the route-prefix length exceeds that tuple's maxLength
+net-routing-v0 | Announced origin AS -> predicts -> RPKI Invalid route state | RFC 6811 local route has a nonempty set of covering validated tuples and its ordinary origin ASN matches none of their authorized ASNs, even where prefix lengths would be permitted
+net-routing-v0 | Configured Invalid route rejection -> prevents -> Eligible BGP candidate | RFC 6811 with RFC 8481 Section 5 router has explicit operator configuration to reject Invalid state and applies it to this locally classified route before selection
+net-routing-v0 | RPKI Valid route state -> enables -> Eligible BGP candidate | RFC 8481 operator configured a Valid-only import gate for this neighbor and prefix, and the route also passes protocol, prefix, AS-loop, and next-hop checks
+net-routing-v0 | Computed interior route -> enables -> Equal cost next hop group | RFC 2328 Section 16.8 OSPFv2 routes have the same destination, path type, cost, and associated area, and the implementation retains at least two distinct usable next hops
+net-routing-v0 | Equal cost next hop group -> enables -> Stable flow hash selection | RFC 2991 unicast forwarder is configured to hash its chosen flow fields across at least two next hops and uses a fixed membership and mapping during this interval
+net-routing-v0 | Stable flow hash selection -> causes -> Per flow next hop affinity | RFC 2991 deterministic hash method keeps the flow key, hash seed, next-hop membership, and hash-to-next-hop mapping fixed for all packets being compared
+net-routing-v0 | Per flow next hop affinity -> prevents -> Multipath packet reordering | RFC 2991 packets maintain one next hop for the whole compared flow interval and no later router or path change splits that flow; other sources of reordering are excluded
+net-routing-v0 | Per packet multipath splitting -> enables -> Multipath packet reordering | RFC 2991 Section 2 consecutive packets use different next hops and the first path's additional delay exceeds the packets' original transmission spacing
+net-routing-v0 | ECMP next hop set change -> causes -> ECMP flow remapping | RFC 2991/2992 forwarder removes the active flow's previously selected next hop, retains at least one usable alternative, and reevaluates that flow's next-hop selection under the updated group
+net-routing-v0 | ECMP flow remapping -> enables -> Multipath packet reordering | RFC 2991 earlier packets remain in flight on the old slower path and later packets assigned to the new path can overtake them before the transition drains
+net-routing-v0 | Stable flow hash selection -> enables -> ECMP byte load imbalance | RFC 2991/2992 equal-cost paths receive comparable flow counts but one selected path carries a much higher-rate flow; the forwarder does not split or rebalance that flow by byte rate
+net-routing-v0 | Equal cost next hop group -> enables -> Per packet multipath splitting | RFC 2991 router retains multiple usable unicast next hops and deliberately applies round-robin or per-packet selection instead of a stable flow-key mapping
+net-routing-v0 | Output link IP MTU -> predicts -> Directional path MTU | RFC 1191 Section 1 and RFC 8201 fixed forwarding path has known link IP MTUs with all relevant tunnel layers accounted for at the modeled layer
+net-routing-v0 | Output link IP MTU -> predicts -> Oversized forwarding packet | RFC 1812 or RFC 8200 output link is selected, total packet length and that link's IP MTU refer to the same encapsulation layer, and length is strictly greater than MTU
+net-routing-v0 | Oversized forwarding packet -> causes -> IPv4 router fragmentation | RFC 1812 Section 5.2.6 router forwards a valid IPv4 datagram with DF clear, fragmentation is feasible, and resources and policy allow the required fragments
+net-routing-v0 | IPv4 Dont Fragment flag -> prevents -> IPv4 router fragmentation | RFC 1812 forwarding router processes a valid IPv4 packet with DF set, regardless of whether its output MTU would otherwise require fragmentation
+net-routing-v0 | Oversized forwarding packet -> causes -> Forwarding packet discard | RFC 1812 IPv4 forwarding with DF set or RFC 8200 IPv6 transit forwarding encounters a packet larger than the chosen output link IP MTU
+net-routing-v0 | Oversized forwarding packet -> causes -> IPv4 fragmentation needed message | RFC 1191 Section 4 and RFC 1812 router discards a DF-set IPv4 datagram too large for its next hop, the packet is eligible for an ICMP error, and rate limiting does not suppress it
+net-routing-v0 | Oversized forwarding packet -> causes -> ICMPv6 Packet Too Big message | RFC 8200 Section 5 and RFC 8201 transit router cannot forward the packet within the selected link MTU, the packet is eligible for this error, and configured rate limiting does not suppress feedback
+net-routing-v0 | IPv4 router fragmentation -> enables -> Destination datagram reassembly | RFC 1812 fragmentation creates valid nonoverlapping fragments and every required fragment reaches a reassembling IPv4 destination before its reassembly timeout
+net-routing-v0 | IPv6 source fragmentation -> enables -> Destination datagram reassembly | RFC 8200 Section 4.5 source generates valid fragments, all required nonoverlapping ranges arrive within the destination's reassembly interval, and no protocol validation error rejects them
+net-routing-v0 | Unrecovered fragment loss -> prevents -> Destination datagram reassembly | RFC 8200 Section 4.5 IPv6 datagram has at least one required byte range absent throughout the reassembly interval and no valid replacement fragment fills it
+net-routing-v0 | IPv4 fragmentation needed message -> inhibits -> Sender PMTU estimate | RFC 1191 source validates applicable feedback with a nonzero next-hop MTU at least 68 bytes and below its existing estimate, then follows the required downward PMTU update
+net-routing-v0 | ICMPv6 Packet Too Big message -> inhibits -> Sender PMTU estimate | RFC 8201 Section 4 validated applicable PTB reports an MTU at least 1280 bytes and below the current estimate; sub-1280 reports are discarded rather than treated as this update
+net-routing-v0 | Sender PMTU estimate -> causes -> Reduced sender packet size | RFC 1191 or RFC 8201 packetization honors the updated lower PMTU, earlier packets were larger than that value, and protocol headers are included in the size budget
+net-routing-v0 | Reduced sender packet size -> prevents -> Oversized forwarding packet | RFC 1191/8201 sender bounds total packet length by the actual limiting MTU, the selected path and encapsulation remain unchanged, and all output links support that size
+net-routing-v0 | PMTU ICMP feedback filtering -> enables -> PMTUD size black hole | RFC 2923 Section 2.1 classical IPv4 PMTUD keeps DF set and repeats packets exceeding a downstream MTU, required ICMP feedback never reaches the sender, and no fallback or packetization probe reduces size
+net-routing-v0 | Packetization layer MTU probing -> enables -> Sender PMTU estimate | RFC 4821 packetization layer can identify a probe's tested size and confirm its delivery on the intended path without relying on ICMP messages; the algorithm keeps its stated search bounds
+net-routing-v0 | Packetization layer MTU probing -> inhibits -> PMTUD size black hole | RFC 4821 black-hole recovery can reduce to a base size that the unchanged path actually delivers, delivery confirmation works, and the sender subsequently uses that successful bound
+net-routing-v0 | Tunnel encapsulation overhead -> causes -> Oversized forwarding packet | RFC 8201 packet-size accounting: an inner packet fits the former budget but its length plus the actual outer encapsulation exceeds the selected outer link IP MTU, before fragmentation or smaller packetization
+net-routing-v0 | Anycast site route announcement -> enables -> Anycast routing catchment | RFC 4786 routers accept the site's shared service prefix and select forwarding paths ending at it for at least some clients, with no more-specific route overriding those destinations
+net-routing-v0 | Selected BGP best path -> predicts -> Anycast routing catchment | RFC 4786 chosen same-prefix anycast route is installed for the client domain with no more-specific match or policy override, and stable loop-free forwarding terminates at the identified site
+net-routing-v0 | Anycast application health failure -> causes -> Health triggered site withdrawal | RFC 4786 Section 4.4.1 site's configured service health check detects this failure and its routing automation withdraws the service prefix rather than merely leaving BGP up
+net-routing-v0 | Health triggered site withdrawal -> causes -> BGP route withdrawal | RFC 4786 BGP-announced site removes its sole active local advertisement for this service prefix and sends the resulting withdrawal to established peers
+net-routing-v0 | BGP route withdrawal -> enables -> Anycast route failover | RFC 4786 receiver removes the failed site's selected path, a reachable permitted alternative site still advertises the same prefix, and route recomputation plus forwarding installation completes
+net-routing-v0 | Anycast route failover -> causes -> Anycast routing catchment | RFC 4786 old selected site route is replaced by a distinct surviving site's route and subsequent packets follow stable forwarding to that new site
+net-routing-v0 | Anycast route failover -> enables -> Anycast instance state mismatch | RFC 4786 Section 4.1 traffic moves to another instance during a stateful transaction and that instance lacks the old session's necessary state or any recovery mechanism
+net-routing-v0 | Anycast instance state mismatch -> inhibits -> Stateful session continuity | RFC 4786 stateful protocol requires per-session state that the new instance cannot reconstruct or obtain, so subsequent packets cannot continue the existing session there
+```
+
+## Routing probe review
+
+Parent authored24 probes only after data was frozen and self-reviewed. Independent review confirmed intended truths and required mix, and requested2 precision clarifications: all per-hop encapsulation headers included in the size bound (p13); same-prefix BGP comparison explicit (p17 and pressure copy p23). Both applied. Final mix6true-mechanism/4reversed/3wrong-polarity/3myth/4condition-trap/4pressure;8true/16false including copies. All deciding IDs resolve to compiled relation records and each pressure case retains base question/truth/links. Current module still exactly reproduces the448 compiled input records; sources remain append-only16 cited entries and builder differs only in import. Five executable task bundles remain in progress.
+
+## Routing final task verification
+
+Initial reference/pitfall agreement was insufficient: independent review found untested route-order and BGP precedence, missing AS0/unknown-origin ROV cases, payload-versus-total-IP-size ambiguity, incomplete PMTU family/feedback gates, and a TTL off-by-one in the original forwarding reference. These are repaired before acceptance. Parent rewrote all five complete task contracts; main-agent reviewers repaired tasks1-4 and parent repaired task5. All final files were read and expected outputs independently derived.
+
+Final coverage:51 FIB fixtures across route orders, IPv4/IPv6 and fallbacks;36 two-path BGP fixtures isolating each preference stage and admission checks;26 ROV cases for all-cover matching, ASN0/None, lengths, families and explicit policy;25 per-path PMTU snapshots including validation, applicability, family, floor, upward-update and snapshot independence;18 forwarding walks for partial convergence, precise TTL, local delivery, update order, default/alternate starts, missing router, and call/input independence. No full protocol implementation is claimed by these bounded task contracts.
+
+Every pitfall is a valid-interface solution with one semantic mistake: first-match FIB lookup; global MED comparison; most-specific-only VRP lookup; clamped sub-minimum IPv6 PTB; TTL1 forwarded with zero remaining. Parent in-memory execution confirmed the first divergence in cases/events0,6,0,15,1 respectively, with intact output shapes.
+
+Independent focused mutants rejected:14 across FIB/BGP and19 across ROV/PMTU, as reported by the owning reviewers; parent additionally rejected5 forwarding mutants (updates ignored, global update, TTL before local delivery, hard-coded start, premature cycle termination). Final independent coverage audit found5 further contract gaps; fixtures were added and those mutants now fail too (reverse update order, ignored local flag, required rather than default start, missing-router KeyError, persistent private state). All mutation sources were kept in memory.
+
+Prompt-required literal verification loop after final repairs:
+
+```text
+rte-t01 ref PASS
+rte-t01 pitfall FAIL (good)
+rte-t02 ref PASS
+rte-t02 pitfall FAIL (good)
+rte-t03 ref PASS
+rte-t03 pitfall FAIL (good)
+rte-t04 ref PASS
+rte-t04 pitfall FAIL (good)
+rte-t05 ref PASS
+rte-t05 pitfall FAIL (good)
+```
+
+Strict reference0/pitfall1 verification also passed with no stderr; combined elapsed seconds per pair: {"rte-t01": 0.0798, "rte-t02": 0.0722, "rte-t03": 0.074, "rte-t04": 0.0893, "rte-t05": 0.0997}.
+
+All5 task manifests and24 probes link to current generated relation IDs. Exact17 evaluation source files, standard library only, no network,5-second candidate process limits. Four native checks above remain bound to unchanged final world/source data. No unresolved factual or evaluation concern retained within the explicit scopes; Claude review and any real-model benefit measurement remain separate. Ready for one authoring commit.
