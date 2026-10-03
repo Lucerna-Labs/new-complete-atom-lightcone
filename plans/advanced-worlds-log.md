@@ -206,7 +206,7 @@ algebra-causation-v0 | Abelian group -> predicts -> Normal subgroup | H is any s
 
 ## Step 0: calculus-causation-v0
 
-Commit: pending creation, title `Review fixes: calculus`.
+Commit: `94c115b` (`Review fixes: calculus`).
 Counts: 31 concepts, 28 relations, 6 myths, 6 boundaries, 6 examples, 8 controls.
 Relations by kind: {"enables": 3, "predicts": 23, "prerequisite": 2}.
 Probes/tasks: not applicable to Step 0. Sources added: none; existing mathlib4 (and existing NIST DLMF where named) retained.
