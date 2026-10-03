@@ -28,58 +28,64 @@ LANES = ["reasoning.causal", "reasoning.deductive", "thinking.bottom_up"]
 SUBFIELDS = [ownership_borrowing]
 NEGATIVE = {"inhibits", "prevents", "contradicts", "undercuts", "counterexample"}
 LIMITATIONS = [
-    "Statements describe Rust's owned-and-borrowed execution model as documented by the Rust book and Cargo reference.",
+    "Statements describe Rust 1.63+ ownership, standard-library and Cargo behavior; sources were checked against Rust 1.99 documentation on 2026-10-02.",
     "Statements are original structured summaries of cited sources, not quotations.",
-    "Behaviour described is that of the current stable compiler rules as of 2026.",
+    "Safe-code guarantees assume sound unsafe dependencies; explicit scope, lifetime, panic-strategy and implementation conditions remain part of each relation.",
 ]
 # (id, label, statement, target concept)
 MYTHS = [
     ("unsafe-disables-checker", "unsafe blocks turn off the borrow checker",
-     "An unsafe block does not stop borrow checking; it only permits a small set of extra operations such as raw pointer dereference.", "borrow-checker"),
-    ("hidden-gc", "Rust secretly runs a garbage collector",
-     "Rust has no garbage collector; memory is released by ownership and drop rules instead.", "drop-at-scope"),
+     "Ordinary reference borrowing is still checked inside unsafe blocks; unsafe permits specified extra operations whose safety obligations remain the programmer's responsibility.", "borrow-checker"),
+    ("hidden-gc", "Rust requires a hidden tracing garbage collector",
+     "Rust has no mandatory tracing collector; ownership and drop govern ordinary values, while Rc and Arc provide explicit reference counting and can leak cycles.", "drop-at-scope"),
     ("clone-moves-source", "clone() moves the original value",
-     "Calling clone produces a new value and leaves the original fully usable.", "clone-call"),
-    ("generics-checked-at-runtime", "Generic functions check types at run time",
-     "Generic code is checked and specialised at compile time through monomorphization, not by run-time type checks.", "monomorphization"),
-    ("rc-thread-safe", "Rc values can be shared between threads",
-     "Rc is neither Send nor Sync, so the compiler refuses to move or share it across threads.", "rc-sharing"),
+     "Clone::clone borrows the source through &self and returns another value without moving that source; Rc, Arc and reference clones may share their referent.", "clone-call"),
+    ("generics-checked-at-runtime", "Generic type checking waits until run time",
+     "Rust checks generic type constraints at compile time; rustc specializes used generic code, but a generic body may still contain dynamic trait-object calls.", "monomorphization"),
+    ("rc-thread-safe", "The same Rc ownership group can safely cross threads",
+     "Standard Rc is neither Send nor Sync; its ownership group cannot be transferred or shared through APIs requiring those traits merely because its payload is thread-safe.", "rc-sharing"),
     ("rust-kills-all-bugs", "Rust's compile checks eliminate every kind of bug",
-     "The compiler removes memory-ownership and data-race classes of bugs, not logic or algorithm mistakes.", "compile-rejection"),
+     "Safe Rust with sound unsafe dependencies rules out undefined memory accesses and data races; logic errors, leaks, deadlocks and higher-level race conditions can remain.", "compile-rejection"),
 ]
 # (id, label, statement, target concept)
 BOUNDARIES = [
     ("unsafe-extra-operations", "unsafe extends permitted operations",
-     "Inside unsafe blocks, raw pointers and unsafe calls step past the usual guarantees while the borrow rules still apply elsewhere.", "borrow-checker"),
-    ("leaks-are-safe", "Leaks do not break memory safety",
-     "Leaked memory is still owned memory; Rust's safety guarantees do not promise every byte is freed.", "leaked-memory"),
+     "References inside unsafe blocks still obey borrowing, aliasing and validity requirements; unsafe operations such as raw-pointer dereference require additional proof and do not disable the borrow checker.", "borrow-checker"),
+    ("leaks-are-safe", "Leaks do not imply memory unsafety",
+     "Safe code may forget a value or retain a strong reference cycle, so eventual destruction and deallocation are not universal Rust safety guarantees.", "leaked-memory"),
     ("races-beyond-data-races", "Safe Rust excludes data races, not all races",
-     "Higher-level race conditions such as two threads writing in unpredictable order behind a mutex remain possible.", "data-race"),
+     "With sound unsafe dependencies, safe Rust excludes data races; separately locked operations can still interleave into logical errors, and locking can deadlock.", "data-race"),
+    ("scoped-threads-borrow", "Scoped threads admit non-static references",
+     "std::thread::scope has been stable since Rust 1.63 and permits references to data that outlives the scope; its scoped threads are joined before it returns, unlike the 'static requirement of std::thread::spawn.", "thread-spawn"),
+    ("static-does-not-mean-immortal", "A static type bound does not make a value immortal",
+     "An owned value satisfying the static lifetime bound can be dropped normally; the bound limits borrowed references it contains, rather than forcing its allocation to last for the entire program.", "thread-spawn"),
+    ("drop-retains-borrow", "Destructor use extends required borrows",
+     "The last explicit read does not end a borrow if a Drop implementation may later access the stored reference; drop checking preserves that required lifetime.", "last-use"),
 ]
 # (id, label, statement, clarified concepts)
 EXAMPLES = [
     ("string-move", "Passing a String to a function",
-     "Handing a String to a function moves it, so the next use of the old binding is rejected with E0382 until a new value is bound.",
-     ["move-of-value", "moved-binding"]),
+     "Passing s: String by value consumes s; reading s afterward is rejected unless it is reinitialized, while passing s.clone() leaves the original binding initialized.",
+     ["move-of-value", "moved-binding", "clone-call"]),
     ("loop-push-conflict", "Iterating a vector while pushing",
-     "Iterating a vector by shared borrow while pushing needs a mutable borrow, and the checker rejects the overlap (E0502).",
+     "A for loop borrowing &values keeps the iterator's shared borrow required while values.push needs a conflicting mutable borrow of the same vector, so the compiler rejects that overlap.",
      ["aliasing-rule", "shared-borrow", "mutable-borrow"]),
     ("arc-mutex-counter", "Sharing a counter across threads",
-     "An Arc wrapping a Mutex lets several threads clone the handle, lock, mutate, and rely on the guard's drop to unlock.",
-     ["arc-sharing", "mutex-guard", "send-marker"]),
+     "Arc<Mutex<u64>> handles can move into threads; each thread locks the same mutex before updating the counter and guard drop unlocks it.",
+     ["arc-sharing", "mutex-guard", "send-marker", "mutex-unlock"]),
     ("file-question-mark", "Reading a file with the question mark",
-     "Opening a file and using the question mark operator turns any IO error into an early Err return from the function.",
+     "In a function returning Result<String, std::io::Error>, applying ? to an Err from a file operation returns that error early; an Ok value continues normally.",
      ["question-mark", "result-enum"]),
 ]
 CONTROLS = [
     ("checker-runtime", "Borrow checking happens while the program runs",
-     "Borrow checking must not be treated as a run-time activity; it rejects programs before they ever execute."),
-    ("drop-frees-nothing", "Drop at scope end releases nothing",
-     "Drop at scope end must not be treated as leaving memory unreleased."),
-    ("cargo-edits-source", "Cargo build rewrites your source files",
-     "A cargo build invocation must not be treated as editing the program's source code."),
+     "Rust compiler borrow checking must not be treated as runtime checking; RefCell's separate dynamic borrow checks do not change that distinction."),
+    ("drop-frees-nothing", "Dropping an ordinary owning Box releases nothing",
+     "Dropping an ordinary Box that retains a nonzero allocation and completes destruction must not be treated as leaving that allocation unreleased."),
+    ("cargo-edits-source", "Cargo compilation automatically repairs source code",
+     "Ordinary Cargo compilation must not be treated as automatically repairing program source; custom build scripts are separately executable code."),
     ("send-adds-lock", "The Send marker adds a run-time lock",
-     "The Send marker trait must not be treated as adding any run-time mechanism at all."),
+     "The Send marker trait must not be treated as adding a runtime lock or making every operation thread-safe."),
 ]
 
 
