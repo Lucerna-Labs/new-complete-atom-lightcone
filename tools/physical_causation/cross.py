@@ -91,6 +91,10 @@ MYTHS = [
     ("perpetual-magnet-motor", "Myth: magnets can power a perpetual motion motor", "Static magnets store no endlessly renewable energy; any magnet motor eventually stops.", "perpetual-motion"),
     ("sweat-is-heat", "Myth: sweat itself cools you because it is cold", "Sweat cools the body only as it evaporates, taking latent heat from the skin.", "evaporative-cooling"),
     ("vacuum-sucks", "Myth: a vacuum pulls things in", "A vacuum exerts no pull; the surrounding air pressure pushes things toward the low-pressure region.", "suction"),
+    ("searing-seals-juices", "Myth: searing seals in meat juices",
+     "Searing develops a browned surface but does not create a waterproof seal; moisture can still leave during cooking.", "maillard-browning"),
+    ("salt-boils-much-hotter", "Myth: seasoning salt makes cooking water much hotter",
+     "Dissolved salt raises the boiling point, but the increase at ordinary seasoning concentrations is small and does not explain a substantial acceleration of cooking.", "salted-cooking-water"),
 ]
 
 # Boundaries: (id, label, statement, target concept)
