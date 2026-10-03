@@ -2976,3 +2976,221 @@ tls-t05 pitfall FAIL (good)
 Authoring verifier: OpenSSL 3.0.13 30 Jan 2024 (Library: OpenSSL 3.0.13 30 Jan 2024). Strict reference0/pitfall1 matrix also passed without stderr; combined seconds per pair: {"tls-t01": 0.0756, "tls-t02": 0.0783, "tls-t03": 0.0801, "tls-t04": 0.0877, "tls-t05": 0.0795}.
 
 All task/probe links resolve to current generated relations. The final module still reproduces all471 generated records; authored data is unchanged from the four native checks. Registry additions are exactly13 new cited sources, existing entries preserved; builder differs only in import. No unresolved factual or evaluation concern retained within these explicit scopes. Claude review, live deployment validation and real-model benefit measurement remain separate. Ready for one authoring commit.
+
+## TLS commit and next-world transition
+
+Committed7b0ea01ddc3cb437540075a829a1ebe8f629cb36 with exactly21 allowed files and no generated curricula. Fifth of104 new worlds complete for authoring;99remain. Next printed row is net-protocol-design-v0 (pdz,networking.transport). No laterworldisunderway.
+
+## Protocol-design source registration
+
+Independent primary-source review verified nine RFC headers and two landmark-paper citations. RFC6587 is explicitly Historic and supplies scoped framing examples, not a current transport recommendation. Informational/IAB documents supply architectural guidance with stated conditions; they are not mislabeled Standards Track. Paper metadata is bound to the published journal editions via publisher-deposited DOI metadata and author bibliographies, rather than provisional manuscript pagination. Eleven entries appended, citation_only, retrieved2026-10-03.
+
+- rfc9413: Maintaining Robust Protocols; June 2023; Informational; IAB stream; https://www.rfc-editor.org/rfc/rfc9413
+- rfc6709: Design Considerations for Protocol Extensions; September 2012; Informational; IAB stream; https://www.rfc-editor.org/rfc/rfc6709
+- rfc9170: Long-Term Viability of Protocol Extension Mechanisms; December 2021; Informational; IAB stream; https://www.rfc-editor.org/rfc/rfc9170
+- rfc8701: Applying Generate Random Extensions And Sustain Extensibility (GREASE) to TLS Extensibility; January 2020; Informational; https://www.rfc-editor.org/rfc/rfc8701
+- rfc6587: Transmission of Syslog Messages over TCP; April 2012; Historic; https://www.rfc-editor.org/rfc/rfc6587
+- rfc6455: The WebSocket Protocol; December 2011; Standards Track; https://www.rfc-editor.org/rfc/rfc6455
+- rfc7252: The Constrained Application Protocol (CoAP); June 2014; Standards Track; https://www.rfc-editor.org/rfc/rfc7252
+- rfc5531: RPC: Remote Procedure Call Protocol Specification Version 2; May 2009; Standards Track; Draft Standard; https://www.rfc-editor.org/rfc/rfc5531
+- rfc8546: The Wire Image of a Network Protocol; April 2019; Informational; IAB stream; https://www.rfc-editor.org/rfc/rfc8546
+- saltzer-reed-clark-1984-end-to-end: End-to-end arguments in system design; J. H. Saltzer, D. P. Reed, D. D. Clark; ACM Transactions on Computer Systems 2(4), November 1984, pp. 277-288; revised journal edition; https://doi.org/10.1145/357401.357402
+- chandra-toueg-1996-failure-detectors: Unreliable failure detectors for reliable distributed systems; Tushar Deepak Chandra and Sam Toueg; Journal of the ACM 43(2), March 1996, pp. 225-267; https://doi.org/10.1145/226643.226647
+
+Primary author-accessible texts checked by the reviewer: https://web.mit.edu/Saltzer/www/publications/endtoend/endtoendA4.pdf ; Chandra/Toueg author bibliography https://www.cs.cornell.edu/info/people/sam/FDpapers.html and author-manuscript copy https://courses.csail.mit.edu/6.852/08/papers/CT96-JACM.pdf . The failure-detector source is used only for asynchronous delay/suspicion distinctions, not an unsupported consensus theorem claim.
+
+## Advanced world: net-protocol-design-v0
+
+Commit: pending creation, title `Author net-protocol-design-v0 with checked evaluations`.
+Counts: 110 concepts, 100 relations, 16 myths, 12 boundaries, 15 examples, 8 controls.
+Relations by kind: {"causes": 30, "enables": 32, "inhibits": 15, "predicts": 12, "prevents": 11}.
+Probes/tasks: being authored after data self-review; final receipts follow.
+
+All six author review passes completed on110 concepts and100 relations (100% causal),16 myths,12 boundaries,15 examples and8 controls. Pass counts overlap: direction/type6 revisions (including numeric receive credit predicting pause, detected integrity-mismatch outcome, and explicit control interleaving); counterexamples5 revisions (Confirmable request scope, jitter resolution, fresh Pong, steady retry load, and complete bounded Ping/Pong timing); version/standard1 revision to bound the CoAP timer stage, with definitions/examples aligned. Duplicate/circularity pass rewrote the recovery-heuristic concept independently of parser disagreement and dropped retry-retransmits-request because it restated the same transmission event; replaced it with source-verified RPC protocol-version rejection. Draft85 grew by15 mechanisms, then one-for-one replacement left100. Three singular grammar wrappers corrected; all16 myths retained. No other edge drops.
+
+Parent read every final concept,relation,myth,boundary,example/control; independent source reviewer cleared the15 additions and final anti-padding replacement. Final interleaving condition explicitly bounds actual Ping send delay and full forward/processing/return time; retry-load claim uses constant capacity/other load in a steady interval. RPC marker flags/length, MSG_DENIED/RPC_MISMATCH, CoAP token versus MessageID, WebSocket control processing, declared atomic-effect/deduplication scope and asynchronous suspicion all retain their conditions. Sources:11 new verified entries above plusexisting9110,9293,9000. Historic6587 and informational architectural sources are labeled honestly. Open doubts:no known unresolved factual blocker within declared scopes; external Claude review remains separate. Generic transactional/queue/heartbeat models are explicitly bounded, not claims of production guarantees or real-model benefit.
+
+Four checks:
+
+```
+$ python3 tools/build_net_protocol_design_causation_curriculum.py
+wrote /home/jesse/Desktop/Projects/new-complete-atom-lightcone/curricula/net-protocol-design-v0/foundations.jsonl with 480 records
+splits: {'cross_domain_holdout': 24, 'sealed_test': 55, 'train': 347, 'validation': 54}
+kinds: {'boundary': 12, 'concept': 111, 'counterexample': 16, 'relation': 318, 'synthetic_control': 8, 'worked_example': 15}
+exit: 0
+
+$ python3 tools/validate_curricula.py
+foundation lanes with controls: 23/23
+valid: True
+exit: 0
+
+$ python3 tools/validate_sources.py
+valid: True
+exit: 0
+
+$ .venv/bin/python trainer/compile_curriculum.py --world-id net-protocol-design-v0
+{
+  "schema_version": 1,
+  "world_id": "net-protocol-design-v0",
+  "adapter_independent": true,
+  "record_count": 480,
+  "node_count": 162,
+  "edge_count": 318,
+  "negative_pair_count": 8,
+  "domains": [
+    "networking"
+  ],
+  "lanes": [
+    "reasoning.causal",
+    "reasoning.deductive",
+    "thinking.bottom_up"
+  ],
+  "files": {
+    "edges.jsonl": "c5840ed8d8e5f08a7cbab4b98ff6f8d13331c6d9327bc3df84df66f6ada1b4c9",
+    "lexicon.json": "b94ba67b5e1f5cb60eb2b555c0b572d0d813f69737af8e413584e8adb81db829",
+    "nodes.jsonl": "40565c6eaea95b3ed9b21ee8a06e2861e374f3a2275e92b73f44a98059d762f8",
+    "records.jsonl": "b63066e7f6956462f119c2a95442934a187878e9b1bc535a1cb660a10263a490",
+    "relation-catalog.json": "bde19fb7c98f3e3cc71cdc1225eba5b73382204ff875f8c00c34db49a1ffe3e8",
+    "sources.json": "0d02735ca8fa845fb60975097d33edb65299a463cd029972e09e6d5e708dab3c",
+    "split-manifest.json": "5ed80cc977c0b95eb9e2ac15056a63c2b3c55f0d8fe176dd7d05bca141199aef",
+    "training-graph.json": "10d1005a1d1a395186813fbeea25647705aa704463c00b969eb803a033762053"
+  }
+}
+exit: 0
+```
+
+Reviewer relation list (complete final authored data; generated structural edges excluded):
+
+```text
+net-protocol-design-v0 | Encoded payload octet count -> predicts -> Syslog octet count prefix | RFC 6587 Section 3.4.1 octet-counting mode is selected and SYSLOG-MSG has positive byte length N; MSG-LEN is decimal N and excludes its own digits plus the separating space
+net-protocol-design-v0 | Syslog octet count prefix -> predicts -> Computed record boundary | RFC 6587 Section 3.4.1 parser has consumed a valid positive MSG-LEN and its space, so the record ends N bytes after that payload start, irrespective of embedded line feeds
+net-protocol-design-v0 | RPC record fragment marker -> predicts -> RPC fragment payload length | RFC 5531 Section 11 parser decodes the four marker bytes as unsigned network-order integer M; the high last-fragment bit is excluded from the data length
+net-protocol-design-v0 | RPC record fragment marker -> predicts -> RPC last fragment signal | RFC 5531 Section 11 marker is decoded as a 32-bit unsigned network-order value and its most significant bit is interpreted separately from its 31 length bits
+net-protocol-design-v0 | RPC fragment payload length -> predicts -> Computed record boundary | RFC 5531 current marker has its last-fragment bit set, all preceding fragments of this record have been consumed, and N denotes this fragment's length without its marker bytes
+net-protocol-design-v0 | RPC last fragment signal -> enables -> Complete framed record | RFC 5531 Section 11 parser receives every declared byte through the fragment marked last and joins the record fragments in order; completion here is framing completion, not RPC argument validation
+net-protocol-design-v0 | RPC fragment payload length -> predicts -> Protocol request rejection | RFC 5531-based request receiver has an explicit reject-before-allocation limit M and decodes N>M from the marker; rejection is this implementation policy rather than an RFC-wide numeric cap
+net-protocol-design-v0 | Partial transport read -> causes -> Incremental framing buffer | RFC 9293 byte-stream delivery and RFC 6587 octet framing: decoder retains accepted prefix or payload bytes across a read that ends before the selected framing rule's boundary
+net-protocol-design-v0 | Incremental framing state -> enables -> Complete framed record | RFC 6587 octet-counting decoder retains valid expected lengths and prior bytes, remaining bytes arrive in stream order, and the complete record fits configured limits
+net-protocol-design-v0 | Incremental framing buffer -> enables -> Complete framed record | RFC 6587 stream parser combines previously retained incomplete data with exactly the remaining valid frame bytes without treating the read boundary as a delimiter
+net-protocol-design-v0 | Per read message dispatch -> causes -> False application message boundary | RFC 9293 stream returns one valid RFC 6587 record in multiple reads and the caller dispatches the first incomplete read as a whole message instead of honoring its framing
+net-protocol-design-v0 | LF delimited syslog framing -> predicts -> Computed record boundary | RFC 6587 Section 3.4.2 selected non-transparent profile uses LF as its terminator and no separately negotiated escaping changes delimiter interpretation
+net-protocol-design-v0 | Unescaped payload line feed -> causes -> False application message boundary | RFC 6587 non-transparent framing sends an LF intended as message content and the receiver treats that byte as the end delimiter rather than as escaped content
+net-protocol-design-v0 | Syslog octet count prefix -> prevents -> False application message boundary | RFC 6587 compliant octet-counting parser consumes the validated declared number of payload bytes and does not interpret LF inside that byte range as a terminator
+net-protocol-design-v0 | Enforced frame size limit -> causes -> Protocol connection failure | RFC 6455 Section 10.4 implementation enforces a per-frame maximum before allocating the declared payload and its selected oversize policy fails the connection
+net-protocol-design-v0 | Enforced assembled message limit -> inhibits -> Fragmented message memory growth | RFC 6455 Section 10.4 receiver checks accumulated fragment bytes before accepting each addition and rejects a message whose total would exceed that cap; other messages and connections are separate budgets
+net-protocol-design-v0 | Enforced assembled message limit -> causes -> Protocol connection failure | RFC 6455 Section 10.4 implementation selects connection failure for excessive message size and the next otherwise legal fragment would push the accumulated message above its independent message cap
+net-protocol-design-v0 | WebSocket data fragmentation -> enables -> Fragmented message memory growth | RFC 6455 receiver accepts successive data fragments, retains their payloads until FIN, and does not stream those bytes to a consumer or reach an enforced assembled-message cap yet
+net-protocol-design-v0 | WebSocket data fragmentation -> enables -> WebSocket control frame interleaving | RFC 6455 Sections 5.4-5.5 sender can schedule a valid unfragmented control frame between unsent data fragments and the receiver supports the required interleaving behavior
+net-protocol-design-v0 | WebSocket control frame interleaving -> inhibits -> Heartbeat response timeout | RFC 6455 framing with a declared detector: unsent data would defer its Ping beyond remaining deadline D, interleaving actually sends it within b, and r bounds the full forward-path, peer-processing, and Pong-return interval, with b+r<D
+net-protocol-design-v0 | WebSocket Ping request -> causes -> WebSocket Pong response | RFC 6455 Section 5.5.2 endpoint receives a valid Ping, has not already received Close, and follows the response rule for that Ping rather than coalescing multiple pending Pings
+net-protocol-design-v0 | WebSocket Close transmission -> prevents -> Further WebSocket data transmission | RFC 6455 Section 5.5.1 endpoint has sent Close and enforces the rule against subsequent data frames; data already transmitted before Close is outside this claim
+net-protocol-design-v0 | Explicit protocol state checking -> causes -> Protocol connection failure | RFC 6455 Sections 5.4 and 7.1.7 receiver has no fragmented data message in progress but receives a continuation frame, and applies the required connection-failure behavior
+net-protocol-design-v0 | Enforced message grammar -> causes -> Protocol connection failure | RFC 6455 Sections 5.5 and 7.1.7 received control frame has FIN unset, violating the non-fragmentation rule, and the receiver fails the connection
+net-protocol-design-v0 | Enforced message grammar -> causes -> Protocol request rejection | RFC 7252 request header is otherwise recognizable but a declared option length exceeds the remaining UDP message bytes, and the endpoint enforces format-error rejection rather than dispatching a truncated option
+net-protocol-design-v0 | Supported version offer -> enables -> Mutually permitted feature selection | RFC 6709 extension-design model uses an explicit capability exchange, the peers have at least one common permitted option, and the selected option is actually supported on both sides
+net-protocol-design-v0 | Unknown elective CoAP option -> enables -> Specified optional extension skipping | RFC 7252 Section 5.4.1 receiving endpoint processes a well-formed unrecognized even-numbered elective option and ignores it while honoring all other request requirements
+net-protocol-design-v0 | Specified optional extension skipping -> inhibits -> Protocol interoperability failure | RFC 6709 and RFC 7252 baseline operation remains valid without that optional feature, the field's framing is understood, and both peers honor its defined ignore semantics
+net-protocol-design-v0 | Unknown critical CoAP option -> causes -> Protocol request rejection | RFC 7252 Section 5.4.1 recipient processes an otherwise valid Confirmable unicast request rather than proxying it, and an unrecognized critical option requires a 4.02 Bad Option response
+net-protocol-design-v0 | Permissive malformed input recovery -> enables -> Cross implementation parser disagreement | RFC 9413 maintained-protocol model has two recipients whose undocumented recovery heuristics derive different interpretations of the same input outside the agreed grammar
+net-protocol-design-v0 | Cross implementation parser disagreement -> causes -> Protocol interoperability failure | RFC 9413 communicating implementations derive incompatible boundaries or operation parameters from one malformed encoding and cannot complete the intended operation with those interpretations
+net-protocol-design-v0 | Actionable protocol error feedback -> enables -> Coordinated protocol repair deployment | RFC 9413 Sections 3 and 5.1 responsible maintainers receive sufficient evidence to reproduce the incompatible behavior, have an update path, and can implement and test a correction
+net-protocol-design-v0 | Coordinated protocol repair deployment -> inhibits -> Protocol interoperability failure | RFC 9413 active-maintenance setting updates all endpoints relevant to this particular bug to a tested mutually valid encoding and no independent fault continues causing this same failure
+net-protocol-design-v0 | Observable wire field value -> enables -> Incidental middlebox format dependency | RFC 8546 wire-image model exposes the extensible field, a deployed intermediary can parse it, and its implementation relies on currently observed values rather than the specified extension rules
+net-protocol-design-v0 | Incidental middlebox format dependency -> causes -> Protocol extension ossification | RFC 8546 and RFC 9170 endpoints support the new behavior but an unavoidable path device rejects it solely because its parser or policy assumes the earlier visible layout or value
+net-protocol-design-v0 | Well formed GREASE offer -> inhibits -> Protocol extension ossification | RFC 8701 and RFC 9170 deployed clients vary reserved offer values in permitted positions, peers must tolerate these unknown offers to interoperate, and silent GREASE-removing fallback does not conceal failures
+net-protocol-design-v0 | Negotiated GREASE value -> causes -> Protocol connection failure | RFC 8701 server selects a reserved GREASE parameter as an actual negotiated result and the client applies the required rejection instead of treating the offered test value as a supported algorithm
+net-protocol-design-v0 | Authenticated capability negotiation -> prevents -> Undetected capability stripping | RFC 6709 security-design model authenticates the exact relevant negotiation bytes, endpoints enforce verification failure, and an external attacker altering those bytes cannot forge the authentication
+net-protocol-design-v0 | Unresolved application invocation -> enables -> Additional invocation attempt | RFC 5531 application or caller policy permits retry of this unresolved operation, its attempt budget and deadline allow another send, and operation semantics or receiver suppression make that chosen retry acceptable
+net-protocol-design-v0 | Application completion reply loss -> causes -> Client execution outcome uncertainty | RFC 5531 Section 5 server completed the operation but its reply never reaches the client, which has no independent status read or durable-result acknowledgment revealing that completion
+net-protocol-design-v0 | Client response deadline expiry -> causes -> Client wait abandonment | Declared RPC client stops this wait and reports timeout when its local deadline expires without the required accepted response; this rule performs no remote rollback
+net-protocol-design-v0 | Client response deadline expiry -> enables -> Additional invocation attempt | RFC 5531/9110 caller treats the missing reply as ambiguous, has remaining retry budget, and the applicable idempotency or duplicate-suppression policy permits another attempt
+net-protocol-design-v0 | Exponential backoff step -> predicts -> Scheduled retry delay | RFC 6455 Section 7.2.3 motivates increasing reconnect delays; this declared implementation chooses binary exponent k>=0, base>0, and cap>=base, with any separate jitter applied afterward
+net-protocol-design-v0 | Scheduled retry delay -> inhibits -> Retry induced service overload | Declared serial retry controller continues failing in a steady interval and adds a positive wait between attempts instead of retrying immediately, comparing equal per-attempt work under constant service capacity and constant other offered load
+net-protocol-design-v0 | Independent retry jitter -> inhibits -> Synchronized retry concentration | RFC 6455-inspired declared policy samples independent uniform delays over a window spanning multiple bins at the measured congestion timescale, and timer resolution preserves that spread instead of rounding all attempts into one bin
+net-protocol-design-v0 | Synchronized retry concentration -> causes -> Retry induced service overload | Declared finite-capacity service receives the clustered retry work faster than it can process or admit it, without sufficient reserve capacity or an earlier limiter absorbing that burst
+net-protocol-design-v0 | Retry attempt budget exhaustion -> prevents -> Additional invocation attempt | Declared retry controller enforces its finite attempt budget for this invocation; already-sent requests and the wait for their responses are not canceled merely by this budget check
+net-protocol-design-v0 | HTTP Retry After instruction -> enables -> Scheduled retry delay | RFC 9110 Section 10.2.3 client follows an applicable valid Retry-After value for a retry it is otherwise allowed to perform, using its delta seconds or interpreted HTTP date
+net-protocol-design-v0 | Accepted remote cancellation request -> prevents -> Remote completion after client timeout | Declared application handler receives cancellation before its irreversible commit point, atomically marks that invocation canceled, and every relevant worker honors that state before committing the modeled effect
+net-protocol-design-v0 | Explicit protocol state checking -> causes -> Protocol request rejection | RFC 5531 Section 9 unicast server supports RPC version 2 only, recognizes an otherwise decodable CALL carrying rpcvers other than 2, and rejects it with MSG_DENIED/RPC_MISMATCH rather than invoking its procedure
+net-protocol-design-v0 | Idempotent operation semantics -> predicts -> Stable intended operation effect | RFC 9110 Section 9.2.2 compares the same idempotent operation and requested state with no intervening conflicting operation; response values and incidental logs are not required to be identical
+net-protocol-design-v0 | Idempotent operation semantics -> enables -> Additional invocation attempt | RFC 9110 Section 9.2.2 client loses the connection before reading the response, knows this identical request's intended effect is idempotent, and has budget and policy permission to retry
+net-protocol-design-v0 | Non idempotent operation -> prevents -> Additional invocation attempt | RFC 9110 Section 9.2.2 client follows the no-automatic-retry recommendation, has neither evidence the first request was unapplied nor knowledge of safe repeat semantics, and has no explicit user override
+net-protocol-design-v0 | Additional invocation attempt -> causes -> Repeated application effect | RFC 5531 and the end-to-end duplicate-suppression argument: reply loss prompts another execution of the same non-idempotent request, and the receiver has no effective suppression before applying it again
+net-protocol-design-v0 | Non idempotent operation -> enables -> Repeated application effect | RFC 9110 semantics: the operation increments or adds state on each execution, the same logical invocation reaches the handler more than once, and no duplicate gate removes later executions
+net-protocol-design-v0 | Stable logical invocation identity -> enables -> Pre effect duplicate check | Declared endpoint handler keys its retained invocation records by the same correctly scoped identity on every retry, and unrelated operations cannot reuse that key within the active horizon
+net-protocol-design-v0 | Retained invocation result record -> enables -> Cached invocation result replay | Declared endpoint handler recognizes the same identity and same operation content, the completed result remains present, and the duplicate path returns that stored result instead of dispatching the effect
+net-protocol-design-v0 | Pre effect duplicate check -> prevents -> Repeated application effect | Declared handler serializes admission with its effect/result state, finds an existing completed matching record, and returns or rejects before the duplicate reaches the effectful handler
+net-protocol-design-v0 | Atomic effect and result commit -> enables -> At most once effect guarantee | Declared transactional handler atomically serializes duplicate exclusion, all modeled effects, and the result record; identities remain unique and records survive the specified crash/retry horizon without eviction
+net-protocol-design-v0 | Durable invocation result state -> enables -> Cached invocation result replay | Declared transactional receiver restores the committed identity/result record before handling retries and all effects described by that record committed in the same durable transaction
+net-protocol-design-v0 | Invocation identity payload conflict -> causes -> Protocol request rejection | Declared application handler compares the retained operation association before dispatch, detects different content for the same scoped identity, and rejects the conflict rather than reusing or overwriting the earlier result
+net-protocol-design-v0 | Duplicate record eviction -> enables -> Repeated application effect | Declared receiver has removed the sole completed record, later accepts the old identity again, and executes a non-idempotent effect whose earlier execution already committed
+net-protocol-design-v0 | Client incarnation namespace -> enables -> Stable logical invocation identity | Declared client combines a nonreused incarnation identifier with its per-incarnation request counter, preserves the old identity for retries, and the receiver includes that namespace in its duplicate key
+net-protocol-design-v0 | Additional invocation attempt -> enables -> At least once execution guarantee | Declared caller retains the pending operation and keeps attempting until completion evidence, retries are not permanently abandoned, and fair delivery plus eventual server availability lets at least one attempt reach a handler that completes it
+net-protocol-design-v0 | CoAP Message ID -> predicts -> Duplicate CoAP message arrival | RFC 7252 Sections 4.4-4.5 receiver has stored this peer endpoint and Message ID within the applicable message lifetime, and a later message reuses that same pair as a retransmission
+net-protocol-design-v0 | CoAP request Token -> enables -> Matched CoAP response | RFC 7252 Section 5.3 response has the same Token and expected peer endpoint as the pending request, and a piggybacked ACK response also satisfies its Message ID match
+net-protocol-design-v0 | Matched CoAP response -> enables -> Endpoint result acceptance | RFC 7252 client accepts a final response for the current request after correlation and required security/content checks, and the declared operation contract treats that returned result as completion without inferring unstated durable effects
+net-protocol-design-v0 | Duplicate CoAP message arrival -> causes -> CoAP duplicate processing suppression | RFC 7252 Section 4.5 receiver retains duplicate state within EXCHANGE_LIFETIME or NON_LIFETIME and follows the recommended process-once behavior rather than a stated idempotency-based relaxation
+net-protocol-design-v0 | CoAP duplicate processing suppression -> inhibits -> Repeated application effect | RFC 7252 receiver identifies the same endpoint/Message-ID message, preserves its duplicate state, and does not dispatch the duplicate request again; later application retries with new identities are excluded
+net-protocol-design-v0 | CoAP empty acknowledgment -> inhibits -> CoAP confirmable retransmission timer | RFC 7252 Section 4.2 sender receives a valid matching empty ACK for the outstanding confirmable Message ID and endpoint, stopping that message's retransmission while a separate response may still be pending
+net-protocol-design-v0 | CoAP confirmable retransmission timer -> causes -> Additional invocation attempt | RFC 7252 Section 4.2 unacknowledged confirmable request reaches timer expiry before MAX_RETRANSMIT retransmissions have been sent and the exchange has not otherwise been canceled
+net-protocol-design-v0 | Exponential backoff step -> predicts -> CoAP confirmable retransmission timer | RFC 7252 Section 4.2 exchange chooses R once in ACK_TIMEOUT through ACK_TIMEOUT*ACK_RANDOM_FACTOR, uses an armed wait stage 0<=k<=MAX_RETRANSMIT, and doubles rather than redrawing R
+net-protocol-design-v0 | Single stream transport order -> enables -> Complete framed record | RFC 9293 one TCP byte stream carries a correctly framed sequence, the parser follows that framing, and missing earlier bytes are repaired before later bytes are delivered to it
+net-protocol-design-v0 | Concurrent request execution -> causes -> Application effect ordering | Declared application receives request A before B but dispatches both concurrently, B reaches its effect boundary before A, and no sequencing or transaction dependency constrains those commits
+net-protocol-design-v0 | Separate request channels -> enables -> Stale command application | End-to-end FIFO argument: an older update on one channel is delayed until after a newer conflicting update on another, and the receiver applies arrival order without an application sequence guard
+net-protocol-design-v0 | Application sequence enforcement -> enables -> Application effect ordering | Declared receiver atomically checks the expected sequence and serializes the corresponding commit, holding or rejecting out-of-order operations rather than merely ordering their dispatch
+net-protocol-design-v0 | Application sequence enforcement -> prevents -> Stale command application | Declared receiver has committed a newer sequence for the same state object, checks incoming sequence under the same serialization boundary, and rejects the older command without resetting that state
+net-protocol-design-v0 | Producer consumption rate surplus -> causes -> Pending application queue occupancy | Declared queue admits arrivals faster than its consumer removes work during the interval, with no dropping, expiry, spill, or other drain offsetting that surplus
+net-protocol-design-v0 | Enforced application queue bound -> inhibits -> Pending application queue occupancy | Declared queue checks each admission against a fixed byte cap or item cap with bounded item sizes and blocks or rejects before exceeding that same queue's limit
+net-protocol-design-v0 | Enforced application queue bound -> causes -> Demand driven reader pause | Declared receiver chooses the blocking-backpressure policy at its reached queue bound and stops requesting or reading more input rather than moving it to another unbounded queue
+net-protocol-design-v0 | Demand driven reader pause -> causes -> Unread transport receive data | RFC 9293 receiving TCP has a finite buffer, incoming bytes are accepted within existing credit, and no other application reader drains those bytes during the pause
+net-protocol-design-v0 | Unread transport receive data -> inhibits -> Available transport receive credit | RFC 9293 receiver uses a fixed finite receive buffer, unread accepted bytes occupy capacity, and window updates do not create additional capacity or retract already granted sequence space
+net-protocol-design-v0 | Available transport receive credit -> predicts -> Flow control sender pause | RFC 9293 sender has queued unsent data and an accepted zero window with no remaining ordinary new-data allowance; retransmissions and zero-window probes follow their separate rules
+net-protocol-design-v0 | Available transport receive credit -> enables -> Application request transmission | RFC 5531 request over RFC 9293 TCP has serialized bytes within current usable receive credit, congestion credit and other send gates permit transmission, and the application elects to send
+net-protocol-design-v0 | Flow control sender pause -> inhibits -> Pending application queue occupancy | Declared single-input pipeline propagates stopped transport sending to fewer delivered application messages after already-buffered data drains, with no bypass queue or other producer replacing the suppressed input
+net-protocol-design-v0 | Unbounded application read ahead -> causes -> Pending application queue occupancy | Declared receiver continuously moves accepted transport data to its own unbounded queue faster than the application consumes it, keeping socket-buffer credit available while application memory grows
+net-protocol-design-v0 | Endpoint integrity verification -> causes -> Detected endpoint integrity mismatch | Saltzer/Reed/Clark end-to-end file-transfer model fixes the intended source version and trusted expected integrity value, and the completed destination object computes a different value
+net-protocol-design-v0 | Corruption outside link checks -> enables -> Detected endpoint integrity mismatch | Saltzer/Reed/Clark file-transfer path corrupts data in a stage outside the successful link checksum coverage and the receiver's independent whole-object check detects that alteration
+net-protocol-design-v0 | Detected endpoint integrity mismatch -> prevents -> Endpoint result acceptance | Receiving application compares against the trusted expected source version and rejects the mismatching completed object before publishing it as a successful transfer
+net-protocol-design-v0 | Detected endpoint integrity mismatch -> enables -> End to end transfer retry | Saltzer/Reed/Clark file-transfer design has retained source data, an allowed retry budget, and a receiver policy requesting repair after the failed whole-object check
+net-protocol-design-v0 | Local link error repair -> inhibits -> End to end transfer retry | Saltzer/Reed/Clark layered-reliability model repairs this link error before the end-to-end deadline and delivers correct bytes, with no remaining fault requiring a wider-scope retry for that error
+net-protocol-design-v0 | Application commit acknowledgment -> enables -> Endpoint result acceptance | Declared endpoint contract emits this authenticated correlated reply only after all modeled effects are durably committed, and the client verifies its invocation identity and required result fields
+net-protocol-design-v0 | Application commit acknowledgment -> inhibits -> Client execution outcome uncertainty | Declared honest endpoint sends the authenticated matching acknowledgment only after the modeled commit, and the client accepts its evidence; the message does not separately prove a global bound on all duplicate effects
+net-protocol-design-v0 | Live peer response delay -> causes -> Heartbeat response timeout | Chandra/Toueg asynchronous-delay model and declared timer detector: the peer remains live, its response is delayed beyond the configured wait, and no other qualifying response cancels that timer
+net-protocol-design-v0 | Heartbeat response timeout -> causes -> Peer failure suspicion | Chandra/Toueg unreliable-detector model: this implementation marks a peer suspected after a missed-response deadline but has no bound making delay distinguishable from a crash
+net-protocol-design-v0 | Peer failure suspicion -> causes -> Client wait abandonment | Declared RPC client consumes the detector's suspicion event and is configured to stop its pending wait for that peer, even though the asynchronous failure-detector evidence does not prove the peer crashed
+net-protocol-design-v0 | Heartbeat response correlation -> prevents -> Stale heartbeat response adoption | Declared detector validates a nonreused outstanding probe identifier and connection/incarnation context, rejects mismatches or expired probes, and does not treat any arbitrary response as the current heartbeat
+net-protocol-design-v0 | Correlated WebSocket Pong receipt -> inhibits -> Peer failure suspicion | RFC 6455 Ping/Pong is used by a declared detector that accepts a timely new probe's matching Pong and clears prior peer suspicion; it does not claim that same new probe had already timed out
+net-protocol-design-v0 | Correlated WebSocket Pong receipt -> prevents -> Heartbeat response timeout | Declared heartbeat controller receives the correctly matched Pong before its deadline, atomically cancels that probe's timer, and does not reuse the probe identity for another wait
+net-protocol-design-v0 | Heartbeat response correlation -> enables -> Correlated WebSocket Pong receipt | RFC 6455 Pong echoes the pending Ping payload on the same connection and the application's probe identity has not been reused or expired in the interval
+```
+
+## Protocol-design final evaluation review
+
+Independent review confirmed all 24 probe truths and requested three scope clarifications: the CoAP empty-ACK case now says no matching application response has arrived yet; the WebSocket cap case counts buffered payload bytes rather than allocator overhead; duplicate suppression refers to the modeled state-changing operation, not incidental logging. All applied, including the pressure copy. Kind mix is6/4/3/3/4/4, with8true/16false after pressure copies; exact base questions, truth and links are preserved.
+
+Five full task contracts and 17 files were read and reviewed. Final coverage:38 RPC-framing cases;43 decoded WebSocket assembly cases;21 CoAP exchange traces/88 snapshots;32 atomic invocation-ledger fixtures;10 heartbeat traces/56 snapshots. RPC is framing only; WebSocket input excludes wire/mask/RSV/text and unvalidated Close-body semantics; transactional crashes are a declared logical model rather than physical durability evidence; heartbeat output is suspicion rather than actual failure.
+
+The stateful RFC7252 CoAP profile is explicit: unexpected piggybacked responses are rejected via Sections5.3.2/4.2. Independent primary recheck distinguished the different ACK-part behavior specified for stateless RFC8974 clients; that extension profile is outside this retained known-Token component. All same-time event/timer ordering and historical message-failure semantics are declared, including response-before-ACK and later completion after transmission give-up.
+
+Checker review closed these actual gaps: completed/empty input with eof=False; empty supplied byte pieces within an unfinished RPC marker/payload; heartbeat replacement at/after the prior deadline; exact case-sensitive probe/context matching; and single-key eviction preserving another retained invocation record and its original cached result. Empty supplied pieces are explicitly not socket EOF.
+
+Focused mutation checks: parent rejected10 RPC-framing and10 heartbeat variants; authors rejected9 WebSocket and10 initial transactional variants, then the evict-all variant after the isolation fixture; CoAP author rejected31 semantic plus4 schema variants. Additional reviewer probes supported the same contracts without replacing the independent hand oracles. Each published pitfall is a full-interface solution with one domain error: last-marker flag included in length; per-fragment rather than aggregate message cap; empty ACK treated as application completion; duplicate decision frozen at begin instead of atomic commit; unrelated Pong accepted for the current probe. Parent verified non-crashing semantic first differences at case0,case18,trace5/event1,case8,trace0/event1 respectively.
+
+Prompt-required literal verification loop after final repairs:
+
+```text
+pdz-t01 ref PASS
+pdz-t01 pitfall FAIL (good)
+pdz-t02 ref PASS
+pdz-t02 pitfall FAIL (good)
+pdz-t03 ref PASS
+pdz-t03 pitfall FAIL (good)
+pdz-t04 ref PASS
+pdz-t04 pitfall FAIL (good)
+pdz-t05 ref PASS
+pdz-t05 pitfall FAIL (good)
+```
+
+Strict process verification also confirms all reference0/pitfall1 outcomes with no stderr. Combined seconds per pair: {"pdz-t01": 0.078, "pdz-t02": 0.0767, "pdz-t03": 0.0886, "pdz-t04": 0.0769, "pdz-t05": 0.0757}.
+
+Every task/probe edge link resolves to current generated relations; module still reproduces all480 records after the four native checks. Registry changes are exactly11 appended cited sources, with existing entries intact; builder differs only in import. No unresolved factual or evaluation concern remains within these bounded models. External Claude review, production protocol acceptance and real-model benefit testing remain separate. Ready for one authoring commit.
