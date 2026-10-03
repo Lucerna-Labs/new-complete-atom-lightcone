@@ -2534,3 +2534,224 @@ rte-t05 pitfall FAIL (good)
 Strict reference0/pitfall1 verification also passed with no stderr; combined elapsed seconds per pair: {"rte-t01": 0.0798, "rte-t02": 0.0722, "rte-t03": 0.074, "rte-t04": 0.0893, "rte-t05": 0.0997}.
 
 All5 task manifests and24 probes link to current generated relation IDs. Exact17 evaluation source files, standard library only, no network,5-second candidate process limits. Four native checks above remain bound to unchanged final world/source data. No unresolved factual or evaluation concern retained within the explicit scopes; Claude review and any real-model benefit measurement remain separate. Ready for one authoring commit.
+
+## Routing commit and next-world transition
+
+Committed1643916bad9a3f27cb7ac9d1c8f058bf1032ade8 with exactly21 allowed files and no curricula outputs. Third of104 new worlds complete for authoring;101remain. Next printed row is net-naming-addressing-v0 (nma,networking.dns); no later world underway. All Step0 correction branches remain unchanged.
+
+## Naming/addressing source registration
+
+Independent primary review verified16 new RFC headers and publication metadata; reused existingrfc9499 andrfc8200. Explicit source categories retained; RFC826 predatesIETF and identifiesRFCEditor as publisher. Allcitation_only, retrieved2026-10-03. Scope covers DHCPv4, baseline4862 SLAAC, behavioral DNSSEC validation, UDP NAT traversal, STUNobservedmapping andTURNrelay, with8767 serve-stale as a named TTL exception; noDHCPv6,ICE-state-machine,NSEC3or9520failure-cache claim inferred.
+
+- rfc1034: Domain names - concepts and facilities; November 1987; Internet Standard 13; https://www.rfc-editor.org/rfc/rfc1034
+- rfc1035: Domain names - implementation and specification; November 1987; Internet Standard 13; https://www.rfc-editor.org/rfc/rfc1035
+- rfc2308: Negative Caching of DNS Queries (DNS NCACHE); March 1998; Standards Track; https://www.rfc-editor.org/rfc/rfc2308
+- rfc4033: DNS Security Introduction and Requirements; March 2005; Standards Track; https://www.rfc-editor.org/rfc/rfc4033
+- rfc4035: Protocol Modifications for the DNS Security Extensions; March 2005; Standards Track; https://www.rfc-editor.org/rfc/rfc4035
+- rfc2131: Dynamic Host Configuration Protocol; March 1997; Standards Track; https://www.rfc-editor.org/rfc/rfc2131
+- rfc2132: DHCP Options and BOOTP Vendor Extensions; March 1997; Standards Track; https://www.rfc-editor.org/rfc/rfc2132
+- rfc4291: IP Version 6 Addressing Architecture; February 2006; Standards Track; https://www.rfc-editor.org/rfc/rfc4291
+- rfc4861: Neighbor Discovery for IP version 6 (IPv6); September 2007; Standards Track; https://www.rfc-editor.org/rfc/rfc4861
+- rfc4862: IPv6 Stateless Address Autoconfiguration; September 2007; Standards Track; https://www.rfc-editor.org/rfc/rfc4862
+- rfc826: An Ethernet Address Resolution Protocol: Or Converting Network Protocol Addresses to 48.bit Ethernet Address for Transmission on Ethernet Hardware; November 1982; Internet Standard 37; https://www.rfc-editor.org/rfc/rfc826
+- rfc4787: Network Address Translation (NAT) Behavioral Requirements for Unicast UDP; January 2007; Best Current Practice 127; https://www.rfc-editor.org/rfc/rfc4787
+- rfc5128: State of Peer-to-Peer (P2P) Communication across Network Address Translators (NATs); March 2008; Informational; https://www.rfc-editor.org/rfc/rfc5128
+- rfc8489: Session Traversal Utilities for NAT (STUN); February 2020; Standards Track; https://www.rfc-editor.org/rfc/rfc8489
+- rfc8656: Traversal Using Relays around NAT (TURN): Relay Extensions to Session Traversal Utilities for NAT (STUN); February 2020; Standards Track; https://www.rfc-editor.org/rfc/rfc8656
+- rfc8767: Serving Stale Data to Improve DNS Resiliency; March 2020; Standards Track; https://www.rfc-editor.org/rfc/rfc8767
+
+## Advanced world: net-naming-addressing-v0
+
+Commit: pending creation, title `Author net-naming-addressing-v0 with checked evaluations`.
+Counts: 110 concepts, 100 relations, 17 myths, 12 boundaries, 15 examples, 8 controls.
+Relations by kind: {"causes": 36, "enables": 38, "inhibits": 8, "predicts": 9, "prevents": 9}.
+Probes/tasks: being authored after final data self-review; final receipts will follow.
+
+Author six-pass review completed on110 concepts/100relations (100% causal),17myths,12boundaries,15examples,8controls. Direction/type pass repaired5 relations: age targets remaining TTL; retained positive cache is the cause of delayed new-data visibility; STUN response yields a measured endpoint; NDP validation targets message acceptance; cross-view reuse targets answer-view mismatch rather than altering configured view selection. Counterexample pass tightened6 conditions: NS local-unicast processing, NA Override conflict behavior, current signature validation, new filter-state creation, correct STUN observation, and newly established punching permissions. Version pass narrowed3 CNAME chase/target/cycle relations to ordinary terminal queries excluding CNAME/ANY. Duplicate/circularity pass found0 duplicate edges and renamed1 colliding control ID. Myth pass repaired1 absolute L-zero claim to distinguish PIO-driven withdrawal from natural Prefix List expiry. Count pass added4 documented missing mechanisms (DHCP request-send epoch, DNSSEC four-bound cache TTL, SLAAC two-hour branch, CNAME loop failure) and1 worked lease-clock example;0 authored edges dropped.
+
+Parent read all110 final concepts,100relations and allscaffolding, with independent primary-source reviewer checking every claim and allreported repairs. Insecure now distinguishes authenticated insecure paths from Indeterminate/no-anchor state. Plural timing labels use grammatical singular constructions. Sources: reusedrfc9499/rfc8200 plus16 verified entries listed above. Open doubts: no unresolved factual claim identified at final self-review; external Claude review remains required before import. No trained geometry acceptance, live network result, or real-model benefit claimed.
+
+Four checks:
+
+```
+$ python3 tools/build_net_naming_addressing_causation_curriculum.py
+wrote /home/jesse/Desktop/Projects/new-complete-atom-lightcone/curricula/net-naming-addressing-v0/foundations.jsonl with 484 records
+splits: {'cross_domain_holdout': 24, 'sealed_test': 55, 'train': 347, 'validation': 58}
+kinds: {'boundary': 12, 'concept': 111, 'counterexample': 17, 'relation': 321, 'synthetic_control': 8, 'worked_example': 15}
+exit: 0
+
+$ python3 tools/validate_curricula.py
+foundation lanes with controls: 23/23
+valid: True
+exit: 0
+
+$ python3 tools/validate_sources.py
+valid: True
+exit: 0
+
+$ .venv/bin/python trainer/compile_curriculum.py --world-id net-naming-addressing-v0
+{
+  "schema_version": 1,
+  "world_id": "net-naming-addressing-v0",
+  "adapter_independent": true,
+  "record_count": 484,
+  "node_count": 163,
+  "edge_count": 321,
+  "negative_pair_count": 8,
+  "domains": [
+    "networking"
+  ],
+  "lanes": [
+    "reasoning.causal",
+    "reasoning.deductive",
+    "thinking.bottom_up"
+  ],
+  "files": {
+    "edges.jsonl": "8e20f107cc0deab9adc2c3d3d2143a1f4f89b22f89b78b1a5049081579aab505",
+    "lexicon.json": "676ed7137aad26bf4d04ac3c575d364a604f71bc66e7d8760912d5137d21d264",
+    "nodes.jsonl": "7dc68db31940518b91aa346e5c79c02329103dad2718823f3a61c5531aa9e87e",
+    "records.jsonl": "4cb61b6efe774c67fb2f17aca525a137d495bd1d5a566fb98ee59318414be4d9",
+    "relation-catalog.json": "bde19fb7c98f3e3cc71cdc1225eba5b73382204ff875f8c00c34db49a1ffe3e8",
+    "sources.json": "7ae1198e7af3576868050db51e3eea1b67be6cc3ac1be2166edcdac447feeb50",
+    "split-manifest.json": "15d19455a50dfc402c2c9c8a604cacab37790ce89473bba031f6ce36adb4c8a0",
+    "training-graph.json": "08c7ab84f3ee840a9e8db9c28e7673acd07776ef57c711699afc329817010c73"
+  }
+}
+exit: 0
+```
+
+Reviewer relation list (complete final authored data; generated structural edges excluded):
+
+```text
+net-naming-addressing-v0 | Client recursive DNS query -> causes -> Iterative DNS resolution | RFC 1034 full recursive resolver accepts recursion for this client, lacks a usable local or cached answer, and is configured to iterate rather than forward the request
+net-naming-addressing-v0 | Root server bootstrap information -> enables -> Upstream DNS query | RFC 1034 iterative resolver has no closer cached delegation and uses valid reachable root addresses to begin resolving a non-root name
+net-naming-addressing-v0 | Iterative DNS resolution -> causes -> Upstream DNS query | RFC 1034 Section 5.3 resolver's iteration has a selected reachable server and still needs uncached data for the active query
+net-naming-addressing-v0 | Upstream DNS query -> causes -> DNS delegation referral | RFC 1034 authoritative parent receives an ordinary query below an existing zone cut and returns the child NS referral rather than recursively resolving it
+net-naming-addressing-v0 | DNS delegation referral -> enables -> Authoritative server query | RFC 1034 resolver accepts the referral for the queried subtree, obtains a usable address for a listed child server, and can reach that server
+net-naming-addressing-v0 | Delegation glue address -> enables -> Authoritative server query | RFC 1034 delegation names a child server inside that child zone, the resolver has no independent server address, and acceptable parent glue supplies a reachable address
+net-naming-addressing-v0 | Authoritative server query -> causes -> Authoritative DNS answer | RFC 1034 Section 4.3.2 reachable authoritative server has the requested owner and RRset in its selected zone view and returns a positive response without delegation or alias redirection
+net-naming-addressing-v0 | DNS CNAME response -> causes -> Canonical target lookup | RFC 1034 resolver processes an ordinary terminal RRtype query such as A or AAAA, excluding CNAME and ANY, receives a valid alias, and has not obtained the requested terminal data
+net-naming-addressing-v0 | Canonical target lookup -> enables -> Authoritative server query | RFC 1034 ordinary terminal RRtype lookup excludes CNAME and ANY, the target is not in an alias loop, its required data is uncached, and delegation yields a reachable authoritative server
+net-naming-addressing-v0 | Authoritative DNS answer -> enables -> Positive DNS cache entry | RFC 1034/1035 recursive resolver accepts relevant answer data under its cache and validation rules and the received TTL is positive
+net-naming-addressing-v0 | Positive DNS cache entry -> enables -> Fresh DNS cache reuse | RFC 1034/1035 record remains stored, name/type/class and selected view match, its remaining TTL is positive, and applicable DNSSEC validation bounds still permit use
+net-naming-addressing-v0 | Fresh DNS cache reuse -> inhibits -> Upstream DNS query | RFC 1034 resolver fully answers the matching question from usable cache and does not simultaneously prefetch or perform policy-mandated revalidation for it
+net-naming-addressing-v0 | Received resource record TTL -> predicts -> Fresh DNS cache reuse | RFC 1035 accepted record starts with TTL T seconds and age a with 0<=a<T; retention and signature validity may impose shorter bounds, and serve-stale is not fresh reuse
+net-naming-addressing-v0 | DNS cache entry age -> predicts -> Remaining DNS cache TTL | RFC 1034/1035 ordinary cache ages a retained positive record by a nonnegative elapsed time a without refreshing or reinstalling that record
+net-naming-addressing-v0 | Positive DNS cache entry -> inhibits -> New DNS record visibility | RFC 1034 resolver retains and uses an unexpired earlier answer after the authoritative value changes, no invalidation or refresh replaces the entry, and the client asks through that cache
+net-naming-addressing-v0 | Original zero TTL record -> prevents -> Positive DNS cache entry | RFC 1035 and RFC 8767 Section 7 resolver receives the record with original TTL zero, so only the current transaction may use it even if serve-stale is configured
+net-naming-addressing-v0 | Configured stale data retention -> enables -> Served stale DNS answer | RFC 8767 resolver retained eligible data originally received with positive TTL, the original TTL has expired, refresh has not supplied a fresh answer within policy limits, and bounded stale serving is allowed
+net-naming-addressing-v0 | Served stale DNS answer -> inhibits -> DNS resolution failure | RFC 8767 an eligible retained answer satisfies this question under configured stale policy and is returned with a positive response TTL while refresh attempts continue
+net-naming-addressing-v0 | Negative answer SOA timing pair -> predicts -> Negative cache lifetime | RFC 2308 Sections 3-5 authoritative NXDOMAIN or NODATA supplies its relevant SOA; additional local policy or validation bounds may shorten the chosen lifetime
+net-naming-addressing-v0 | DNS NXDOMAIN response -> enables -> Negative DNS cache entry | RFC 2308 Section 5 accepted authoritative negative answer has a relevant SOA and positive negative TTL; no CNAME is present, so the absent name is the question name
+net-naming-addressing-v0 | DNS NODATA response -> enables -> Negative DNS cache entry | RFC 2308 Section 5 resolver distinguishes NODATA from referral and alias processing and accepts the relevant SOA with a positive negative lifetime for this QNAME/QTYPE/QCLASS
+net-naming-addressing-v0 | Negative DNS cache entry -> inhibits -> Upstream DNS query | RFC 2308 retained entry is unexpired and the request matches NXDOMAIN's name/class key or NODATA's name/type/class key in the same resolution view, with no proactive refresh
+net-naming-addressing-v0 | Negative DNS cache entry -> inhibits -> New DNS record visibility | RFC 2308 resolver still answers from an unexpired NXDOMAIN for the exact name and class even though the authoritative zone has since created the name, and no invalidation intervenes
+net-naming-addressing-v0 | DNS cache entry age -> predicts -> Negative cache lifetime | RFC 2308 Section 5 retained negative answer is aged for elapsed a seconds without replacement; serving its cached result does not restart its original lifetime
+net-naming-addressing-v0 | CNAME alias cycle -> causes -> DNS resolution failure | RFC 1034 Section 5.3.3 resolver follows an ordinary terminal RRtype query such as A or AAAA through a repeated alias without terminal data, detects the cycle, and reports failure; CNAME and ANY queries are excluded
+net-naming-addressing-v0 | Configured DNSSEC trust anchor -> enables -> Authenticated DNSKEY set | RFC 4033/4035 resolver has a current applicable configured DNSKEY or DS trust anchor, supports its algorithms, and validates the corresponding DNSKEY RRset as required
+net-naming-addressing-v0 | Authenticated parent DS record -> enables -> Authenticated DNSKEY set | RFC 4035 Section 5.2 at least one supported authenticated DS matches a usable child DNSKEY that correctly signs the child DNSKEY RRset within its validity interval
+net-naming-addressing-v0 | Authenticated DNSKEY set -> enables -> DNSSEC signature validation | RFC 4035 Section 5.3 validator has an applicable authenticated signing key, supported algorithm, matching signer information, and a correct RRSIG in its valid time interval
+net-naming-addressing-v0 | DNSSEC signature validation -> causes -> Secure DNSSEC RRset acceptance | RFC 4035 positive non-wildcard RRset has a complete trusted chain and all required signature, signer-name, time, and protocol checks succeed under the selected validation policy
+net-naming-addressing-v0 | DNSSEC cache timing tuple -> predicts -> Fresh DNS cache reuse | RFC 4035 Section 5.3.3 successfully authenticated RRset has one applicable validating signature, positive remaining validity, and ordinary non-wrapping signature times; other cache policy may shorten this bound
+net-naming-addressing-v0 | Required DNSSEC signature expiry -> causes -> DNSSEC Bogus classification | RFC 4035 during required validation of a securely delegated RRset, validator time is correct, all otherwise applicable signatures are expired, and no other valid signature or local trust path authenticates it
+net-naming-addressing-v0 | DNSSEC Bogus classification -> causes -> DNS resolution failure | RFC 4035 Section 5.5 validating recursive server fails required validation for the answer, the client's Checking Disabled bit is clear, and no local validation override applies
+net-naming-addressing-v0 | Authenticated DS absence -> enables -> DNSSEC Insecure classification | RFC 4035 Section 5.2 validated parent denial proves no DS at the delegation, child data is unsigned, and no closer configured trust anchor or other applicable trust path restores authentication
+net-naming-addressing-v0 | Authenticated NSEC denial proof -> enables -> Authenticated negative DNS answer | RFC 4035 Section 5.4 proof covers the actual terminal name or requested type and all required wildcard exclusions, with valid signatures and a complete chain to the selected trust anchor
+net-naming-addressing-v0 | Authenticated negative DNS answer -> enables -> Negative DNS cache entry | RFC 4035 and RFC 2308 denial is fully validated, its applicable SOA-derived lifetime is positive, and the cache preserves the relevant absent-name or absent-type key and validation bounds
+net-naming-addressing-v0 | Outbound UDP transmission -> causes -> Active UDP NAT mapping | RFC 4787 stateful UDP NAT admits the outbound datagram, has an available external tuple, and installs the mapping selected by its configured mapping behavior
+net-naming-addressing-v0 | Outbound UDP transmission -> causes -> NAT peer filtering permission | RFC 4787 address-and-port-dependent filtering NAT accepts an outbound datagram to a previously unpermitted remote IP/port and records that contact for return traffic on the active mapping
+net-naming-addressing-v0 | Active UDP NAT mapping -> enables -> Direct UDP peer delivery | RFC 4787/5128 peer sends to the mapping's current external address and port, the NAT's filter permits that peer, and routing plus host firewall rules allow delivery
+net-naming-addressing-v0 | NAT peer filtering permission -> enables -> Direct UDP peer delivery | RFC 4787 receiver-side mapping is active, the arriving peer IP/port satisfies its filtering rule, and the external destination tuple maps to the listening internal socket
+net-naming-addressing-v0 | STUN Binding success response -> predicts -> Server observed UDP endpoint | RFC 8489 selected server correctly reports the UDP source tuple it observed in a matched Binding success response, and the client decodes the address with the required transaction context
+net-naming-addressing-v0 | Endpoint independent NAT mapping -> predicts -> Server observed UDP endpoint | RFC 4787 same internal UDP address and port uses one unchanged live mapping through the same NAT egress for both server exchanges, with no additional translation layer changing the externally observed tuple
+net-naming-addressing-v0 | Endpoint dependent NAT mapping -> inhibits -> Direct UDP peer delivery | RFC 5128 NAT assigns a different external tuple for the peer destination, peers use only the STUN-server tuple, and filtering or mapping lookup rejects peer packets arriving at that mismatched tuple
+net-naming-addressing-v0 | Peer endpoint exchange -> enables -> Coordinated UDP hole punching | RFC 5128 rendezvous delivers current external address/port candidates to both peers, which can issue outbound UDP probes from the sockets used to create those candidates
+net-naming-addressing-v0 | Coordinated UDP hole punching -> causes -> NAT peer filtering permission | RFC 4787/5128 each NAT initially lacks the relevant peer permission, admits an outbound probe to that peer's actual tuple, and records the contact while the compatible mapping remains active
+net-naming-addressing-v0 | Coordinated UDP hole punching -> enables -> Direct UDP peer delivery | RFC 5128 both peers reuse stable endpoint-independent mappings, their probes create permissions for the correct remote tuples, retransmitted probes cross after permission establishment, and no other firewall blocks traffic
+net-naming-addressing-v0 | NAT mapping idle expiry -> inhibits -> Active UDP NAT mapping | RFC 4787 mapping receives no qualifying refresh traffic throughout its configured lifetime and the NAT expires it rather than retaining or statically pinning it
+net-naming-addressing-v0 | NAT binding keepalive -> prevents -> NAT mapping idle expiry | RFC 4787 and RFC 8489 qualifying outbound keepalives refresh this mapping at intervals shorter than its actual idle timeout; state loss, resource eviction, and path change are excluded
+net-naming-addressing-v0 | NAT hairpin forwarding -> enables -> Direct UDP peer delivery | RFC 4787 Section 6 NAT supports the required hairpin behavior, both relevant mappings and filters permit the traffic, and the destination socket is another host behind that NAT
+net-naming-addressing-v0 | TURN relay allocation -> enables -> TURN relayed peer delivery | RFC 8656 client maintains an authenticated live allocation, required peer permissions exist, and both client-to-server and peer-to-relayed-address transport paths work
+net-naming-addressing-v0 | TURN peer permission -> enables -> TURN relayed peer delivery | RFC 8656 server receives peer UDP traffic at the allocation's relayed address with an unexpired matching permission and can deliver it over the allocation's client transport
+net-naming-addressing-v0 | DHCPv4 DISCOVER message -> causes -> DHCPv4 OFFER message | RFC 2131 initial allocation: server receives a valid DHCPDISCOVER, selects available policy-permitted address configuration, and elects to offer it to this client
+net-naming-addressing-v0 | DHCPv4 OFFER message -> enables -> Selecting DHCPv4 REQUEST | RFC 2131 client in SELECTING receives an acceptable offer, chooses that server, and broadcasts the selecting DHCPREQUEST with its server identifier and requested address
+net-naming-addressing-v0 | Selecting DHCPv4 REQUEST -> causes -> DHCPv4 lease acknowledgment | RFC 2131 selected server recognizes its identifier, accepts the client's requested offered binding, commits the allocation under its policy, and replies positively rather than rejecting it
+net-naming-addressing-v0 | DHCPv4 lease acknowledgment -> enables -> Bound DHCPv4 address use | RFC 2131 client accepts a matching allocation DHCPACK in REQUESTING, the resulting lease has not expired, and its recommended final address-conflict check detects no conflict
+net-naming-addressing-v0 | DHCPv4 renewal time T1 -> causes -> Unicast DHCP renewal request | RFC 2131 Section 4.4.5 client is BOUND with a valid lease, reaches configured T1, enters RENEWING, and contacts the original leasing server
+net-naming-addressing-v0 | DHCPv4 rebinding time T2 -> causes -> Broadcast DHCP rebinding request | RFC 2131 Section 4.4.5 client has not accepted a DHCPACK before T2, its lease remains valid, and it enters REBINDING to contact any appropriate server
+net-naming-addressing-v0 | Unicast DHCP renewal request -> enables -> DHCPv4 lease acknowledgment | RFC 2131 original leasing server receives a valid renewal request and policy permits extension of the client's current binding
+net-naming-addressing-v0 | Broadcast DHCP rebinding request -> enables -> DHCPv4 lease acknowledgment | RFC 2131 REBINDING client uses its current address without a server-identifier option and a receiving server has authority and policy to extend that lease
+net-naming-addressing-v0 | DHCPv4 lease expiry -> prevents -> Bound DHCPv4 address use | RFC 2131 Section 4.4.5 lease expires before an acceptable DHCPACK arrives, so the client returns to INIT and stops using the expired address for ordinary network processing
+net-naming-addressing-v0 | DHCPv4 lease clock inputs -> predicts -> DHCPv4 lease expiry | RFC 2131 Sections 4.4.1 and 4.4.5 client accepts the matching allocation or renewal ACK, uses the local send time of its corresponding DHCPREQUEST, and no later extension or invalidation changes the deadline
+net-naming-addressing-v0 | Accepted DHCPv4 NAK -> prevents -> Bound DHCPv4 address use | RFC 2131 client accepts DHCPNAK in a state where it invalidates the current or requested binding, returns to INIT, and has no independent valid lease authorizing the same use
+net-naming-addressing-v0 | DHCPv4 address conflict detection -> causes -> DHCPv4 DECLINE message | RFC 2131 client detects the proposed address already in use during its post-ACK check and follows the requirement to decline that address and restart configuration
+net-naming-addressing-v0 | DHCPv4 address conflict detection -> prevents -> Bound DHCPv4 address use | RFC 2131 client's final check finds another host using its newly allocated address before ordinary use and the client declines rather than entering BOUND with it
+net-naming-addressing-v0 | DHCPv4 DNS server option -> enables -> Selected DNS resolver configuration | RFC 2132 Section 3.8 client accepts option 6 from its selected DHCP configuration and local resolver policy uses those addresses instead of overriding them
+net-naming-addressing-v0 | DHCPv4 router option -> enables -> Configured IPv4 default gateway | RFC 2132 Section 3.5 accepted option 3 names reachable on-subnet routers and local host policy installs an offered router for otherwise unmatched IPv4 destinations
+net-naming-addressing-v0 | Selected DNS resolver configuration -> causes -> Client recursive DNS query | RFC 1034/1035 configured stub must resolve an uncached application name and uses the selected reachable recursive service rather than a per-application override
+net-naming-addressing-v0 | Configured IPv4 default gateway -> enables -> Unresolved IPv4 next hop | RFC 826 host sends an off-subnet IPv4 packet through that on-link gateway and has no usable ARP entry for the gateway's IPv4 address
+net-naming-addressing-v0 | Unresolved IPv4 next hop -> causes -> Ethernet ARP request | RFC 826 Ethernet IPv4 sender has a packet for the selected on-link next hop, lacks its usable hardware mapping, and broadcasts the request on that link
+net-naming-addressing-v0 | Ethernet ARP request -> causes -> Ethernet ARP reply | RFC 826 request reaches the Ethernet host owning the target IPv4 address, which responds under ordinary ARP processing; proxy ARP and duplicate ownership are excluded
+net-naming-addressing-v0 | Ethernet ARP reply -> causes -> Usable ARP cache mapping | RFC 826 receiver awaits this on-link protocol-to-hardware resolution and accepts the reply's sender IPv4 and Ethernet address fields under its ARP processing policy
+net-naming-addressing-v0 | Usable ARP cache mapping -> enables -> Ethernet next hop transmission | RFC 826 selected IPv4 next hop has a usable cache entry, the sender's interface is operational, and it encapsulates the pending IP packet for that link-layer destination
+net-naming-addressing-v0 | Accepted forged ARP association -> causes -> Incorrect link layer delivery | RFC 826 base unauthenticated ARP processing accepts a false next-hop IPv4-to-MAC update and the host then sends traffic using that false mapping without an independent enforcement check
+net-naming-addressing-v0 | IPv6 Router Solicitation -> enables -> Valid IPv6 Router Advertisement | RFC 4861 Section 6.2.6 advertising router receives a valid solicitation and schedules a response subject to multicast spacing and random-delay rules
+net-naming-addressing-v0 | Valid IPv6 Router Advertisement -> enables -> Autonomous prefix information | RFC 4861/4862 accepted advertisement includes a well-formed Prefix Information option with A set and passes message and option validity checks
+net-naming-addressing-v0 | Autonomous prefix information -> enables -> SLAAC address formation | RFC 4862 Section 5.5.3 prefix is not link-local, preferred lifetime does not exceed valid lifetime, valid lifetime is positive, no same-prefix autoconfigured address exists, and prefix length plus link IID length equals 128
+net-naming-addressing-v0 | SLAAC address formation -> causes -> Tentative IPv6 address | RFC 4862 newly formed unicast address is not already assigned and the link's configured DupAddrDetectTransmits is positive with no specified DAD exemption
+net-naming-addressing-v0 | Tentative IPv6 address -> causes -> IPv6 Duplicate Address Detection | RFC 4862 Section 5.4 host has configured DAD on this interface, the address has not already completed an applicable uniqueness check, and the probing procedure is started
+net-naming-addressing-v0 | IPv6 Duplicate Address Detection -> causes -> IPv6 Neighbor Solicitation | RFC 4862 Section 5.4.2 a scheduled DAD probe is due for the tentative target, with configured probing enabled and the interface able to send to its solicited-node multicast destination
+net-naming-addressing-v0 | IPv6 Duplicate Address Detection -> enables -> Assigned IPv6 address use | RFC 4862 required probe count and waiting interval complete without a conflict indication, and the tentative address still has a positive valid lifetime
+net-naming-addressing-v0 | IPv6 DAD conflict indication -> prevents -> Assigned IPv6 address use | RFC 4862 Section 5.4 host recognizes another node's conflicting NS or NA for its tentative address, excluding its own looped-back probe, and marks that address duplicate
+net-naming-addressing-v0 | SLAAC preferred lifetime expiry -> causes -> Deprecated IPv6 address | RFC 4862 Section 5.5.4 preferred lifetime reaches zero for an assigned address whose valid lifetime is still positive
+net-naming-addressing-v0 | SLAAC valid lifetime expiry -> prevents -> Assigned IPv6 address use | RFC 4862 Section 5.5.4 valid-lifetime timer reaches zero after all applicable received-lifetime safeguards and updates, and no other address assignment keeps this address valid
+net-naming-addressing-v0 | Autonomous prefix information -> causes -> SLAAC lifetime update | RFC 4862 Section 5.5.3(e) accepted A-set non-link-local prefix matches an existing autoconfigured prefix and preferred lifetime does not exceed advertised valid lifetime
+net-naming-addressing-v0 | SLAAC lifetime update -> causes -> Deprecated IPv6 address | RFC 4862 Section 5.5.3(e) host resets the existing address's preferred lifetime to zero while its guarded valid lifetime remains positive, even if the valid-lifetime reduction was ignored
+net-naming-addressing-v0 | SLAAC lifetime update -> predicts -> SLAAC valid lifetime expiry | RFC 4862 Section 5.5.3(e) existing address has remaining validity R>7200 seconds, accepted advertised V<=7200 and V<=R, and no later lifetime change occurs; the ordered rules therefore select their third branch
+net-naming-addressing-v0 | Advertised default router lifetime -> enables -> IPv6 default router eligibility | RFC 4861 Section 6.3.4 host accepts an RA from a link-local router source with nonzero Router Lifetime and retains that source in its Default Router List
+net-naming-addressing-v0 | Valid IPv6 Router Advertisement -> inhibits -> IPv6 default router eligibility | RFC 4861 Section 6.3.4 accepted RA comes from a source already in the Default Router List and advertises Router Lifetime zero, causing immediate removal of that entry
+net-naming-addressing-v0 | On link prefix information -> causes -> IPv6 on link prefix entry | RFC 4861 Section 6.3.4 valid RA has L set for a non-link-local prefix not already in the Prefix List and a positive Valid Lifetime
+net-naming-addressing-v0 | IPv6 on link prefix entry -> enables -> IPv6 Neighbor Solicitation | RFC 4861 host must send to a non-local unicast destination matching the active on-link prefix, no routing override selects another next hop, and no usable neighbor cache mapping supplies its link-layer address
+net-naming-addressing-v0 | IPv6 Neighbor Solicitation -> causes -> IPv6 Neighbor Advertisement | RFC 4861 Section 7.2.3 target is a non-tentative assigned unicast address of the receiver, the valid solicitation has a non-unspecified unicast source, and ordinary address-resolution response rules apply
+net-naming-addressing-v0 | IPv6 Neighbor Advertisement -> causes -> IPv6 neighbor cache entry | RFC 4861 Section 7.2.5 receiving host has an INCOMPLETE entry for the target and accepts a valid NA carrying the required Target Link-Layer Address option
+net-naming-addressing-v0 | IPv6 neighbor cache entry -> enables -> Ethernet next hop transmission | RFC 4861 sender uses an Ethernet link, the selected next-hop cache entry has an applicable link-layer address, and NUD state permits transmission under the current state-machine rules
+net-naming-addressing-v0 | Neighbor Unreachability Detection -> causes -> IPv6 Neighbor Solicitation | RFC 4861 Section 7.3.3 neighbor reaches PROBE after DELAY without positive confirmation, a probe is due, and its known link-layer address is used for the unicast solicitation
+net-naming-addressing-v0 | Positive neighbor reachability confirmation -> causes -> IPv6 neighbor cache entry | RFC 4861 Section 7.2.5 valid solicited NA reaches an existing usable entry with the same link-layer address, or a permitted Override update, so address-conflict handling does not suppress the reachability update
+net-naming-addressing-v0 | NDP Hop Limit validation -> prevents -> Forwarded NDP message acceptance | RFC 4861 Section 7.1.2 receiver applies the mandatory validity check to an NA arriving with Hop Limit less than 255 after an ordinary forwarding hop
+net-naming-addressing-v0 | Configured split DNS policy -> causes -> Selected DNS view | RFC 9499 split-DNS terminology applied to a deployment whose explicit resolver or authoritative-view rule maps this client context and namespace to one configured view
+net-naming-addressing-v0 | Selected DNS view -> enables -> Authoritative DNS answer | RFC 9499 split-DNS deployment's selected authoritative view contains the queried owner and requested RRset, with no delegation or CNAME redirect for that lookup
+net-naming-addressing-v0 | Wrong DNS view selection -> causes -> DNS NXDOMAIN response | RFC 9499 split-DNS deployment sends the question to a working authoritative external view where the terminal name is absent and no wildcard or alias supplies it, though the internal view contains it
+net-naming-addressing-v0 | Cross view DNS cache reuse -> causes -> DNS answer view mismatch | RFC 9499 split-DNS deployment incorrectly lets a cached answer from the external view satisfy an internal-view question for the same name/type/class while the two views intentionally differ
+net-naming-addressing-v0 | DNS cache view partitioning -> prevents -> Cross view DNS cache reuse | RFC 9499 split-DNS deployment keys all cache insertion and lookup by the selected view and provides no cross-view fallback or shared entry path
+```
+
+## Naming/addressing final evaluations
+
+All24 probes independently reviewed against final conditions. Repaired p06/p22 to require an accepted A-set PIO rather than merely a valid matching PIO, since A=0 does not invoke SLAAC; clarified that the DHCP client receives the matching ACK rather than acknowledging the allocation itself. Exactkindmix6true-mechanism/4reversed/3wrong-polarity/3myth/4condition-trap/4pressure;8true/16false includingcopies. Every pressure question retains its base question, truth and deciding edges.
+
+Five bounded task contracts explicitly declare inputs, outputs, exclusions and clock units. Parent implemented negative-cache lookup; main-agent authors implemented DNSSEC cache gating, UDP NAT components, DHCP clock queries and SLAAC updates, then cross-reviewed components. Direct main-agent implementation was chosen here because the earlier Luna drafts required substantial semantic repairs; supervised Luna remains available for suitable bounded work. These tasks do not claim full DNSSEC cryptography, a full DHCP/NDP implementation, or real deployed NAT timer conformance. NAT times are abstract ticks, with0/1boundarycases deliberately testing the component algorithm.
+
+Final hand-derived coverage:32 negative-cache cases (name/type/class/view isolation, both SOA bounds, age and exact expiry, CNAME terminal key, case behavior and multiple installation epochs);19 DNSSEC cases (all acceptance gates, inclusive signature bounds, each cache cap);8 independent NAT traces/78 snapshots (four mapping/filter combinations, per-binding contact permissions, timers and outbound-only refresh, exact expiry, endpoint and port allocation, defaults and zero-timeout boundary);25 DHCP clock cases (request epoch, configured/nominal T1/T2, inclusive transitions, delayed ACK and new renewal);21 existing-address SLAAC cases (all ordered lifetime branches, limited authentication exception, preferred-lifetime independence, deprecation/invalidation, absolute deadlines).
+
+Review strengthened the first negative-cache checker with case-sensitive view IDs, case normalization on stored keys, NODATA class separation and a second installation epoch. Its pitfall now plausibly omits the type gate instead of using a literal false branch. Parent read all17 evaluation source files, verified the remaining task oracles and added a NAT call using its declared defaults.
+
+Focused in-memory mutations:16 negative-cache variants rejected by parent;32 DNSSEC/NAT variants rejected by their author;21 DHCP/SLAAC variants rejected by their author. Independent reviews found no remaining factual or oracle blocker. The five published pitfalls each contain one domain error: NODATA reused for another type; signature expiration omitted from cache bound; EIM confused with permissive filtering; ACK arrival used as lease epoch; authentication bypasses the SLAAC third branch. Parent verified non-crashing semantic first divergences at case10,case4,trace0/event2,case0,case9 respectively, with correct result schemas and unchanged inputs.
+
+Prompt-required literal verification loop after final repairs:
+
+```text
+nma-t01 ref PASS
+nma-t01 pitfall FAIL (good)
+nma-t02 ref PASS
+nma-t02 pitfall FAIL (good)
+nma-t03 ref PASS
+nma-t03 pitfall FAIL (good)
+nma-t04 ref PASS
+nma-t04 pitfall FAIL (good)
+nma-t05 ref PASS
+nma-t05 pitfall FAIL (good)
+```
+
+Strict independent exit-code check also confirmed all reference0/pitfall1 outcomes without stderr. Combined elapsed seconds per pair: {"nma-t01": 0.0924, "nma-t02": 0.0759, "nma-t03": 0.0767, "nma-t04": 0.0837, "nma-t05": 0.0706}.
+
+All5 tasks/24probes resolve only current generated relation IDs, exact17evaluation files, stdlib/no-network checkers and5-second candidate timeouts. Final module still reproduces all484 generated records; no world/source data changed after the four native checks. Registry is append-only16 new cited sources; thin builder differs solely in import. No unresolved factual uncertainty retained within these explicit scopes; external Claude review and real-model benefit measurement remain separate. Ready for one authoring commit.
