@@ -2755,3 +2755,224 @@ nma-t05 pitfall FAIL (good)
 Strict independent exit-code check also confirmed all reference0/pitfall1 outcomes without stderr. Combined elapsed seconds per pair: {"nma-t01": 0.0924, "nma-t02": 0.0759, "nma-t03": 0.0767, "nma-t04": 0.0837, "nma-t05": 0.0706}.
 
 All5 tasks/24probes resolve only current generated relation IDs, exact17evaluation files, stdlib/no-network checkers and5-second candidate timeouts. Final module still reproduces all484 generated records; no world/source data changed after the four native checks. Registry is append-only16 new cited sources; thin builder differs solely in import. No unresolved factual uncertainty retained within these explicit scopes; external Claude review and real-model benefit measurement remain separate. Ready for one authoring commit.
+
+## Naming/addressing commit and next-world transition
+
+Committed6f46de3cf84342f2074a08f56dcb5f145d0785ab with exactly21 allowed files and no curricula outputs. Fourth of104 new worlds complete for authoring;100remain. Nextprintedrow net-security-tls-v0 (tls,cybersecurity.secure-protocols); no laterworldunderway.
+
+## Network security/TLS source registration
+
+Primary verification found current TLS1.3 RFC9846(July2026) obsoletes8446, and ECHRFC9849 with DNSbootstrap9848 are publishedMarch2026. Parent independently read canonical9846/9849/9848 .txt headers after the web tool could not open9846HTML. Section1.2 of9846 confirms sameprotocolversion/backward-compatibleminorupdate, with changedrequirements andsectionnumbers. Thisworlduses9846currentbaseline; existing8446registration remains unchanged. Independent reviewer verified allfollowingexactsourceentries;12appended, citation_only,retrieved2026-10-03.
+
+- rfc9846: The Transport Layer Security (TLS) Protocol Version 1.3; July 2026; Standards Track; obsoletes RFC 8446; https://www.rfc-editor.org/rfc/rfc9846
+- rfc9849: TLS Encrypted Client Hello; March 2026; Standards Track; https://www.rfc-editor.org/rfc/rfc9849
+- rfc9848: Bootstrapping TLS Encrypted ClientHello with DNS Service Bindings; March 2026; Standards Track; https://www.rfc-editor.org/rfc/rfc9848
+- rfc9525: Service Identity in TLS; November 2023; Standards Track; https://www.rfc-editor.org/rfc/rfc9525
+- rfc5280: Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile; May 2008; Standards Track; https://www.rfc-editor.org/rfc/rfc5280
+- rfc6066: Transport Layer Security (TLS) Extensions: Extension Definitions; January 2011; Standards Track; https://www.rfc-editor.org/rfc/rfc6066
+- rfc6797: HTTP Strict Transport Security (HSTS); November 2012; Standards Track; https://www.rfc-editor.org/rfc/rfc6797
+- rfc4987: TCP SYN Flooding Attacks and Common Mitigations; August 2007; Informational; https://www.rfc-editor.org/rfc/rfc4987
+- rfc4732: Internet Denial-of-Service Considerations; November 2006; Informational; https://www.rfc-editor.org/rfc/rfc4732
+- rfc5358: Preventing Use of Recursive Nameservers in Reflector Attacks; October 2008; Best Current Practice 140; https://www.rfc-editor.org/rfc/rfc5358
+- rfc3704: Ingress Filtering for Multihomed Networks; March 2004; Best Current Practice 84; https://www.rfc-editor.org/rfc/rfc3704
+- nist-sp800-41r1: Guidelines on Firewalls and Firewall Policy; SP800-41Revision1; KarenScarfone andPaulHoffman; September2009; DOI10.6028/NIST.SP.800-41r1; https://csrc.nist.gov/pubs/sp/800/41/r1/final
+
+Additional verified citation for the TLS traffic-secret evaluation and referenced HKDF mechanism: rfc5869, HMAC-based Extract-and-Expand Key Derivation Function (HKDF), May2010, Informational, https://www.rfc-editor.org/rfc/rfc5869 . Parent checked canonicalheader and Expand definition; appendedsourceandaddedmodulecitationbeforefournativechecks. Noauthoredfacts/countschanged. TotalTLSnewregistrations13.
+
+## Advanced world: net-security-tls-v0
+
+Commit: pending creation, title `Author net-security-tls-v0 with checked evaluations`.
+Counts: 110 concepts, 100 relations, 16 myths, 12 boundaries, 14 examples, 8 controls.
+Relations by kind: {"causes": 33, "enables": 45, "inhibits": 8, "predicts": 4, "prevents": 10}.
+Probes/tasks: authored after finaldatareview; finalreceiptswillfollow.
+
+Author completed allsixpasses on110concepts/100relations (100%causal),16myths,12boundaries,14examples,8controls. Direction/typepass repaired4relations: numericQUICbudget separatedfromenforcement;validation targetsblocking withcorrectpolarity;plaintextSTS causesheaderrejection;ECHrecipient-keycompromise targetsrecordedinnerdecryptionratherthanplaintextwiremetadata. Counterexamplepass tightened7conditions coveringHSTSinheritedcoverage,PSKtranscript/ECHguards,completeECHassociated-data inputs,descendantCAconstraints,validatedQUICcontext,andabsenceofpriorTCP/cookieadmissionstate. Versionpass refined2conditions (HRRrequestedgrouptrulyabsentfromoriginalkey_share;notoverspecifyingfailure-alertwording). Duplicate/circularitypass0changes/drops;mythpass0;countpassadded12distinctdocumentedmechanisms to88draftedges. Noauthorededgesdropped. Fourgrammaticalrepairs andexplicit9846sender-no-reuse/receiver-permit-legacy-reuse boundary.
+
+Parent readallfinalconcepts,100relations andallscaffolding; independentreview confirmedthe12additions andalltypedrepairs, includingECHauthenticateddisablement versusSVCBdirect-originfallback. ProtocolbaselineRFC9846July2026 explicitlysupersedes8446;ECH9849/9848March2026;conditionspinclassical(EC)DHEwhenneeded. Sources:13newprimaryregistrationslistedabove, includingverified5869addedtomodulecitationlistbeforethesechecks forHKDFcomponent, plusreused9293/9000. Noauthoredfact/countchangedwiththatcitationaddition. Opendoubts:no unresolvedfactualclaimidentifiedwithinexplicitregimes;externalClaudereviewstillrequired. NoliveTLSdeployment,universalDoSimmunity,trainedacceptanceorreal-modelbenefitclaim.
+
+Four checks:
+
+```
+$ python3 tools/build_net_security_tls_causation_curriculum.py
+wrote /home/jesse/Desktop/Projects/new-complete-atom-lightcone/curricula/net-security-tls-v0/foundations.jsonl with 471 records
+splits: {'cross_domain_holdout': 23, 'sealed_test': 49, 'train': 344, 'validation': 55}
+kinds: {'boundary': 12, 'concept': 111, 'counterexample': 16, 'relation': 310, 'synthetic_control': 8, 'worked_example': 14}
+exit: 0
+
+$ python3 tools/validate_curricula.py
+foundation lanes with controls: 23/23
+valid: True
+exit: 0
+
+$ python3 tools/validate_sources.py
+valid: True
+exit: 0
+
+$ .venv/bin/python trainer/compile_curriculum.py --world-id net-security-tls-v0
+{
+  "schema_version": 1,
+  "world_id": "net-security-tls-v0",
+  "adapter_independent": true,
+  "record_count": 471,
+  "node_count": 161,
+  "edge_count": 310,
+  "negative_pair_count": 8,
+  "domains": [
+    "cybersecurity"
+  ],
+  "lanes": [
+    "reasoning.causal",
+    "reasoning.deductive",
+    "thinking.bottom_up"
+  ],
+  "files": {
+    "edges.jsonl": "411aa07de14fcdf5610b1767ea28c8112bec892223d08105a04f1c6f6dd9c08f",
+    "lexicon.json": "42eb2707101be493fb1110514577aa2979810a4e44a072ed5a2f534de16b9bbc",
+    "nodes.jsonl": "7043c9c51c854697af2d8e4dbe7d12e2f5eb2ad9acddceacf6ad447b60534d53",
+    "records.jsonl": "078cfeee51f2b719ccb30367b86fa00a6f4ecd3470f815c1f73db841e956c049",
+    "relation-catalog.json": "bde19fb7c98f3e3cc71cdc1225eba5b73382204ff875f8c00c34db49a1ffe3e8",
+    "sources.json": "b3b3071e80e737918b830f91cac876c406d76ae2d7d2e626deec38eea00b1711",
+    "split-manifest.json": "a78c8f946742cceadd9f7fd49cd40c774d6431c47336a40ae62fc0dcedddbc22",
+    "training-graph.json": "03a80bd69caf8dc589b0fb65ef1d3068d9561481141f26da5c5c154d9ba9b00f"
+  }
+}
+exit: 0
+```
+
+Reviewer relation list (complete final authored data; generated structural edges excluded):
+
+```text
+net-security-tls-v0 | TLS supported versions offer -> enables -> TLS13 version selection | RFC 9846 Section 4.3.1 client offers TLS 1.3, server supports and selects it under its policy, and the ServerHello supported_versions selection is consistent with that offer
+net-security-tls-v0 | TLS ClientHello offer -> enables -> TLS HelloRetryRequest | RFC 9846 Sections 4.2.4 and 4.3.8 server selects a group present in supported_groups but absent from the original key_share list and follows the permitted single-retry procedure
+net-security-tls-v0 | TLS HelloRetryRequest -> causes -> TLS ClientHello offer | RFC 9846 client accepts a valid first HelloRetryRequest selecting a supported group not previously offered as a key share and continues rather than aborting
+net-security-tls-v0 | Fresh TLS key share -> enables -> Ephemeral DH shared secret | RFC 9846 selected asymmetric exchange is classical (EC)DHE, peer shares pass the chosen group's validation, and each endpoint retains its fresh corresponding private value
+net-security-tls-v0 | Ephemeral DH shared secret -> enables -> TLS handshake traffic keys | RFC 9846 Section 7.1 selected handshake uses (EC)DHE, its PSK-or-zero inputs and ClientHello/ServerHello transcript are available, and both peers apply the negotiated HKDF hash
+net-security-tls-v0 | TLS handshake traffic keys -> enables -> Encrypted TLS handshake records | RFC 9846 TLS 1.3 peers derived the appropriate directional handshake keys and send the subsequent handshake flight under those keys; plaintext ClientHello and ServerHello are outside this claim
+net-security-tls-v0 | Encrypted TLS handshake records -> inhibits -> Passive certificate chain exposure | RFC 9846 certificate-authenticated TLS 1.3 sends Certificate under handshake record keys after ServerHello, secure record protection is correctly applied, and the observer lacks those keys
+net-security-tls-v0 | TLS CertificateVerify validation -> enables -> Authenticated TLS handshake completion | RFC 9846 Section 4.5.2 peer proves possession of the accepted certificate's private key for the required transcript and role context, while path, service identity, and Finished checks also succeed
+net-security-tls-v0 | TLS CertificateVerify validation -> causes -> TLS handshake abortion | RFC 9846 Section 4.5.2 receiver checks CertificateVerify with the certificate public key and required role/transcript context, obtains signature failure, and enforces the required handshake termination
+net-security-tls-v0 | TLS Finished verification -> enables -> Authenticated TLS handshake completion | RFC 9846 Section 4.5.3 receiver verifies the peer's Finished with the expected transcript and finished key, and the selected authentication mode's credential and identity requirements have passed
+net-security-tls-v0 | TLS Finished verification -> causes -> TLS handshake abortion | RFC 9846 Section 4.5.3 receiver computes Finished using the correct local transcript and derived finished key, the received verify_data fails that comparison, and the implementation rejects the handshake
+net-security-tls-v0 | Unaccounted handshake transcript change -> causes -> TLS handshake abortion | RFC 9846 Section 4.5.3 peers compute different required transcript hashes, the received authenticator does not verify under the receiver's expected finished key, and the implementation enforces the mandatory failure
+net-security-tls-v0 | Authenticated TLS handshake completion -> enables -> Accepted TLS application data | RFC 9846 ordinary authenticated 1-RTT use has completed all required peer checks and the subsequent record is valid under the current directional application traffic state; 0-RTT is excluded
+net-security-tls-v0 | TLS AEAD record protection -> inhibits -> Passive plaintext payload exposure | RFC 9846 record keys and nonces are correctly managed, the selected cipher's confidentiality assumptions hold, and the passive observer lacks traffic secrets or an endpoint plaintext copy
+net-security-tls-v0 | Invalid TLS record tag -> causes -> TLS record rejection | RFC 9846 Section 5.2 receiver's AEAD deprotection fails for the record and the implementation enforces the authentication failure instead of releasing unauthenticated plaintext
+net-security-tls-v0 | Invalid TLS record tag -> causes -> TLS handshake abortion | RFC 9846 receiver cannot authenticate an encrypted handshake-flight record and terminates that connection rather than completing authentication
+net-security-tls-v0 | TLS KeyUpdate processing -> causes -> Next TLS traffic secret | RFC 9846 Sections 4.7.3 and 7.2 valid post-Finished KeyUpdate is processed with the current application secret and the protocol's traffic-update HKDF label
+net-security-tls-v0 | TLS KeyUpdate processing -> enables -> Accepted TLS application data | RFC 9846 Section 4.7.3 receiver first authenticates the peer's valid KeyUpdate under old keys, advances its receiving state, and then receives a valid application record protected under the corresponding next-generation keys
+net-security-tls-v0 | Current traffic secret compromise -> enables -> Next TLS traffic secret | RFC 9846 Section 7.2 ordinary KeyUpdate derives future secrets from the compromised current directional secret and public algorithm context, without a new independent asymmetric exchange
+net-security-tls-v0 | Approaching AEAD key usage limit -> causes -> TLS KeyUpdate processing | RFC 9846 Section 5.5 sending implementation continues the connection, follows its selected cipher's usage limit, and can perform another permitted key update rather than terminating
+net-security-tls-v0 | TLS pre shared key -> enables -> TLS early traffic keys | RFC 9846 Sections 2.3 and 7.1 client selects an early-data-capable PSK and supplies the required ClientHello transcript before receiving the new server key exchange
+net-security-tls-v0 | TLS early traffic keys -> enables -> TLS zero RTT data | RFC 9846 client is permitted to offer early data with this PSK, respects its early-data limits, and protects that flight with the derived early key rather than 1-RTT keys
+net-security-tls-v0 | TLS PSK only exchange -> enables -> TLS handshake traffic keys | RFC 9846 Sections 4.3.9 and 7.1 peers select psk_ke with an accepted PSK and valid binder, use the specified zero asymmetric input in the key schedule, and have the required hello transcript
+net-security-tls-v0 | TLS PSK only exchange -> enables -> Retrospective traffic decryption | RFC 9846 psk_ke adds no asymmetric shared secret; attacker later obtains the exact PSK, captured ciphertext, and all required plaintext transcript inputs, including ClientHelloInner if ECH was used
+net-security-tls-v0 | Recorded session PSK compromise -> enables -> Retrospective traffic decryption | RFC 9846 attacker obtains the exact PSK and required ClientHello transcript plaintext, including the inner hello if ECH was used; the later asymmetric exchange does not enter the recorded early traffic keys
+net-security-tls-v0 | Ephemeral session secret erasure -> inhibits -> Retrospective traffic decryption | RFC 9846 completed certificate-authenticated handshake used fresh secure (EC)DHE, attacker later obtains only the certificate signing key and packet recording, and no ephemeral, traffic, or key-log secrets survive for that session
+net-security-tls-v0 | Certificate private key compromise -> enables -> Accepted TLS interception | RFC 9846 and RFC 9525 active intermediary can receive the client's traffic, possesses the matching private key, presents an otherwise accepted certificate for the requested name, and no revocation or independent application control rejects it
+net-security-tls-v0 | Configured certificate trust anchor -> enables -> Certificate path validation | RFC 5280 Section 6.1 validator selects an applicable locally trusted anchor with its policy inputs and has a candidate chain toward that anchor
+net-security-tls-v0 | Available intermediate certificate -> enables -> Certificate path validation | RFC 5280 candidate end-entity chain lacked this linking certificate, the intermediate connects it to an applicable configured anchor, and all necessary remaining chain material can be assembled
+net-security-tls-v0 | Certificate path validation -> causes -> Trusted certificate path acceptance | RFC 5280 Section 6.1 candidate path satisfies signatures, validation-time bounds, required CA/key usages, constraints, and configured certificate policy; service-name matching is a separate operation
+net-security-tls-v0 | Leaf certificate time invalidity -> causes -> Certificate path rejection | RFC 5280 Section 6.1 new certificate-based validation uses current time outside the presented leaf's validity interval and no alternate valid credential or explicit historical-validation mode applies
+net-security-tls-v0 | Intermediate CA constraint violation -> causes -> Certificate path rejection | RFC 5280 proposed non-anchor chain violates a mandatory CA, keyCertSign, path-length, or descendant-name constraint and the validator enforces the applicable check
+net-security-tls-v0 | Authenticated CRL revocation entry -> causes -> Certificate path rejection | RFC 5280 Section 6.3 validator has a current applicable issuer-authenticated CRL establishing this certificate's revocation and its policy rejects positively revoked credentials
+net-security-tls-v0 | Certificate path rejection -> causes -> TLS handshake abortion | RFC 9846 certificate-authenticated client enforces its required trust checks and has no configured override authorizing the rejected presented path
+net-security-tls-v0 | Application reference service identity -> enables -> TLS service identity checking | RFC 9525 client derives a DNS or IP reference identity from trusted application inputs before accepting presented certificate names and preserves it despite an untrusted network redirection
+net-security-tls-v0 | TLS service identity checking -> causes -> TLS service identity acceptance | RFC 9525 client compares the trusted reference identity with the appropriate SAN identifier type and every required DNS/IP and application-specific identity constraint succeeds
+net-security-tls-v0 | TLS service identity checking -> causes -> TLS service identity rejection | RFC 9525 all eligible SAN identifiers fail comparison with the preselected reference identity, and the implementation neither substitutes Common Name nor changes the reference to a peer-supplied name
+net-security-tls-v0 | Certificate DNS subject alternative name -> enables -> TLS service identity acceptance | RFC 9525 Sections 6.3-6.4 reference is a DNS name, a presented dNSName SAN matches under label-by-label rules, and no separate service-type or application identity constraint remains unmet
+net-security-tls-v0 | Certificate IP subject alternative name -> enables -> TLS service identity acceptance | RFC 9525 reference identity is an IP literal and its address octets exactly match an iPAddress SAN of the same address family; a textual dNSName spelling of the address is not substituted
+net-security-tls-v0 | Complete leftmost DNS wildcard -> predicts -> TLS service identity acceptance | RFC 9525 permitted wildcard SAN is *.example.test, reference is one nonempty label followed by example.test, and the remaining labels compare case-insensitively with no other identity constraints
+net-security-tls-v0 | TLS service identity rejection -> causes -> TLS handshake abortion | RFC 9525 presented certificate has no acceptable match for the preselected reference identity and the client enforces the mismatch rather than using a warning bypass or alternate identity
+net-security-tls-v0 | Trusted certificate path acceptance -> enables -> Authenticated TLS handshake completion | RFC 9846 certificate-authenticated mode additionally obtains service-identity acceptance, valid CertificateVerify, and valid Finished from the peer
+net-security-tls-v0 | TLS service identity acceptance -> enables -> Authenticated TLS handshake completion | RFC 9525 identity result is combined with a trusted certificate path, proof of its private key, valid Finished, and all other selected TLS 1.3 checks
+net-security-tls-v0 | Certificate validation bypass -> enables -> Accepted TLS interception | RFC 9846 security model and RFC 9525 client skips the chain or name check that would reject the intermediary, attacker can terminate the selected network connection, and no independent pin or application authentication rejects it
+net-security-tls-v0 | Trusted interception authority -> enables -> Accepted TLS interception | RFC 5280 trust-anchor policy allows the intermediary's issuer for this service name, the intermediary presents a matching valid certificate and proves its private key, and application pinning or other controls do not reject it
+net-security-tls-v0 | Unencrypted Server Name Indication -> enables -> TLS virtual host selection | RFC 6066 Section 3 ClientHello carries a recognized DNS server_name and the receiving TLS server uses it to select its configured certificate or service context
+net-security-tls-v0 | Unencrypted Server Name Indication -> causes -> Plaintext private SNI exposure | RFC 9849 Section 1 true private service name appears directly in an unencrypted ClientHello visible to the passive observer rather than only inside encrypted ClientHelloInner
+net-security-tls-v0 | DNS ECH service parameter -> enables -> Usable ECH configuration | RFC 9848 client obtains an applicable service-binding record containing a syntactically valid ECHConfigList with a supported version and cipher combination; configuration authenticity policy is applied separately
+net-security-tls-v0 | Usable ECH configuration -> enables -> ECH inner encryption | RFC 9849 Section 6.1 client chooses a supported ECHConfig, constructs a conforming inner/outer hello pair, and applies the prescribed HPKE encoding and outer associated data
+net-security-tls-v0 | ECH ClientHelloInner -> enables -> ECH inner encryption | RFC 9849 client has placed the true server name and sensitive parameters in a valid ClientHelloInner and has a compatible selected ECH configuration
+net-security-tls-v0 | ECH inner encryption -> inhibits -> Plaintext private SNI exposure | RFC 9849 client confines the private name to the encrypted inner hello, outer fields do not repeat it, HPKE security assumptions hold, and the observer lacks the matching ECH private key
+net-security-tls-v0 | ECH ClientHelloOuter -> enables -> TLS virtual host selection | RFC 9849 outer server_name is the selected ECHConfig public_name and the client-facing server uses that visible public context to process the outer handshake
+net-security-tls-v0 | Confirmed ECH acceptance -> enables -> Authenticated TLS handshake completion | RFC 9849 Section 6.1.5 client verifies the acceptance signal, uses ClientHelloInner in the required transcript, and independently validates the private origin's certificate and Finished
+net-security-tls-v0 | ECH offer rejection -> enables -> Authenticated ECH public name handshake | RFC 9849 Section 6.1.6 client follows the outer rejection path and can validate the server for the selected public_name while completing the otherwise valid outer handshake
+net-security-tls-v0 | Authenticated ECH public name handshake -> enables -> Authenticated ECH retry configuration | RFC 9849 Section 6.1.6 completed outer handshake supplies syntactically valid retry_configs containing a client-supported ECH version and the public-name certificate checks succeed
+net-security-tls-v0 | Authenticated ECH retry configuration -> enables -> Fresh ECH connection retry | RFC 9849 client follows the recommended retry after authenticated rejection, uses a new transport connection, and selects supported replacement parameters for that retried connection
+net-security-tls-v0 | Authenticated ECH public name handshake -> enables -> Authenticated ECH disablement | RFC 9849 Section 6.1.6 outer authentication and handshake succeed, but retry_configs is absent or has no supported version, or an earlier TLS version was negotiated; the client follows the defined new-connection retry path
+net-security-tls-v0 | ECH offer rejection -> prevents -> Accepted TLS application data | RFC 9849 real ECH offer was rejected, so even a successful public-name outer handshake is terminated with ech_required before application data and is not reported as success for the private origin
+net-security-tls-v0 | ECH configuration key compromise -> enables -> Recorded ECH inner decryption | RFC 9849 Section 10.10.5 attacker obtains the matching recipient private key, configuration parameters, and complete recorded ECH offer including the encapsulation, ciphertext, and outer associated-data inputs
+net-security-tls-v0 | Secure Strict Transport Security header -> causes -> HSTS policy installation | RFC 6797 Section 8.1 user agent receives a syntactically valid positive-max-age STS header over error-free secure transport for a DNS hostname and processes it as HSTS policy
+net-security-tls-v0 | Plaintext Strict Transport Security header -> causes -> Insecure STS header rejection | RFC 6797 user agent encounters STS received over insecure HTTP and applies the mandatory ignore rule, leaving any separately learned HSTS policy unchanged by that header
+net-security-tls-v0 | HSTS policy installation -> causes -> Active HSTS host policy | RFC 6797 accepted positive-max-age header creates or refreshes the exact host's stored policy and the current time has not reached its new expiry
+net-security-tls-v0 | HSTS max age interval -> predicts -> Active HSTS host policy | RFC 6797 hostname has only this dynamic exact-host policy with no inherited or independently provisioned coverage; accepted max-age is positive, time advances normally, and no later update changes it
+net-security-tls-v0 | HSTS max age interval -> causes -> Exact host HSTS entry removal | RFC 6797 user agent receives a valid max-age=0 STS header over error-free secure transport for a DNS hostname with its own stored dynamic entry; ancestor entries are separate
+net-security-tls-v0 | Exact host HSTS entry removal -> enables -> Plaintext HTTP request transmission | RFC 6797 user agent subsequently processes an HTTP URI for that hostname, no active ancestor or preloaded HSTS policy applies, and no independent HTTPS-only or application rule upgrades or forbids HTTP
+net-security-tls-v0 | Active HSTS host policy -> causes -> HSTS HTTP scheme upgrade | RFC 6797 Section 8.3 conforming user agent processes an HTTP URI whose DNS hostname has an applicable unexpired HSTS policy
+net-security-tls-v0 | HSTS HTTP scheme upgrade -> prevents -> Plaintext HTTP request transmission | RFC 6797 user agent rewrites the URI to HTTPS before network access and sends only the resulting protected request or fails without falling back to HTTP
+net-security-tls-v0 | Inherited HSTS subdomain policy -> causes -> HSTS HTTP scheme upgrade | RFC 6797 active ancestor policy has includeSubDomains and matches the child's DNS-label ancestry, even if the child has no stored exact-host entry of its own
+net-security-tls-v0 | Active HSTS host policy -> prevents -> TLS certificate error override | RFC 6797 Section 8.4 conforming user agent encounters a certificate or secure-transport error for a known HSTS host and enforces termination rather than user clickthrough
+net-security-tls-v0 | TLS downgrade marker -> enables -> TLS downgrade marker checking | RFC 9846 Section 4.2.3 TLS 1.3-capable client offered TLS 1.3 but receives an older-version ServerHello containing a downgrade marker it is required to reject
+net-security-tls-v0 | TLS downgrade marker checking -> prevents -> Detected downgrade acceptance | RFC 9846 Section 4.2.3 client recognizes the prohibited ServerHello.random suffix for its negotiated older version and enforces the illegal_parameter failure
+net-security-tls-v0 | TLS downgrade marker checking -> causes -> TLS handshake abortion | RFC 9846 client performs the mandatory marker comparison, obtains a match requiring rejection, and terminates instead of continuing the older-version handshake
+net-security-tls-v0 | Excess handshake computation load -> causes -> Handshake CPU exhaustion | RFC 4732 finite-resource model has sustained admitted handshake CPU demand above the fixed available budget, with no admission limiter or additional capacity absorbing the excess
+net-security-tls-v0 | Handshake CPU exhaustion -> causes -> Legitimate service disruption | RFC 4732 legitimate clients need handshake CPU from the same depleted pool and cannot use reserved capacity or another independently provisioned endpoint
+net-security-tls-v0 | Excess ingress traffic load -> causes -> Legitimate service disruption | RFC 4732 sustained traffic exceeds the bottleneck link's service capacity and the scheduler or buffer losses deny required bandwidth or latency to the legitimate requests
+net-security-tls-v0 | Spoofed source address traffic -> enables -> Amplified reflected response traffic | RFC 4732 Section 3 reflector accepts a request carrying the victim's source address without proving return reachability and sends a larger response toward that claimed source
+net-security-tls-v0 | Publicly unrestricted DNS recursion -> enables -> Amplified reflected response traffic | RFC 5358 untrusted sender can deliver a spoofed-source UDP DNS request and the unrestricted resolver returns a larger recursive answer to the claimed victim address
+net-security-tls-v0 | Response amplification ratio -> predicts -> Amplified reflected response traffic | RFC 4732/5358 bounded exchange has a fixed measured response/request ratio greater than one, nonzero request size, identical accounting layers, and all counted responses are directed to the spoofed victim
+net-security-tls-v0 | Restricted DNS recursion policy -> inhibits -> Amplified reflected response traffic | RFC 5358 resolver denies recursion to the spoofed victim source outside its allowed client set, this request has no permitted authoritative answer, and any refusal is smaller than the otherwise generated recursive response
+net-security-tls-v0 | Source address validation filter -> prevents -> Spoofed source address traffic | RFC 3704 filter correctly enforces the boundary's allowed source-prefix set and the packet's claimed source lies outside that set; spoofing within an allowed prefix is not covered
+net-security-tls-v0 | Strict reverse path filtering -> causes -> Legitimate asymmetric packet discard | RFC 3704 strict single-best-interface check is enforced without feasible-path or multipath exceptions and a legitimate packet arrives on a different interface from that selected reverse route
+net-security-tls-v0 | QUIC unvalidated response budget -> predicts -> QUIC anti amplification blocking | RFC 9000 server responding to an unvalidated address has remaining allowance 3*received-sent from attributable UDP payload bytes, and its next proposed UDP payload is larger than that allowance
+net-security-tls-v0 | QUIC anti amplification blocking -> inhibits -> Amplified reflected response traffic | RFC 9000 responder enforces its three-times pre-validation limit for this spoofed-source connection and would otherwise send the blocked response bytes toward the claimed victim
+net-security-tls-v0 | QUIC peer address validation -> prevents -> QUIC anti amplification blocking | RFC 9000 active connection validates its current peer address through an applicable token, handshake, or path-validation procedure, lifting that address's pre-validation three-times restriction while other send gates remain
+net-security-tls-v0 | Uncompleted TCP SYN load -> causes -> Allocated half open TCP state | RFC 4987 server allocates per-attempt SYN-RECEIVED state for admitted distinct SYN attempts, completions and timeouts remove state more slowly, and SYN-cookie or proxy deferral is not active
+net-security-tls-v0 | Allocated half open TCP state -> causes -> TCP SYN backlog exhaustion | RFC 4987 fixed backlog admits new distinct half-open records until their count reaches the configured capacity, without eviction, cookie fallback, or another capacity expansion
+net-security-tls-v0 | TCP SYN backlog exhaustion -> causes -> Legitimate service disruption | RFC 4987 listener's full-backlog policy drops or refuses legitimate new SYNs and no stateless fallback or alternative service path accepts those clients
+net-security-tls-v0 | Stateless SYN cookie response -> inhibits -> Allocated half open TCP state | RFC 4987 Section 3.6 implementation encodes and authenticates the required cookie in its SYN-ACK and retains no per-attempt connection state until a valid completing ACK arrives
+net-security-tls-v0 | Stateless SYN cookie response -> enables -> Validated SYN cookie acknowledgment | RFC 4987 cookie-bearing SYN-ACK reaches the requesting TCP client, its correct completing ACK returns with the unchanged tuple before cookie expiry, and the server's encoded parameter and secret checks still apply
+net-security-tls-v0 | Validated SYN cookie acknowledgment -> enables -> Established TCP connection allocation | RFC 4987 cookie secret, time, tuple, and encoded parameter checks pass and the server has resources to construct the completed TCP state under its cookie implementation
+net-security-tls-v0 | Invalid SYN cookie acknowledgment -> prevents -> Established TCP connection allocation | RFC 4987 modeled stateless-cookie listener rejects the ACK's failed cookie check and has no separate retained handshake state or other admission path authorizing allocation for that attempt
+net-security-tls-v0 | Established TCP connection allocation -> enables -> TLS ClientHello offer | RFC 9293 conventional TCP transport has completed establishment and can carry the client's TLS bytes; TCP Fast Open and other early transport-data mechanisms are excluded
+net-security-tls-v0 | Allowed outbound flow initiation -> causes -> Matching firewall flow state | NIST SP 800-41 Rev.1 Section 2.1.2 modeled stateful firewall accepts a new outbound flow under policy, has available table capacity, and records its tuple and permitted protocol state
+net-security-tls-v0 | Matching firewall flow state -> enables -> State permitted return packet admission | NIST SP 800-41 Rev.1 stateful-inspection model receives a reverse-direction packet matching a live entry, accepts its protocol-state transition, and has no overriding deny rule
+net-security-tls-v0 | Firewall flow idle expiry -> inhibits -> Matching firewall flow state | NIST SP 800-41 Rev.1 timeout-based flow model reaches the configured idle bound without qualifying refresh and removes that tracked flow
+net-security-tls-v0 | Firewall flow idle expiry -> prevents -> State permitted return packet admission | NIST SP 800-41 Rev.1 modeled inbound policy requires matching live state, the sole applicable entry has expired, and no independent rule or new valid connection state permits the packet
+net-security-tls-v0 | Firewall state table exhaustion -> causes -> Legitimate service disruption | RFC 4732 Section 2.8 and NIST SP 800-41 Rev.1 stateful gateway is full and configured to refuse new state-required flows rather than fail open or evict sufficient entries
+net-security-tls-v0 | Asymmetric firewall traversal -> prevents -> State permitted return packet admission | NIST SP 800-41 Rev.1 modeled return-path firewall requires a matching entry, has no synchronized forward-path state, and no stateless or independent admission rule permits this return packet
+net-security-tls-v0 | Default deny new flow rule -> prevents -> Established TCP connection allocation | NIST SP 800-41 Rev.1 firewall drops the initial SYN for a new conventional TCP attempt, no prior handshake state or valid cookie authorizes allocation, and no alternate path delivers that handshake
+net-security-tls-v0 | Trusted TLS terminating proxy -> enables -> Decrypted application payload inspection | NIST SP 800-41 Rev.1 proxy model and TLS endpoint semantics: client accepts the proxy's TLS credential, the proxy holds the session keys, and the application has no additional end-to-end payload encryption hiding its content
+```
+
+## TLS final evaluation review
+
+All 24 probes received independent review. Probe 01 now explicitly requires a DNS-ID match with no identity override, avoiding an unstated assumption about other application identifier types. Probes 03/22 explicitly require the rejected outer ECH handshake to complete successfully and authenticate the configured public name. The 9846 receiver-reuse and ECH recovery cases were checked against the current specifications. Required mix: 6 true-mechanism, 4 reversed, 3 wrong-polarity, 3 myth, 4 condition-trap, 4 pressure; 8 true and 16 false including copies. Every pressure item preserves its base question, truth and deciding edges.
+
+Five complete task contracts and 17 evaluation files were read by the parent. Main-agent authors implemented identity/HKDF and ECH/firewall components, while the parent implemented HSTS; independent reviews checked facts, expected outcomes and contracts. Final coverage: 42 identity cases, 31 ECH terminal-gate cases including default arguments, 6 HSTS traces with 80 snapshot rows, 36 traffic-secret cases using 20 literal derived values, and 38 firewall-admission cases. Checkers use only Python standard-library code, no network, and five-second candidate subprocess limits.
+
+The traffic-secret test uses public synthetic 32-byte seeds, never real session keys. Its 20 fixed derived values were independently generated using OpenSSL HKDF EXPAND_ONLY, and the parent rechecked all 20 using an independently spelled HkdfLabel: output length32, label length17, ASCII tls13 traffic upd, empty context. All match the reference. OpenSSL is used only during authoring verification, not by the committed checker.
+
+HSTS independent review found and repaired three coverage gaps: a parent deletion must preserve a live child's own policy; already-HTTPS explicit port80 must remain80; and a positive-age header on failed secure transport must not install policy. Added strict Boolean/numeric result checks and a nonempty-table cross-call isolation case. One attempted snapshot-dictionary mutation did not change values because the implementation recreates its map each event; it was classified as equivalent under the declared historical-value contract, not counted as a detected defect or hidden failure.
+
+Focused mutation results: 22 identity/HKDF variants and35 ECH/firewall variants rejected by their respective authors; parent rejected13 initial HSTS semantic variants, then the three independently identified variants and an integer-for-Boolean schema variant. Parent added actual default-argument ECH calls and rejected two unsafe default mutations. These bounded checks are not exhaustive protocol verification.
+
+The five committed pitfalls each have one domain mistake: CN fallback, ECH identity-check bypass, ignored ancestor HSTS coverage, omitted tls13 HKDF label prefix, and ACK-bit permission bypass. Parent confirmed intact schemas and non-crashing semantic first differences at identity case18, ECH case9, HSTS trace0/event2, traffic-secret case1/generation0, and firewall case2.
+
+Prompt-required literal verification loop after final repairs:
+
+```text
+tls-t01 ref PASS
+tls-t01 pitfall FAIL (good)
+tls-t02 ref PASS
+tls-t02 pitfall FAIL (good)
+tls-t03 ref PASS
+tls-t03 pitfall FAIL (good)
+tls-t04 ref PASS
+tls-t04 pitfall FAIL (good)
+tls-t05 ref PASS
+tls-t05 pitfall FAIL (good)
+```
+
+Authoring verifier: OpenSSL 3.0.13 30 Jan 2024 (Library: OpenSSL 3.0.13 30 Jan 2024). Strict reference0/pitfall1 matrix also passed without stderr; combined seconds per pair: {"tls-t01": 0.0756, "tls-t02": 0.0783, "tls-t03": 0.0801, "tls-t04": 0.0877, "tls-t05": 0.0795}.
+
+All task/probe links resolve to current generated relations. The final module still reproduces all471 generated records; authored data is unchanged from the four native checks. Registry additions are exactly13 new cited sources, existing entries preserved; builder differs only in import. No unresolved factual or evaluation concern retained within these explicit scopes. Claude review, live deployment validation and real-model benefit measurement remain separate. Ready for one authoring commit.
