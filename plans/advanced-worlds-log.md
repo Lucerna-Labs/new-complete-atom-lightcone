@@ -561,7 +561,7 @@ The following canonical citation-only entries were verified by the owning worker
 
 ## Step 0: python-causation-v0
 
-Commit: pending creation, title `Review fixes: python`.
+Commit: `9c697bf` (`Review fixes: python`).
 Counts: 39 concepts, 32 relations, 6 myths, 4 boundaries, 4 examples, 4 controls.
 Relations by kind: {"causes": 6, "enables": 10, "inhibits": 3, "predicts": 4, "prerequisite": 1, "prevents": 8}.
 Probes/tasks: not applicable to Step 0.
