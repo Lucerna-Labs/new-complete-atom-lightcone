@@ -3194,3 +3194,220 @@ pdz-t05 pitfall FAIL (good)
 Strict process verification also confirms all reference0/pitfall1 outcomes with no stderr. Combined seconds per pair: {"pdz-t01": 0.078, "pdz-t02": 0.0767, "pdz-t03": 0.0886, "pdz-t04": 0.0769, "pdz-t05": 0.0757}.
 
 Every task/probe edge link resolves to current generated relations; module still reproduces all480 records after the four native checks. Registry changes are exactly11 appended cited sources, with existing entries intact; builder differs only in import. No unresolved factual or evaluation concern remains within these bounded models. External Claude review, production protocol acceptance and real-model benefit testing remain separate. Ready for one authoring commit.
+
+## Protocol-design commit and next-world transition
+
+Committedf2561e5d8f7960ae9e9585ac77148316333c2d9a with exactly21 allowed files and no curricula outputs. Sixth of104 new worlds complete for authoring;98remain. Next printed row is net-performance-queueing-v0 (npq,networking.performance). No later world is underway.
+
+## Performance and queueing source registration
+
+Independent primary-source reviewer verified six RFC headers and five publication/manual references. Eleven entries appended, citation_only, retrieved2026-10-03. CoDel/FQ-CoDel documents remain explicitly Experimental; the world selects classic RFC3168 ECN rather than importing DCTCP/PFC/RoCE semantics. RDMA uses named RDMAP/DDP and pinned verbs-manual scopes.
+
+- rfc8289: Controlled Delay Active Queue Management; January 2018; Experimental; https://www.rfc-editor.org/rfc/rfc8289
+- rfc8290: The Flow Queue CoDel Packet Scheduler and Active Queue Management Algorithm; January 2018; Experimental; https://www.rfc-editor.org/rfc/rfc8290
+- rfc7567: IETF Recommendations Regarding Active Queue Management; July 2015; Best Current Practice 197; https://www.rfc-editor.org/rfc/rfc7567
+- rfc3168: The Addition of Explicit Congestion Notification (ECN) to IP; September 2001; Standards Track; https://www.rfc-editor.org/rfc/rfc3168
+- rfc5040: A Remote Direct Memory Access Protocol Specification; October 2007; Standards Track; https://www.rfc-editor.org/rfc/rfc5040
+- rfc5041: Direct Data Placement over Reliable Transports; October 2007; Standards Track; https://www.rfc-editor.org/rfc/rfc5041
+- little-1961-queueing-formula: A Proof for the Queuing Formula: L = λW; John D. C. Little; Operations Research 9(3), May-June 1961, pp. 383-387; DOI 10.1287/opre.9.3.383; https://pubsonline.informs.org/doi/abs/10.1287/opre.9.3.383
+- harchol-balter-2013-performance-modeling: Performance Modeling and Design of Computer Systems: Queueing Theory in Action; Mor Harchol-Balter; original 2013 edition, February 2013; ISBN 9781107027503; digital ISBN 9781139226424; https://doi.org/10.1017/CBO9781139226424
+- vasudevan-2009-fine-grained-tcp: Safe and Effective Fine-grained TCP Retransmissions for Datacenter Communication; Vijay Vasudevan, Amar Phanishayee, Hiral Shah, Elie Krevat, David G. Andersen, Gregory R. Ganger, Garth A. Gibson, Brian Mueller; ACM SIGCOMM 2009 proceedings, August 2009, pp. 303-314; https://doi.org/10.1145/1592568.1592604
+- nvidia-rdma-programming-v1-7: RDMA Aware Networks Programming User Manual; Revision 1.7, August 2020; pinned historical programming reference; https://docs.nvidia.com/rdma-aware-networks-programming-user-manual-1-7.pdf
+- dpdk-24-11-poll-mode-drivers: DPDK Programmer's Guide: Poll Mode Driver; Release tag v24.11, November 2024; annotated release tag dated 2024-11-30; https://github.com/DPDK/dpdk/blob/v24.11/doc/guides/prog_guide/ethdev/ethdev.rst
+
+Additional primary evidence: Harchol-Balter author page https://www.cs.cmu.edu/~harchol/PerformanceModeling/book.html ; original incast author PDF https://www.cs.cmu.edu/~dga/papers/incast-sigcomm2009.pdf . The NVIDIA PDF revision history pins1.7/August2020 even though its live landing page was deprecatedJune2026. DPDK documentation is pinned to git tagv24.11 rather than the currently rendered24.11.7 maintenance docs; same-tag API https://github.com/DPDK/dpdk/blob/v24.11/lib/ethdev/rte_ethdev.h . No installation or device reconfiguration is part of this authoring work.
+
+## Advanced world: net-performance-queueing-v0
+
+Commit: pending creation, title `Author net-performance-queueing-v0 with checked evaluations`.
+Counts: 110 concepts, 100 relations, 20 myths, 12 boundaries, 15 examples, 9 controls.
+Relations by kind: {"causes": 27, "enables": 19, "inhibits": 14, "predicts": 35, "prevents": 5}.
+Probes/tasks: complete;24 probes and5 checked task bundles; final receipt below.
+
+Author completed six passes on110 concepts/100relations (35predicts,27causes,19enables,14inhibits,5prevents;100%causal),20myths,12boundaries,15examples,9controls. Pass-actions overlap: direction/type3 revisions, counterexample7, version/model2, duplicate/circularity2, count/grammar1;15actions touch14distinct edges. No edges dropped. Two concepts separate sparse scheduler waiting from same-FIFO blocking, and actual pacing departures from nominal schedule gaps. AQM denotes the controller rather than only its feedback event; integrity/access definitions retain their actual mechanism boundaries. Two worked examples corrected; all20myths retained.
+
+Parent readall100edges andscaffolding and independently checked numerical examples; sourceexpert confirmed every refined row. Repairs include offered/admitted burst distinction, FIFO ahead-work preservation, nonoverlapping batching delay, actual-loss and no-intervening-ACK guard for RTO prediction, complete P-K assumptions, classic-ECN/CWR context, remaining buffer capacity during feedback, segment-scoped RDMA rejection, and DPDK accepted-packet rather than descriptor units. Little'slaw retains matched means/populations; M/M/1 and M/G/1 hypotheses are explicit. CoDel thresholds are controller rules rather than latency guarantees. RDMA/DPDK sources are version-pinned and completion/admission is separate from remote application progress.
+
+Sources:11 newverifiedentriesabove plus5681/6298/9002. No DCTCP/PFC or unpinnedRoCE behavior imported. No known unresolved factual issue remains within declared regimes; external Claude review remains separate. These are authored analytic/protocol models, not measurements of the user's network, production acceptance, or proof of real-model benefit.
+
+Four checks:
+
+```
+$ python3 tools/build_net_performance_queueing_causation_curriculum.py
+wrote /home/jesse/Desktop/Projects/new-complete-atom-lightcone/curricula/net-performance-queueing-v0/foundations.jsonl with 487 records
+splits: {'cross_domain_holdout': 26, 'sealed_test': 56, 'train': 348, 'validation': 57}
+kinds: {'boundary': 12, 'concept': 111, 'counterexample': 20, 'relation': 320, 'synthetic_control': 9, 'worked_example': 15}
+exit: 0
+
+$ python3 tools/validate_curricula.py
+foundation lanes with controls: 23/23
+valid: True
+exit: 0
+
+$ python3 tools/validate_sources.py
+valid: True
+exit: 0
+
+$ .venv/bin/python trainer/compile_curriculum.py --world-id net-performance-queueing-v0
+{
+  "schema_version": 1,
+  "world_id": "net-performance-queueing-v0",
+  "adapter_independent": true,
+  "record_count": 487,
+  "node_count": 167,
+  "edge_count": 320,
+  "negative_pair_count": 9,
+  "domains": [
+    "networking"
+  ],
+  "lanes": [
+    "reasoning.causal",
+    "reasoning.deductive",
+    "thinking.bottom_up"
+  ],
+  "files": {
+    "edges.jsonl": "5ecb821e12c6c0969f5d8c7b191c73646926099c74dbb34b31375eb92c60e1c2",
+    "lexicon.json": "0197c6535fa7e9ef53e0d661d3ddeab00be32b8088b93d7279e708adc889455b",
+    "nodes.jsonl": "e90667df4cba870a3583630e2cd508366911597c176bc4ac0cac6d9ee8a06bd4",
+    "records.jsonl": "2a487fe0d1327e138a8cd9b20a4c5875422e41853fb2dd96d5348e9e432c0636",
+    "relation-catalog.json": "bde19fb7c98f3e3cc71cdc1225eba5b73382204ff875f8c00c34db49a1ffe3e8",
+    "sources.json": "ed4abfb99a9c909d2a6c8b94b3799fbdec83390ed8fcece8ffa7c92bded7d0d1",
+    "split-manifest.json": "a6f65fd5357a2de32c562a6d2bce3499d023fca3de1dc12bfe25c68a295847fc",
+    "training-graph.json": "328b4db97d44c7b79ea2d2cdb68fcd0b506bb76fbb62546f7ee0b8d32a0fdd5b"
+  }
+}
+exit: 0
+```
+
+Reviewer relation list (complete final authored data; generated structural edges excluded):
+
+```text
+net-performance-queueing-v0 | Admitted packet arrival rate -> predicts -> Stationary server utilization | Stationary lossless FCFS M/M/1 queue has independent Poisson arrivals at lambda packets/s, exponential service at fixed mu packets/s, an infinite waiting room, and 0<=lambda<mu
+net-performance-queueing-v0 | Packet service rate -> predicts -> Service arrival rate gap | The specified stable FCFS M/M/1 model holds admitted Poisson rate lambda fixed, measures both rates in packets/s, and has mu>lambda with independent exponential service
+net-performance-queueing-v0 | Stationary server utilization -> predicts -> Mean packets in system | Lossless stationary M/M/1 has independent Poisson arrivals, exponential service, one work-conserving server, infinite capacity, and 0<=rho<1; the count includes service
+net-performance-queueing-v0 | Stationary server utilization -> predicts -> Mean waiting packet count | Stationary FCFS M/M/1 has the same infinite-capacity packet population, independent exponential service and Poisson arrivals, and rho<1; Lq excludes the packet in service
+net-performance-queueing-v0 | Service arrival rate gap -> predicts -> Mean packet system time | Stationary FCFS M/M/1 has independent Poisson arrival and exponential service processes with 0<lambda<mu in packets/s, no loss, and residence measured through service completion
+net-performance-queueing-v0 | Stationary server utilization -> predicts -> Mean packet queueing time | Stable FCFS M/M/1 uses rho=lambda/mu and rates in packets/s with 0<lambda<mu; independent Poisson arrivals and exponential service apply, and own service time is excluded
+net-performance-queueing-v0 | Mean packets in system -> predicts -> Mean packet system time | Little's law uses the same lossless admitted population and admission-to-departure boundary, stationary finite means, matched positive throughput lambda_eff, and no uncounted bypass or exit
+net-performance-queueing-v0 | Matched population departure throughput -> predicts -> Mean packets in system | Little's law fixes finite mean system time W seconds and a stable matched packet population with finite mean occupancy; lambda_eff counts its departures per second, without assuming Poisson arrivals
+net-performance-queueing-v0 | Mean waiting packet count -> predicts -> Mean packet queueing time | Little's law is applied only to the waiting portion of a stable lossless queue, with finite averages and positive throughput for the same admitted packets, including zero waits in the mean
+net-performance-queueing-v0 | Service arrival rate gap -> predicts -> Packet system time exceedance probability | Stationary infinite-capacity FCFS M/M/1 has independent Poisson arrivals and exponential service with 0<lambda<mu, and t>=0 seconds measures waiting plus own service
+net-performance-queueing-v0 | Stationary server utilization -> predicts -> Packet waiting time exceedance probability | Stationary FCFS M/M/1 has independent Poisson arrivals and exponential service, 0<rho=lambda/mu<1, and t>=0 seconds; P(Wq=0)=1-rho is retained rather than treating waiting as a pure exponential
+net-performance-queueing-v0 | Service arrival rate gap -> predicts -> Packet system time percentile | Stable stationary FCFS M/M/1 uses independent Poisson arrivals and exponential service, 0<lambda<mu in packets/s, and 0<p<1 for the complete system-time distribution
+net-performance-queueing-v0 | Service time second moment -> predicts -> General service mean waiting time | Stationary lossless nonpreemptive FCFS M/G/1 has one work-conserving server without vacations or setup, independent Poisson arrivals, iid service independent of arrivals, infinite capacity, finite first and second service moments, and rho=lambda*E[S]<1
+net-performance-queueing-v0 | Packet wire bit count -> predicts -> Packet serialization time | Declared nonpreemptive link transmits this packet's B accounted wire bits at constant positive C bits/s, with no interleaved service, rate changes, or additional unaccounted framing time
+net-performance-queueing-v0 | Bottleneck wire service rate -> predicts -> Packet serialization time | The link model holds packet wire work B fixed and serves it continuously at C>0 bits/s; this calculation excludes queueing, propagation, and endpoint processing
+net-performance-queueing-v0 | FIFO wire work ahead -> predicts -> FIFO packet waiting delay | Declared work-conserving nonpreemptive FIFO link has H remaining bits ahead at admission, including residual current service, constant C>0 bits/s, no work-ahead drops or cancellation, and no priorities or later arrivals overtaking this packet
+net-performance-queueing-v0 | Transport outstanding byte budget -> predicts -> Window limited goodput bound | Ideal continuously backlogged lossless window model allows at most W payload bytes outstanding and returns their credit after fixed positive R seconds; this is an upper bound, excluding overhead and other bottlenecks
+net-performance-queueing-v0 | Measured transport round trip time -> predicts -> Window limited goodput bound | Declared lossless acknowledgment-clock model holds the usable outstanding budget W bytes fixed, uses constant positive feedback RTT R seconds, and has no acknowledgment compression or credit source shortening that round trip
+net-performance-queueing-v0 | Required response fanout count -> predicts -> Fanout completion exceedance probability | Declared all-response model has n>=1 independent identically distributed child completion times with common CDF F, starts them together, and defines the probability as 1-[F(t)]^n rather than (1-F(t))^n
+net-performance-queueing-v0 | Independent child latency distribution -> predicts -> Fanout completion exceedance probability | Declared parent waits for all n fixed iid child responses with no shared-delay dependence, retries changing the distribution, early quorum, or cancellation; t is measured from their common start
+net-performance-queueing-v0 | Sustained arrival service surplus -> causes -> FIFO wire work ahead | Declared finite observation interval retains admitted excess wire bits in the same FIFO bottleneck, with no drops or alternate drain removing the positive arrival-minus-service surplus
+net-performance-queueing-v0 | FIFO packet waiting delay -> causes -> Measured transport round trip time | The measured packet or its acknowledgment traverses this FIFO wait, all other RTT components are held fixed, and the same acknowledgment event is compared without retransmission ambiguity
+net-performance-queueing-v0 | Persistent standing packet queue -> causes -> Bufferbloat delay | RFC 7567 and RFC 8289 bottleneck remains persistently occupied while transmitted packets wait in that backlog; the delay is attributable to the standing buffer rather than an unrelated propagation path
+net-performance-queueing-v0 | Enforced bottleneck buffer capacity -> enables -> Finite burst buffering | RFC 8289 burst-absorption setting has sufficient unused storage for the admitted burst after service during the interval is accounted for, and the burst later ends so the backlog can drain
+net-performance-queueing-v0 | Finite burst buffering -> prevents -> Full buffer packet rejection | The specified tail-drop queue has enough free capacity to retain every packet of this finite excess burst, packet granularity is accounted for, and no competing input consumes that reserved space
+net-performance-queueing-v0 | Enforced bottleneck buffer capacity -> enables -> Persistent standing packet queue | RFC 7567 tail-drop bottleneck has a large usable queue and senders maintain backlog without effective earlier AQM control; this is permission to retain work, not a claim that empty capacity creates traffic
+net-performance-queueing-v0 | Enforced bottleneck buffer capacity -> causes -> Full buffer packet rejection | Declared tail-drop admission tests the incoming packet against remaining storage, rejects before exceeding the bound, and neither blocks upstream nor uses a different queue or overflow policy
+net-performance-queueing-v0 | Sufficient queue drain interval -> inhibits -> Persistent standing packet queue | The considered bottleneck serves all initially queued work plus new arrivals before the interval ends, no hidden queue is substituted, and the empty interval breaks continuous backlog persistence
+net-performance-queueing-v0 | Synchronized many sender response -> causes -> Synchronized response burst volume | Vasudevan et al. 2009 incast model requests replies from multiple servers whose transmissions overlap at one constrained receiver-facing switch egress rather than being spread onto independent bottlenecks
+net-performance-queueing-v0 | Synchronized response burst volume -> causes -> Incast buffer overflow loss | The receiver-facing tail-drop egress receives more offered burst wire work than available queue storage plus service during that burst, with packet admission granularity included and no effective earlier sender coordination
+net-performance-queueing-v0 | Incast buffer overflow loss -> causes -> Lost data retransmission | The lost response bytes remain unacknowledged on a live RFC 5681/RFC 6298 TCP connection, application delivery still requires them, and either valid fast-retransmit evidence or the retransmission timeout triggers repair
+net-performance-queueing-v0 | Insufficient acknowledgment loss evidence -> causes -> Retransmission timeout wait | The specified classic RFC 5681/RFC 6298 short TCP response loses data, cannot generate three qualifying duplicate ACKs, and has no SACK-based, RACK, tail-loss-probe, or application retry mechanism repairing it sooner
+net-performance-queueing-v0 | Retransmission timeout wait -> predicts -> Lost data retransmission | RFC 6298 timer has a known remaining wait and no acknowledgment or abort intervenes; its earliest unacknowledged segment was actually lost rather than merely delayed or acknowledged by a lost ACK, so expiry selects that segment for retransmission
+net-performance-queueing-v0 | Retransmission timeout wait -> causes -> Delayed required child response | The incast application's child response cannot complete without the missing TCP bytes, no independent copy satisfies it, and timer-based repair occurs later than a hypothetical immediate successful delivery
+net-performance-queueing-v0 | Delayed required child response -> causes -> Parent operation completion time | Declared all-response barrier has every other required child ready earlier, performs no quorum or speculative substitute, and completes immediately when this last required child becomes available
+net-performance-queueing-v0 | All response completion barrier -> predicts -> Parent operation completion time | Declared fixed child set starts from the same parent epoch, every child is required, and parent completion adds no post-response processing delay; independence is unnecessary for this deterministic maximum identity
+net-performance-queueing-v0 | Enforced response start staggering -> inhibits -> Synchronized response burst volume | Declared incast coordinator spreads the same reply work over distinct bottleneck arrival intervals, timer resolution preserves the spacing, and downstream reconvergence does not recreate the original simultaneous burst
+net-performance-queueing-v0 | Fine grained incast recovery timer -> inhibits -> Retransmission timeout wait | Vasudevan et al. 2009 experimentally configured low-RTT TCP recovery uses a shorter accurately serviced timer than the compared coarse timeout, without premature-expiry retransmissions dominating this lost-response case; this is not an RFC 6298 default claim
+net-performance-queueing-v0 | Active queue management controller -> causes -> Active queue packet drop | RFC 7567 queue controller detects the configured congestion condition before tail-drop overflow and applies its drop action to this packet rather than using an ECN-mark alternative
+net-performance-queueing-v0 | Active queue packet drop -> causes -> TCP congestion window reduction | RFC 5681 loss-based sender receives qualifying loss evidence for the AQM-dropped data and performs its specified congestion response; no assertion is made that the response is instantaneous at the queue
+net-performance-queueing-v0 | TCP congestion window reduction -> inhibits -> Persistent standing packet queue | RFC 7567 feedback loop has the considered responsive sources reduce actual arrivals after existing flight drains, aggregate admitted rate then falls below bottleneck service, and no unresponsive replacement source maintains the backlog
+net-performance-queueing-v0 | CoDel enqueue timestamp -> predicts -> Observed packet queue sojourn | RFC 8289 Section 5 records the packet's entry to this queue and uses a consistent monotonic timebase at dequeue, without confusing this local residence with full network RTT
+net-performance-queueing-v0 | Observed packet queue sojourn -> predicts -> CoDel first above deadline | RFC 8289 Section 5.6 dequeue has sojourn>=TARGET, remaining bytes>maxpacket, and first_above_time=0; the helper assigns now+INTERVAL rather than immediately returning ok_to_drop
+net-performance-queueing-v0 | CoDel sojourn target -> predicts -> CoDel persistence reset | RFC 8289 Section 5.6 uses sojourn<TARGET for this reset branch; sojourn exactly equal to TARGET does not satisfy the below-target comparison, though the separate backlog guard can still reset
+net-performance-queueing-v0 | CoDel low backlog guard -> prevents -> CoDel drop eligibility | RFC 8289 Section 5.6 evaluates bytes remaining after the packet dequeue and finds bytes<=maxpacket; it clears first_above_time and leaves ok_to_drop false even if that packet's sojourn is large
+net-performance-queueing-v0 | CoDel persistence reset -> prevents -> CoDel drop eligibility | RFC 8289 first_above_time has been cleared by a below-target, low-backlog, or empty dequeue; the next qualifying observation must arm a new interval before the old deadline could authorize a drop
+net-performance-queueing-v0 | CoDel first above deadline -> predicts -> CoDel drop eligibility | RFC 8289 Section 5.6 first_above_time is nonzero, no intervening dequeue reset it, current sojourn>=TARGET and remaining bytes>maxpacket, and now>=first_above_time
+net-performance-queueing-v0 | CoDel persistence interval -> predicts -> CoDel first above deadline | RFC 8289 helper starts from first_above_time=0 at a qualifying above-or-equal-target observation with adequate remaining backlog and uses the configured positive interval in the same clock units
+net-performance-queueing-v0 | CoDel drop eligibility -> causes -> CoDel dropping state | RFC 8289 Section 5.5 dequeues a packet with ok_to_drop=true while dropping=false and follows the packet-drop version of the controller's entry branch, including its first drop and state initialization
+net-performance-queueing-v0 | CoDel dropping state -> causes -> Active queue packet drop | RFC 8289 Section 5.5 packet-drop implementation remains dropping, the dequeue helper still permits dropping, and now>=drop_next; overdue scheduling can execute more than one drop in this invocation
+net-performance-queueing-v0 | CoDel control count -> predicts -> CoDel next signal deadline | RFC 8289 Section 5.6 control_law receives positive count and scheduled base t in consistent units; repeated dropping advances from the prior scheduled deadline, while entry may pass the current time
+net-performance-queueing-v0 | CoDel persistence reset -> inhibits -> CoDel dropping state | RFC 8289 Section 5.5 controller is already dropping, the current helper returns ok_to_drop=false after a reset condition, and the controller clears dropping rather than following its due-drop loop
+net-performance-queueing-v0 | Sufficient queue drain interval -> causes -> CoDel persistence reset | RFC 8289 Section 5.6 dodequeue returns no packet after this queue has fully drained, so it clears first_above_time regardless of the earlier above-target history
+net-performance-queueing-v0 | CoDel next signal deadline -> predicts -> Active queue packet drop | RFC 8289 Section 5.5 packet-drop controller is already dropping and its current dequeue remains eligible with a packet available; the scheduled deadline authorizes the next drop rather than resetting the schedule to now
+net-performance-queueing-v0 | FQ CoDel flow classification -> enables -> Separate flow queue placement | RFC 8290 configured classifier maps these distinct flows to distinct FIFO buckets with independent CoDel state; the claim does not assume the default finite hash is collision-free
+net-performance-queueing-v0 | Flow classification hash collision -> causes -> Shared flow queue coupling | RFC 8290 default classifier sends both actual flows into the same bucket, so they share its FIFO ordering and CoDel state despite having different five-tuples
+net-performance-queueing-v0 | Separate flow queue placement -> prevents -> Bulk backlog FIFO blocking | RFC 8290 sparse and bulk flows occupy different buckets and the scheduler can serve both; this removes waiting behind the entire other FIFO backlog, not serialization delay or shared-link contention
+net-performance-queueing-v0 | Shared flow queue coupling -> enables -> Bulk backlog FIFO blocking | RFC 8290 bucket collision or explicit classification puts the sparse packet in the same FIFO after the bulk packets, with no per-packet priority or alternate queue removing that ordering
+net-performance-queueing-v0 | Separate flow queue placement -> enables -> Per bucket CoDel control | RFC 8290 initialization assigns separate RFC 8289 state to each of these buckets, and dequeue applies that state to the selected bucket rather than pooling all packets into one CoDel history
+net-performance-queueing-v0 | Per bucket CoDel control -> causes -> Active queue packet drop | RFC 8290 scheduler selects this bucket and its RFC 8289 drop-mode controller reaches a due eligible drop; a low-sojourn packet in another bucket is not substituted for this decision
+net-performance-queueing-v0 | Deficit scheduler byte quantum -> predicts -> Flow queue byte deficit | RFC 8290 selected bucket reaches the rotation/replenishment branch and adds its configured Q bytes to existing signed deficit d; the update is d+Q rather than resetting to Q or counting packets
+net-performance-queueing-v0 | Negative flow queue deficit -> causes -> Flow queue scheduler rotation | RFC 8290 Section 4.2 selects a bucket with deficit strictly below zero, replenishes its credits, moves it to the old-flow list tail, and restarts selection instead of serving it immediately
+net-performance-queueing-v0 | Packet wire bit count -> predicts -> Flow queue byte deficit | RFC 8290 service starts with positive deficit d, dequeues an indivisible packet charged B/8 bytes by this queue's length accounting, and subtracts its full length even when that makes the result negative
+net-performance-queueing-v0 | New flow scheduling preference -> inhibits -> Sparse packet scheduler wait | RFC 8290 sparse packet is at the head of a new-list bucket with positive credit, an old bucket is also eligible, and new-list preference selects the sparse bucket first while other service timing stays fixed
+net-performance-queueing-v0 | Largest backlog overflow removal -> inhibits -> Persistent standing packet queue | RFC 8290 Section 4.1 enqueue exceeds the global packet-count limit, selects the greatest-byte-backlog bucket, and removes head packets there; this action does not erase every queue or promise that the bucket stays empty
+net-performance-queueing-v0 | Classic TCP ECN negotiation -> enables -> ECN capable packet marking | RFC 3168 Section 6.1.1 peers complete the ECN-setup SYN/SYN-ACK exchange without the non-ECN fallback conditions, and the sender chooses to set ECT on this otherwise eligible data packet
+net-performance-queueing-v0 | ECN capable packet marking -> enables -> Congestion Experienced packet mark | RFC 3168 Section 5 router recognizes ECT, its AQM chooses congestion signaling with capacity still available, and its policy selects CE marking instead of dropping that packet; a full buffer is not made larger
+net-performance-queueing-v0 | Active queue management controller -> causes -> Congestion Experienced packet mark | RFC 3168-capable AQM is signaling congestion on an eligible ECT packet, has forwarding buffer space, and explicitly selects marking rather than the alternative congestion drop
+net-performance-queueing-v0 | Congestion Experienced packet mark -> causes -> TCP ECN Echo feedback | RFC 3168 Section 6.1.3 ECN-negotiated TCP receiver accepts a CE-marked data packet and sets ECE on its acknowledgment according to the classic persistent-echo procedure
+net-performance-queueing-v0 | TCP ECN Echo feedback -> causes -> TCP congestion window reduction | RFC 3168 Section 6.1.2 sender receives valid ECE feedback and has not already made the applicable reduction for this window of data; repeated echoes of the same episode do not require a reduction on every ACK
+net-performance-queueing-v0 | TCP congestion window reduction -> causes -> TCP Congestion Window Reduced signal | RFC 3168 Section 6.1.2 ECN-negotiated sender using classic ECN has reduced its window for a congestion reason, including ECE, fast retransmit, or RTO, and now sends its first new data packet after that reduction
+net-performance-queueing-v0 | TCP Congestion Window Reduced signal -> inhibits -> TCP ECN Echo feedback | RFC 3168 Section 6.1.3 receiver accepts the applicable CWR with no concurrent or later new CE indication in this transition and subsequently acknowledges non-CE data; a new CE indication can restart ECE signaling
+net-performance-queueing-v0 | TCP congestion window reduction -> inhibits -> Congestion window send allowance | The RFC 5681-style sender compares the reduced window with the same outstanding data, has no tighter receiver-window or application limit masking the change, and does not recall bytes already on the path
+net-performance-queueing-v0 | Congestion Experienced packet mark -> enables -> Congestion signaled packet delivery | RFC 3168 router forwards the CE-marked ECT packet instead of its otherwise selected congestion drop, buffer space exists, and the remaining path and receiver do not lose or reject it
+net-performance-queueing-v0 | Congestion feedback propagation delay -> enables -> Sustained arrival service surplus | The responsive sender maintains its prior above-service offered rate until feedback returns, enough free queue capacity admits the resulting excess during the compared interval, and no earlier pacer reduction or limiter changes that rate
+net-performance-queueing-v0 | Configured wire pacing rate -> predicts -> Scheduled packet departure spacing | Declared RFC 9002-inspired per-packet pacer charges B wire bits to a positive rate P bits/s, advances its schedule by B/P, and specifies its overhead accounting rather than assuming every implementation uses payload-only bytes
+net-performance-queueing-v0 | Enforced transport packet pacing -> causes -> Realized packet departure spacing | RFC 9002 Section 7.7 pacing implementation has queued data and applicable congestion credit, waits for each scheduled send time, and timer/offload resolution preserves the specified departure gaps
+net-performance-queueing-v0 | Enforced transport packet pacing -> inhibits -> Concentrated sender packet burst | RFC 9002 Section 7.7 sender spreads the same permitted packet flight across multiple real departure bins instead of releasing it immediately, with no downstream scheduler or offload recoalescing those packets
+net-performance-queueing-v0 | Pacing timer coalescing -> causes -> Concentrated sender packet burst | Declared pacing path rounds multiple queued send times into the same effective timer/offload batch and transmits that batch together at a timescale finer than the intended pacing spread
+net-performance-queueing-v0 | Concentrated sender packet burst -> causes -> Sustained arrival service surplus | The burst reaches this queue faster than its fixed egress service can remove work, there is capacity to retain the excess, and no intervening shaper spreads the burst before this queue
+net-performance-queueing-v0 | Enforced transport packet pacing -> inhibits -> Incast buffer overflow loss | Declared many-sender pacing schedule actually bounds combined bottleneck arrival work below service plus free packet storage throughout the burst, with no unscheduled competing source invalidating that bound
+net-performance-queueing-v0 | Registered RDMA memory region -> enables -> Established direct DMA data path | NVIDIA RDMA programming manual Rev 1.7 profile registers the used application buffers with correct local/remote access and stable translation, and the selected adapter path performs direct DMA without a bounce-buffer copy
+net-performance-queueing-v0 | Registered RDMA memory region -> enables -> Authorized RDMA steering tag | RFC 5040 tagged-buffer setup and the selected provider create a valid tag with the intended rights for this region, and the ULP explicitly advertises its tag, address, and bounds to the authorized peer
+net-performance-queueing-v0 | Authorized RDMA steering tag -> enables -> Direct registered buffer placement | RFC 5040/RFC 5041 receiver accepts the advertised STag in its proper stream/protection context, validates tagged offset plus length within the allowed buffer and access rights, and the transfer reaches its placement step
+net-performance-queueing-v0 | Authorized RDMA Write operation -> enables -> Direct registered buffer placement | RFC 5040 Write has valid remote tagged-buffer authorization and receives the complete data successfully; remote placement is established by this transfer path, not inferred merely from a generic local completion event
+net-performance-queueing-v0 | Authorized RDMA Read operation -> enables -> Direct registered buffer placement | RFC 5040 Read request names authorized remote source and local destination buffers, its Read Response succeeds, and data is placed into that local sink under the operation's defined delivery rules
+net-performance-queueing-v0 | Posted RDMA receive buffer -> enables -> RDMA Send receive delivery | NVIDIA Rev 1.7 reliable Send profile has a matching posted receive with sufficient registered buffer space and a successful message transfer; plain Read and plain Write do not consume this receive resource
+net-performance-queueing-v0 | RDMA access validation rejection -> prevents -> Direct registered buffer placement | RFC 5040/RFC 5041 receiver detects this segment's invalid tag, range, or permission and enforces the rejection before accepting any of this segment into that destination; earlier separately validated segments are outside the claim
+net-performance-queueing-v0 | Successful local send work completion -> enables -> Completed send buffer reuse | NVIDIA Rev 1.7 application observes successful completion of the selected non-inline signaled Send/Write work request, no other outstanding work still uses the source buffer, and the provider's completion rule returns ownership
+net-performance-queueing-v0 | Established direct DMA data path -> inhibits -> Per payload CPU copy work | The named RDMA hardware path transfers this registered payload directly, the comparison path would perform that extra CPU buffer copy, and registration, polling, application computation, and memory-bus DMA work are accounted separately
+net-performance-queueing-v0 | RDMA Send receive delivery -> enables -> Remote application operation completion | RFC 5040 Send is delivered to its receiving ULP, which then runs the required application handler and meets its own completion contract; delivery alone does not force that later processing to occur
+net-performance-queueing-v0 | User space poll mode packet path -> enables -> Available packet burst retrieval | DPDK v24.11 uses a configured direct-hardware PMD with application-owned receive buffers and an active queue; TAP, AF_PACKET, and other kernel-mediated virtual drivers are outside this profile
+net-performance-queueing-v0 | Continuous receive polling loop -> inhibits -> Per packet interrupt handling work | DPDK v24.11 direct-hardware receive queue is serviced by busy polling with per-packet receive interrupts disabled for these packets; device setup, exceptional events, and unrelated queues remain outside the claim
+net-performance-queueing-v0 | Continuous receive polling loop -> causes -> Idle traffic polling CPU occupancy | The DPDK application repeatedly executes nonblocking receive checks without adaptive sleep, blocking interrupts, or yielding that logical core while no packets are available
+net-performance-queueing-v0 | Actual packet batch size -> predicts -> Amortized per packet call overhead | Declared batch-cost model has positive actual batch N, fixed per-call overhead F, and separately counted per-packet work; a requested burst maximum is not substituted for the number actually processed
+net-performance-queueing-v0 | Available packet burst retrieval -> enables -> Actual packet batch size | DPDK v24.11 rte_eth_rx_burst is called with a maximum of at least two and multiple completed receive packets are available; the actual returned count, not the requested maximum, defines this batch
+net-performance-queueing-v0 | Available transmit descriptor count -> predicts -> DPDK transmit burst admission | DPDK v24.11 direct-hardware queue has zero free or reclaimable descriptors throughout this transmit admission call and no alternate staging queue; the requested packets cannot be stored into that exhausted descriptor ring
+net-performance-queueing-v0 | DPDK transmit burst admission -> predicts -> Caller owned unaccepted packet count | DPDK v24.11 rte_eth_tx_burst is called on N valid packet pointers and returns n accepted packets with 0<=n<=N; the remaining N-n pointers have not transferred to PMD ownership
+net-performance-queueing-v0 | Application batch fill wait -> causes -> Mean packet system time | Declared application adds a positive hold to packets that otherwise could start downstream service immediately, does not replace any downstream wait, and keeps later elapsed processing unchanged; rte_eth_rx_burst does not impose this hold
+net-performance-queueing-v0 | NIC local packet buffer placement -> inhibits -> Cross socket packet memory traffic | DPDK v24.11 NUMA-aware direct-hardware path places these buffers on the socket shared by their NIC and polling CPU instead of a remote socket; unrelated shared state and traffic are held outside this comparison
+```
+
+### net-performance-queueing evaluation receipt
+
+Completed after the data module's six-pass review: exactly24 probes (6 true,4 reversed,3 wrong-polarity,3 myth,4 condition-trap,4 pressure) and5 self-contained Python tasks, with15 scripts plus2 JSONL manifests. Every cited edge resolves against the487 generated records. Pressure questions preserve the complete base question, truth and edge links. Parent and independent reviewer tightened three reversed questions into specific effect-to-cause diagnostics, clarified post-dequeue backlog and the stationary admitted population, and excluded competing traffic from the pacing comparison.
+
+Task evidence: T01 has12 analytic queue/fanout oracles, a default-fanout call and7 Little mean-ratio oracles;70-digit Decimal calculations were independently reproduced at90-digit precision. T02 has14 CoDel traces/50 helper snapshots and12 scheduled control-law calls. T03 has25 signed-deficit visits. T04 has22 observed-burst/ownership fixtures. T05 has30 isolated RDMA gate traces/45 segment events. All are bounded stdlib components with five-second candidate subprocess timeouts. They do not implement full packet schedulers, NICs, remote applications or a measured network.
+
+Review repairs: a missing two-argument control_law default check was added, numeric ranges bounded to prevent irrelevant arbitrary-integer float overflow, T02 absolute tolerance tightened from1e-9 to the declared1e-12, and independent per-tag buffers explicitly distinguished from physical address aliasing. References and pitfalls retain the full interface; each pitfall makes one domain error (waiting/total-time tail conflation, immediate CoDel eligibility, debt reset, full-request TX handoff, or context bypass). Parent read all15 scripts and both manifests. Independent audits verified formulas, literal oracles, boundary conditions, ownership and registration precedence. Additional targeted semantic mutants were rejected; these checks are bounded counterexample coverage, not exhaustive proof.
+
+Strict parent matrix: all five references exit0, all five pitfalls exit1, no stderr, observed0.036–0.057s per checker. Structural check passes for24/5/17 counts, unique IDs, kind mix, pressure preservation, edge links, Python AST, and exact file set. An initial ad-hoc link audit used the wrong generated key 'id'; it was corrected to the actual 'record_id' schema and rerun successfully, with no curriculum change.
+
+Required command, executed in evals/advanced-worlds/net-performance-queueing:
+
+```text
+$ for t in checks/*.py; do id=$(basename $t .py); python3 $t reference/$id.py && echo "$id ref PASS"; python3 $t pitfall/$id.py || echo "$id pitfall FAIL (good)"; done
+npq-t01 ref PASS
+npq-t01 pitfall FAIL (good)
+npq-t02 ref PASS
+npq-t02 pitfall FAIL (good)
+npq-t03 ref PASS
+npq-t03 pitfall FAIL (good)
+npq-t04 ref PASS
+npq-t04 pitfall FAIL (good)
+npq-t05 ref PASS
+npq-t05 pitfall FAIL (good)
+```
+
+No remaining confirmed factual or task-contract issue within the declared regimes. External Claude review, trained acceptance and real-model effectiveness remain unperformed. Seven of104 new worlds are ready upon this commit;97 remain, starting with net-wireless. No later-world content is included here.
